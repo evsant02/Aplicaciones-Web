@@ -7,8 +7,6 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
 }
 ?>
 
-<!--holiwiss-->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,3 +37,4 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
 </div> <!-- Fin del contenedor -->
 </body>
 </html>
+
