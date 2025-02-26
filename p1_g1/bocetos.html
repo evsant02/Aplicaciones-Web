@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Martina Agueda">
+    <title>Bocetos</title>
+</head>
+<body>
+    
+    <button onclick="location.href='index.html'">Inicio</button>
+    <button onclick="location.href='detalles.html'">Detalles</button>
+    <button onclick="location.href='miembros.html'">Miembros</button>
+    <button onclick="location.href='planificacion.html'">Planificación</button>
+    <button onclick="location.href='contacto.html'">Contacto</button>
+
+    <header>
+        <h1>Bocetos</h1>
+    </header>
+
+    <main>
+
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#registro">Registro de usuarios</a></li>
+            <li><a href="#profile">Perfil de usuario</a></li>
+            <li><a href="#actividades">Funcionalidades de las actividades</a></li>
+            <li>
+                <ul>
+                    <li><a href="#crear">Gestión de las actividades</a></li>
+                    <li><a href="#reserva">Reserva de plaza en las actividades</a></li>
+                    <li><a href="#dirigir">Ofrecerse a dirigir actividad</a></li>
+                </ul>
+            </li>
+            <li><a href="#donar">Realizar una donación</a></li>
+            <li><a href="#other">Páginas adicionales</a></li>
+        </ul>
+
+        <section id="inicio">
+            <h2>Página de inicio</h2>
+            <img src="img/ini.png" alt="Boceto de la página de inicio" width="500">
+            <img src="img/Inicio.png" alt="Boceto de la navegación desde la página de inicio" width="850">
+            <h3>Funcionalidad y flujo de navegación</h3>
+            <p> 
+                La apariencia de esta primera página es bastante sencilla, pero sin dejar de lado componentes que la hagan atractiva para el usuario que entre
+                en la aplicación. Así, se compone de una barra de menú con opciones que dirigen al usuario a las funcionalidades principales, una sección con 
+                un cover flow con imágenes de actividades y otros temas de interés de la aplicación, otra de texto en la que se pueden mostrar distintos mensajes 
+                que se consideren de especial importancia y dos botones que de nuevo dirigen a las dos funcionalidades principales de la aplicación.
+            </p>
+            <p>
+                En la barra de menú encontramos:
+            </p>
+            <ul>
+                <li>Un apartado que dirige al usuario a la vista de actividades</li>
+                <li>Uno que le dirige a la página de donaciones</li>
+                <li>Otros posibles que dirijan al usuario a funcionalidades adicionales (página de ayuda y sobre nosotros)</li>
+                <li>Un botón para acceder a la página de registro de usuarios</li>
+                <li>Otro botón a la página de inicio de sesión</li>
+            </ul>
+        </section>
+    
+        <section id="ini_ses">
+            <h2>Página de inicio de sesión</h2>
+            <img src="img/inises.png" alt="Boceto de la página de inicio de sesión" width="950">
+            <h3>Detalles de la página y navegación</h3>
+            <p>
+                Para poder acceder a todas las funcionalidades de la página, el usuario deberá iniciar sesión en la aplicación. Para ello tendrá que hacer click
+                en el botón habilitado para ello en la <a href="#inicio">página de inicio</a> e ingresar con su correo electrónico y contraseña. 
+            </p>
+            <p>
+                Si el ingreso es exitoso, el usuario será dirigido a la <a href="#perfil">página de perfil</a> para ver sus datos y podrá reservar plaza en actividades
+                en el caso de que se trate de un usuario regular u ofrecerse a dirigirlas si se trata de un voluntario.
+            </p>
+            <p> 
+                Para el caso de que se llegue a esta página sin tener una cuenta creada en la aplicación, se dispone de un botón que redirige al usuario a la 
+                página de registro.
+            </p>
+        </section>
+    
+        <section id="registro">
+            <h2>Registro de usuarios</h2>
+            <img src="img/Registro.png" alt="Boceto de la página de registro" width="950">
+            <h3>Funcionalidad y flujo de navegación</h3>
+            <p> 
+                Esta página está dedicada a los usuarios de la aplicación que no tengan creada una cuenta. Está compuesta de espacios para introducir todos los datos 
+                necesarios para crear un perfil nuevo en la aplicación. Para ello, deberá contar con una implementación interna que permita mantener un control sobre 
+                los datos recogidos, asegurando que sean válidos y únicos.
+            </p>
+            <p>
+                Una vez se complete el registro, se llevará al usuario a la vista de su perfil, que se detalla a continuación.
+            </p>
+        </section>
+        
+        <section id="perfil">
+            <h2>Vistas de perfil</h2>
+            <p> 
+                La aplicación nos dirige a la página de vista del perfil al terminar con éxito el registro de un usuario, después de iniciar sesión y al hacer click en el icono 
+                de perfil, en la esquina superior derecha en la barra de menú.
+            </p>
+            <h3>Perfil de usuario</h3>
+            <p> En el caso de usuarios básicos y voluntarios, la página de perfil muestra:</p>
+            <ul>
+                <li>Foto de perfil</li>
+                <li>Datos del usuario como nombre y apellidos, correo electónico, fecha de nacimiento, etc.</li>
+                <li>Tipo de usuario</li>
+                <li>Opcionalmente, se puede llevar una cuenta de XP, que aumente a medida que el usuario participa en actividades y según una cierta valoración.</li>
+                <li>Número de actividades en las que se ha participado.</li>
+                <li>Una sección en la que se muestran las próximas actividades en las que el usuario ha reservado plaza o se ha ofrecido a dirigir, en el caso de los voluntarios. </li>
+                <li>Una segunda sección que muestre las actividades en las que se haya participado con anterioridad.</li>
+            </ul>
+            <p>
+                La navegación por la aplicación desde la vista del perfil del usuario se basa en los apartados de la barra de menú, permitiéndole acceder al resto de 
+                funcionalidades de esta manera.
+            </p>
+            <img src="img/perfil.png" alt="Boceto de la página de vista del perfil de usuarios no admin" width="500">
+
+            <h3>Perfil de administrador</h3>
+            <p> La página de perfil de los administradores mostrará sus datos personales y un apartado para poder <a href="#crear">crear actividades</a> nuevas. </p>
+            <p> De manera opcional se propone la posibilidad de que los administradores lleven también la gestión de los usuarios, pero no se plantea su implementación por el momento.</p>
+            <img src="img/adminp.png" alt="Boceto de la página de vista del perfil del admin" width="950">
+        </section>
+        
+        <section id="actividades">
+            <h2>Funcionalidades de las actividades</h2>
+            <img src="img/actividades.png" alt="Boceto de la vista de actividades" width="950">
+            <p>
+                La vista de actividades cuenta con miniaturas de las actividades en oferta para los usuarios. Se accede a ella a través del botón habilitado para ello en 
+                la <a href="inicio">página de inicio</a> o desde cualquier página en la barra de menú. En el caso del usuario básico se mostrarán las que tengan ya un voluntario que las dirija. En la de estos aparecerán las que 
+                todavía no estén dirigidas, para que se puedan ofrecer a hacerlo. En la vista de actividades para los administradores aparecerán todas las que se hayan creado, 
+                independientemente de si tienen un voluntario asignado o no, y tendrán la opción de modificarlas.
+            </p>
+        </section>
+
+        <section id="crear">
+            <h3>Gestionar actividades</h3>
+            <p>
+                Los administradores tienen acceso a un panel de control donde pueden crear, modificar y eliminar actividades. Son los encargados de proponer las 
+                actividades y publicarlas en la plataforma, donde posteriormente los voluntarios y usuarios que estén interesados, podrán inscribirse.
+            </p>
+            <h4>Crear actividades</h4>
+            <p>
+                El botón de <em>Crear actividad</em> en la <a href="perfil">página de perfil</a> de los administradores los enlaza a esta vista. En ella, tendrán 
+                espacios para introducir todos los datos necesarios para la nueva actividad, como nombre, fecha y hora, localización, aforo, etc. Al hacer click en el 
+                botón de crear se redirigirá al administrador a la vista de todas las actividades.
+            </p>
+            <img src="img/crear.png" alt="Boceto de la página crear nuevas actividades" width="950">
+            <h4>Modificar actividades</h4>
+            <p>
+                Cuando un administrador accede a la vista de actividades, tiene la opción de modificarlas, cambiando sus datos, o eliminarlas. 
+            </p>
+            <img src="img/modificar.png" alt="Boceto de la página de vista de actividades para admin" width="950">
+        </section>
+
+        <section id="reserva">
+            <h3>Reserva de actividades</h3>
+            <p>
+                Se accede a esta vista estando autenticado como usuario básico al hacer click en una actividad concreta en la <a href="#actividades">vista de actividades</a>.
+                En ella se muestran datos de la actividad como: 
+            </p>
+            <ul>
+                <li>Foto de portada de la actividad</li>
+                <li>Datos de la misma como nombre, ubicación, fecha y hora, voluntario que la dirige, etc.</li>
+                <li>Botón para reservar una plaza, en caso de que queden disponibles</li>
+                <li>Descripción detallada de en qué consiste</li>
+                <li>Imágenes relacionadas con la actividad</li>
+            </ul>
+            <img src="img/actividad.png" alt="Boceto de la vista de actividad para usuario" width="500">
+        </section>
+        
+        <section id="dirigir">
+            <h3>Dirigir actividad</h3>
+            <p> 
+                La vista de actividad para los voluntarios mostrará los mismos datos que la de los usuarios, con la diferencia de que no podrá tener plazas reservadas
+                hasta que un voluntario se haya ofrecido a dirigirla y que el botón servirá para que el usuario voluntario se ofrezca a dirigirla si lo desea.
+            </p>
+            <img src="img/volactiv.png" alt="Boceto de la página de vista de actividad para usuario" width="500">
+        </section> 
+        
+        <section id="donar">
+            <h2>Realizar una donación</h2>
+            <img src="img/donar.png" alt="Boceto de la página de donaciones" width="500">
+            <h3>Detalles de la página</h3>
+            <p>
+                Una funcionalidad adicional de la aplicación es que se puedan hacer donaciones para apoyar la labor que realizamos. A la página que cubre esta 
+                funcionalidad se accede desde el botón habilitado para ello en la <a href="inicio">página de inicio</a> o desde cualquier página en la barra de menú, 
+                y tendrá espacios para introducir:
+            </p>
+            <ul>
+                <li>La cantidad que se desea donar</li>
+                <li>El IBAN de la cuenta bancaria desde donde se quiere realizar la donación</li>
+                <li>Nombre y apellidos del donante</li>
+                <li>Marcar o no la opción de realizar la donación de manera anónima</li>
+            </ul>
+        </section>
+
+        <section id="other">
+            <h2>Páginas adicionales</h2>
+            <p>Pese a no estar listadas como funcionalidades de la aplicación, tener las siguientes páginas siempre resulta interesante para los usuarios.</p>
+            <h4> Ayuda </h4>
+            <p>
+                Página que ofrece respuestas a FAQs, indicaciones de cómo usar la aplicación y un apartado para solicitar ayuda específica.
+            </p>
+            <img src="img/ayuda.png" alt="Boceto de la página de ayuda" width="500">
+            <h4> Sobre nosotros </h4>
+            <p> 
+                Página con información sobre la aplicación, el equipo y otros datos de interés.
+            </p>
+            <img src="img/aboutus.png" alt="Boceto de la página de sobre nosotros" width="500">
+        </section>
+
+    </main>
+
+</body>
+</html>
