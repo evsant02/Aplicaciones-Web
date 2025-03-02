@@ -1,7 +1,5 @@
 # Aplicaciones-Web
 
-PRUEBAS
-
 Ya está subida la estructura que hay que seguir para la práctica 2
 
 Y este es el README del profe:
