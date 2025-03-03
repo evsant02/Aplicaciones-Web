@@ -29,8 +29,8 @@ USE `aw_c`;
 -- Table structure for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `Usuarios`;
-CREATE TABLE `Usuarios` (
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
   `Id` int(11) NOT NULL,
   `UserName` varchar(50) NOT NULL,
   `Password` varchar(50) NOT NULL
@@ -40,7 +40,7 @@ CREATE TABLE `Usuarios` (
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `Usuarios` (`Id`, `UserName`, `Password`) VALUES
+INSERT INTO `usuarios` (`Id`, `UserName`, `Password`) VALUES
 (1, 'user', 'userpass'),
 (2, 'admin', 'adminpass'),
 (3, 'user1', 'user1pass'),
@@ -54,7 +54,7 @@ INSERT INTO `Usuarios` (`Id`, `UserName`, `Password`) VALUES
 --
 -- Indexes for table `usuarios`
 --
-ALTER TABLE `Usuarios`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -64,7 +64,7 @@ ALTER TABLE `Usuarios`
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
-ALTER TABLE `Usuarios`
+ALTER TABLE `usuarios`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
