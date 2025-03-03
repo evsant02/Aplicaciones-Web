@@ -6,7 +6,7 @@ require_once("includes/login/loginForm.php");
 
 $tituloPagina = 'Acceso al sistema';
 
-$form = new loginForm(); 
+$form = new loginForm();
 
 $htmlFormLogin = $form->Manage();
 
