@@ -26,35 +26,44 @@ class userDAO extends baseDAO implements IUser
 
     private function buscaUsuario($username)
     {
-        $escUserName = $this->realEscapeString($username);
-
+        $escUserName = trim($this->realEscapeString($username)); // TRIM para evitar espacios extra
+    
         $conn = application::getInstance()->getConexionBd();
-
-        $query = "SELECT Id, UserName, Password FROM Usuarios WHERE username = ?";
-
+    
+        if ($conn->connect_error) {
+            die("Error de conexión: " . $conn->connect_error);
+        }
+    
+        $query = "SELECT Id, UserName, Password FROM Usuarios WHERE UserName = ?";
+    
         $stmt = $conn->prepare($query);
-
+        
+        if (!$stmt) {
+            die("Error al preparar la consulta: " . $conn->error);
+        }
+    
         $stmt->bind_param("s", $escUserName);
-
-        $stmt->execute();
-
+        
+        if (!$stmt->execute()) {
+            die("Error en la consulta: " . $stmt->error);
+        }
+    
         $Id = null;
         $UserName = null;
         $Password = null;
-
+    
         $stmt->bind_result($Id, $UserName, $Password);
-
-        if ($stmt->fetch())
-        {
-            $user = new userDTO($Id, $UserName, $Password);
-
+    
+        var_dump($escUserName); // Para ver qué valor se busca
+        if ($stmt->fetch()) {
+            var_dump($UserName, $Password); // Para ver qué valores se obtienen
             $stmt->close();
-
-            return $user;
+            return new userDTO($Id, $UserName, $Password);
         }
-
-        return false;
+    
+        return false; // No encontró el usuario
     }
+    
 
     public function create($userDTO)
     {
