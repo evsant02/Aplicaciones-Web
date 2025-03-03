@@ -116,10 +116,17 @@ class userDAO extends baseDAO implements IUser
     {
         var_dump($password);
         var_dump($hashedPassword);
-        
+
+        // Si la contraseña almacenada no empieza con "$2y$", es texto plano
+        if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
+            return $password === $hashedPassword;
+        }
+
         $result = password_verify($password, $hashedPassword);
         var_dump($result);
         return $result;
+
     }
+
 }
 ?>
