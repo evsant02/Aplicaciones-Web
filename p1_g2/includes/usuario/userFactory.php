@@ -7,16 +7,7 @@ class userFactory
 {
     public static function CreateUser() : IUser
     {
-        $userDAO = false;
-
-        if (true)
-        {
-            $userDAO = new userDAO();
-        }
-        else
-        {
-            $userDAO = new userMock();
-        }
+        $userDAO = new userDAO();        
         
         return $userDAO;
     }
