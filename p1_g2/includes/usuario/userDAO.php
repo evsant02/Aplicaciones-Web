@@ -30,7 +30,7 @@ class userDAO extends baseDAO implements IUser
 
         $conn = application::getInstance()->getConexionBd();
 
-        $query = "SELECT Id, UserName, Password FROM Usuarios WHERE username = ?";
+        $query = "SELECT Id, UserName, Password FROM Usuarios WHERE UserName = ?";
 
         $stmt = $conn->prepare($query);
 
