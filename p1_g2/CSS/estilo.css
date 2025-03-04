@@ -86,11 +86,11 @@ footer	 {
 div.saludo {
 	width: 100%;
 	text-align: right;
-	background-color: turquoise;
+	background-color: black;
 }
 
 .saludo {
-    background-color: turquoise;
+    background-color: red;
     padding: 10px;
     border-radius: 5px; /* Opcional: para un aspecto más moderno */
 }
