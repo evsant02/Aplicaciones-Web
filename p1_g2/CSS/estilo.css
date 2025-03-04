@@ -11,10 +11,13 @@ div#contenedor {
 }
 
 header {
-	padding: 30px;
-	height: 100px;
-	background-color: turquoise;
-	color: white;
+	display: flex;
+    justify-content: space-between; /* Separa el título y el saludo */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 30px;
+    height: 100px;
+    background-color: #303030;
+    color: white;
 }
 
 header a, header a:visited {
@@ -77,11 +80,19 @@ footer	 {
 .contact-button {
 	display: inline-block;
     margin-left: -150px; 
+	
 }
 
 div.saludo {
 	width: 100%;
 	text-align: right;
+	background-color: turquoise;
+}
+
+.saludo {
+    background-color: turquoise;
+    padding: 10px;
+    border-radius: 5px; /* Opcional: para un aspecto más moderno */
 }
 
 fieldset {
