@@ -121,4 +121,3 @@ EOF;
 
         return $result;
     }
-}

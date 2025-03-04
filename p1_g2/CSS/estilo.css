@@ -11,13 +11,10 @@ div#contenedor {
 }
 
 header {
-	display: flex;
-    justify-content: space-between; /* Separa el título y el saludo */
-    align-items: center; /* Centra verticalmente los elementos */
-    padding: 30px;
-    height: 100px;
-    background-color: #303030;
-    color: white;
+	padding: 30px;
+	height: 100px;
+	background-color: #303030;
+	color: white;
 }
 
 header a, header a:visited {
@@ -77,22 +74,9 @@ footer	 {
 	text-align: center;
 }
 
-.contact-button {
-	display: inline-block;
-    margin-left: -150px; 
-	
-}
-
 div.saludo {
 	width: 100%;
 	text-align: right;
-	background-color: black;
-}
-
-.saludo {
-    background-color: red;
-    padding: 10px;
-    border-radius: 5px; /* Opcional: para un aspecto más moderno */
 }
 
 fieldset {
@@ -109,9 +93,9 @@ legend {
 } 
 
 label {
-	width: 4em;
+	width: 6em;
 	float: left;
-	text-align: right;
+	text-align: left;
 	margin-right: 0.5em;
 	display: block;
 }
