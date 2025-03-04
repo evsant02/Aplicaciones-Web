@@ -8,13 +8,13 @@ function mostrarSaludo()
 	} 
     else 
     {
-		echo "Usuario desconocido. <a href='login.php'>Login.</a> <a href='register.php'>Registro</a>";
+		echo "Usuario desconocido. <a href='login.php'>Login.</a>";
 	}
 }
 ?>
 
 <header>
-    <h1>Mi gran página web</h1>
+    <h1>Conecta65</h1>
     <div class="saludo">
     <?php
 		mostrarSaludo();

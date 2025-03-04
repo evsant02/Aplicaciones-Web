@@ -13,7 +13,7 @@ div#contenedor {
 header {
 	padding: 30px;
 	height: 100px;
-	background-color: #303030;
+	background-color: turquoise;
 	color: white;
 }
 
@@ -72,6 +72,11 @@ footer	 {
 	background-color: #303030;
 	color: white;
 	text-align: center;
+}
+
+.contact-button {
+	display: inline-block;
+    margin-left: -150px; 
 }
 
 div.saludo {

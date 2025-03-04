@@ -22,9 +22,12 @@ class loginForm extends formBase
         $html = <<<EOF
         <fieldset>
             <legend>Usuario y contraseña</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
+            <p><label>Nombre de Usuario:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
             <p><label>Password:</label> <input type="password" name="password" /></p>
             <button type="submit" name="login">Entrar</button>
+
+            <p>¿No tienes cuenta?</p>
+            <a href="register.php"><button type="button">Regístrate</button></a>
         </fieldset>
 EOF;
         return $html;
@@ -35,8 +38,6 @@ EOF;
     {
         $result = array();
         
-        //filter_var vs htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
-
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -65,7 +66,6 @@ EOF;
 
             if ( ! $foundedUserDTO ) 
             {
-                // No se da pistas a un posible atacante
                 $result[] = "El usuario o el password no coinciden";
             } 
             else 
