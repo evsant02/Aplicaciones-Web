@@ -8,5 +8,9 @@ interface IActividad
 
     public function crear($actividadDTO);
 
+    public function obtenerTodasLasActividades();
+
+    public function getActividadById($id);
+
 }
 ?>
