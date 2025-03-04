@@ -98,25 +98,35 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            // Vincula el parámetro
             $stmt->bind_param("i", $id);
-            $stmt->execute();
+
+            // Ejecuta la consulta
+            if (!$stmt->execute()) {
+                throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+            }
 
             $nombre = null;
             $localizacion = null;
             $fecha_hora = null; 
             $descripcion = null;
 
+            // Resultados
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion);
 
+            // Verificar si hay resultados
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
             }
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
+        } catch (Exception $e) {
+            // Manejo de errores más general
+            throw new Exception("Error al obtener la actividad: " . $e->getMessage());
         }
 
         return null; // No se encontró la actividad
     }
+
 
     public function obtenerTodasLasActividades()
     {

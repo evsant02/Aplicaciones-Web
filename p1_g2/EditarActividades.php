@@ -2,7 +2,7 @@
 
 require_once("includes/config.php");
 
-require_once("includes/editarActividad/listaActividades.php");
+require_once("includes/editarActividades/listaActividades.php");
 
 $tituloPagina = 'Actividades disponibles';
 

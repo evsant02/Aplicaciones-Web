@@ -29,14 +29,14 @@ EOF;
 
         foreach ($actividades as $actividad) {
             $html .= "<tr>";
-            $html .= "<td>" . htmlspecialchars($actividad->getNombre()) . "</td>";
-            $html .= "<td>" . htmlspecialchars($actividad->getLocalizacion()) . "</td>";
-            $html .= "<td>" . htmlspecialchars($actividad->getFechaHora()) . "</td>";
-            $html .= "<td>" . htmlspecialchars($actividad->getDescripcion()) . "</td>";
+            $html .= "<td>" . htmlspecialchars($actividad->nombre()) . "</td>";
+            $html .= "<td>" . htmlspecialchars($actividad->localizacion()) . "</td>";
+            $html .= "<td>" . htmlspecialchars($actividad->fecha_hora()) . "</td>";
+            $html .= "<td>" . htmlspecialchars($actividad->descripcion()) . "</td>";
             $html .= "<td>
-                        <a href='ModificarActividad.php?id=" . $actividad->getId() . "'>Modificar</a> |
-                        <a href='eliminarActividad.php?id=" . $actividad->getId() . "' onclick='return confirm(\"¿Seguro que quieres eliminar esta actividad?\")'>Eliminar</a>
-                      </td>";
+                        <a href='ModificarActividad.php?id=" . $actividad->id() . "'>Modificar</a> |
+                        <a href='EliminarActividad.php?id=" . $actividad->id() . "'>Eliminar</a>
+                        </td>";
             $html .= "</tr>";
         }
 
