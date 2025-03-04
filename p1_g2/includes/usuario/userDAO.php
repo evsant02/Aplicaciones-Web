@@ -34,7 +34,7 @@ class userDAO extends baseDAO implements IUser
             die("Error de conexión: " . $conn->connect_error);
         }
     
-        $query = "SELECT nombre, id, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
+        $query = "SELECT id, nombre, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
     
         $stmt = $conn->prepare($query);
         
@@ -56,13 +56,13 @@ class userDAO extends baseDAO implements IUser
         $tipo = null;
         $correo = null;
     
-        $stmt->bind_result($nombre, $id, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
+        $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
     
         var_dump($escid); // Para ver qué valor se busca
         if ($stmt->fetch()) {
             var_dump($id, $password); // Para ver qué valores se obtienen
             $stmt->close();
-            return new userDTO($nombre, $id, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
+            return new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
         }
     
         return false; // No encontró el usuario

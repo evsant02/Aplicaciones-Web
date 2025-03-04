@@ -1,8 +1,7 @@
-<?php
+<?php 
 
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../actividad/actividadAppService.php";
-
 
 class crearActividadForm extends formBase
 {
@@ -54,19 +53,25 @@ EOF;
         }
 
         if (count($result) === 0) {
-            // Aquí iría la lógica para almacenar la actividad en la base de datos
-            // Por ejemplo: 
-            // $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion);
-            // $actividadAppService = actividadAppService::GetSingleton();
-            // $actividadAppService->crear($actividadDTO);
+            try {
+                // Crear objeto actividadDTO
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion);
 
-            $result = 'index.php'; // Redirecciona a la página principal
+                // Obtener instancia del servicio de aplicación
+                $actividadAppService = actividadAppService::GetSingleton();
 
-            $app = application::getInstance();
-                
-            $mensaje = "Se ha creado la nueva actividad exitosamente";
-            
-            $app->putAtributoPeticion('mensaje', $mensaje);
+                // Llamar al método para almacenar la actividad en la base de datos
+                $actividadAppService->crear($actividadDTO);
+
+                // Redirigir a la página principal con mensaje de éxito
+                $result = 'index.php';
+
+                $app = application::getInstance();
+                $mensaje = "Se ha creado la nueva actividad exitosamente";
+                $app->putAtributoPeticion('mensaje', $mensaje);
+            } catch (Exception $e) {
+                $result[] = "Error al crear la actividad: " . $e->getMessage();
+            }
         }
 
         return $result;
