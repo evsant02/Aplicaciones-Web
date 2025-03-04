@@ -5,18 +5,22 @@ include __DIR__ . "/../actividad/actividadAppService.php";
 
 class modificarActividadForm extends formBase
 {
-    public function __construct() 
+    private $actividad;
+
+    public function __construct($actividad = null) 
     {
         parent::__construct('modificarActividadForm');
+        $this->actividad = $actividad; // Guardamos la actividad cargada
     }
     
     protected function CreateFields($datos)
     {
-        $id = $datos['id'] ?? '';
-        $nombre = $datos['nombre'] ?? '';
-        $localizacion = $datos['localizacion'] ?? '';
-        $fecha_hora = $datos['fecha_hora'] ?? '';
-        $descripcion = $datos['descripcion'] ?? '';
+        // Si tenemos una actividad cargada, usamos sus métodos para obtener valores; si no, usamos los datos recibidos
+        $id = $this->actividad ? $this->actividad->id() : ($datos['id'] ?? '');
+        $nombre = $this->actividad ? $this->actividad->nombre() : ($datos['nombre'] ?? '');
+        $localizacion = $this->actividad ? $this->actividad->localizacion() : ($datos['localizacion'] ?? '');
+        $fecha_hora = $this->actividad ? $this->actividad->fecha_hora() : ($datos['fecha_hora'] ?? '');
+        $descripcion = $this->actividad ? $this->actividad->descripcion() : ($datos['descripcion'] ?? '');
 
         $html = <<<EOF
         <fieldset>
@@ -60,7 +64,7 @@ EOF;
 
         if (count($result) === 0) {
             try {
-                // Crear objeto actividadDTO
+                // Crear objeto actividadDTO con los nuevos valores
                 $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
 
                 // Obtener instancia del servicio de aplicación
@@ -73,7 +77,7 @@ EOF;
                 $result = 'index.php';
 
                 $app = application::getInstance();
-                $mensaje = "Se ha modificado la actividad exitosamente";
+                $mensaje = "Se ha modificado la actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             } catch (Exception $e) {
                 $result[] = "Error al modificar la actividad: " . $e->getMessage();
