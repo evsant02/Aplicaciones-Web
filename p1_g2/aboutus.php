@@ -4,7 +4,6 @@
   $tituloPagina = 'Sobre nosotros - conecta65';
 
   $contenidoPrincipal = <<<EOS
-    <main>
       <h1>¿Qué es conecta65?</h1>
       <h3>Bienvenid@ a nuestra aplicación</h3>
       <p>
@@ -26,7 +25,6 @@
         sino también contribuir activamente a su entorno, promoviendo una sociedad más inclusiva y solidaria.
       </p>
       <img src="img/ajedrez.jpg" alt="Personas mayores andando" width="800">
-    </main>
   EOS;
 
   require("includes/comun/plantilla.php");
