@@ -17,12 +17,14 @@ EOS;
 } else {
     // Verificar el rol del usuario
 
-    //application::getInstance()->soyAdmin()
-    if ($_SESSION["tipo"] == 0) {
+    if (application::getInstance()->soyAdmin()) {
+
+        $user = application::getInstance()->getUserDTO();
+
         // Contenido para el rol 0 (crear y modificar actividades)
         $contenidoPrincipal = <<<EOS
         <div style="text-align: center; padding: 20px;">
-            <h1>Bienvenido, {$_SESSION['nombre']}</h1>
+            <h1>Bienvenido, {$user->nombre()}</h1>
             <p>Eres un administrador. Puedes gestionar actividades.</p>
             <a href="crearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
                 Crear Actividad
@@ -34,7 +36,7 @@ EOS;
 EOS;
     } else {
         // Redirigir a la página de actividades para otros roles
-        header("Location: index.php");
+        header("Location: actividades.php");
         exit();
     }
 }

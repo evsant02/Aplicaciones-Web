@@ -1,7 +1,7 @@
 <?php
 
 require("IUser.php");
-require("userDTO.php");
+require_once("userDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
 require("userAlreadyExistException.php");
 

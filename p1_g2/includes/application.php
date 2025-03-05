@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/usuario/userDTO.php"; // Asegúrate de que la ruta sea correcta
+
 class application
 {
 	private static $instancia;
@@ -133,12 +135,18 @@ class application
 		$_SESSION["userDTO"] = serialize($user); // Guardar el objeto serializado en la sesión
 	}
 
-
 	public function soyAdmin()
 	{
 		$user = unserialize($_SESSION["userDTO"]); // Recuperar el objeto
 
 		return $user->tipo() === 0; // Llamar al método tipo() de UserDTO
+	}
+
+	public function getUserDTO(){
+		
+		$user = unserialize($_SESSION["userDTO"]); // Recuperar el objeto
+
+		return $user;
 	}
 
 
