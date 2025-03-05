@@ -15,7 +15,7 @@ class actividadAppService
 
         return self::$instance;
     }
-  
+
     private function __construct()
     {
     } 
@@ -23,30 +23,36 @@ class actividadAppService
     public function crear($actividadDTO)
     {
         $IActividadDAO = actividadFactory::CreateActividad();
-
         $foundedactividadDTO = $IActividadDAO->crear($actividadDTO);
-
         return $foundedactividadDTO;
     }
 
     public function eliminar($actividadDTO)
     {
         $IActividadDAO = actividadFactory::CreateActividad();
-
         $eliminadaactividadDTO = $IActividadDAO->eliminar($actividadDTO);
-
         return $eliminadaactividadDTO;
     }
 
     public function modificar($actividadDTO)
     {
         $IActividadDAO = actividadFactory::CreateActividad();
-
         $modificadaactividadDTO = $IActividadDAO->modificar($actividadDTO);
-
         return $modificadaactividadDTO;
     }
 
-}
+    public function obtenerTodasLasActividades()
+    {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $actividades = $IActividadDAO->obtenerTodasLasActividades();
+        return $actividades;
+    }
 
+    public function getActividadById($id)
+    {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $actividad = $IActividadDAO->getActividadById($id);
+        return $actividad;
+    }
+}
 ?>

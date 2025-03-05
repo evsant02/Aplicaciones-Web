@@ -14,7 +14,7 @@ class userDAO extends baseDAO implements IUser
 
     public function login($userDTO)
     {
-        $foundedUserDTO = $this->buscaUsuario($userDTO->username());
+        $foundedUserDTO = $this->buscaUsuario($userDTO->id());
         
         if ($foundedUserDTO && self::testHashPassword( $userDTO->password(), $foundedUserDTO->password())) 
         {
@@ -24,9 +24,9 @@ class userDAO extends baseDAO implements IUser
         return false;
     }
 
-    private function buscaUsuario($username)
+    private function buscaUsuario($id)
     {
-        $escUserName = trim($this->realEscapeString($username)); // TRIM para evitar espacios extra
+        $escid = trim($this->realEscapeString($id)); // TRIM para evitar espacios extra
     
         $conn = application::getInstance()->getConexionBd();
     
@@ -34,7 +34,7 @@ class userDAO extends baseDAO implements IUser
             die("Error de conexión: " . $conn->connect_error);
         }
     
-        $query = "SELECT Id, UserName, Password FROM Usuarios WHERE UserName = ?";
+        $query = "SELECT id, nombre, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
     
         $stmt = $conn->prepare($query);
         
@@ -42,23 +42,27 @@ class userDAO extends baseDAO implements IUser
             die("Error al preparar la consulta: " . $conn->error);
         }
     
-        $stmt->bind_param("s", $escUserName);
+        $stmt->bind_param("s", $escid);
         
         if (!$stmt->execute()) {
             die("Error en la consulta: " . $stmt->error);
         }
     
-        $Id = null;
-        $UserName = null;
-        $Password = null;
+        $nombre = null;
+        $id = null;
+        $apellidos = null;
+        $password = null;
+        $fecha_nacimiento = null;
+        $tipo = null;
+        $correo = null;
     
-        $stmt->bind_result($Id, $UserName, $Password);
+        $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
     
-        var_dump($escUserName); // Para ver qué valor se busca
+        var_dump($escid); // Para ver qué valor se busca
         if ($stmt->fetch()) {
-            var_dump($UserName, $Password); // Para ver qué valores se obtienen
+            var_dump($id, $password); // Para ver qué valores se obtienen
             $stmt->close();
-            return new userDTO($Id, $UserName, $Password);
+            return new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
         }
     
         return false; // No encontró el usuario
@@ -71,34 +75,42 @@ class userDAO extends baseDAO implements IUser
 
         try
         {
-            $escUserName = $this->realEscapeString($userDTO->userName());
-
+            $escId = $this->realEscapeString($userDTO->id());
+            $escNombre = $this->realEscapeString($userDTO->nombre());
+            $escApellidos = $this->realEscapeString($userDTO->apellidos());
+            $escFechaNacimiento = $this->realEscapeString($userDTO->fecha_nacimiento());
+            $escTipo = $this->realEscapeString($userDTO->tipo());
+            $escCorreo = $this->realEscapeString($userDTO->correo());
+            
             $hashedPassword = self::hashPassword($userDTO->password());
 
             $conn = application::getInstance()->getConexionBd();
 
-            $query = "INSERT INTO Usuarios(UserName, Password) VALUES (?, ?)";
+            $query = "INSERT INTO Usuarios (id, nombre, apellidos, password, fecha_nacimiento, tipo, correo) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($query);
 
-            $stmt->bind_param("ss", $escUserName, $hashedPassword);
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
 
-            if ($stmt->execute())
-            {
+            $stmt->bind_param("issssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+
+            if ($stmt->execute()) {
                 $idUser = $conn->insert_id;
-                
-                $createdUserDTO = new userDTO($idUser, $userDTO->userName(), $userDTO->password());
+
+                $createdUserDTO = new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
                 return $createdUserDTO;
             }
         }
-        catch(mysqli_sql_exception $e)
+        catch (mysqli_sql_exception $e)
         {
-            // código de violación de restricción de integridad (PK)
-
+            // Código de violación de restricción de integridad (PK)
             if ($conn->sqlstate == 23000) 
             { 
-                throw new userAlreadyExistException("Ya existe el usuario '{$userDTO->userName()}'");
+                throw new userAlreadyExistException("Ya existe el usuario '{$userDTO->id()}'");
             }
 
             throw $e;
@@ -126,6 +138,73 @@ class userDAO extends baseDAO implements IUser
         var_dump($result);
         return $result;
 
+    }
+
+    public function existsByEmail($userDTO)
+    {
+        $correo = trim($this->realEscapeString($userDTO->correo()));
+
+        $conn = application::getInstance()->getConexionBd();
+    
+        if ($conn->connect_error) {
+            die("Error de conexión: " . $conn->connect_error);
+        }
+    
+        $query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
+    
+        $stmt = $conn->prepare($query);
+        
+        if (!$stmt) {
+            die("Error al preparar la consulta: " . $conn->error);
+        }
+    
+        $stmt->bind_param("s", $correo);
+        
+        if (!$stmt->execute()) {
+            die("Error en la consulta: " . $stmt->error);
+        }
+
+        $count = null;
+    
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
+
+    }
+
+    public function existsById($userDTO){
+
+        $id = trim($this->realEscapeString($userDTO->id()));
+
+        $conn = application::getInstance()->getConexionBd();
+    
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión: " . $conn->connect_error);
+        }
+    
+        $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
+    
+        $stmt = $conn->prepare($query);
+    
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $conn->error);
+        }
+    
+        $stmt->bind_param("s", $id);
+    
+        if (!$stmt->execute()) {
+            throw new Exception("Error en la consulta: " . $stmt->error);
+        }
+
+        $count = null;
+    
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
     }
 
 }

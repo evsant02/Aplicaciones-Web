@@ -12,70 +12,69 @@ class loginForm extends formBase
     
     protected function CreateFields($datos)
     {
-        $nombreUsuario = '';
-        
-        if ($datos) 
-        {
-            $nombreUsuario = isset($datos['nombreUsuario']) ? $datos['nombreUsuario'] : $nombreUsuario;
-        }
+        $id = $datos['id'] ?? '';
+        $password = $datos['password'] ?? '';
 
         $html = <<<EOF
         <fieldset>
-            <legend>Usuario y contraseña</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombreUsuario" value="$nombreUsuario"/></p>
-            <p><label>Password:</label> <input type="password" name="password" /></p>
+            <legend>Iniciar sesión</legend>
+            <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
+            <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
             <button type="submit" name="login">Entrar</button>
+
+            <p>¿No tienes cuenta?</p>
+            <a href="register.php"><button type="button">Regístrate</button></a>
         </fieldset>
 EOF;
         return $html;
     }
-    
 
+    //
+    
     protected function Process($datos)
     {
         $result = array();
         
-        //filter_var vs htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
-
-        $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
-        
-        $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
-        if ( empty($nombreUsuario) ) 
-        {
-            $result[] = "El nombre de usuario no puede estar vacío";
-        }
-        
+        $id = trim($datos['id'] ?? '');
         $password = trim($datos['password'] ?? '');
         
-        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        if ( empty($password) ) 
+        // Validar que el ID y la contraseña no estén vacíos
+        if (empty($id)) 
         {
-            $result[] = "El password no puede estar vacío.";
+            $result[] = "El ID de usuario no puede estar vacío.";
+        }
+        
+        if (empty($password)) 
+        {
+            $result[] = "La contraseña no puede estar vacía.";
         }
         
         if (count($result) === 0) 
         {
-            $userDTO = new userDTO(0, $nombreUsuario, $password);
 
+            $userDTO = new userDTO($id, null, null, $password, null, null, null);
+            
             $userAppService = userAppService::GetSingleton();
 
+            // Verificar si existe un usuario con ese ID y contraseña
             $foundedUserDTO = $userAppService->login($userDTO);
 
-            if ( ! $foundedUserDTO ) 
+            if (!$foundedUserDTO) 
             {
-                // No se da pistas a un posible atacante
-                $result[] = "El usuario o el password no coinciden";
+                $result[] = "No existe una cuenta con ese ID y contraseña. Por favor, regístrate.";
             } 
             else 
             {
+                // Iniciar sesión
                 $_SESSION["login"] = true;
-                $_SESSION["nombre"] = $nombreUsuario;
+                $_SESSION["id"] = $id;
 
-                $result = 'index.php';
+                // Redirigir a la página principal
+                $result = 'contenido.php';
             }
         }
+
+        // Si hay errores, devolver los datos y los mensajes de error para mostrarlos en el formulario
         return $result;
     }
 }
