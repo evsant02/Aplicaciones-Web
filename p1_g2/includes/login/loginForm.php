@@ -28,6 +28,8 @@ class loginForm extends formBase
 EOF;
         return $html;
     }
+
+    //
     
     protected function Process($datos)
     {
