@@ -13,17 +13,16 @@ class loginForm extends formBase
     protected function CreateFields($datos)
     {
         $id = '';
-        $errores = isset($datos['errores']) ? $datos['errores'] : array(); // Mensajes de error
         
         if ($datos) 
         {
             $id = isset($datos['id']) ? $datos['id'] : $id;
         }
+        
 
         $html = <<<EOF
         <fieldset>
             <legend>Iniciar sesión</legend>
-            $htmlErrores <!-- Mostrar mensajes de error aquí -->
             <p><label>Nombre de Usuario:</label> <input type="text" name="id" value="$id"/></p>
             <p><label>Contraseña:</label> <input type="password" name="password" /></p>
             <button type="submit" name="login">Entrar</button>
@@ -76,9 +75,6 @@ EOF;
         }
 
         // Si hay errores, devolver los datos y los mensajes de error para mostrarlos en el formulario
-        return array(
-            'id' => $id,
-            'errores' => $result
-        );
+        return $result;
     }
 }
