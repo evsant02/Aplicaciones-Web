@@ -11,7 +11,7 @@
 
 			<?php
 				require("includes/comun/cabecera.php");
-				require("includes/comun/sidebarizq.php");
+				require("includes/comun/sidebarIzq.php");
 			?>
 
 			<main>

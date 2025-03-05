@@ -1,29 +1,41 @@
 <?php
-
 require_once("includes/config.php");
 
 $tituloPagina = 'Contenido';
 
-	$contenidoPrincipal='';
-    if (!isset($_SESSION["login"]))
-    {
-        $contenidoPrincipal=<<<EOS
-            <h1>Error</h1>
-            <p>Contenido para usuarios registrados.</p>
-        EOS;
-    } 
-    else 
-    {
-        $contenidoPrincipal=<<<EOS
-	<h1>Automóviles olvidados</h1>
-	<p>El Citroën SM fue un coche adelantado a su época, en los años 70. Fue presentado en 1970, fruto del acuerdo entre Citroën y Maserati. Este automóvil incorporaba suspensión hidroneumática automática, faros direccionables, dirección asistida variable en función de la velocidad, caja de cambios de 5 velocidades, elevalunas eléctricos y frenos de disco en las cuatro ruedas.</p>
-
-	<p>El Citroën SM era capaz de alcanzar 220Km/h y montaba un motor Masetati 2.7 V6 de 172 CV. Este motor fue diseñado a partir de un V8 ... </p>
-
-	<p>El Citroën SM se dejó de fabricar en 1975 debido a ...</p>
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION["login"])) {
+    $contenidoPrincipal = <<<EOS
+    <div style="text-align: center; padding: 20px;">
+        <h1>Acceso restringido</h1>
+        <p>Para visualizar más contenido, debes iniciar sesión.</p>
+        <a href="login.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+            Iniciar Sesión
+        </a>
+    </div>
 EOS;
-    } 
+} else {
+    // Verificar el rol del usuario
+    if ($_SESSION["rol"] == 0) {
+        // Contenido para el rol 1 (crear y modificar actividades)
+        $contenidoPrincipal = <<<EOS
+        <div style="text-align: center; padding: 20px;">
+            <h1>Bienvenido, {$_SESSION['nombre']}</h1>
+            <p>Eres un administrador. Puedes gestionar actividades.</p>
+            <a href="crearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+                Crear Actividad
+            </a>
+            <a href="modificarActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
+                Modificar Actividad
+            </a>
+        </div>
+EOS;
+    } else {
+        // Redirigir a la página de actividades para otros roles
+        header("Location: actividades.php");
+        exit();
+    }
+}
 
 require("includes/comun/plantilla.php");
 ?>
-
