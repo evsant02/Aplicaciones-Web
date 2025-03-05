@@ -1,32 +1,15 @@
 <?php 
-  session_start();
-?>
+  require_once("includes/config.php");
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="CSS/estilo.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio - conecta65</title>
-</head>
-<body>
-  <div id="contenedor">
-    <?php 
-      require('barraMenu.php');
-    ?>
-    <main>
-      <?php
-        echo '<img src="img/inicio.jpg" alt="Personas mayores andando" width="800">';
-        echo '<div class="botonesIni">';
-        echo '<button>Ver actividades</button>';
-        echo '<button>Hacer una donación</button>';
-        echo '</div>';
-      ?>
-    </main>
-    <?php 
-      require('pie.php');
-    ?>
-  </div>
-</body>
-</html>
+  $tituloPagina = 'Inicio - conecta65';
+  
+  $contenidoPrincipal = <<<EOS
+    <img src="img/inicio.jpg" alt="Personas mayores andando" width="800">
+    <div class="botonesIni">
+      <button>Ver actividades</button>
+      <button>Hacer una donación</button>
+    </div>
+  EOS;
+  
+  require("includes/comun/plantilla.php");
+?>
