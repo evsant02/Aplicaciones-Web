@@ -127,4 +127,24 @@ class application
 		
 		return $result;
 	}
+
+	public function setUserDTO($user)
+	{
+		$_SESSION["userDTO"] = serialize($user); // Guardar el objeto serializado en la sesión
+	}
+
+
+	public function soyAdmin()
+	{
+		$user = unserialize($_SESSION["userDTO"]); // Recuperar el objeto
+
+		return $user->tipo() === 0; // Llamar al método tipo() de UserDTO
+	}
+
+
+
+
+
+
+
 }

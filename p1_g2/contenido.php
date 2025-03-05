@@ -16,8 +16,10 @@ if (!isset($_SESSION["login"])) {
 EOS;
 } else {
     // Verificar el rol del usuario
+
+    //application::getInstance()->soyAdmin()
     if ($_SESSION["tipo"] == 0) {
-        // Contenido para el rol 1 (crear y modificar actividades)
+        // Contenido para el rol 0 (crear y modificar actividades)
         $contenidoPrincipal = <<<EOS
         <div style="text-align: center; padding: 20px;">
             <h1>Bienvenido, {$_SESSION['nombre']}</h1>
@@ -32,7 +34,7 @@ EOS;
 EOS;
     } else {
         // Redirigir a la página de actividades para otros roles
-        header("Location: actividades.php");
+        header("Location: index.php");
         exit();
     }
 }
