@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-03-2025 a las 16:27:47
+-- Tiempo de generación: 05-03-2025 a las 16:33:08
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `actividades` (
-  `id` varchar(5) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `localizacion` varchar(50) NOT NULL,
   `fecha_hora` datetime(6) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`) VALUES
-('12345', 'Desayunos solidarios', 'Calle de las vanguardias 20 Primero Derecha', '2025-03-18 08:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.');
+(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.');
 
 -- --------------------------------------------------------
 
@@ -49,8 +49,8 @@ INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descri
 --
 
 CREATE TABLE `actividades-usuario` (
-  `id_usuario` varchar(5) NOT NULL,
-  `id_actividad` varchar(5) NOT NULL
+  `id_usuario` varchar(50) NOT NULL,
+  `id_actividad` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -58,8 +58,8 @@ CREATE TABLE `actividades-usuario` (
 --
 
 INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
-('22222', '12345'),
-('33333', '12345');
+('22222', 12345),
+('33333', 12345);
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 
 CREATE TABLE `donaciones` (
   `id_donacion` varchar(20) NOT NULL,
-  `id_actividad` varchar(5) NOT NULL,
+  `id_actividad` int(10) UNSIGNED DEFAULT NULL,
   `IBAN` int(24) NOT NULL,
   `cantidad` int(6) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -77,19 +77,19 @@ CREATE TABLE `donaciones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipos-usuario`
+-- Estructura de tabla para la tabla `roles`
 --
 
-CREATE TABLE `tipos-usuario` (
+CREATE TABLE `roles` (
   `nombre` varchar(20) NOT NULL,
   `id_rol` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `tipos-usuario`
+-- Volcado de datos para la tabla `roles`
 --
 
-INSERT INTO `tipos-usuario` (`nombre`, `id_rol`) VALUES
+INSERT INTO `roles` (`nombre`, `id_rol`) VALUES
 ('admin', 0),
 ('usuario', 1),
 ('voluntario', 2);
@@ -101,11 +101,11 @@ INSERT INTO `tipos-usuario` (`nombre`, `id_rol`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `id` varchar(5) NOT NULL,
+  `id` varchar(50) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `apellidos` varchar(40) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
-  `tipo` int(1) NOT NULL,
+  `tipo` int(11) DEFAULT NULL,
   `correo` varchar(40) NOT NULL,
   `password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -144,9 +144,9 @@ ALTER TABLE `donaciones`
   ADD KEY `id_actividad` (`id_actividad`);
 
 --
--- Indices de la tabla `tipos-usuario`
+-- Indices de la tabla `roles`
 --
-ALTER TABLE `tipos-usuario`
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`nombre`),
   ADD UNIQUE KEY `id_rol` (`id_rol`);
 
@@ -159,6 +159,16 @@ ALTER TABLE `usuarios`
   ADD KEY `rol` (`tipo`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `actividades`
+--
+ALTER TABLE `actividades`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12347;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -167,19 +177,19 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `actividades-usuario`
   ADD CONSTRAINT `actividades-usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `actividades-usuario_ibfk_2` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `actividades-usuario_ibfk_2` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `tipos-usuario` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
