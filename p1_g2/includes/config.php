@@ -3,9 +3,9 @@
 require_once("application.php");
 
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'aw_c');
-define('BD_USER', 'aw_c');
-define('BD_PASS', 'aw_c');
+define('BD_NAME', 'aw');
+define('BD_USER', 'AW');
+define('BD_PASS', 'Conecta65');
 
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
