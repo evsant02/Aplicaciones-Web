@@ -20,6 +20,8 @@ class loginForm extends formBase
             $id = isset($datos['id']) ? $datos['id'] : $id;
         }
 
+        $htmlErrores = null;
+
         $html = <<<EOF
         <fieldset>
             <legend>Iniciar sesión</legend>

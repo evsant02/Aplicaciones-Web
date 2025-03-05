@@ -37,6 +37,15 @@ class userAppService
 
         return $createdUserDTO;
     }
+    
+    public function existsByEmail($correo)
+    {
+        $IUserDAO = userFactory::CreateUser();
+
+        $emailUserDTO = $IUserDAO->existsByEmail($correo);
+
+        return $emailUserDTO;
+    }
 
 }
 

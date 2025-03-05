@@ -140,5 +140,10 @@ class userDAO extends baseDAO implements IUser
 
     }
 
+    public function existsByEmail($correo)
+    {
+    /////////////////////////////////////////////////////7
+    }
+
 }
 ?>
