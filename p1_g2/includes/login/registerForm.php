@@ -12,13 +12,14 @@ class registerForm extends formBase
     
     protected function CreateFields($datos)
     {
-        $nombre = $apellidos = $fechaNacimiento = $correo = $password = "";
+        $id = $nombre = $apellidos = $fechaNacimiento = $correo = $password = "";
         $tipo = "1"; // 1 para Usuario, 2 para Voluntario
         
         if ($datos) 
         {
             $nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
             $apellidos = isset($datos['apellidos']) ? $datos['apellidos'] : $apellidos;
+            $id = isset($datos['id']) ? $datos['id'] : $id;
             $fechaNacimiento = isset($datos['fecha_nacimiento']) ? $datos['fecha_nacimiento'] : $fechaNacimiento;
             $correo = isset($datos['correo']) ? $datos['correo'] : $correo;
             $password = isset($datos['password']) ? $datos['password'] : $password;
@@ -28,10 +29,11 @@ class registerForm extends formBase
         $html = <<<EOF
         <fieldset>
             <legend>Registro de Usuario</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
-            <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/></p>
-            <p><label>Fecha de nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$fechaNacimiento"/></p>
-            <p><label>Correo electrónico:</label> <input type="email" name="correo" value="$correo"/></p>
+            <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre" required/></p>
+            <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos" required/></p>
+            <p><label>ID de Usuario:</label> <input type="text" name="id" value="$id" required/></p>
+            <p><label>Fecha de nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$fechaNacimiento" required/></p>
+            <p><label>Correo electrónico:</label> <input type="email" name="correo" value="$correo" required/></p>
             <p><label>Contraseña:</label> <input type="password" name="password" /></p>
             <p><label>Tipo de cuenta:</label>
                 <select name="tipo">
@@ -54,6 +56,7 @@ EOF;
         
         $nombre = trim($datos['nombre'] ?? '');
         $apellidos = trim($datos['apellidos'] ?? '');
+        $id = trim($datos['id'] ?? '');
         $fechaNacimiento = trim($datos['fecha_nacimiento'] ?? '');
         $correo = trim($datos['correo'] ?? '');
         $password = trim($datos['password'] ?? '');
@@ -61,7 +64,7 @@ EOF;
         $terminos = isset($datos['terminos']) ? true : false;
 
         // Verificar si el checkbox de términos está marcado pero hay campos vacíos
-        if ($terminos && (empty($nombre) || empty($apellidos) || empty($fechaNacimiento) || empty($correo) || empty($password))) 
+        if ($terminos && (empty($id) || empty($nombre) || empty($apellidos) || empty($fechaNacimiento) || empty($correo) || empty($password))) 
         {
             $result[] = "Todos los campos son obligatorios.";
         }
@@ -78,17 +81,33 @@ EOF;
             $result[] = "La edad necesaria para poder registrarse como usuario es a partir de los 65 años.";
         }
         
-        $userAppService = userAppService::GetSingleton();
+
         
-        if ($userAppService->existsByEmail($correo)) {
+        $userDTO = new userDTO(null, null, null, null, null, null, $correo);
+
+        $userAppService = userAppService::GetSingleton();
+
+
+        if ($userAppService->existsByEmail($userDTO)) {
             $result[] = "Ya existe una cuenta con este correo electrónico.";
         }
-        
+
+        $userDTO = new userDTO($id, null, null, null, null, null, null);
+
+
+        if ($userAppService->existsById($userDTO)) {
+
+            $result[] = "El ID de usuario ya está en uso. Por favor, elige otro.";
+        }
+
         if (count($result) === 0) 
         {
             try
             {
-                $userDTO = new userDTO(0, $nombre, $apellidos, $fechaNacimiento, $correo, $password, $tipo);
+
+                /*($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo)*/
+                
+                $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
                 $createdUserDTO = $userAppService->create($userDTO);
 
                 $_SESSION["login"] = true;

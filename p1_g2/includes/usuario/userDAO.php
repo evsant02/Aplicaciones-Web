@@ -140,9 +140,73 @@ class userDAO extends baseDAO implements IUser
 
     }
 
+<<<<<<< HEAD
     public function existsByEmail($correo)
     {
     /////////////////////////////////////////////////////7
+=======
+    public function existsByEmail($userDTO)
+    {
+        $correo = trim($this->realEscapeString($userDTO->correo()));
+
+        $conn = application::getInstance()->getConexionBd();
+    
+        if ($conn->connect_error) {
+            die("Error de conexión: " . $conn->connect_error);
+        }
+    
+        $query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
+    
+        $stmt = $conn->prepare($query);
+        
+        if (!$stmt) {
+            die("Error al preparar la consulta: " . $conn->error);
+        }
+    
+        $stmt->bind_param("s", $correo);
+        
+        if (!$stmt->execute()) {
+            die("Error en la consulta: " . $stmt->error);
+        }
+    
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
+
+    }
+
+    public function existsById($userDTO){
+
+        $id = trim($this->realEscapeString($userDTO->id()));
+
+        $conn = application::getInstance()->getConexionBd();
+    
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión: " . $conn->connect_error);
+        }
+    
+        $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
+    
+        $stmt = $conn->prepare($query);
+    
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $conn->error);
+        }
+    
+        $stmt->bind_param("s", $id);
+    
+        if (!$stmt->execute()) {
+            throw new Exception("Error en la consulta: " . $stmt->error);
+        }
+    
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
+>>>>>>> Umaima
     }
 
 }

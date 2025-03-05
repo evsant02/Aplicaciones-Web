@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once("includes/config.php");
 
 $tituloPagina = 'Contenido';
@@ -13,23 +13,34 @@ if (!isset($_SESSION["login"])) {
             Iniciar Sesión
         </a>
     </div>
-EOS;
+    EOS;
 } else {
+<<<<<<< HEAD
     // Verificar el rol del usuario
     if ($_SESSION["tipo"] == 0) {
         // Contenido para el rol 1 (crear y modificar actividades)
+=======
+    // Verificar si "tipo" está definido antes de acceder a él
+    $tipoUsuario = isset($_SESSION["tipo"]) ? $_SESSION["tipo"] : null;
+    $nombreUsuario = isset($_SESSION["nombre"]) ? $_SESSION["nombre"] : "Usuario";
+
+    if ($tipoUsuario === 0) {
+        // Contenido para administradores (tipo 0)
+>>>>>>> Umaima
         $contenidoPrincipal = <<<EOS
-        <div style="text-align: center; padding: 20px;">
-            <h1>Bienvenido, {$_SESSION['nombre']}</h1>
+            <h1>Bienvenido, $nombreUsuario</h1>
             <p>Eres un administrador. Puedes gestionar actividades.</p>
-            <a href="crearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+            <a href="CrearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
                 Crear Actividad
             </a>
             <a href="EditarActividades.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
                 Modificar Actividad
             </a>
+            <a href="EliminarActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px;">
+                Eliminar Actividad
+            </a>
         </div>
-EOS;
+        EOS;
     } else {
         // Redirigir a la página de actividades para otros roles
         header("Location: actividades.php");
