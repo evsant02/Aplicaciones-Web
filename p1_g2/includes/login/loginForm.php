@@ -70,7 +70,7 @@ EOF;
                 $_SESSION["id"] = $id;
 
                 // Redirigir a la página principal
-                $result = 'index.php';
+                $result = 'contenido.php';
             }
         }
 

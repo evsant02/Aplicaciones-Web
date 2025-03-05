@@ -16,7 +16,7 @@ if (!isset($_SESSION["login"])) {
 EOS;
 } else {
     // Verificar el rol del usuario
-    if ($_SESSION["rol"] == 0) {
+    if ($_SESSION["tipo"] == 0) {
         // Contenido para el rol 1 (crear y modificar actividades)
         $contenidoPrincipal = <<<EOS
         <div style="text-align: center; padding: 20px;">
@@ -25,7 +25,7 @@ EOS;
             <a href="crearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
                 Crear Actividad
             </a>
-            <a href="modificarActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
+            <a href="EditarActividades.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
                 Modificar Actividad
             </a>
         </div>
