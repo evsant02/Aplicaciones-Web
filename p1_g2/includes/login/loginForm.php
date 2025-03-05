@@ -12,19 +12,14 @@ class loginForm extends formBase
     
     protected function CreateFields($datos)
     {
-        $id = '';
-        
-        if ($datos) 
-        {
-            $id = isset($datos['id']) ? $datos['id'] : $id;
-        }
-        
+        $id = $datos['id'] ?? '';
+        $password = $datos['password'] ?? '';
 
         $html = <<<EOF
         <fieldset>
             <legend>Iniciar sesión</legend>
-            <p><label>Nombre de Usuario:</label> <input type="text" name="id" value="$id"/></p>
-            <p><label>Contraseña:</label> <input type="password" name="password" /></p>
+            <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
+            <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
             <button type="submit" name="login">Entrar</button>
 
             <p>¿No tienes cuenta?</p>
@@ -33,6 +28,8 @@ class loginForm extends formBase
 EOF;
         return $html;
     }
+
+    //
     
     protected function Process($datos)
     {
@@ -54,10 +51,13 @@ EOF;
         
         if (count($result) === 0) 
         {
+
+            $userDTO = new userDTO($id, null, null, $password, null, null, null);
+            
             $userAppService = userAppService::GetSingleton();
 
             // Verificar si existe un usuario con ese ID y contraseña
-            $foundedUserDTO = $userAppService->login($id, $password);
+            $foundedUserDTO = $userAppService->login($userDTO);
 
             if (!$foundedUserDTO) 
             {

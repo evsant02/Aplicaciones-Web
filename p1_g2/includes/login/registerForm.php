@@ -78,9 +78,14 @@ EOF;
             $result[] = "La edad necesaria para poder registrarse como usuario es a partir de los 65 años.";
         }
         
-        $userAppService = userAppService::GetSingleton();
+
         
-        if ($userAppService->existsByEmail($correo)) {
+        $userDTO = new userDTO(null, null, null, null, null, null, $correo);
+
+        $userAppService = userAppService::GetSingleton();
+
+
+        if ($userAppService->existsByEmail($userDTO)) {
             $result[] = "Ya existe una cuenta con este correo electrónico.";
         }
         
