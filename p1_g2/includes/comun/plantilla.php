@@ -10,8 +10,7 @@
 		<div id="contenedor">
 
 			<?php
-				require("includes/comun/cabecera.php");
-				require("includes/comun/sidebarIzq.php");
+				require("includes/comun/barraMenu.php");
 			?>
 
 			<main>
@@ -21,7 +20,6 @@
 			</main>
 
 			<?php
-				require("includes/comun/sidebarDer.php");
 				require("includes/comun/pie.php");
 			?>
 

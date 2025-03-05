@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="CSS/estilo.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre nosotros - conecta65</title>
-</head>
-<body>
-  <div id="contenedor">
-    <?php 
-      require('barraMenu.php');
-    ?>
+<?php
+  require_once("includes/config.php");
+
+  $tituloPagina = 'Sobre nosotros - conecta65';
+
+  $contenidoPrincipal = <<<EOS
     <main>
       <h1>¿Qué es conecta65?</h1>
       <h3>Bienvenid@ a nuestra aplicación</h3>
@@ -34,9 +27,7 @@
       </p>
       <img src="img/ajedrez.jpg" alt="Personas mayores andando" width="800">
     </main>
-    <?php 
-      require('pie.php');
-    ?>
-  </div>
-</body>
-</html>
+  EOS;
+
+  require("includes/comun/plantilla.php");
+?>

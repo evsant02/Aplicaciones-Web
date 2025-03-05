@@ -9,6 +9,7 @@ nav {
   background-color: #a1ccf8;
   padding: 10px; display: flex;
   justify-content: space-between; 
+  align-content: center;
   width: 100%;  
 }
 nav ul {
@@ -109,4 +110,9 @@ button:hover {
 }
 img {
   margin: 10px;
+}
+.logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
 }

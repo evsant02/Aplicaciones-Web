@@ -20,7 +20,7 @@
                 <?php
                     if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) 
                     {
-                        echo "<li>Bienvenido, " . $_SESSION['nombre'] . ". <a href='inicio.php'>(salir)</a></li>";
+                        echo "<li>Bienvenido, " . $_SESSION['nombre'] . ". <a href='logout.php'>(salir)</a></li>";
                     } 
                     else 
                     {
