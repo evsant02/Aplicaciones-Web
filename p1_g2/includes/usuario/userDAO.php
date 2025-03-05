@@ -140,11 +140,6 @@ class userDAO extends baseDAO implements IUser
 
     }
 
-<<<<<<< HEAD
-    public function existsByEmail($correo)
-    {
-    /////////////////////////////////////////////////////7
-=======
     public function existsByEmail($userDTO)
     {
         $correo = trim($this->realEscapeString($userDTO->correo()));
@@ -168,6 +163,8 @@ class userDAO extends baseDAO implements IUser
         if (!$stmt->execute()) {
             die("Error en la consulta: " . $stmt->error);
         }
+
+        $count = null;
     
         $stmt->bind_result($count);
         $stmt->fetch();
@@ -200,13 +197,14 @@ class userDAO extends baseDAO implements IUser
         if (!$stmt->execute()) {
             throw new Exception("Error en la consulta: " . $stmt->error);
         }
+
+        $count = null;
     
         $stmt->bind_result($count);
         $stmt->fetch();
         $stmt->close();
     
         return $count > 0;
->>>>>>> Umaima
     }
 
 }

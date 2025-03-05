@@ -107,7 +107,7 @@ EOF;
 
                 /*($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo)*/
                 
-                $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
+                $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fechaNacimiento, $tipo, $correo);
                 $createdUserDTO = $userAppService->create($userDTO);
 
                 $_SESSION["login"] = true;
