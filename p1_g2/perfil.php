@@ -1,5 +1,14 @@
 <?php 
-  session_start();
+  require_once("includes/config.php");
+
+  $tituloPagina = 'Mi perfil - conecta65';
+
+  $contenidoPrincipal = <<<EOS
+  <h1>Login de usuario</h1>
+  $htmlFormLogin
+  EOS;
+
+  require("includes/comun/plantilla.php");
 ?>
 
 <!DOCTYPE html>
