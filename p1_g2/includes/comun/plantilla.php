@@ -6,13 +6,15 @@
 		<title><?= $tituloPagina ?></title>
 	</head>
 
-	<body>
-		<div id="contenedor">
-
 			<?php
 				require("includes/comun/cabecera.php");
-				require("includes/comun/sidebarIzq.php");
+				//require("includes/comun/sidebarIzq.php");
 			?>
+	<body>
+		
+		<div id="contenedor">
+
+
 
 			<main>
 				<article>
@@ -21,11 +23,11 @@
 			</main>
 
 			<?php
-				require("includes/comun/sidebarDer.php");
+				//require("includes/comun/sidebarDer.php");
 				require("includes/comun/pie.php");
 			?>
 
-		</div> <!-- Fin del contenedor -->
+		</div> 
 
 	</body>
 </html>

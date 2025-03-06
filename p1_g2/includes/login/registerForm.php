@@ -104,9 +104,11 @@ EOF;
                 
                 $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fechaNacimiento, $tipo, $correo);
                 $createdUserDTO = $userAppService->create($userDTO);
+
+                application::getInstance()->setUserDTO($userDTO);
                 
                 $_SESSION["login"] = true;
-                $_SESSION["nombre"] = $nombre;
+                //$_SESSION["nombre"] = $nombre;
 
                 $result = 'index.php';
 

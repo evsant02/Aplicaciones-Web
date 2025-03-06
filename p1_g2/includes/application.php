@@ -149,10 +149,4 @@ class application
 		return $user;
 	}
 
-
-
-
-
-
-
 }
