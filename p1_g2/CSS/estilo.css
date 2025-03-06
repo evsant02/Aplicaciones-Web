@@ -14,7 +14,7 @@ div#contenedor {
 header {
 	padding: 30px;
 	height: 100px;
-	background-color: cadetblue;
+	background-color: #7ba3ce;
 	color: white;
 }
 
@@ -134,7 +134,7 @@ button {
 }
 
 .boton-contacto {
-	width: 50%; /* Ancho al 50% */
+	width: 40%; /* Ancho al 50% */
     display: block; /* Convertir en bloque para que ocupe su propia línea */
     margin-left: auto; /* Centrar horizontalmente */
     margin-right: auto; /* Centrar horizontalmente */
@@ -189,4 +189,26 @@ p {
 h1 {
     text-align: center; /* Centrar el texto horizontalmente */
 
+}
+
+
+/* Estilos para el logo */
+.logo {
+    max-width: 200px; /* Tamaño máximo del logo */
+}
+
+/* Estilos para el botón de login */
+.boton-login {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #7ba3ce; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos para el botón de login al pasar el mouse */
+.boton-login:hover {
+    background-color: #5a8abf; /* Cambio de color al pasar el mouse */
 }
