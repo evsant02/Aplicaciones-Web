@@ -1,21 +1,31 @@
 <?php
 function mostrarSaludo() {
-
-    
-    echo '<ul>';
-    echo '<li><a href="vistaActividades.php">Actividades</a></li>';
-    echo '<li><a href="donaciones.php">Dona</a></li>';
-    echo '<li><a href="ayuda.php">Ayuda</a></li>';
-    echo '<li><a href="sobre_nosotros.php">Qué es Conecta65</a></li>';
+    echo '<nav>';
+    echo '<ul class="main-links">'; // Enlaces generales (izquierda)
     
     if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-        echo "<li>Bienvenido, " . $_SESSION['nombre'] . " <a href='perfil.php'>Perfil</a></li>";
+        $user = application::getInstance()->getUserDTO();
+        echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
+    }
+    
+    echo '<li><a href="donar.php">Dona</a></li>';
+    echo '<li><a href="ayuda.php">Ayuda</a></li>';
+    echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
+    echo '</ul>';
+
+    // Enlaces de usuario (derecha)
+    echo '<div class="user-links"><ul>';
+    
+    if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+        echo "<li>Bienvenido, " . $user->nombre() . " <a href='perfil.php'>Perfil</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
     } else {
         echo "<li><a href='login.php'>Inicio Sesión</a></li>";
-        echo "<li><a href='registro.php'>Regístrate</a></li>";
+        echo "<li><a href='register.php'>Regístrate</a></li>";
     }
-    echo '</ul>';
+
+    echo '</ul></div>';
+    echo '</nav>';
 }
 ?>
 
@@ -24,9 +34,7 @@ function mostrarSaludo() {
         <img src="img/logo.jpeg" alt="Logo">
     </div>
     <h1>Conecta65</h1>
-    <nav>
-        <div class="saludo">
-            <?php mostrarSaludo(); ?>
-        </div>
-    </nav>
+    <div class="saludo">
+        <?php mostrarSaludo(); ?>
+    </div>
 </header>
