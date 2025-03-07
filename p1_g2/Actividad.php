@@ -24,48 +24,32 @@ class Actividad {
         $this->plazas = $plazas;
     }
 
-    // Método para obtener el enlace de reserva
-   /* public function getEnlace() {
-        return "reservaActividad.php?id=" . $this->id;
-    }*/
+ 
 
     // Método para obtener el enlace según el tipo de usuario
     public function getEnlace($tipo_usuario) {
         if ($tipo_usuario == 'usuario') {
-            return "reservaActividad.php?id=" . $this->id;
+            return "vistaReservaActividad.php?id=" . $this->id;
         } else {
-            return "dirigirActividad.php?id=" . $this->id;
+            return "vistaDirigirActividad.php?id=" . $this->id;
         }
     }
 
-// Método para mostrar la actividad en formato HTML segun tipo de usuario
-/*public function mostrar($tipo_usuario) {
-    echo '<td>';
-    echo '<div class="actividad">';
-    echo '<img src="Imagenes/' . $this->imagen . '" alt="' . $this->titulo . '">';
-    echo '<h3>' . $this->titulo . '</h3>';
-    echo '<p class="descripcion">' . $this->descripcion . '</p>';
-    echo '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
-    echo '</div>';
-    echo '</td>';
-}*/
 
-
-
-    // Método para mostrar la actividad en formato HTML
+    //muestra las actividades HTML
     public function mostrar($tipo_usuario) {
-        echo '<td>';
-        echo '<div class="actividad">';
-        echo '<img src="Imagenes/' . $this->imagen . '" alt="' . $this->titulo . '">';
-        echo '<h3>' . $this->titulo . '</h3>';
-        echo '<p class="descripcion">' . $this->descripcion . '</p>';
-        //echo '<a href="' . $this->getEnlace() . '" class="btn">Ver detalles</a>'; //CAMBIAR
-        echo '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
-        echo '</div>';
-        echo '</td>';
+        $html = '<div class="actividad">';
+        $html .= '<img src="img/' . $this->imagen . '" alt="' . $this->titulo . '">';
+        $html .= '<h3>' . $this->titulo . '</h3>';
+        $html .= '<p class="descripcion">' . $this->descripcion . '</p>';
+        $html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
+        $html .= '</div>';
+        return $html;  //se devuelve en html
     }
+    
 
-    // Getters para las nuevas propiedades
+
+    // Getters 
     public function getId() { return $this->id; }
     public function getTitulo() { return $this->titulo; }
     public function getImagen() { return $this->imagen; }
@@ -75,5 +59,16 @@ class Actividad {
     public function getFecha() { return $this->fecha; }
     public function getVoluntario() { return $this->voluntario; }
     public function getPlazas() { return $this->plazas; }
+
+
+    //Setters
+    public function setPlazas($plazas) { $this->plazas = $plazas; } //resta al numero de plazas
+    public function setVoluntario($voluntario){$this->voluntario = $voluntario;}
+    public function setDirigida($dirigida){$this->dirigida = $dirigida;}
+
+
+
+
+
 }
 ?>

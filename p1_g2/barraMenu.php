@@ -1,6 +1,7 @@
 <?php
 
-
+/*
+NO SE ESTÁ USANDO
 function mostrarMenu() {
     echo '<ul>';
     echo '<li><a href="vistaActividades.php">Actividades</a></li>';
@@ -19,5 +20,5 @@ function mostrarMenu() {
     }
     
     echo '</ul>';
-}
+}*/
 ?>

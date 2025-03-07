@@ -9,7 +9,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
     // Si la sesión está iniciada, muestra el mensaje sin el enlace de login.
     $contenidoPrincipal = <<<EOS
     <div style="text-align: center; padding: 20px;">
-        <img src="img/logo.jpg.jpeg" alt="Logo de la organización" style="max-width: 200px;">
+        <img src="img/logo.jpeg" alt="Logo de la organización" style="max-width: 200px;">
         <h1>Bienvenido a Conecta65</h1>
         <p>
             Una plataforma web diseñada para fomentar el envejecimiento activo y combatir la soledad en personas mayores.  
@@ -23,7 +23,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
     // Si la sesión no está iniciada, muestra el mensaje con el enlace de login.
     $contenidoPrincipal = <<<EOS
     <div style="text-align: center; padding: 20px;">
-        <img src="img/logo.jpg.jpeg" alt="Logo de la organización" style="max-width: 200px;">
+        <img src="img/logo.jpeg" alt="Logo de la organización" style="max-width: 200px;">
         <h1>Bienvenido a Conecta65</h1>
         <p>
             Una plataforma web diseñada para fomentar el envejecimiento activo y combatir la soledad en personas mayores.  
