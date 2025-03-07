@@ -14,8 +14,6 @@
 		
 		<div id="contenedor">
 
-
-
 			<main>
 				<article>
 					<?= $contenidoPrincipal ?>
