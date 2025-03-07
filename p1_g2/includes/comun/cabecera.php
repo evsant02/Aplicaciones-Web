@@ -1,11 +1,13 @@
 <?php
 function mostrarSaludo() {
+
+    
     echo '<ul>';
     echo '<li><a href="vistaActividades.php">Actividades</a></li>';
     echo '<li><a href="donaciones.php">Dona</a></li>';
     echo '<li><a href="ayuda.php">Ayuda</a></li>';
     echo '<li><a href="sobre_nosotros.php">Qué es Conecta65</a></li>';
-
+    
     if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
         echo "<li>Bienvenido, " . $_SESSION['nombre'] . " <a href='perfil.php'>Perfil</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
