@@ -68,8 +68,7 @@ main {
     background-color: white;
     box-sizing: border-box; /* Incluye el padding en el ancho */
 }
-
-footer	 {
+footer {
 	clear: both;
 	padding: 20px;
 	background-color: pink;
@@ -120,7 +119,9 @@ input[type="text"], input[type="password"] {
     border-radius: 5px; /* Bordes redondeados */
     font-size: 1em; /* Tamaño de letra */
 }
-
+input[name=email] {
+  width: 300px;
+}
 button {
     width: 100%; /* Ancho completo */
     padding: 10px; /* Padding para los botones */
