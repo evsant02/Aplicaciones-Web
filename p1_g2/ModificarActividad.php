@@ -2,7 +2,6 @@
 
 // Se incluyen los archivos necesarios para la configuración y el formulario de modificación
 require_once("includes/config.php");
-// require_once("includes/actividad/actividadAppService.php"); // Posible servicio no usado
 require_once("includes/modificarActividad/modificarActividadForm.php");
 
 // Se define el título de la página
