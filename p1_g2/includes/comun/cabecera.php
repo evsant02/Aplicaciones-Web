@@ -17,7 +17,7 @@ function mostrarSaludo() {
     echo '<div class="user-links"><ul>';
     
     if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-        echo "<li>Bienvenido, " . $user->nombre() . " <a href='perfil.php'>Perfil</a></li>";
+        echo "<li><a href='perfil.php'>".$user->nombre()."</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
     } else {
         echo "<li><a href='login.php'>Inicio Sesión</a></li>";
@@ -31,7 +31,9 @@ function mostrarSaludo() {
 
 <header>
     <div class="logo">
-        <img src="img/logo.jpeg" alt="Logo">
+        <a href="index.php">
+            <img src="img/logo.jpeg" alt="Logo">
+        </a>
     </div>
     <h1>Conecta65</h1>
     <div class="saludo">
