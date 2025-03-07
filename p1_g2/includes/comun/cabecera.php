@@ -17,7 +17,7 @@ function mostrarSaludo() {
     echo '<div class="user-links"><ul>';
     
     if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-        echo "<li><a href='perfil.php'>".$user->nombre()."</a></li>";
+        echo "<li><a href='perfil.php'>Perfil ".$user->nombre()."</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
     } else {
         echo "<li><a href='login.php'>Inicio Sesión</a></li>";
