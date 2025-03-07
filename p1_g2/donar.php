@@ -7,11 +7,11 @@
   
   $form = new donarForm();
   
-  $htmlFormLogin = $form->Manage();
+  $htmlFormDonar = $form->Manage();
   
   $contenidoPrincipal = <<<EOS
   <h1>Haz una donación para apoyar nuestra iniciativa!</h1>
-  $htmlFormLogin
+  $htmlFormDonar
   EOS;
   
   require("includes/comun/plantilla.php");
