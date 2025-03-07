@@ -1,12 +1,19 @@
 <?php
+// Incluye el archivo de configuración (gestión de sesiones, conexión a BD, etc.)
 require_once("includes/config.php");
 
+// Define el título de la página
 $tituloPagina = 'Portada';
+
+// Obtiene la instancia de la aplicación (probablemente un patrón Singleton)
 $app = Application::getInstance();
+
+// Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
 $mensaje = $app->getAtributoPeticion('mensaje');
 
+// Verifica si el usuario ha iniciado sesión
 if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-    // Si la sesión está iniciada, muestra el mensaje sin el enlace de login.
+    // Si la sesión está iniciada, muestra la bienvenida sin el botón de inicio de sesión
     $contenidoPrincipal = <<<EOS
 <div class="contenido-centrado">
     <img src="img/logo.jpg.jpeg" alt="Logo de la organización" class="logo">
@@ -20,7 +27,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
 </div>
 EOS;
 } else {
-    // Si la sesión no está iniciada, muestra el mensaje con el enlace de login.
+    // Si la sesión no está iniciada, muestra la bienvenida con el botón de inicio de sesión
     $contenidoPrincipal = <<<EOS
 <div class="contenido-centrado">
     <img src="img/logo.jpg.jpeg" alt="Logo de la organización" class="logo">
@@ -37,5 +44,6 @@ EOS;
 EOS;
 }
 
+// Incluye la plantilla para estructurar la página con el contenido generado
 require("includes/comun/plantilla.php");
 ?>

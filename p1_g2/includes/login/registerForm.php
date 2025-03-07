@@ -1,31 +1,38 @@
 <?php 
 
+// Incluye la clase base del formulario y el servicio de usuario
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../usuario/userAppService.php";
 
+// Define la clase registerForm, que extiende formBase
 class registerForm extends formBase
 {
     public function __construct() 
     {
+        // Llama al constructor de la clase base con el identificador 'registerForm'
         parent::__construct('registerForm');
     }
     
+    // Método para generar los campos del formulario de registro
     protected function CreateFields($datos)
     {
+        // Inicialización de variables con valores vacíos o por defecto
         $id = $nombre = $apellidos = $fechaNacimiento = $correo = $password = "";
         $tipo = "1"; // 1 para Usuario, 2 para Voluntario
         
+        // Si se han enviado datos, se rellenan los campos
         if ($datos) 
         {
-            $nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
-            $apellidos = isset($datos['apellidos']) ? $datos['apellidos'] : $apellidos;
-            $id = isset($datos['id']) ? $datos['id'] : $id;
-            $fechaNacimiento = isset($datos['fecha_nacimiento']) ? $datos['fecha_nacimiento'] : $fechaNacimiento;
-            $correo = isset($datos['correo']) ? $datos['correo'] : $correo;
-            $password = isset($datos['password']) ? $datos['password'] : $password;
-            $tipo = isset($datos['tipo']) ? $datos['tipo'] : $tipo;
+            $nombre = $datos['nombre'] ?? $nombre;
+            $apellidos = $datos['apellidos'] ?? $apellidos;
+            $id = $datos['id'] ?? $id;
+            $fechaNacimiento = $datos['fecha_nacimiento'] ?? $fechaNacimiento;
+            $correo = $datos['correo'] ?? $correo;
+            $password = $datos['password'] ?? $password;
+            $tipo = $datos['tipo'] ?? $tipo;
         }
 
+        // Genera el HTML del formulario de registro
         $html = <<<EOF
         <fieldset>
             <legend>Registro de Usuario</legend>
@@ -50,10 +57,12 @@ EOF;
         return $html;
     }
     
+    // Método que procesa los datos enviados en el formulario
     protected function Process($datos)
     {
         $result = array();
         
+        // Obtiene y limpia los valores ingresados por el usuario
         $nombre = trim($datos['nombre'] ?? '');
         $apellidos = trim($datos['apellidos'] ?? '');
         $id = trim($datos['id'] ?? '');
@@ -61,63 +70,66 @@ EOF;
         $correo = trim($datos['correo'] ?? '');
         $password = trim($datos['password'] ?? '');
         $tipo = trim($datos['tipo'] ?? '');
-        $terminos = isset($datos['terminos']) ? true : false;
+        $terminos = isset($datos['terminos']); // Verifica si se aceptaron los términos
 
-        // Verificar si el checkbox de términos está marcado pero hay campos vacíos
+        // Verificar si el checkbox de términos está marcado y si hay campos vacíos
         if ($terminos && (empty($id) || empty($nombre) || empty($apellidos) || empty($fechaNacimiento) || empty($correo) || empty($password))) 
         {
             $result[] = "Todos los campos son obligatorios.";
         }
         
+        // Validar formato del correo
         if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) 
         {
             $result[] = "El correo electrónico no es válido.";
         }
 
+        // Verificar edad mínima para registrarse como usuario (65 años o más)
         $fechaNacimientoObj = DateTime::createFromFormat('Y-m-d', $fechaNacimiento);
         $edad = $fechaNacimientoObj ? $fechaNacimientoObj->diff(new DateTime())->y : 0;
         
         if ($tipo == "1" && $edad < 65) {
             $result[] = "La edad necesaria para poder registrarse como usuario es a partir de los 65 años.";
         }
-        
-        $userDTO = new userDTO($id, null, null, null, null, null, $correo);
 
+        // Crear un objeto de usuario solo con el ID y correo para verificar si ya existen
+        $userDTO = new userDTO($id, null, null, null, null, null, $correo);
         $userAppService = userAppService::GetSingleton();
 
-
+        // Verificar si ya existe un usuario con ese correo
         if ($userAppService->existsByEmail($userDTO)) {
             $result[] = "Ya existe una cuenta con este correo electrónico.";
         }
 
+        // Verificar si el ID de usuario ya está en uso
         if ($userAppService->existsById($userDTO)) {
-
             $result[] = "El ID de usuario ya está en uso. Por favor, elige otro.";
         }
 
+        // Si no hay errores, se procede con el registro
         if (count($result) === 0) 
         {
             try
             {
-
-                /*($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo)*/
-                
+                // Crear un nuevo objeto usuario con todos los datos ingresados
                 $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fechaNacimiento, $tipo, $correo);
                 $createdUserDTO = $userAppService->create($userDTO);
 
+                // Guardar el usuario en la sesión
                 application::getInstance()->setUserDTO($userDTO);
-                
                 $_SESSION["login"] = true;
-                //$_SESSION["nombre"] = $nombre;
 
+                // Redirigir a la página principal
                 $result = 'index.php';
 
+                // Mensaje de bienvenida tras el registro
                 $app = application::getInstance();
                 $mensaje = "Se ha registrado exitosamente, Bienvenido {$nombre}";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             }
             catch(userAlreadyExistException $e)
             {
+                // Captura el error si el usuario ya existe
                 $result[] = $e->getMessage();
             }
         }

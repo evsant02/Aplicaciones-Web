@@ -1,20 +1,26 @@
 <?php
 
+// Incluye la clase base del formulario y el servicio de usuario
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../usuario/userAppService.php";
 
+// Define la clase loginForm, que extiende formBase
 class loginForm extends formBase
 {
     public function __construct() 
     {
+        // Llama al constructor de la clase base y asigna el nombre 'loginForm'
         parent::__construct('loginForm');
     }
     
+    // Método para generar los campos del formulario de login
     protected function CreateFields($datos)
     {
+        // Obtiene los valores de los campos (si existen) para rellenarlos en caso de error
         $id = $datos['id'] ?? '';
         $password = $datos['password'] ?? '';
 
+        // Genera el HTML del formulario
         $html = <<<EOF
         <fieldset>
             <legend>Iniciar sesión</legend>
@@ -29,12 +35,12 @@ EOF;
         return $html;
     }
 
-    
-    
+    // Método que procesa los datos enviados en el formulario
     protected function Process($datos)
     {
         $result = array();
         
+        // Obtiene y limpia los valores ingresados por el usuario
         $id = trim($datos['id'] ?? '');
         $password = trim($datos['password'] ?? '');
         
@@ -49,36 +55,39 @@ EOF;
             $result[] = "La contraseña no puede estar vacía.";
         }
         
+        // Si no hay errores, intenta autenticar al usuario
         if (count($result) === 0) 
         {
-
+            // Crea un objeto de usuario con los datos ingresados
             $userDTO = new userDTO($id, null, null, $password, null, null, null);
             
+            // Obtiene la instancia del servicio de autenticación de usuarios
             $userAppService = userAppService::GetSingleton();
 
-            // Verificar si existe un usuario con ese ID y contraseña
+            // Intenta iniciar sesión con el usuario ingresado
             $foundedUserDTO = $userAppService->login($userDTO);
 
             if (!$foundedUserDTO) 
             {
+                // Si no encuentra el usuario, muestra un mensaje de error
                 $result[] = "No existe una cuenta con ese ID y contraseña. Por favor, regístrate.";
             } 
             else 
             {
+                // Si el usuario es válido, guarda su información en la sesión
                 application::getInstance()->setUserDTO($foundedUserDTO);
 
-                // Iniciar sesión
                 $_SESSION["login"] = true;
                 //$_SESSION["tipo"] = $foundedUserDTO->tipo();
                 //$_SESSION["nombre"] = $foundedUserDTO->nombre();
                 //$_SESSION["id"] = $id;
 
-                // Redirigir a la página principal
+                // Redirige a la página principal
                 $result = 'contenido.php';
             }
         }
 
-        // Si hay errores, devolver los datos y los mensajes de error para mostrarlos en el formulario
+        // Devuelve el resultado, ya sea la redirección o los errores
         return $result;
     }
 }

@@ -1,10 +1,13 @@
 <?php
+// Incluye el archivo de configuración (manejo de sesiones, BD, etc.)
 require_once("includes/config.php");
 
+// Define el título de la página
 $tituloPagina = 'Contenido';
 
-// Verificar si el usuario ha iniciado sesión
+// Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION["login"])) {
+    // Si el usuario no ha iniciado sesión, muestra un mensaje de acceso restringido con un botón para iniciar sesión
     $contenidoPrincipal = <<<EOS
      <div class="contenido-centrado">
         <h1>Acceso restringido</h1>
@@ -15,13 +18,12 @@ if (!isset($_SESSION["login"])) {
     </div>
 EOS;
 } else {
-    // Verificar el rol del usuario
-
-    if (application::getInstance()->soyAdmin()) {
-
+    // Si el usuario ha iniciado sesión, verificar su rol
+    if (application::getInstance()->soyAdmin()) { 
+        // Si el usuario es administrador, obtiene sus datos
         $user = application::getInstance()->getUserDTO();
 
-        // Contenido para el rol 0 (crear y modificar actividades)
+        // Muestra un mensaje personalizado con opciones para gestionar actividades
         $contenidoPrincipal = <<<EOS
         <div class="contenido-centrado">
             <h1>Bienvenido, {$user->nombre()}</h1>
@@ -35,11 +37,12 @@ EOS;
         </div>
 EOS;
     } else {
-        // Redirigir a la página de actividades para otros roles
+        // Si el usuario no es administrador, lo redirige a la página de actividades
         header("Location: actividades.php");
         exit();
     }
 }
 
+// Incluye la plantilla para mostrar el contenido generado
 require("includes/comun/plantilla.php");
 ?>
