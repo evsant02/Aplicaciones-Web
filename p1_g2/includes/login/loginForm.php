@@ -74,7 +74,7 @@ EOF;
                 //$_SESSION["id"] = $id;
 
                 // Redirigir a la página principal
-                $result = 'contenido.php';
+                $result = 'perfil.php';
             }
         }
 

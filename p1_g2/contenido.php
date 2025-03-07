@@ -36,7 +36,7 @@ EOS;
 EOS;
     } else {
         // Redirigir a la página de actividades para otros roles
-        header("Location: actividades.php");
+        header("Location: vistaActividades.php");
         exit();
     }
 }
