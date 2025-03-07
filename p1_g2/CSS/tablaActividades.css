@@ -1,0 +1,38 @@
+/* Estilos para la tabla de actividades */
+.tabla-actividades {
+    width: 100%;
+    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+}
+
+.tabla-actividades td {
+    border: 1px solid #ccc; /* Borde de las celdas */
+    padding: 10px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    vertical-align: top; /* Alineación vertical */
+    box-sizing: border-box; /* Asegúrate de que el padding y el borde se incluyan en el ancho total */
+}
+
+/* Media Queries para ajustar el número de columnas */
+@media (min-width: 1200px) {
+    .tabla-actividades td {
+        width: 25%; /* 4 columnas en pantallas grandes */
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+    .tabla-actividades td {
+        width: 33.33%; /* 3 columnas en pantallas medianas */
+    }
+}
+
+@media (min-width: 500px) and (max-width: 799px) {
+    .tabla-actividades td {
+        width: 50%; /* 2 columnas en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 499px) {
+    .tabla-actividades td {
+        width: 100%; /* 1 columna en pantallas muy pequeñas */
+    }
+}
