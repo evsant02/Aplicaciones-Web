@@ -7,7 +7,8 @@
 	</head>
 
 			<?php
-				require("includes/comun/barraMenu.php");
+				require("includes/comun/cabecera.php");
+				//require("includes/comun/sidebarIzq.php");
 			?>
 	<body>
 		
@@ -22,6 +23,7 @@
 			</main>
 
 			<?php
+				//require("includes/comun/sidebarDer.php");
 				require("includes/comun/pie.php");
 			?>
 
