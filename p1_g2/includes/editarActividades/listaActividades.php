@@ -1,16 +1,21 @@
 <?php
+// Se incluyen archivos necesarios: la base de formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../actividad/actividadAppService.php";
 
+// Clase que gestiona la lista de actividades
 class listaActividades extends formBase
 {
+    // Constructor: inicializa la clase con un identificador único
     public function __construct() 
     {
         parent::__construct('listaActividades');
     }
 
+    // Método que genera la interfaz de la lista de actividades
     protected function CreateFields($datos)
     {
+        // Encabezado de la sección
         $html = <<<EOF
         <h2>Lista de Actividades</h2>
         <table>
@@ -23,10 +28,11 @@ class listaActividades extends formBase
             </tr>
 EOF;
 
-        // Obtener la lista de actividades
+        // Obtener la lista de actividades desde la base de datos
         $actividadAppService = actividadAppService::GetSingleton();
         $actividades = $actividadAppService->obtenerTodasLasActividades();
 
+        // Recorrer las actividades y agregarlas a la tabla
         foreach ($actividades as $actividad) {
             $html .= "<tr>";
             $html .= "<td>" . htmlspecialchars($actividad->nombre()) . "</td>";
@@ -40,14 +46,15 @@ EOF;
             $html .= "</tr>";
         }
 
+        // Cierre de la tabla
         $html .= "</table>";
 
         return $html;
     }
 
+    // Método de procesamiento (no se necesita en este caso)
     protected function Process($datos)
     {
-        // No se necesita procesamiento
         return [];
     }
 }

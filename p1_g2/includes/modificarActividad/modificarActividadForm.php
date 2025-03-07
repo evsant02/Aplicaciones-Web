@@ -1,27 +1,32 @@
 <?php 
 
+// Se incluyen los archivos necesarios: la base de formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../actividad/actividadAppService.php";
 
+// Clase que gestiona el formulario de modificación de actividades
 class modificarActividadForm extends formBase
 {
-    private $actividad;
+    private $actividad; // Variable para almacenar la actividad a modificar
 
+    // Constructor: recibe una actividad y la almacena para su edición
     public function __construct($actividad = null) 
     {
         parent::__construct('modificarActividadForm');
         $this->actividad = $actividad; // Guardamos la actividad cargada
     }
     
+    // Método que genera el formulario con los datos de la actividad
     protected function CreateFields($datos)
     {
-        // Si tenemos una actividad cargada, usamos sus métodos para obtener valores; si no, usamos los datos recibidos
+        // Si tenemos una actividad cargada, usamos sus valores; de lo contrario, usamos los datos recibidos en la petición
         $id = $this->actividad ? $this->actividad->id() : ($datos['id'] ?? '');
         $nombre = $this->actividad ? $this->actividad->nombre() : ($datos['nombre'] ?? '');
         $localizacion = $this->actividad ? $this->actividad->localizacion() : ($datos['localizacion'] ?? '');
         $fecha_hora = $this->actividad ? $this->actividad->fecha_hora() : ($datos['fecha_hora'] ?? '');
         $descripcion = $this->actividad ? $this->actividad->descripcion() : ($datos['descripcion'] ?? '');
 
+        // Se genera el formulario con los valores actuales de la actividad
         $html = <<<EOF
         <fieldset>
             <legend>Modificar Actividad</legend>
@@ -36,16 +41,19 @@ EOF;
         return $html;
     }
 
+    // Método que procesa la modificación de la actividad
     protected function Process($datos)
     {
         $result = array();
         
+        // Se extraen y limpian los datos del formulario
         $id = trim($datos['id'] ?? '');
         $nombre = trim($datos['nombre'] ?? '');
         $localizacion = trim($datos['localizacion'] ?? '');
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
 
+        // Validaciones: se asegura que los campos obligatorios no estén vacíos
         if (empty($id)) {
             $result[] = "ID de actividad no válido.";
         }
@@ -62,20 +70,22 @@ EOF;
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
 
+        // Si no hay errores, se procede a modificar la actividad en la base de datos
         if (count($result) === 0) {
             try {
-                // Crear objeto actividadDTO con los nuevos valores
+                // Crear un nuevo objeto actividadDTO con los valores modificados
                 $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
 
-                // Obtener instancia del servicio de aplicación
+                // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
 
-                // Llamar al método para modificar la actividad en la base de datos
+                // Llamar al método que actualiza la actividad en la base de datos
                 $actividadAppService->modificar($actividadDTO);
 
-                // Redirigir a la página principal con mensaje de éxito
+                // Redirigir a la página principal con un mensaje de éxito
                 $result = 'EditarActividades.php';
 
+                // Guardar el mensaje en la sesión
                 $app = application::getInstance();
                 $mensaje = "Se ha modificado la actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
@@ -87,3 +97,4 @@ EOF;
         return $result;
     }
 }
+?>
