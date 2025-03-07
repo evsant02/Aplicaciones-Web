@@ -79,12 +79,12 @@ main {
 	margin: 20px;
 }
 
-form fieldset {  
+.donarForm fieldset {  
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	justify-content: center;
 }
 
-label {
+.donarForm label {
 	width: 4em;
 	float: left;
 	text-align: right;
