@@ -1,7 +1,7 @@
 <?php
 
 require("IUser.php");
-require("userDTO.php");
+require_once("userDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
 require("userAlreadyExistException.php");
 
@@ -81,8 +81,10 @@ class userDAO extends baseDAO implements IUser
             $escFechaNacimiento = $this->realEscapeString($userDTO->fecha_nacimiento());
             $escTipo = $this->realEscapeString($userDTO->tipo());
             $escCorreo = $this->realEscapeString($userDTO->correo());
-            
+
             $hashedPassword = self::hashPassword($userDTO->password());
+
+            var_dump($escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
             $conn = application::getInstance()->getConexionBd();
 
@@ -95,7 +97,7 @@ class userDAO extends baseDAO implements IUser
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            $stmt->bind_param("issssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+            $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
             if ($stmt->execute()) {
                 $idUser = $conn->insert_id;
