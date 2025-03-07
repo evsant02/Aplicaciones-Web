@@ -1,118 +1,215 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-nav {
-  background-color: #a1ccf8;
-  padding: 10px; display: flex;
-  justify-content: space-between; 
-  align-content: center;
-  width: 100%;  
-}
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
-nav ul li {
-  margin: 0 15px;  
-  display: inline;
-}
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-nav ul li a:hover {
-  color: #7dbcfa;
-}
 body {
-  background-color: #bedcfa;
-  margin: 20px;  
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  width: 100%;
-  position: center;
+	background-color: #CDCDCD;
 }
+
+div#contenedor {
+	width: 1200px;
+	margin: auto;
+	border: 1px solid black;
+	background-color: #aaaaaa;
+	margin-top: 30px;
+	padding:0;
+}
+
 header {
-	padding: 15px;
-	background-color: #a1ccf8;
+	padding: 30px;
+	height: 100px;
+	background-color: #7ba3ce;
+	color: white;
+}
+
+
+
+header a, header a:visited {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+header a:hover {
+	color: red;
+	font-weight: bold;
+	text-decoration: underline;
+} 
+
+
+nav {
+	padding: 10px;
+	float: left;
+	width: 170px;
+	height: 400px;
+	background-color: #dddddd;
+}
+
+nav a, nav a:visited {
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+nav a:hover {
+	color: red;
+	text-decoration: underline;
+} 
+
+
+aside {
+	padding: 10px;
+	float: right;
+	width: 170px;
+	height: 400px;
+	background-color: #dddddd;
+}
+
+/*esto es el contenido de dentro*/
+main {
+	width: 100%;
+    padding: 10px;
+    background-color: white;
+    box-sizing: border-box; /* Incluye el padding en el ancho */
 }
 footer {
 	clear: both;
 	padding: 20px;
-	background-color: #a1ccf8;
-	color: #333;
+	background-color: pink;
+	color: white;
 	text-align: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-main {
-  flex-grow: 1;
-	padding: 20px;
-	min-height: 600px;
-  min-width: 500px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background-color: #d4e6f8;
-  border-color: #555;
-  border-width: 0.5px;
-  border: solid;
-  margin: 20px;
+
+div.saludo {
+	width: 100%;
+    text-align: right; /* Alinear el texto a la derecha */
+    position: relative; /* Posicionamiento relativo */
+    top: 50px; /* Mover el texto hacia abajo */
+    margin-right: 20px; /* Espacio adicional a la derecha */
 }
-.donarForm fieldset {  
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  justify-content: center;
+
+fieldset {
+    border: 2px solid #303030;
+    width: 25em; /* Aumentamos el ancho del fieldset */
+    margin: 0 auto;
+    padding: 20px; /* Añadimos padding para más espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo más claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un efecto elevado */
 }
-.donarForm label {
-  width: 4em;
-	float: left;
-	text-align: right;
-	margin-right: 0.5em;
+
+legend {
+    color: #fff;
+    background: #303030;
+    border: 2px solid #303030;
+    padding: 8px 16px; /* Más padding para el legend */
+    font-size: 1.2em; /* Tamaño de letra más grande */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto */
 }
-label#checkbox {
-	float: none;
+
+label {
+    display: block; /* Hacemos que los labels sean bloques */
+    margin-bottom: 10px; /* Espacio entre los campos */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color de texto más oscuro */
 }
-input[name=detalles] {
-  height: 100px;
-  width: 300px;
-  text-align: top;
+
+input[type="text"], input[type="password"] {
+    width: 100%; /* Ancho completo */
+    padding: 8px; /* Padding para los inputs */
+    margin-bottom: 15px; /* Espacio entre los inputs */
+    border: 1px solid #ccc; /* Borde más suave */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de letra */
 }
 input[name=email] {
   width: 300px;
 }
 button {
-  background-color: #a1ccf8; 
-  color: #333; 
-  font-weight: bold;
-  font-size: 14px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px; 
-  cursor: pointer;
-  width: auto;
-  margin-left: 50px;
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Padding para los botones */
+    background-color: #303030; /* Color de fondo */
+    color: #fff; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de letra */
+    cursor: pointer; /* Cursor de mano */
+    margin-bottom: 10px; /* Espacio entre botones */
 }
+
+.boton-contacto {
+	width: 40%; /* Ancho al 50% */
+    display: block; /* Convertir en bloque para que ocupe su propia línea */
+    margin-left: auto; /* Centrar horizontalmente */
+    margin-right: auto; /* Centrar horizontalmente */
+}
+
 button:hover {
-  background-color: #7dbcfa;
+    background-color: #555; /* Cambio de color al pasar el mouse */
 }
-.botonesIni {
-  width: 700px;
-  margin-left: 40px;
-  margin-top: 15px; 
-  display: grid;
-  grid-template-columns: repeat(2, auto); 
-  gap: 30px; 
-  font-size: 20px;
+
+a button {
+    background-color: gray; /* Color azul para el botón de registro */
 }
-img {
-  margin: 10px;
+
+/*esto es para el pie*/
+p {
+    text-align: center; /* Centrar el texto */
+    margin: 10px 0; /* Espacio alrededor del texto */
+    color: black; /* Color de texto más suave */
 }
-.logo img {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
+
+/*apartir de aqui son los estilos para contenidoooo*/
+
+/* Estilos para el contenedor principal */
+.contenido-centrado {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilos para los botones */
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.boton-login {
+    background-color: #007bff;
+}
+
+.boton-crear {
+    background-color: #28a745;
+}
+
+.boton-modificar {
+    background-color: #ffc107;
+    color: black;
+}
+
+h1 {
+    text-align: center; /* Centrar el texto horizontalmente */
+
+}
+
+
+/* Estilos para el logo */
+.logo {
+    max-width: 200px; /* Tamaño máximo del logo */
+}
+
+/* Estilos para el botón de login */
+.boton-login {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #7ba3ce; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos para el botón de login al pasar el mouse */
+.boton-login:hover {
+    background-color: #5a8abf; /* Cambio de color al pasar el mouse */
 }

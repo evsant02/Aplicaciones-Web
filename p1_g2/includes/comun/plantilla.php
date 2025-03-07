@@ -6,12 +6,14 @@
 		<title><?= $tituloPagina ?></title>
 	</head>
 
-	<body>
-		<div id="contenedor">
-
 			<?php
 				require("includes/comun/barraMenu.php");
 			?>
+	<body>
+		
+		<div id="contenedor">
+
+
 
 			<main>
 				<article>
@@ -23,7 +25,7 @@
 				require("includes/comun/pie.php");
 			?>
 
-		</div> <!-- Fin del contenedor -->
+		</div> 
 
 	</body>
 </html>

@@ -74,7 +74,7 @@ EOF;
                 $actividadAppService->modificar($actividadDTO);
 
                 // Redirigir a la página principal con mensaje de éxito
-                $result = 'index.php';
+                $result = 'EditarActividades.php';
 
                 $app = application::getInstance();
                 $mensaje = "Se ha modificado la actividad exitosamente!";

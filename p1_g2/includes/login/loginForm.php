@@ -29,7 +29,7 @@ EOF;
         return $html;
     }
 
-    //
+    
     
     protected function Process($datos)
     {
@@ -65,9 +65,13 @@ EOF;
             } 
             else 
             {
+                application::getInstance()->setUserDTO($foundedUserDTO);
+
                 // Iniciar sesión
                 $_SESSION["login"] = true;
-                $_SESSION["id"] = $id;
+                //$_SESSION["tipo"] = $foundedUserDTO->tipo();
+                //$_SESSION["nombre"] = $foundedUserDTO->nombre();
+                //$_SESSION["id"] = $id;
 
                 // Redirigir a la página principal
                 $result = 'contenido.php';
