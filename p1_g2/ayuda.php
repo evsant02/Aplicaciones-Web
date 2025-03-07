@@ -5,7 +5,7 @@
   
   $tituloPagina = 'Ayuda - conecta65';
   
-  $form = new ayudaForm();
+  $form = new ayudaForm(); // instancia del formulario de ayuda
   
   $htmlFormAyuda = $form->Manage();
   

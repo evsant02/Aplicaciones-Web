@@ -26,7 +26,7 @@ class donarForm extends formBase {
       return $html;
 
     }
-
+    // todavía no se implementa la funcionalidad
     /*protected function Process($datos)
     {
       $result = array();

@@ -6,7 +6,7 @@ class ayudaForm extends formBase {
     public function __construct() {
         parent::__construct('ayudaForm');
     }
-
+    
     protected function CreateFields($datos) {
 
       $html = <<<EOF

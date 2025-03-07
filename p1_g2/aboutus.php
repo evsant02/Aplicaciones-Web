@@ -2,7 +2,7 @@
   require_once("includes/config.php");
 
   $tituloPagina = 'Sobre nosotros - conecta65';
-
+  // se muestra información sobre la aplicación
   $contenidoPrincipal = <<<EOS
       <h1>¿Qué es conecta65?</h1>
       <h3>Bienvenid@ a nuestra aplicación</h3>
