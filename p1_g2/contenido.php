@@ -37,8 +37,8 @@ EOS;
         </div>
 EOS;
     } else {
-        // Si el usuario no es administrador, lo redirige a la página de actividades
-        header("Location: actividades.php");
+        // Redirigir a la página de actividades para otros roles
+        header("Location: vistaActividades.php");
         exit();
     }
 }

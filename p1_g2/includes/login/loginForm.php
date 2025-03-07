@@ -82,8 +82,8 @@ EOF;
                 //$_SESSION["nombre"] = $foundedUserDTO->nombre();
                 //$_SESSION["id"] = $id;
 
-                // Redirige a la página principal
-                $result = 'contenido.php';
+                // Redirigir a la página principal
+                $result = 'perfil.php';
             }
         }
 

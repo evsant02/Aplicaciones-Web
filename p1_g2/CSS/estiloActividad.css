@@ -1,0 +1,47 @@
+/* Contenedor principal de la actividad */
+.actividad {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center;     /* Centra los elementos verticalmente */
+    gap: 20px;               /* Espacio entre la imagen y los detalles */
+    padding: 20px;           /* Espaciado alrededor del contenedor */
+    max-width: 1200px;       /* Limita el ancho máximo del contenedor */
+    margin: 0 auto;          /* Centra el contenedor en la página */
+}
+
+/* Contenedor de la imagen */
+.actividad-img {
+    flex-shrink: 0;          /* Evita que la imagen se encoja */
+}
+
+img {
+    width: 450px;            /* Tamaño para la imagen */
+    height: 300px;
+    object-fit: cover;       /* Asegura que la imagen se recorte correctamente */
+    border-radius: 10px;     /* Bordes redondeados */
+}
+
+/* Contenedor de los detalles */
+.actividad-detalles {
+    max-width: 600px;        /* Ancho máximo para los detalles */
+    line-height: 1.6;        /* Mejora la legibilidad del texto */
+}
+
+h1 {
+    margin-bottom: 10px;     /* Espacio debajo del título */
+    font-size: 1.8em;        /* Aumenta el tamaño del título */
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;        /* Espacio encima del botón */
+}
+
+button:hover {
+    background-color: #0056b3;
+}

@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Enlace a la hoja de estilo CSS externa que define el estilo visual de la página -->
-		<link rel="stylesheet" type="text/css" href="CSS/estilo.css" />
-		
-		<!-- Definición del tipo de contenido y la codificación de caracteres (UTF-8) -->
+		<link rel="stylesheet" type="text/css" href="CSS/estilo1.css" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
 		<!-- Título de la página, se utiliza una variable PHP para definir el título dinámicamente -->
