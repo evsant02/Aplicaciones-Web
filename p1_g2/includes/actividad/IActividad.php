@@ -1,16 +1,44 @@
 <?php
 
+/**
+ * Interfaz IActividad
+ * Define los métodos necesarios para la gestión de actividades en el sistema.
+ */
 interface IActividad
 {
-    public function eliminar($actividadDTO);
-
-    public function modificar($actividadDTO);
-
+    /**
+     * Crea una nueva actividad en el sistema.
+     * @param actividadDTO $actividadDTO Objeto que contiene los datos de la actividad a crear.
+     * @return actividadDTO|null Retorna el objeto creado o null si hubo un error.
+     */
     public function crear($actividadDTO);
 
+    /**
+     * Elimina una actividad existente.
+     * @param actividadDTO $actividadDTO Objeto que representa la actividad a eliminar.
+     * @return bool Retorna true si la eliminación fue exitosa, false en caso contrario.
+     */
+    public function eliminar($actividadDTO);
+
+    /**
+     * Modifica los datos de una actividad existente.
+     * @param actividadDTO $actividadDTO Objeto con los nuevos datos de la actividad.
+     * @return bool Retorna true si la modificación fue exitosa, false en caso contrario.
+     */
+    public function modificar($actividadDTO);
+
+    /**
+     * Obtiene todas las actividades almacenadas en el sistema.
+     * @return array Retorna un array de objetos actividadDTO con todas las actividades.
+     */
     public function obtenerTodasLasActividades();
 
+    /**
+     * Obtiene una actividad específica a partir de su ID.
+     * @param int $id Identificador de la actividad.
+     * @return actividadDTO|null Retorna el objeto actividadDTO si se encuentra, o null si no existe.
+     */
     public function getActividadById($id);
-
 }
+
 ?>

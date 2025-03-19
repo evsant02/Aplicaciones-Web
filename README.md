@@ -1,108 +1,29 @@
 # Aplicaciones-Web
 
-Ya está subida la estructura que hay que seguir para la práctica 2
+Las funcionalidades previamente planificadas para nuestra aplicación web son las siguientes:
 
-Y este es el README del profe:
+    Registro de usuarios:Permite a los voluntarios y a los usuarios independientes registrarse en la plataforma mediante un formulario en el que proporcionan sus datos personales y de contacto. Una vez completado el registro, podrán acceder a su perfil y gestionar su participación en las actividades.
+        Disponible para: Gente ajena que quiera registrarse
 
-0. Dos páginas HTML.
-1. Dividir la intefaz en varios ficheros para reutilizarla.
-    a. Crear e incluir en index.php y contenido.php los ficheros
-        •	cabecera.php
-        •	sidebarIzq.php
-        •	sidebarDer.php
-        •	pie.php
+    Gestión de las actividades: Los administradores tienen acceso a un panel de control donde pueden crear, modificar y eliminar actividades. Los administradores son los encargados de proponer las actividades y publicarlas en la plataforma, donde posteriormente los voluntarios y usuarios que estén interesados, podrán inscribirse.
+        Disponible para: Adminsitradores
 
-2. Crear "script de vistas" y "script de apoyo para las vistas"
-    a. Crear carpetas includes/comun
+    Registro de usuarios independientes en las actividades: Los usuarios independientes registrados pueden ver las actividades disponibles y apuntarse a aquellas que les interesen. También pueden consultar los detalles de cada actividad, como la fecha, el horario y la disponibilidad de plazas.
+        Disponible para: Usuarios independientes registrados
 
-3. Crear "plantilla.php"
-    a. Utilizarla desde index.php y contenido.php
-
-4. Crear Login.php
-    a. Crear "procesarLogin.php"
-
-5. Proteger "contenido.php". Esta página es solo para usuarios registrados.
-
-6. En la cabecera, escribir el nombre del usuario logeado y dar la posibilidad de hacer "logout"
-    a. Crear "logout"
-
-7. Crear BBDD
-    a. Crear config.php
-    b. Crear carpeta "Usuario" - Usuarios - UsuarioDB
-    c. Modificar "procesarLogin.php" para que busque en BBDD
+    Registro de los voluntarios en las actividades: Los voluntarios pueden registrarse en las actividades como monitores. Podrán dirigir las actividades y coordinar la participación de los usuarios inscritos.
+        Disponible para: Voluntarios registrados
     
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
+    Donar dinero: Los donantes pueden acceder a una sección específica donde pueden realizar contribuciones económicas al proyecto de manera segura.
+        Disponible para: Donantes
 
-8. Aplicar POO a formulario de login (patrón Template Method)
-    a. Crear la clase formBase.php
-        - Método "Manage" orquesta los métodos genéricos y especificos definidos en la subclase
-    b. Crear la clase loginForm.php
-    c. Utilizar loginForm desde login.php
-    d. Eliminar usuarios.php y procesarLogin.php
+    Página de perfil del usuario: Cada usuario registrado dispone de un perfil personal donde puede visualizar sus datos, consultar las actividades en las que está inscrito, así como su historial de participación en eventos y actividades pasadas.
+        Disponible para: Usuarios que estén registrados
 
-9. Crear formulario de registro.
-    a. Crear clase registerForm.php (retocar createFields, process)
-    b. Crear método create en usuario.php
-    b. Crear register.php
-    c. Crear la opción "Registro" en cabecera.php
+Para esta práctica número 2 se han implementado por completo (al 100%) las funcionalidades relacionadas con el registro de usuarios de cualquier tipo (inicio de sesión, registro y cierre de sesión) y con la gestión de las actividades de mano de los administradores, ya que son los únicos que pueden acceder a esta funcionalidad (crear, modificar, visualizar y eliminar todas las actividades).
 
-10. Desacoplar scripts de apoyo para las vistas (formularios) del acceso a datos
-    a. Crear la interfaz IUser
-    b. usuario implementa IUser
-        - Quitar métodos estáticos y poner constructor público
-    c. Crear userFactory
-    d. En loginForm y registerForm usar userFactory
+La diferencia entre estas funcionalidades y las que se completarán en las próximas prácticas es su grado de completitud. Estas funcionalidades están conectadas con la base de datos, haciendo uso de las tablas usuarios y actividades y, por tanto, su funcionamiento ya es completo. A diferencia del resto de funcionalidades, las cuales no están conectadas a la base de datos y por tanto únicamente se han codificado sus vistas principales y de apoyo ejemplificanfo como quedarán cuando se completen sus respectivas funcionalidades e interactuen con la base de datos. 
 
-11. Crear userMock (para test unitarios?)
-    a. Crear clase userMock
-    b. Cambiar userFactory
+Por tanto, las funcionalidades que se llevarán a cabo en próximas entregas son: el registro de usuarios independientes (los ancianos) en las actividades, el registro de los voluntarios en las actividades, las donaciones de dinero y la página de perfil del usuario de cualquier tipo. Esta última funcionalidad, la del perfil, está casi implementada por completo, a falta de poder modificar la estructura en la que se visualizan los datos del usuario, ya que esta si está conectada a la base de datos.
 
-12. Refactorizar "Active Record" a tres capas: AppService, DAO y DTO
-    a. Crear UserDto
-    b. Crear userDAO
-    c. Cambiar la interfaz IUser
-    d. Cambiar userFactory
-    e. Crear userAppService como singleton -> implementa las funciones de negocio (casos de uso)
-    f. En loginForm y registerForm usar userAppService
-
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
-
-13. Crear clase "Application"
-    a. Mantiene el estado global de la aplicación a través de instancia única.
-    b. Gestiona una única conexión a BBDD
-    c. Modificar fichero config.php
-        i. Establecer soporte de UTF-8, localización (idioma y país) y zona horaria
-        ii. Eliminar función getConexionBD() y reemplazar por llamada a Application->init. 
-        iii. Registrar método shutdown para cerrar la conexión a BBDD
-        iv. Utilizar Aplicacion::getInstance()->getConexionBd(); en UserDAO.php. Quitar includes(config.php)
-        v. Utilizar require_once("includes/config.php"); en todos los scripts de vistas. Quitar sessio_start (esto lo hace el método init)
-
-14. Crear clase baseDAO
-    a. utilizar métodos de baseDAO desde UserDAO
-
-15. Sentencias preparadas
-    a. Refactorizar UserDAO para utilizar sentencias preparadas
-
-16. Encriptar password
-    a. En UserDAO crear método estático "hashPassword" y "testHashPassword"
-    b. Utilizar los métodos "create" y "login".
-    c. Eliminar usuarios de BBDD y crear nuevos a través de la aplicación.
-
-17. Patrón PRG
-    a. Añadir atributo privado $atributosPeticion en clase "application" e inicializarlo en método "init".
-    b. Añadir en clase "application" los métodos "putAtributoPeticion" y "getAtributoPeticion".
-    c. Añadir mensaje en "registerForm".
-    d. Modificar "index.php" para mostrar el mensaje.
-
-18. Gestor global de Excepciones
-    a. Modificar tabla "Usuarios", columna "UserName" es única.
-    b. Insertar registro repetido: excepción no controlada.
-    c. Añadir gestor de excepciones en config.php.
-    d. Insertar registro repetido, comprobar log: xampp/apache/logs/error.log
-
-19. Exepciones de dominio
-    a. Crear "userAlreadyExistException"
-    b. En "userDAO", método "create" lanzar la excepción "userAlreadyExistException"
-    c. En "registerForm" gestionar la excepcion
+Aunque las funcionalidades que hacen uso de otras tablas de la base de datos diferentes a usuarios y actividades no estén implementadas completamente, la base de datos si lo está. La base de datos cuenta ya con todas las tablas que harán falta en el futuro.

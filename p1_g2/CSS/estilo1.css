@@ -5,61 +5,71 @@ html, body {
 	padding: 0;
 	display: flex;
 	flex-direction: column;
-  }
-  nav {
+}
+
+nav {
 	background-color: #a1ccf8;
-	padding: 10px; display: flex;
-	justify-content: space-between; 
-	align-content: center;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;  
+	align-items: center;  
 	width: 100%;  
-  }
-  nav ul {
+}
+
+nav ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	display: flex;
-	justify-content: center;
-  }
-  nav ul li {
-	margin: 0 15px;  
+}
+
+nav ul li {
+	margin: 0 15px;
 	display: flex;
 	align-items: center;
-  }
-  nav ul li a {
+}
+
+nav ul li a {
 	text-decoration: none;
 	color: #333;
 	font-weight: bold;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-  nav ul li a:hover {
+}
+
+nav ul li a:hover {
 	color: #7dbcfa;
-  }
-  body {
+}
+
+body {
 	background-color: #bedcfa;
-	margin: 20px;  
+	margin: 20px;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	width: 100%;
 	position: center;
-  }
-  header {
-	  padding: 15px;
-	  background-color: #a1ccf8;
-	  display: flex;
-	  justify-content: space-between;
-	  align-items: center;
-  }
-  footer {
-	  clear: both;
-	  padding: 20px;
-	  background-color: #a1ccf8;
-	  color: #333;
-	  text-align: center;
+}
+
+header {
+	padding: 15px;
+	background-color: #a1ccf8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+footer {
+	clear: both;
+	padding: 20px;
+	background-color: #a1ccf8;
+	color: #333;
+	text-align: center;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-  main {
+}
+
+main {
 	flex-grow: 1;
-	  padding: 20px;
-	  min-height: 600px;
+	padding: 20px;
+	min-height: 600px;
 	min-width: 500px;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	background-color: #d4e6f8;
@@ -67,29 +77,35 @@ html, body {
 	border-width: 0.5px;
 	border: solid;
 	margin: 20px;
-  }
-  form fieldset {  
+}
+
+.donarForm fieldset {  
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	justify-content: center;
-  }
-  label {
+}
+
+.donarForm label {
 	width: 4em;
-	  float: left;
-	  text-align: right;
-	  margin-right: 0.5em;
-  }
-  label#checkbox {
-	  float: none;
-  }
-  input[name=detalles] {
+	float: left;
+	text-align: right;
+	margin-right: 0.5em;
+}
+
+label#checkbox {
+	float: none;
+}
+
+input[name=detalles] {
 	height: 100px;
 	width: 300px;
 	text-align: top;
-  }
-  input[name=email] {
+}
+
+input[name=email] {
 	width: 300px;
-  }
-  button {
+}
+
+button {
 	background-color: #a1ccf8; 
 	color: #333; 
 	font-weight: bold;
@@ -100,11 +116,13 @@ html, body {
 	cursor: pointer;
 	width: auto;
 	margin-left: 50px;
-  }
-  button:hover {
+}
+
+button:hover {
 	background-color: #7dbcfa;
-  }
-  .botonesIni {
+}
+
+.botonesIni {
 	width: 700px;
 	margin-left: 40px;
 	margin-top: 15px; 
@@ -112,16 +130,74 @@ html, body {
 	grid-template-columns: repeat(2, auto); 
 	gap: 30px; 
 	font-size: 20px;
-  }
-  img {
-	margin: 10px;
-  }
+}
 
+img {
+	margin: 10px;
+}
 
 .logo img {
 	height: 50px;                  
-	width: auto;                   
+	width: auto;                    
 	object-fit: contain;           
-  }
+}
 
-  
+/* ============================= */
+/* ESTILOS PARA LOS ENLACES DE USUARIO */
+/* ============================= */
+
+/* Contenedor de los enlaces */
+.saludo {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+/* Alinea los enlaces de usuario (Perfil y Salir) a la derecha */
+.user-links {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+}
+
+.user-links ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.user-links ul li {
+	margin-left: 15px; /* Espacio entre los elementos */
+}
+
+/* ============================= */
+/* ESTILOS RESPONSIVOS */
+/* ============================= */
+
+@media (max-width: 768px) {
+	nav {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul li {
+		margin: 5px 0;
+	}
+
+	.user-links {
+		margin-left: 0;
+		justify-content: center;
+	}
+
+	.user-links ul {
+		flex-direction: column;
+		align-items: center;
+	}
+}
