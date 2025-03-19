@@ -1,23 +1,28 @@
-<?php
+<?php 
 
+// Se incluyen archivos necesarios: la base para formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../actividad/actividadAppService.php";
 
-
+// Clase que gestiona el formulario de creación de actividades
 class crearActividadForm extends formBase
 {
+    // Constructor: inicializa el formulario con un identificador único
     public function __construct() 
     {
         parent::__construct('crearActividadForm');
     }
     
+    // Método que genera los campos del formulario
     protected function CreateFields($datos)
     {
+        // Se obtienen los datos previos (si existen) o se dejan vacíos por defecto
         $nombre = $datos['nombre'] ?? '';
         $localizacion = $datos['localizacion'] ?? '';
         $fecha_hora = $datos['fecha_hora'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
 
+        // Se genera el formulario en HTML
         $html = <<<EOF
         <fieldset>
             <legend>Crear Nueva Actividad</legend>
@@ -31,15 +36,18 @@ EOF;
         return $html;
     }
 
+    // Método que procesa los datos enviados a través del formulario
     protected function Process($datos)
     {
         $result = array();
         
+        // Se recuperan y limpian los datos enviados por el usuario
         $nombre = trim($datos['nombre'] ?? '');
         $localizacion = trim($datos['localizacion'] ?? '');
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
 
+        // Validaciones: se verifica que todos los campos estén completos
         if (empty($nombre)) {
             $result[] = "El nombre de la actividad no puede estar vacío.";
         }
@@ -53,20 +61,29 @@ EOF;
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
 
+        // Si no hay errores, se procede a crear la actividad
         if (count($result) === 0) {
-            // Aquí iría la lógica para almacenar la actividad en la base de datos
-            // Por ejemplo: 
-            // $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion);
-            // $actividadAppService = actividadAppService::GetSingleton();
-            // $actividadAppService->crear($actividadDTO);
+            try {
+                // Se crea un objeto de actividad con los datos ingresados
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion);
 
-            $result = 'index.php'; // Redirecciona a la página principal
+                // Se obtiene la instancia del servicio de actividades
+                $actividadAppService = actividadAppService::GetSingleton();
 
-            $app = application::getInstance();
-                
-            $mensaje = "Se ha creado la nueva actividad exitosamente";
-            
-            $app->putAtributoPeticion('mensaje', $mensaje);
+                // Se almacena la nueva actividad en la base de datos
+                $actividadAppService->crear($actividadDTO);
+
+                // Se redirige a la página principal con un mensaje de éxito
+                $result = 'index.php';
+
+                // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
+                $app = application::getInstance();
+                $mensaje = "Se ha creado la nueva actividad exitosamente";
+                $app->putAtributoPeticion('mensaje', $mensaje);
+            } catch (Exception $e) {
+                // Si ocurre un error, se almacena el mensaje de error
+                $result[] = "Error al crear la actividad: " . $e->getMessage();
+            }
         }
 
         return $result;
