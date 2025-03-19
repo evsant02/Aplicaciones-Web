@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-03-2025 a las 16:33:08
+-- Tiempo de generación: 07-03-2025 a las 16:54:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,15 +34,17 @@ CREATE TABLE `actividades` (
   `nombre` varchar(20) NOT NULL,
   `localizacion` varchar(50) NOT NULL,
   `fecha_hora` datetime(6) NOT NULL,
-  `descripcion` text NOT NULL
+  `descripcion` text NOT NULL,
+  `aforo` tinyint(3) NOT NULL,
+  `dirigida` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `actividades`
 --
 
-INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`) VALUES
-(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.');
+INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`) VALUES
+(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -71,7 +73,6 @@ INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 
 CREATE TABLE `donaciones` (
   `id_donacion` varchar(20) NOT NULL,
-  `id_actividad` int(10) UNSIGNED DEFAULT NULL,
   `IBAN` int(24) NOT NULL,
   `cantidad` int(6) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -109,7 +110,7 @@ CREATE TABLE `usuarios` (
   `fecha_nacimiento` date NOT NULL,
   `tipo` int(11) DEFAULT NULL,
   `correo` varchar(40) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -142,15 +143,14 @@ ALTER TABLE `actividades-usuario`
 -- Indices de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  ADD PRIMARY KEY (`id_donacion`) USING BTREE,
-  ADD KEY `id_actividad` (`id_actividad`);
+  ADD PRIMARY KEY (`id_donacion`) USING BTREE;
 
 --
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
-  ADD PRIMARY KEY (`nombre`),
-  ADD UNIQUE KEY `id_rol` (`id_rol`);
+  ADD PRIMARY KEY (`id_rol`) USING BTREE,
+  ADD UNIQUE KEY `id_rol` (`nombre`) USING BTREE;
 
 --
 -- Indices de la tabla `usuarios`
@@ -180,12 +180,6 @@ ALTER TABLE `actividades`
 ALTER TABLE `actividades-usuario`
   ADD CONSTRAINT `actividades-usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `actividades-usuario_ibfk_2` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `donaciones`
---
-ALTER TABLE `donaciones`
-  ADD CONSTRAINT `donaciones_ibfk_1` FOREIGN KEY (`id_actividad`) REFERENCES `actividades` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`

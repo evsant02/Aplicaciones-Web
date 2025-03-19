@@ -1,41 +1,48 @@
 <?php
+// Incluye el archivo de configuración (manejo de sesiones, BD, etc.)
 require_once("includes/config.php");
 
+// Define el título de la página
 $tituloPagina = 'Contenido';
 
-// Verificar si el usuario ha iniciado sesión
+// Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION["login"])) {
+    // Si el usuario no ha iniciado sesión, muestra un mensaje de acceso restringido con un botón para iniciar sesión
     $contenidoPrincipal = <<<EOS
-    <div style="text-align: center; padding: 20px;">
+     <div class="contenido-centrado">
         <h1>Acceso restringido</h1>
         <p>Para visualizar más contenido, debes iniciar sesión.</p>
-        <a href="login.php" style="display: inline-block; padding: 10px 20px; margin-top: 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+        <a href="login.php" class="boton boton-login">
             Iniciar Sesión
         </a>
     </div>
 EOS;
 } else {
-    // Verificar el rol del usuario
-    if ($_SESSION["tipo"] == 0) {
-        // Contenido para el rol 1 (crear y modificar actividades)
+    // Si el usuario ha iniciado sesión, verificar su rol
+    if (application::getInstance()->soyAdmin()) { 
+        // Si el usuario es administrador, obtiene sus datos
+        $user = application::getInstance()->getUserDTO();
+
+        // Muestra un mensaje personalizado con opciones para gestionar actividades
         $contenidoPrincipal = <<<EOS
-        <div style="text-align: center; padding: 20px;">
-            <h1>Bienvenido, {$_SESSION['nombre']}</h1>
+        <div class="contenido-centrado">
+            <h1>Bienvenido, {$user->nombre()}</h1>
             <p>Eres un administrador. Puedes gestionar actividades.</p>
-            <a href="crearActividad.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+            <a href="crearActividad.php" class="boton boton-crear">
                 Crear Actividad
             </a>
-            <a href="EditarActividades.php" style="display: inline-block; padding: 10px 20px; margin: 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
+            <a href="EditarActividades.php" class="boton boton-modificar">
                 Modificar Actividad
             </a>
         </div>
 EOS;
     } else {
         // Redirigir a la página de actividades para otros roles
-        header("Location: actividades.php");
+        header("Location: vistaActividades.php");
         exit();
     }
 }
 
+// Incluye la plantilla para mostrar el contenido generado
 require("includes/comun/plantilla.php");
 ?>
