@@ -101,9 +101,10 @@ class userDAO extends baseDAO implements IUser
                 $idUser = $conn->insert_id;
 
                 $createdUserDTO = new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
-
+                $stmt->close();
                 return $createdUserDTO;
             }
+            $stmt->close();
         }
         catch (mysqli_sql_exception $e)
         {

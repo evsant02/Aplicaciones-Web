@@ -33,6 +33,7 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $actividadDTO->nombre(), $actividadDTO->localizacion(), $actividadDTO->fecha_hora(), $actividadDTO->descripcion());
             }
+            $stmt->close();
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
@@ -53,8 +54,9 @@ class actividadDAO extends baseDAO implements IActividad
             }
 
             $stmt->bind_param("i", $actividadDTO->id());
-
-            return $stmt->execute();
+            $resultado = $stmt->execute();
+            $stmt->close();
+            return $resultado;
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
@@ -67,7 +69,7 @@ class actividadDAO extends baseDAO implements IActividad
 
             $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
-
+            
             if (!$stmt) {
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
@@ -80,10 +82,13 @@ class actividadDAO extends baseDAO implements IActividad
                 $actividadDTO->id()
             );
 
-            return $stmt->execute();
+            $resultado = $stmt->execute();
+            $stmt->close();
+            return $resultado;
         } catch (mysqli_sql_exception $e) {
             throw $e;
         }
+        
     }
 
     public function getActividadById($id)
