@@ -36,14 +36,25 @@ class actividadAppService
         return $foundedactividadDTO;
     }
 
-    // Método para eliminar una actividad existente
-    public function eliminar($actividadDTO)
+    // Método para eliminar una actividad existente por ID
+    public function eliminarPorId($id)
     {
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
-        // Se llama al método de eliminación
-        $eliminadaactividadDTO = $IActividadDAO->eliminar($actividadDTO);
-        return $eliminadaactividadDTO;
+        
+        // Buscar la actividad por ID
+        $actividad = $IActividadDAO->getActividadById($id);
+        
+        // Si la actividad no existe, retornar falso
+        if ($actividad === null) {
+            return false;
+        }
+
+        // Llamar al método de eliminación del DAO
+        $eliminada = $IActividadDAO->eliminar($actividad);
+
+        // Retornar el resultado de la eliminación (true si fue exitosa, false si no)
+        return $eliminada;
     }
 
     // Método para modificar una actividad existente

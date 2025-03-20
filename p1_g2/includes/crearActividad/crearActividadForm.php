@@ -17,20 +17,21 @@ class crearActividadForm extends formBase
     protected function CreateFields($datos)
     {
         // Se obtienen los datos previos (si existen) o se dejan vacíos por defecto
-        $nombre = $datos['nombre'] ?? '';
-        $localizacion = $datos['localizacion'] ?? '';
-        $fecha_hora = $datos['fecha_hora'] ?? '';
-        $descripcion = $datos['descripcion'] ?? '';
-        $aforo = $datos['aforo'] ?? '';
+        // Se usa htmlspecialchars para evitar ataques XSS al imprimir valores en el formulario
+        $nombre = htmlspecialchars($datos['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+        $localizacion = htmlspecialchars($datos['localizacion'] ?? '', ENT_QUOTES, 'UTF-8');
+        $fecha_hora = htmlspecialchars($datos['fecha_hora'] ?? '', ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+        $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
 
-        // Se genera el formulario en HTML
+        // Se genera el formulario en HTML con los valores recuperados
         $html = <<<EOF
         <fieldset>
             <legend>Crear Nueva Actividad</legend>
             <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
             <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
             <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
-            <p><label>Aforo:</label> <input type="text" name="aforo" value="$aforo" required/></p>
+            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1"/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <button type="submit" name="crear">Crear</button>
         </fieldset>
@@ -63,6 +64,10 @@ EOF;
         if (empty($aforo)) {
             $result[] = "Debe proporcionar el aforo de la actividad.";
         }
+        // Se verifica que el aforo sea un número entero positivo
+        if (!ctype_digit($aforo) || (int)$aforo <= 0) {
+            $result[] = "El aforo debe ser un número entero positivo.";
+        }
         if (empty($descripcion)) {
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
@@ -71,7 +76,7 @@ EOF;
         if (count($result) === 0) {
             try {
                 // Se crea un objeto de actividad con los datos ingresados
-                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, 0);
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0);
 
                 // Se obtiene la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
@@ -86,8 +91,10 @@ EOF;
                 $app = application::getInstance();
                 $mensaje = "Se ha creado la nueva actividad exitosamente";
                 $app->putAtributoPeticion('mensaje', $mensaje);
+
             } catch (Exception $e) {
-                // Si ocurre un error, se almacena el mensaje de error
+                // Si ocurre un error, se almacena el mensaje de error y se registra en un log
+                error_log("Error al crear la actividad: " . $e->getMessage());
                 $result[] = "Error al crear la actividad: " . $e->getMessage();
             }
         }

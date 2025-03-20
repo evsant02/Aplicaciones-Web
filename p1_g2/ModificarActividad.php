@@ -8,7 +8,7 @@ require_once("includes/modificarActividad/modificarActividadForm.php");
 $tituloPagina = 'Modificar Actividad';
 
 // Se obtiene el ID de la actividad desde GET o POST
-$id = $_GET['id'] ?? $_POST['id'] ?? null;
+$id = $_GET['id'] ?? null;
 
 // Si no se proporciona un ID, se muestra un error y se detiene la ejecución
 if (!$id) {

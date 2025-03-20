@@ -23,8 +23,10 @@ class modificarActividadForm extends formBase
         $id = $this->actividad ? $this->actividad->id() : ($datos['id'] ?? '');
         $nombre = $this->actividad ? $this->actividad->nombre() : ($datos['nombre'] ?? '');
         $localizacion = $this->actividad ? $this->actividad->localizacion() : ($datos['localizacion'] ?? '');
-        $fecha_hora = $this->actividad ? $this->actividad->fecha_hora() : ($datos['fecha_hora'] ?? '');
+        $fecha_hora = $this->actividad ? date('Y-m-d\TH:i', strtotime($this->actividad->fecha_hora())) : ($datos['fecha_hora'] ?? '');
         $descripcion = $this->actividad ? $this->actividad->descripcion() : ($datos['descripcion'] ?? '');
+        $aforo = $this->actividad ? $this->actividad->aforo() : ($datos['aforo'] ?? '');
+
 
         // Se genera el formulario con los valores actuales de la actividad
         $html = <<<EOF
@@ -34,6 +36,7 @@ class modificarActividadForm extends formBase
             <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
             <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
             <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
+            <p><label>Aforo:</label> <input type="text" name="aforo" value="$aforo" required/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <button type="submit" name="modificar">Guardar Cambios</button>
         </fieldset>
