@@ -45,7 +45,7 @@ function gestorExcepciones(Throwable $exception)
 }
 
 // Registrar la función para manejar excepciones globales
-//set_exception_handler('gestorExcepciones');
+ set_exception_handler('gestorExcepciones');
 
 // Función que genera un rastreo detallado de la excepción
 function jTraceEx($e, $seen = null) 
