@@ -1,5 +1,4 @@
 <?php
-
 // Se incluyen las dependencias necesarias
 require("IActividad.php");
 require("actividadDTO.php");
@@ -28,21 +27,22 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            // Se extraen los valores del DTO en variables antes de pasarlos a bind_param()
+            $nombre = $actividadDTO->nombre();
+            $localizacion = $actividadDTO->localizacion();
+            $fecha_hora = $actividadDTO->fecha_hora();
+            $descripcion = $actividadDTO->descripcion();
+            $aforo = $actividadDTO->aforo();
+            $dirigida = $actividadDTO->dirigida();
+
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ssssii", 
-                $actividadDTO->nombre(), 
-                $actividadDTO->localizacion(), 
-                $actividadDTO->fecha_hora(), 
-                $actividadDTO->descripcion(),
-                $actividadDTO->aforo(),
-                $actividadDTO->dirigida()
-            );
+            $stmt->bind_param("ssssii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
 
             // Ejecutar la consulta
             if ($stmt->execute()) {
                 // Obtener el ID generado por la inserción
                 $idActividad = $conn->insert_id;
-                return new actividadDTO($idActividad, $actividadDTO->nombre(), $actividadDTO->localizacion(), $actividadDTO->fecha_hora(), $actividadDTO->descripcion(), $actividadDTO->aforo(), $actividadDTO->dirigida());
+                return new actividadDTO($idActividad, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
             }
         } catch (mysqli_sql_exception $e) {
             throw $e;
@@ -68,8 +68,9 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            $id = $actividadDTO->id();
             // Se vincula el parámetro ID
-            $stmt->bind_param("i", $actividadDTO->id());
+            $stmt->bind_param("i", $id);
             $resultado = $stmt->execute();
             return $resultado;
         } catch (mysqli_sql_exception $e) {
@@ -95,16 +96,17 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            // Se extraen los valores en variables antes de pasarlos a bind_param()
+            $nombre = $actividadDTO->nombre();
+            $localizacion = $actividadDTO->localizacion();
+            $fecha_hora = $actividadDTO->fecha_hora();
+            $descripcion = $actividadDTO->descripcion();
+            $aforo = $actividadDTO->aforo();
+            $dirigida = $actividadDTO->dirigida();
+            $id = $actividadDTO->id();
+
             // Se vinculan los parámetros
-            $stmt->bind_param("ssssiii", 
-                $actividadDTO->nombre(), 
-                $actividadDTO->localizacion(), 
-                $actividadDTO->fecha_hora(), 
-                $actividadDTO->descripcion(),
-                $actividadDTO->aforo(),
-                $actividadDTO->dirigida(),
-                $actividadDTO->id(),
-            );
+            $stmt->bind_param("ssssiii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $id);
 
             $resultado = $stmt->execute();
             return $resultado;

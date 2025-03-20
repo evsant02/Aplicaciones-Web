@@ -1,5 +1,4 @@
 <?php
-
 // Clase base para la gestión de formularios.
 abstract class formBase
 {
