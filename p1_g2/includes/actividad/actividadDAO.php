@@ -42,11 +42,13 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $actividadDTO->nombre(), $actividadDTO->localizacion(), $actividadDTO->fecha_hora(), $actividadDTO->descripcion());
             }
-            $stmt->close();
         } catch (mysqli_sql_exception $e) {
             throw $e;
+        } finally {
+            if ($stmt) {
+                $stmt->close(); // Asegura que el statement se cierra siempre
+            }
         }
-
         return false;
     }
 
@@ -67,10 +69,13 @@ class actividadDAO extends baseDAO implements IActividad
             // Se vincula el parámetro ID
             $stmt->bind_param("i", $actividadDTO->id());
             $resultado = $stmt->execute();
-            $stmt->close();
             return $resultado;
         } catch (mysqli_sql_exception $e) {
             throw $e;
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
         }
     }
 
@@ -98,12 +103,14 @@ class actividadDAO extends baseDAO implements IActividad
             );
 
             $resultado = $stmt->execute();
-            $stmt->close();
             return $resultado;
         } catch (mysqli_sql_exception $e) {
             throw $e;
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
         }
-        
     }
 
     // Método para obtener una actividad por su ID
@@ -129,24 +136,19 @@ class actividadDAO extends baseDAO implements IActividad
             }
 
             // Variables para almacenar los resultados
-            $nombre = null;
-            $localizacion = null;
-            $fecha_hora = null; 
-            $descripcion = null;
-
-            // Se vinculan los resultados
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion);
 
             // Si se encuentra la actividad, se devuelve un objeto actividadDTO
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
             }
-
         } catch (Exception $e) {
-            // Manejo de errores general
             throw new Exception("Error al obtener la actividad: " . $e->getMessage());
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
         }
-
         return null; // No se encontró la actividad
     }
 
@@ -166,27 +168,20 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Se ejecuta la consulta
             $stmt->execute();
-
-            // Variables para almacenar los resultados
-            $id = null;
-            $nombre = null;
-            $localizacion = null;
-            $fecha_hora = null; 
-            $descripcion = null;
-
-            $actividades = [];
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion);
 
-            // Se recorren los resultados y se almacenan en un array de objetos actividadDTO
+            $actividades = [];
             while ($stmt->fetch()) {
-                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
-                $actividades[] = $actividadDTO;
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
             }
 
             return $actividades;
-
         } catch (mysqli_sql_exception $e) {
             throw $e;
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
         }
     }
 }

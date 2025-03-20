@@ -42,35 +42,30 @@ class userDAO extends baseDAO implements IUser
             die("Error de conexión: " . $conn->connect_error);
         }
 
-        // Consulta SQL para obtener los datos del usuario
         $query = "SELECT id, nombre, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
-
         $stmt = $conn->prepare($query);
-        
+
         if (!$stmt) {
             die("Error al preparar la consulta: " . $conn->error);
         }
 
-        // Asigna el parámetro a la consulta
-        $stmt->bind_param("s", $escid);
+        try {
+            $stmt->bind_param("s", $escid);
 
-        if (!$stmt->execute()) {
-            die("Error en la consulta: " . $stmt->error);
-        }
+            if (!$stmt->execute()) {
+                die("Error en la consulta: " . $stmt->error);
+            }
 
-        // Variables para almacenar los resultados de la consulta
-        $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
+            $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
 
-        var_dump($escid); // Debugging: muestra el ID buscado
+            if ($stmt->fetch()) {
+                return new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
+            }
 
-        // Si se encuentra un usuario, lo devuelve como un objeto userDTO
-        if ($stmt->fetch()) {
-            var_dump($id, $password); // Debugging: muestra los valores obtenidos
+            return false;
+        } finally {
             $stmt->close();
-            return new userDTO($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
         }
-
-        return false; // Si no encuentra el usuario, devuelve falso
     }
 
     // Método para crear un nuevo usuario en la base de datos
@@ -78,9 +73,7 @@ class userDAO extends baseDAO implements IUser
     {
         $createdUserDTO = false;
 
-        try
-        {
-            // Escapa los valores para evitar inyección SQL
+        try {
             $escId = $this->realEscapeString($userDTO->id());
             $escNombre = $this->realEscapeString($userDTO->nombre());
             $escApellidos = $this->realEscapeString($userDTO->apellidos());
@@ -88,17 +81,11 @@ class userDAO extends baseDAO implements IUser
             $escTipo = $this->realEscapeString($userDTO->tipo());
             $escCorreo = $this->realEscapeString($userDTO->correo());
 
-            // Cifra la contraseña antes de almacenarla
             $hashedPassword = self::hashPassword($userDTO->password());
 
-            var_dump($escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo); // Debugging
-
-            // Obtiene la conexión a la base de datos
             $conn = application::getInstance()->getConexionBd();
-
-            // Consulta SQL para insertar un nuevo usuario
             $query = "INSERT INTO Usuarios (id, nombre, apellidos, password, fecha_nacimiento, tipo, correo) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+                      VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($query);
 
@@ -106,24 +93,18 @@ class userDAO extends baseDAO implements IUser
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            // Asigna los parámetros a la consulta
-            $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+            try {
+                $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
-            // Ejecuta la consulta y verifica si se insertó correctamente
-            if ($stmt->execute()) {
-                $idUser = $conn->insert_id; // Obtiene el ID del usuario insertado
-
-                $createdUserDTO = new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+                if ($stmt->execute()) {
+                    $idUser = $conn->insert_id;
+                    $createdUserDTO = new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+                }
+            } finally {
                 $stmt->close();
-                return $createdUserDTO;
             }
-            $stmt->close();
-        }
-        catch (mysqli_sql_exception $e)
-        {
-            // Maneja la excepción si el usuario ya existe en la base de datos
-            if ($conn->sqlstate == 23000) 
-            { 
+        } catch (mysqli_sql_exception $e) {
+            if ($conn->sqlstate == 23000) { 
                 throw new userAlreadyExistException("Ya existe el usuario '{$userDTO->id()}'");
             }
 
@@ -142,16 +123,15 @@ class userDAO extends baseDAO implements IUser
     // Método para verificar una contraseña ingresada con la almacenada en la base de datos
     private static function testHashPassword($password, $hashedPassword)
     {
-        var_dump($password);
-        var_dump($hashedPassword);
+        //var_dump($password);
+        //var_dump($hashedPassword);
 
-        // Si la contraseña almacenada no tiene formato bcrypt, se compara en texto plano
         if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
             return $password === $hashedPassword;
         }
 
         $result = password_verify($password, $hashedPassword);
-        var_dump($result);
+        //var_dump($result);
         return $result;
     }
 
@@ -159,66 +139,66 @@ class userDAO extends baseDAO implements IUser
     public function existsByEmail($userDTO)
     {
         $correo = trim($this->realEscapeString($userDTO->correo()));
-
         $conn = application::getInstance()->getConexionBd();
-    
+
         if ($conn->connect_error) {
             die("Error de conexión: " . $conn->connect_error);
         }
-    
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
-    
         $stmt = $conn->prepare($query);
-        
+
         if (!$stmt) {
             die("Error al preparar la consulta: " . $conn->error);
         }
-    
-        $stmt->bind_param("s", $correo);
-        
-        if (!$stmt->execute()) {
-            die("Error en la consulta: " . $stmt->error);
-        }
 
-        $count = null;
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
-    
-        return $count > 0;
+        try {
+            $stmt->bind_param("s", $correo);
+
+            if (!$stmt->execute()) {
+                die("Error en la consulta: " . $stmt->error);
+            }
+
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            return $count > 0;
+        } finally {
+            $stmt->close();
+        }
     }
 
     // Método para verificar si un usuario existe por su ID
     public function existsById($userDTO)
     {
         $id = trim($this->realEscapeString($userDTO->id()));
-
         $conn = application::getInstance()->getConexionBd();
-    
+
         if ($conn->connect_error) {
             throw new Exception("Error de conexión: " . $conn->connect_error);
         }
-    
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
-    
         $stmt = $conn->prepare($query);
-    
+
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta: " . $conn->error);
         }
-    
-        $stmt->bind_param("s", $id);
-    
-        if (!$stmt->execute()) {
-            throw new Exception("Error en la consulta: " . $stmt->error);
-        }
 
-        $count = null;
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
-    
-        return $count > 0;
+        try {
+            $stmt->bind_param("s", $id);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error en la consulta: " . $stmt->error);
+            }
+
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            return $count > 0;
+        } finally {
+            $stmt->close();
+        }
     }
 }
 
