@@ -21,6 +21,7 @@ class crearActividadForm extends formBase
         $localizacion = $datos['localizacion'] ?? '';
         $fecha_hora = $datos['fecha_hora'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
+        $aforo = $datos['aforo'] ?? '';
 
         // Se genera el formulario en HTML
         $html = <<<EOF
@@ -29,6 +30,7 @@ class crearActividadForm extends formBase
             <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
             <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
             <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
+            <p><label>Aforo:</label> <input type="text" name="aforo" value="$aforo" required/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <button type="submit" name="crear">Crear</button>
         </fieldset>
@@ -46,6 +48,7 @@ EOF;
         $localizacion = trim($datos['localizacion'] ?? '');
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
+        $aforo = trim($datos['aforo'] ?? '');
 
         // Validaciones: se verifica que todos los campos estén completos
         if (empty($nombre)) {
@@ -57,6 +60,9 @@ EOF;
         if (empty($fecha_hora)) {
             $result[] = "Debe especificar la fecha y hora de la actividad.";
         }
+        if (empty($aforo)) {
+            $result[] = "Debe proporcionar el aforo de la actividad.";
+        }
         if (empty($descripcion)) {
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
@@ -65,7 +71,7 @@ EOF;
         if (count($result) === 0) {
             try {
                 // Se crea un objeto de actividad con los datos ingresados
-                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion);
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, 0);
 
                 // Se obtiene la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();

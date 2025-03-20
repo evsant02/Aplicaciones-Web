@@ -52,6 +52,7 @@ EOF;
         $localizacion = trim($datos['localizacion'] ?? '');
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
+        $aforo = trim($datos['aforo'] ?? '');
 
         // Validaciones: se asegura que los campos obligatorios no estén vacíos
         if (empty($id)) {
@@ -66,6 +67,9 @@ EOF;
         if (empty($fecha_hora)) {
             $result[] = "Debe especificar la fecha y hora de la actividad.";
         }
+        if (empty($aforo)) {
+            $result[] = "Debe especificar el aforo de la actividad.";
+        }
         if (empty($descripcion)) {
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
@@ -74,7 +78,7 @@ EOF;
         if (count($result) === 0) {
             try {
                 // Crear un nuevo objeto actividadDTO con los valores modificados
-                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion);
+                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, 0);
 
                 // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
