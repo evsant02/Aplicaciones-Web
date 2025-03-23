@@ -20,6 +20,12 @@ class actividadDAO extends baseDAO implements IActividad
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();
 
+            //escape de strings para evitar inyeccion sql
+            $escnombre = $this->realEscapeString($actividadDTO->nombre());
+            $esclocalizacion = $this->realEscapeString($actividadDTO->localizacion());
+            $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
+            $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
+
             // Consulta SQL para insertar una nueva actividad
             $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
@@ -30,10 +36,10 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Se vinculan los parámetros de la consulta
             $stmt->bind_param("ssss", 
-                $actividadDTO->nombre(), 
-                $actividadDTO->localizacion(), 
-                $actividadDTO->fecha_hora(), 
-                $actividadDTO->descripcion()
+                $escnombre, 
+                $esclocalizacion, 
+                $escfecha_hora, 
+                $escdescripcion
             );
 
             // Ejecutar la consulta
@@ -64,8 +70,9 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            // Se vincula el parámetro ID
-            $stmt->bind_param("i", $actividadDTO->id());
+            // Se vincula el parámetro ID y se escapa el string
+            $escid = $this -> realEscapeString($actividadDTO ->id());
+            $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
             $stmt->close();
             return $resultado;
@@ -88,13 +95,20 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            //escape de strings para evitar inyecciones de SQL
+            $escnombre = $this->realEscapeString($actividadDTO->nombre());
+            $esclocalizacion = $this->realEscapeString($actividadDTO->localizacion());
+            $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
+            $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
+            $escid = $this -> realEscapeString($actividadDTO ->id());
+
             // Se vinculan los parámetros
             $stmt->bind_param("ssssi", 
-                $actividadDTO->nombre(), 
-                $actividadDTO->localizacion(), 
-                $actividadDTO->fecha_hora(), 
-                $actividadDTO->descripcion(),
-                $actividadDTO->id()
+                $escnombre, 
+                $esclocalizacion, 
+                $escfecha_hora, 
+                $escdescripcion,
+                $escid
             );
 
             $resultado = $stmt->execute();
@@ -120,8 +134,9 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
+            $escid = $this->realEscapeString($id);
             // Se vincula el parámetro ID
-            $stmt->bind_param("i", $id);
+            $stmt->bind_param("i", $escid);
 
             // Se ejecuta la consulta
             if (!$stmt->execute()) {

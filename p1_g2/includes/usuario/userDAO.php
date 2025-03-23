@@ -61,7 +61,7 @@ class userDAO extends baseDAO implements IUser
         // Variables para almacenar los resultados de la consulta
         $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
 
-        var_dump($escid); // Debugging: muestra el ID buscado
+        //var_dump($escid); // Debugging: muestra el ID buscado
 
         // Si se encuentra un usuario, lo devuelve como un objeto userDTO
         if ($stmt->fetch()) {
@@ -142,8 +142,8 @@ class userDAO extends baseDAO implements IUser
     // Método para verificar una contraseña ingresada con la almacenada en la base de datos
     private static function testHashPassword($password, $hashedPassword)
     {
-        var_dump($password);
-        var_dump($hashedPassword);
+       // var_dump($password);
+       // var_dump($hashedPassword);
 
         // Si la contraseña almacenada no tiene formato bcrypt, se compara en texto plano
         if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
@@ -151,7 +151,7 @@ class userDAO extends baseDAO implements IUser
         }
 
         $result = password_verify($password, $hashedPassword);
-        var_dump($result);
+        //var_dump($result);
         return $result;
     }
 
