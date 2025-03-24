@@ -4,7 +4,7 @@
 require_once("application.php");
 
 // Definir constantes de conexión a la base de datos
-define('BD_HOST', 'localhost');
+define('BD_HOST', 'vm017.db.swarm.test');
 define('BD_NAME', 'aw');        // Nombre de la base de datos
 define('BD_USER', 'AW');        // Usuario de la base de datos
 define('BD_PASS', 'Conecta65'); // Contraseña de la base de datos
