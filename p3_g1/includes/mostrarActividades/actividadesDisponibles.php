@@ -58,6 +58,8 @@ class actividadesDisponibles
 
     //muestra las actividades HTML 
     public function mostrar($tipo_usuario) {
+        $user = application::getInstance()->getUserDTO();
+        $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
         $html .= '<img src="img/' . $this->imagen . '" alt="' . $this->titulo . '">';
         $html .= '<h3>' . $this->titulo . '</h3>';
