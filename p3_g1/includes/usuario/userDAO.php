@@ -116,6 +116,27 @@ class userDAO extends baseDAO implements IUser
         return $createdUserDTO;
     }
 
+    // Método para cifrar una contraseña usando bcrypt
+    private static function hashPassword($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    // Método para verificar una contraseña ingresada con la almacenada en la base de datos
+    private static function testHashPassword($password, $hashedPassword)
+    {
+        //var_dump($password);
+        //var_dump($hashedPassword);
+
+        if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
+            return $password === $hashedPassword;
+        }
+
+        $result = password_verify($password, $hashedPassword);
+        //var_dump($result);
+        return $result;
+    }
+
     // Método para verificar si un usuario existe por su ID
     public function existsById($userDTO)
     {
