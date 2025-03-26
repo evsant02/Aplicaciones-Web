@@ -253,9 +253,6 @@ class actividadDAO extends baseDAO implements IActividad
     }
 
 
-//Holaaaaaa
-
-
 
 
 
