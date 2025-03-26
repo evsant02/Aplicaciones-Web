@@ -82,7 +82,7 @@ class actividadAppService
     {
         //si es admin, se muestran todas las actividades
         if (application::getInstance()->soyAdmin()){            
-            $actividades= this->obtenerTodasLasActividades();
+            $actividades= $this->obtenerTodasLasActividades();
         }
 
         //si es voluntario, se muestran solo aquellas que no están dirigidas
