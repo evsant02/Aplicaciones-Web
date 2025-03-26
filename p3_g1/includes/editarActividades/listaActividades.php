@@ -3,7 +3,7 @@
 include __DIR__ . "/../comun/formBase.php";
 include __DIR__ . "/../actividad/actividadAppService.php";
 
-// Clase que gestiona la lista de actividades
+// Clase que gestiona la lista de actividades, no tiene que extender de formBase
 class listaActividades extends formBase
 {
     // Constructor: inicializa la clase con un identificador único
