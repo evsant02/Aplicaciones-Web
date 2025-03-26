@@ -1,19 +1,12 @@
 <?php
-// Se incluyen archivos necesarios: la base de formularios y el servicio de actividades
-include __DIR__ . "/../comun/formBase.php";
+// Se incluyen archivos necesarios
 include __DIR__ . "/../actividad/actividadAppService.php";
 
-// Clase que gestiona la lista de actividades, no tiene que extender de formBase
-class listaActividades extends formBase
+// Clase que gestiona la lista de actividades
+class listaActividades 
 {
-    // Constructor: inicializa la clase con un identificador único
-    public function __construct() 
-    {
-        parent::__construct('listaActividades');
-    }
-
     // Método que genera la interfaz de la lista de actividades
-    protected function CreateFields($datos)
+    public function generarListado()
     {
         // Encabezado de la sección
         $html = <<<EOF
@@ -51,11 +44,4 @@ EOF;
 
         return $html;
     }
-
-    // Método de procesamiento (no se necesita en este caso)
-    protected function Process($datos)
-    {
-        return [];
-    }
 }
-?>

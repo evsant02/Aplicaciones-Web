@@ -77,6 +77,33 @@ class actividadAppService
         return $actividades;
     }
 
+    public function obtenerActividadSegunUsuario()
+    {
+        if (application::getInstance()->soyAdmin()){            
+            obtenerTodasLasActividades();
+
+        }
+
+        if (application::getInstance()->soyVoluntario()){            
+            // Se obtiene una instancia del DAO
+            $IActividadDAO = actividadFactory::CreateActividad();
+            // Se llama al método de consulta
+            $actividades = $IActividadDAO->obtenerActSinDirigir();
+           
+
+        }
+
+        if (application::getInstance()->soyUsuario()){
+            // Se obtiene una instancia del DAO
+            $IActividadDAO = actividadFactory::CreateActividad();
+            // Se llama al método de consulta
+            $actividades = $IActividadDAO->obtenerActSinCompletar();
+
+        }
+
+    }
+
+    
     // Método para obtener una actividad específica por su ID
     public function getActividadById($id)
     {

@@ -2,6 +2,7 @@
 include __DIR__ . "/../comun/formBase.php";
 include 'Actividad.php';
 
+//NO TIENE QUE SER UN FORMULARIO POR ESO DABA ERROR CON LO DEL ID
 class reservarActividad extends formBase
 {
     private $actividad;

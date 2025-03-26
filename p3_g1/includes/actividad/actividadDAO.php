@@ -190,5 +190,78 @@ class actividadDAO extends baseDAO implements IActividad
             }
         }
     }
+
+
+    //Método para obtener actividades que todavia no están dirigidas por un usuario
+    public function obtenerActSinDirigir(){
+        try{
+            $$conn = application::getInstance()->getConexionBd();
+
+            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades WHERE dirigida = 0";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            // Se ejecuta la consulta
+            $stmt->execute();
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+
+            $actividades = [];
+            while ($stmt->fetch()) {
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            }
+
+            return $actividades;
+
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
+        }
+    }
+
+
+    public function obtenerActSinCompletar(){
+        try{
+            $$conn = application::getInstance()->getConexionBd();
+
+            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
+            $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            // Se ejecuta la consulta
+            $stmt->execute();
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+
+            $actividades = [];
+            while ($stmt->fetch()) {
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            }
+
+            return $actividades;
+
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>
