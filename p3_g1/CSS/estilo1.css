@@ -201,3 +201,37 @@ img {
 		align-items: center;
 	}
 }
+
+/* ============================= */
+/* NUEVOS ESTILOS AÑADIDOS */
+/* ============================= */
+
+/* Estilos para el contenedor principal de bienvenida */
+.welcome-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilos para el logo en la página de bienvenida */
+.welcome-container .logo {
+    max-width: 200px;
+}
+
+/* Estilos para el botón de inicio de sesión */
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para el botón de inicio de sesión */
+.login-button:hover {
+    background-color: #0056b3;
+}
