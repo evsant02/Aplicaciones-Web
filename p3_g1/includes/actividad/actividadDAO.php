@@ -225,7 +225,7 @@ class actividadDAO extends baseDAO implements IActividad
 
     public function obtenerActSinCompletar(){
         try{
-            $$conn = application::getInstance()->getConexionBd();
+            $conn = application::getInstance()->getConexionBd();
 
             $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
             $stmt = $conn->prepare($query);
