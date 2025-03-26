@@ -195,7 +195,7 @@ class actividadDAO extends baseDAO implements IActividad
     //Método para obtener actividades que todavia no están dirigidas por un usuario
     public function obtenerActSinDirigir(){
         try{
-            $$conn = application::getInstance()->getConexionBd();
+            $conn = application::getInstance()->getConexionBd();
 
             $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades WHERE dirigida = 0";
             $stmt = $conn->prepare($query);
