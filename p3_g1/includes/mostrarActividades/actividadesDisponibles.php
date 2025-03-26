@@ -21,10 +21,9 @@ class actividadesDisponibles
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
 
-        //$tipo_usuario = $_SESSION["tipo"]; 
-
+        //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
-        //$user->tipo();
+        $tipo_user = $user->tipo();
 
         
         //$html = '<table><tr>';
@@ -40,8 +39,7 @@ class actividadesDisponibles
                 }
                 $colCount++;
                 
-                $html .= '<td>' . $actividad->mostrar($user->tipo()) . '</td>'; //mostrar deberia ser un metodo nuevo ya no de la clase Actividad.php
-            
+                $html .= '<td>' . $actividad->mostrar($tipo_user) . '</td>';             
         }
         
         $html .= '</tr></table>';
@@ -65,20 +63,20 @@ class actividadesDisponibles
         $html .= '<h3>' . $this->titulo . '</h3>';
         $html .= '<p class="descripcion">' . $this->descripcion . '</p>';
         //usuario
-        if ($user->tipo() == 1){            
+        if ($tipo_user == 1){            
             $html .= '<a href="vistaReservaActividad.php?id=' . $this->id . '" class="btn">Reservar</a>';
 
         }
         //voluntario
-        if ($user->tipo() == 2){
+        if ($tipo_user == 2){
             $html .= '<a href="vistaDirigirActividad.php?id=' . $this->id . '" class="btn">Dirigir</a>';
 
         }
         //administrador: dos botones
-        if ($user->tipo() == 0){
+        if ($tipo_user == 0){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="vistaReservaActividad.php?id=' . $this->id . '" class="btn">Modificar</a>';
-            $html .= '<a href="vistaReservaActividad.php?id=' . $this->id . '" class="btn">Eliminar</a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $this->id . '" class="btn">Modificar</a>';
+            $html .= '<a href="EliminarActividad.php?id=' . $this->id . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         

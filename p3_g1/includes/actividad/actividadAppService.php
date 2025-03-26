@@ -77,22 +77,24 @@ class actividadAppService
         return $actividades;
     }
 
+    //Método par obtener las actividades segun el tipo de usuario
     public function obtenerActividadSegunUsuario()
     {
+        //si es admin, se muestran todas las actividades
         if (application::getInstance()->soyAdmin()){            
             obtenerTodasLasActividades();
-
         }
 
+        //si es voluntario, se muestran solo aquellas que no están dirigidas
         if (application::getInstance()->soyVoluntario()){            
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $actividades = $IActividadDAO->obtenerActSinDirigir();
-           
+            $actividades = $IActividadDAO->obtenerActSinDirigir();           
 
         }
 
+        //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
         if (application::getInstance()->soyUsuario()){
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
