@@ -25,7 +25,6 @@ class actividadesDisponibles
         //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
-        echo 'HOLA';
         var_dump($tipo_user);
         //$html = '<table><tr>';
         //habia que poner el nommbre para que lo pillara
