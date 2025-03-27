@@ -37,18 +37,26 @@ class userDAO extends baseDAO implements IUser
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
+        // Verifica si hubo un error de conexión
+        /*
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión: " . $conn->connect_error);
+        }
+        */
+
         $query = "SELECT id, nombre, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
         $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $conn->error);
+        }
 
         try {
             $stmt->bind_param("s", $escid);
 
-            $stmt->execute();
-            /*
             if (!$stmt->execute()) {
                 throw new Exception("Error en la consulta: " . $stmt->error);
             }
-            */
 
             $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
 
@@ -83,8 +91,12 @@ class userDAO extends baseDAO implements IUser
 
             $stmt = $conn->prepare($query);
 
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
             try {
-                $stmt->bind_param("sssssis", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+                $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
                 if ($stmt->execute()) {
                     $idUser = $conn->insert_id;
@@ -113,12 +125,15 @@ class userDAO extends baseDAO implements IUser
     // Método para verificar una contraseña ingresada con la almacenada en la base de datos
     private static function testHashPassword($password, $hashedPassword)
     {
+        //var_dump($password);
+        //var_dump($hashedPassword);
 
         if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
             return $password === $hashedPassword;
         }
 
         $result = password_verify($password, $hashedPassword);
+        //var_dump($result);
         return $result;
     }
 
@@ -128,18 +143,25 @@ class userDAO extends baseDAO implements IUser
         $id = trim($this->realEscapeString($userDTO->id()));
         $conn = application::getInstance()->getConexionBd();
 
+        /*
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión: " . $conn->connect_error);
+        }
+        */
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
         $stmt = $conn->prepare($query);
 
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $conn->error);
+        }
+
         try {
             $stmt->bind_param("s", $id);
-            
-            $stmt->execute();
-            /*
+
             if (!$stmt->execute()) {
                 throw new Exception("Error en la consulta: " . $stmt->error);
             }
-            */
 
             $stmt->bind_result($count);
             $stmt->fetch();
@@ -156,18 +178,25 @@ class userDAO extends baseDAO implements IUser
         $correo = trim($this->realEscapeString($userDTO->correo()));
         $conn = application::getInstance()->getConexionBd();
 
+        /*
+        if ($conn->connect_error) {
+            throw new Exception("Error de conexión: " . $conn->connect_error);
+        }
+        */
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
         $stmt = $conn->prepare($query);
+
+        if (!$stmt) {
+            throw new Exception("Error al preparar la consulta: " . $conn->error);
+        }
 
         try {
             $stmt->bind_param("s", $correo);
 
-            $stmt->execute()
-            /*
             if (!$stmt->execute()) {
                 throw new Exception("Error en la consulta: " . $stmt->error);
             }
-            */
 
             $stmt->bind_result($count);
             $stmt->fetch();

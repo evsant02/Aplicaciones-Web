@@ -23,6 +23,10 @@ class actividadDAO extends baseDAO implements IActividad
             $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
 
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
             // Se extraen los valores del DTO en variables antes de pasarlos a bind_param()
             $nombre = $actividadDTO->nombre();
             $localizacion = $actividadDTO->localizacion();
@@ -40,7 +44,7 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
             }
-        } catch (mysqli_sql_exception $e) { //
+        } catch (mysqli_sql_exception $e) {
             throw $e;
         } finally {
             if ($stmt) {
@@ -59,6 +63,10 @@ class actividadDAO extends baseDAO implements IActividad
             // Consulta SQL para eliminar una actividad por su ID
             $query = "DELETE FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
 
             $id = $actividadDTO->id();
             // Se vincula el parámetro ID
@@ -83,6 +91,10 @@ class actividadDAO extends baseDAO implements IActividad
             // Consulta SQL para actualizar los datos de una actividad
             $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
 
             // Se extraen los valores en variables antes de pasarlos a bind_param()
             $nombre = $actividadDTO->nombre();
@@ -117,16 +129,17 @@ class actividadDAO extends baseDAO implements IActividad
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
 
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
             // Se vincula el parámetro ID
             $stmt->bind_param("i", $id);
 
             // Se ejecuta la consulta
-            $stmt->execute();
-            /*
             if (!$stmt->execute()) {
                 throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
             }
-            */
 
             // Variables para almacenar los resultados
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
@@ -135,8 +148,8 @@ class actividadDAO extends baseDAO implements IActividad
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
             }
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+        } catch (Exception $e) {
+            throw new Exception("Error al obtener la actividad: " . $e->getMessage());
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -154,6 +167,10 @@ class actividadDAO extends baseDAO implements IActividad
             // Consulta SQL para obtener todas las actividades
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades";
             $stmt = $conn->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
 
             // Se ejecuta la consulta
             $stmt->execute();

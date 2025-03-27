@@ -36,16 +36,15 @@ CREATE TABLE `actividades` (
   `fecha_hora` datetime(6) NOT NULL,
   `descripcion` text NOT NULL,
   `aforo` tinyint(3) NOT NULL,
-  `dirigida` tinyint(1) NOT NULL,
-  `ocupacion` tinyint(3) NOT NULL
+  `dirigida` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `actividades`
 --
 
-INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`) VALUES
-(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.', 10, 1, 0);
+INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`) VALUES
+(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.', 10, 1);
 
 -- --------------------------------------------------------
 
