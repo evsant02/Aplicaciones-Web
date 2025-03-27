@@ -1,6 +1,6 @@
 <?php
 include 'Actividad.php';
-
+include __DIR__ . "/../actividad/actividadAppService.php";
 // Clase que gestiona la lista de actividades disponibles
 class actividadesDisponibles 
 {
@@ -25,20 +25,15 @@ class actividadesDisponibles
         //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
-        var_dump($tipo_user);
-        //$html = '<table><tr>';
         //habia que poner el nommbre para que lo pillara
         $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
-
         $colCount = 0;
 
         foreach ($this->actividades as $actividad) {       
-                
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
-                
                 $html .= '<td>' . $actividad->mostrar($actividad,$tipo_user) . '</td>';             
         }
         
