@@ -20,12 +20,13 @@ class actividadesDisponibles
     public function generarListado()
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
-
+        $actividadAppService = actividadAppService::GetSingleton();
+        $actividades = $actividadAppService->obtenerActividadSegunUsuario();  
         //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
 
-        
+        var_dump($tipo_user);
         //$html = '<table><tr>';
         //habia que poner el nommbre para que lo pillara
         $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
