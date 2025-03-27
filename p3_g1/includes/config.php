@@ -32,7 +32,7 @@ function gestorExcepciones(Throwable $exception)
     error_log(jTraceEx($exception)); // Registrar el error en el log del servidor
 
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
-
+    var_dump($exception->getMessage());
     $tituloPagina = 'Error';
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
