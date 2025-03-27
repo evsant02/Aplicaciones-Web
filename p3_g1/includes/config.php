@@ -39,7 +39,6 @@ function gestorExcepciones(Throwable $exception)
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>
     <p> Parece que ha habido un fallo.</p>
-    <p> HOLITA </p>
     EOS;
 
     require("comun/plantilla.php"); // Mostrar la plantilla de error
