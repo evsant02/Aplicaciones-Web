@@ -12,20 +12,20 @@ class actividadesDisponibles
     }
 
     // dependiendo del tipo de usuario se muestran diferentes actividades
+
     private function obtenerActividades(){
         $actividadAppService = actividadAppService::GetSingleton();
-        $actividades = $actividadAppService->obtenerActividadSegunUsuario();        
+        $actividades = $actividadAppService->obtenerActividadSegunUsuario();
+        return $actividades;        
     }
 
     public function generarListado()
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
-        $actividadAppService = actividadAppService::GetSingleton();
-        $actividades = $actividadAppService->obtenerActividadSegunUsuario();  
         //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
-
+        echo 'HOLA';
         var_dump($tipo_user);
         //$html = '<table><tr>';
         //habia que poner el nommbre para que lo pillara
@@ -40,7 +40,7 @@ class actividadesDisponibles
                 }
                 $colCount++;
                 
-                $html .= '<td>' . $actividad->mostrar($tipo_user) . '</td>';             
+                $html .= '<td>' . $actividad->mostrar($actividad,$tipo_user) . '</td>';             
         }
         
         $html .= '</tr></table>';
@@ -58,28 +58,28 @@ class actividadesDisponibles
 
 
     //muestra las actividades HTML 
-    public function mostrar($tipo_usuario) {
+    public function mostrar($actividad, $tipo_usuario) {
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
-        $html .= '<img src="img/' . $this->imagen . '" alt="' . $this->titulo . '">';
-        $html .= '<h3>' . $this->titulo . '</h3>';
-        $html .= '<p class="descripcion">' . $this->descripcion . '</p>';
+        $html .= '<img src="img/' . $actividad->imagen . '" alt="' . $actividad->titulo . '">';
+        $html .= '<h3>' . $actividad->titulo . '</h3>';
+        $html .= '<p class="descripcion">' . $actividad->descripcion . '</p>';
         //usuario
         if ($tipo_user == 1){            
-            $html .= '<a href="vistaReservaActividad.php?id=' . $this->id . '" class="btn">Reservar</a>';
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividad->id . '" class="btn">Reservar</a>';
 
         }
         //voluntario
         if ($tipo_user == 2){
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $this->id . '" class="btn">Dirigir</a>';
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividad->id . '" class="btn">Dirigir</a>';
 
         }
         //administrador: dos botones
         if ($tipo_user == 0){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $this->id . '" class="btn">Modificar</a>';
-            $html .= '<a href="EliminarActividad.php?id=' . $this->id . '" class="btn">Eliminar</a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $actividad->id . '" class="btn">Modificar</a>';
+            $html .= '<a href="EliminarActividad.php?id=' . $actividad->id . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         

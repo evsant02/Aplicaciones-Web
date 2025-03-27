@@ -87,7 +87,7 @@ class actividadAppService
         }
 
         //si es voluntario, se muestran solo aquellas que no están dirigidas
-        if (application::getInstance()->soyVoluntario()){            
+        else if (application::getInstance()->soyVoluntario()){            
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
@@ -96,7 +96,7 @@ class actividadAppService
         }
 
         //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
-        if (application::getInstance()->soyUsuario()){
+        else {
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
