@@ -42,20 +42,23 @@ nav ul li a:hover {
 
 body {
 	background-color: #bedcfa;
-	margin: 20px;
+	margin: 0; /* Elimina el margen de 20px */
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	width: 100%;
 	position: center;
+	overflow-x: hidden; /* Evita el scroll horizontal */
 }
 
+
 header {
-	padding: 15px;
+	padding: 30px;  
 	background-color: #a1ccf8;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
+	
 }
+
 
 footer {
 	clear: both;
@@ -76,7 +79,8 @@ main {
 	border-color: #555;
 	border-width: 0.5px;
 	border: solid;
-	margin: 20px;
+	margin: 20px auto; /* Auto en los lados lo centrará */
+	max-width: 90%; /* Asegura que no se pase del ancho de la pantalla */
 }
 
 .donarForm fieldset {  
@@ -203,7 +207,7 @@ img {
 }
 
 /* ============================= */
-/* NUEVOS ESTILOS AÑADIDOS */
+/* NUEVOS ESTILOS PARA EL INDEX */
 /* ============================= */
 
 /* Estilos para el contenedor principal de bienvenida */
@@ -235,3 +239,4 @@ img {
 .login-button:hover {
     background-color: #0056b3;
 }
+
