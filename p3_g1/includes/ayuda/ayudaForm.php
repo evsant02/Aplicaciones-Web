@@ -113,7 +113,7 @@ class ayudaForm extends formBase {
         if ($mailSent) {
             $mensaje = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
         } else {
-            $message = "Hubo un error al enviar el correo. Inténtelo de nuevo más tarde.";
+            $mensaje = "Hubo un error al enviar el correo. Inténtelo de nuevo más tarde.";
         }
 
         $app->putAtributoPeticion('mensaje', $mensaje);
