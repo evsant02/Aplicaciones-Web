@@ -246,7 +246,7 @@ img {
 /* ============================= */
 
 .mensaje-exito {
-    background-color: #dff0d8;
+    background-color: black;
     color: #3c763d;
     padding: 10px;
     margin: 15px 0;
@@ -255,7 +255,7 @@ img {
 }
 
 .mensaje-error {
-    background-color: #f2dede;
+    background-color: black;
     color: #a94442;
     padding: 10px;
     margin: 15px 0;

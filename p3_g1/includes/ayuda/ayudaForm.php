@@ -8,62 +8,43 @@ class ayudaForm extends formBase {
     }
     
     protected function CreateFields($datos) {
-        // Mostrar mensaje de éxito si existe
-        $mensaje = '';
-        if (isset($datos['mensaje'])) {
-            $mensaje = '<div class="mensaje-exito">' . htmlspecialchars($datos['mensaje']) . '</div>';
-        }
-        
-        // Mostrar mensajes de error si existen
-        $errores = '';
-        if (isset($datos['errores']) && is_array($datos['errores'])) {
-            foreach ($datos['errores'] as $error) {
-                $errores .= '<div class="mensaje-error">' . htmlspecialchars($error) . '</div>';
-            }
-        }
-
         $html = <<<EOF
-        {$mensaje}
-        {$errores}
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required>
         
-        <form method="post" action="">
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre" value="{$this->escape($datos['nombre'] ?? '')}" required>
+        <br><br>
+        
+        <label for="email">Dirección de email:</label><br>
+        <input type="email" id="email" name="email" required>
+        
+        <br><br>
+        
+        <fieldset>
+            <legend>Motivo de la consulta:</legend>
+            <input type="radio" id="evaluacion" name="motivo" value="Evaluación" required>
+            <label for="evaluacion">Evaluación</label>
             
-            <br><br>
+            <input type="radio" id="sugerencias" name="motivo" value="Sugerencias">
+            <label for="sugerencias">Sugerencias</label>
             
-            <label for="email">Dirección de email:</label><br>
-            <input type="email" id="email" name="email" value="{$this->escape($datos['email'] ?? '')}" required>
-            
-            <br><br>
-            
-            <fieldset>
-                <legend>Motivo de la consulta:</legend>
-                <input type="radio" id="evaluacion" name="motivo" value="Evaluación" {$this->checked($datos['motivo'] ?? '', 'Evaluación')} required>
-                <label for="evaluacion">Evaluación</label>
+            <input type="radio" id="criticas" name="motivo" value="Críticas">
+            <label for="criticas">Críticas</label>
+        </fieldset>
+        
+        <br>
+        
+        <label for="consulta">Escriba su consulta:</label><br>
+        <textarea id="consulta" name="consulta" rows="4" cols="80" required></textarea>
+        
+        <br><br>
+        
+        <input type="checkbox" id="terminos" name="terminos" required>
+        <label for="terminos">Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</label>
+        
+        <br><br>
                 
-                <input type="radio" id="sugerencias" name="motivo" value="Sugerencias" {$this->checked($datos['motivo'] ?? '', 'Sugerencias')}>
-                <label for="sugerencias">Sugerencias</label>
-                
-                <input type="radio" id="criticas" name="motivo" value="Críticas" {$this->checked($datos['motivo'] ?? '', 'Críticas')}>
-                <label for="criticas">Críticas</label>
-            </fieldset>
-            
-            <br>
-            
-            <label for="consulta">Escriba su consulta:</label><br>
-            <textarea id="consulta" name="consulta" rows="4" cols="80" required>{$this->escape($datos['consulta'] ?? '')}</textarea>
-            
-            <br><br>
-            
-            <input type="checkbox" id="terminos" name="terminos" {$this->checked($datos['terminos'] ?? '', 'on')} required>
-            <label for="terminos">Marque esta casilla para verificar que ha leído nuestros términos y condiciones del servicio</label>
-            
-            <br><br>
-                    
-            <input type="reset" name="borrar" value="Borrar formulario">
-            <input type="submit" name="enviar" value="Enviar">
-        </form>
+        <input type="reset" name="borrar" value="Borrar formulario">
+        <input type="submit" name="enviar" value="Enviar">
         EOF;
     
         return $html;
@@ -71,16 +52,12 @@ class ayudaForm extends formBase {
 
     protected function Process($datos) {
         $errores = [];
-        $resultado = [];
 
-        // Recoger y validar datos
         $nombre = trim($datos['nombre'] ?? '');
         $email = trim($datos['email'] ?? '');
         $motivo = trim($datos['motivo'] ?? '');
         $consulta = trim($datos['consulta'] ?? '');
-        $terminos = isset($datos['terminos']) ? 'on' : '';
 
-        // Validaciones
         if (empty($nombre)) {
             $errores[] = "El nombre no puede estar vacío.";
         }
@@ -93,21 +70,12 @@ class ayudaForm extends formBase {
         if (empty($consulta)) {
             $errores[] = "La consulta no puede estar vacía.";
         }
-        if (empty($terminos)) {
-            $errores[] = "Debe aceptar los términos y condiciones.";
-        }
 
         if (!empty($errores)) {
-            $resultado['errores'] = $errores;
-            $resultado['nombre'] = $nombre;
-            $resultado['email'] = $email;
-            $resultado['motivo'] = $motivo;
-            $resultado['consulta'] = $consulta;
-            $resultado['terminos'] = $terminos;
-            return $resultado;
+            return $errores;
         }
 
-        // Configuración para el envío de correo
+        // Configuración para el envío de correo a través del servicio VPN
         $destinatario = "correo@containers.fdi.ucm.es";
         $asunto = "Consulta desde el formulario de ayuda";
         $mensaje = "Nombre: $nombre\n";
@@ -115,6 +83,7 @@ class ayudaForm extends formBase {
         $mensaje .= "Motivo: $motivo\n";
         $mensaje .= "Consulta: $consulta\n";
 
+        // Configuración adicional para el servidor de correo
         $headers = [
             'From' => $email,
             'Reply-To' => $email,
@@ -130,29 +99,26 @@ class ayudaForm extends formBase {
         // Envío del correo
         $mailSent = mail($destinatario, $asunto, $mensaje, $headers);
 
-        // Restaurar configuración original
+        // Restaurar configuración original (opcional)
         ini_restore("SMTP");
         ini_restore("smtp_port");
         ini_restore("sendmail_from");
 
-        if ($mailSent) {
-            $resultado['mensaje'] = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
-    
-        } else {
-            $resultado['errores'] = ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
+         // Se redirige a la página principal con un mensaje de éxito
+        $result = 'ayuda.php';
 
+        // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
+        $app = application::getInstance();        
+
+        if ($mailSent) {
+            $mensaje = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
+        } else {
+            $message = "Hubo un error al enviar el correo. Inténtelo de nuevo más tarde.";
         }
 
-        return $resultado;
-    }
+        $app->putAtributoPeticion('mensaje', $mensaje);
 
-    // Método auxiliar para escapar output
-    private function escape($value) {
-        return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
-    }
-
-    // Método auxiliar para checkboxes/radios
-    private function checked($value, $expected) {
-        return $value === $expected ? 'checked' : '';
+        return $result;
     }
 }
+?>
