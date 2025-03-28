@@ -141,19 +141,7 @@ class application
     public function soyAdmin()
     {
         $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
-        return $user->tipo() === 0; // Comprueba si el tipo de usuario es 0 (administrador) 
-    }
-
-    public function soyVoluntario()
-    {
-        $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
-        return $user->tipo() === 2; // Comprueba si el tipo de usuario es 2 (voluntario) //USAR ESTA FUNCION
-    }
-
-    public function soyUsuario()
-    {
-        $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
-        return $user->tipo() === 1; // Comprueba si el tipo de usuario es 1 (usuario) //USAR ESTA FUNCION
+        return $user->tipo() === 0; // Comprueba si el tipo de usuario es 0 (administrador)
     }
 
     // Obtiene la información del usuario almacenada en la sesión

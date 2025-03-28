@@ -9,9 +9,11 @@ require_once("includes/editarActividades/listaActividades.php");
 // Definir el título de la página
 $tituloPagina = 'Actividades disponibles';
 
-// Crear una instancia de ListaActividades y generar el listado
-$listaActividades = new listaActividades();
-$htmlFormLogin = $listaActividades->generarListado();
+// Crear una instancia de listaActividades, que genera la lista de actividades
+$form = new listaActividades();
+
+// Generar el contenido de la lista de actividades en HTML
+$htmlFormLogin = $form->Manage();
 
 // Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
