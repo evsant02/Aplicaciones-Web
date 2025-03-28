@@ -42,20 +42,23 @@ nav ul li a:hover {
 
 body {
 	background-color: #bedcfa;
-	margin: 20px;
+	margin: 0; /* Elimina el margen de 20px */
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	width: 100%;
 	position: center;
+	overflow-x: hidden; /* Evita el scroll horizontal */
 }
 
+
 header {
-	padding: 15px;
+	padding: 30px;  
 	background-color: #a1ccf8;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
+	
 }
+
 
 footer {
 	clear: both;
@@ -76,7 +79,8 @@ main {
 	border-color: #555;
 	border-width: 0.5px;
 	border: solid;
-	margin: 20px;
+	margin: 20px auto; /* Auto en los lados lo centrará */
+	max-width: 90%; /* Asegura que no se pase del ancho de la pantalla */
 }
 
 .donarForm fieldset {  
@@ -201,3 +205,38 @@ img {
 		align-items: center;
 	}
 }
+
+/* ============================= */
+/* NUEVOS ESTILOS PARA EL INDEX */
+/* ============================= */
+
+/* Estilos para el contenedor principal de bienvenida */
+.welcome-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilos para el logo en la página de bienvenida */
+.welcome-container .logo {
+    max-width: 200px;
+}
+
+/* Estilos para el botón de inicio de sesión */
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para el botón de inicio de sesión */
+.login-button:hover {
+    background-color: #0056b3;
+}
+
