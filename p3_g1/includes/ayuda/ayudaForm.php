@@ -146,13 +146,4 @@ class ayudaForm extends formBase {
         return $resultado;
     }
 
-    // Método auxiliar para escapar output
-    private function escape($value) {
-        return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
-    }
-
-    // Método auxiliar para checkboxes/radios
-    private function checked($value, $expected) {
-        return $value === $expected ? 'checked' : '';
-    }
 }
