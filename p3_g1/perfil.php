@@ -17,6 +17,10 @@
       } else {
         $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
         $html .= '<p><em>Aquí se mostrarán las actividades reservadas por el usuario/voluntario en la próxima práctica.</em></p>';
+
+        //en este caso hay que obtener las actividades que tenga el usuario
+        
+
     }
     return $html;
   }
