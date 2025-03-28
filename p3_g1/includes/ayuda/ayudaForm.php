@@ -52,49 +52,53 @@ class ayudaForm extends formBase {
 
     }
 
-  /*  protected function Process($datos) {
-        $errores = [];
+    /*protected function Process($datos)
+    {
+      $result = array();
+      
+      $id = trim($datos['id'] ?? '');
+      $password = trim($datos['password'] ?? '');
+      
+      // Validar que el ID y la contraseña no estén vacíos
+      if (empty($id)) 
+      {
+          $result[] = "El ID de usuario no puede estar vacío.";
+      }
+      
+      if (empty($password)) 
+      {
+          $result[] = "La contraseña no puede estar vacía.";
+      }
+      
+      if (count($result) === 0) 
+      {
 
-        $nombre = trim($datos['nombre'] ?? '');
-        $email = trim($datos['email'] ?? '');
-        $motivo = trim($datos['motivo'] ?? '');
-        $consulta = trim($datos['consulta'] ?? '');
+          $userDTO = new userDTO($id, null, null, $password, null, null, null);
+          
+          $userAppService = userAppService::GetSingleton();
 
-        if (empty($nombre)) {
-            $errores[] = "El nombre no puede estar vacío.";
-        }
-        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errores[] = "Debe proporcionar un correo válido.";
-        }
-        if (empty($motivo)) {
-            $errores[] = "Debe seleccionar un motivo de consulta.";
-        }
-        if (empty($consulta)) {
-            $errores[] = "La consulta no puede estar vacía.";
-        }
+          // Verificar si existe un usuario con ese ID y contraseña
+          $foundedUserDTO = $userAppService->login($userDTO);
 
-        if (!empty($errores)) {
-            return $errores;
-        }
+          if (!$foundedUserDTO) 
+          {
+              $result[] = "No existe una cuenta con ese ID y contraseña. Por favor, regístrate.";
+          } 
+          else 
+          {
+              // Iniciar sesión
+              $_SESSION["login"] = true;
+              $_SESSION["id"] = $id;
 
-        // Configurar correo
-        $destinatario = "correo@containers.fdi.ucm.es";
-        $asunto = "Consulta desde el formulario";
-        $mensaje = "Nombre: $nombre\n";
-        $mensaje .= "Email: $email\n";
-        $mensaje .= "Motivo: $motivo\n";
-        $mensaje .= "Consulta: $consulta\n";
+              // Redirigir a la página principal
+              $result = 'contenido.php';
+          }
+      }
 
-        $headers = "From: $email" . "\r\n";
-        $headers .= "Reply-To: $email" . "\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8";
+      // Si hay errores, devolver los datos y los mensajes de error para mostrarlos en el formulario
+      return $result;
+  }*/
 
-        if (mail($destinatario, $asunto, $mensaje, $headers)) {
-            return "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
-        } else {
-            return ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
-        }
-    }*/
 }
 
 ?>
