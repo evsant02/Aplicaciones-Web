@@ -172,7 +172,7 @@ class actividadDAO extends baseDAO implements IActividad
         try{
             $conn = application::getInstance()->getConexionBd();
 
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades WHERE dirigida = 0";
+            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion FROM actividades WHERE dirigida = 0";
             $stmt = $conn->prepare($query);
 
             if (!$stmt) {
@@ -181,11 +181,11 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Se ejecuta la consulta
             $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion);
 
             $actividades = [];
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion);
             }
 
             return $actividades;
