@@ -12,7 +12,7 @@
   $contenidoPrincipal = <<<EOS
    
     <h3>¿Necesitas ayuda?</h3>
-     <p>$mensaje</p>
+    <p>$mensaje</p>
     <p>Ponte en contacto con nuestro equipo para que podamos ayudarte.</p>
     $htmlFormAyuda
   EOS;

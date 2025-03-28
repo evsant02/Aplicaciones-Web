@@ -108,7 +108,8 @@ class ayudaForm extends formBase {
         $result = 'ayuda.php';
 
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
-        $app = application::getInstance();        
+        $app = application::getInstance();  
+        $mensaje = "Gracias por tu consulta.";      
 
         if ($mailSent) {
             $mensaje = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
