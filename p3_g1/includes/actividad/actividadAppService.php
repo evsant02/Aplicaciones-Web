@@ -77,6 +77,36 @@ class actividadAppService
         return $actividades;
     }
 
+    //Método par obtener las actividades segun el tipo de usuario
+    public function obtenerActividadSegunUsuario(): array
+    {
+        //si es admin, se muestran todas las actividades
+        if (application::getInstance()->soyAdmin()){            
+            $actividades= $this->obtenerTodasLasActividades();
+            return $actividades;
+        }
+
+        //si es voluntario, se muestran solo aquellas que no están dirigidas
+        else if (application::getInstance()->soyVoluntario()){            
+            // Se obtiene una instancia del DAO
+            $IActividadDAO = actividadFactory::CreateActividad();
+            // Se llama al método de consulta
+            $actividades = $IActividadDAO->obtenerActSinDirigir();           
+            return $actividades;
+        }
+
+        //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
+        else {
+            // Se obtiene una instancia del DAO
+            $IActividadDAO = actividadFactory::CreateActividad();
+            // Se llama al método de consulta
+            $actividades = $IActividadDAO->obtenerActSinCompletar();
+            return $actividades;
+        }
+
+    }
+
+    
     // Método para obtener una actividad específica por su ID
     public function getActividadById($id)
     {
@@ -85,6 +115,35 @@ class actividadAppService
         // Se llama al método que busca la actividad por su ID
         $actividad = $IActividadDAO->getActividadById($id);
         return $actividad;
+    }
+
+    public function mostrar($actividadDTO){
+        $user = application::getInstance()->getUserDTO();
+        $tipo_user = $user->tipo();
+        $html = '<div class="actividad">';
+        $html .= '<img src="img/' . /*$actividadDTO->getImagen()*/  '" alt="' . $actividadDTO->nombre() . '">';
+        $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
+        $html .= '<p class="descripcion">' . $actividadDTO->descripcion() . '</p>';
+        //usuario
+        if ($tipo_user == 1){            
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Reservar</a>';
+
+        }
+        //voluntario
+        if ($tipo_user == 2){
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
+
+        }
+        //administrador: dos botones
+        if ($tipo_user == 0){
+            //debe de aparecer un boton para eliminarla y otro para modificar los datos
+            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a>';
+            $html .= '<a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
+        }
+        //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
+        
+        $html .= '</div>';
+        return $html;  //se devuelve en html
     }
 }
 ?>

@@ -4,7 +4,7 @@
 require_once("application.php");
 
 // Definir constantes de conexión a la base de datos
-define('BD_HOST', 'vm017.db.swarm.test');
+define('BD_HOST', 'localhost'); //vm017.db.swarm.test
 define('BD_NAME', 'aw');        // Nombre de la base de datos
 define('BD_USER', 'AW');        // Usuario de la base de datos
 define('BD_PASS', 'Conecta65'); // Contraseña de la base de datos
@@ -32,9 +32,8 @@ function gestorExcepciones(Throwable $exception)
     error_log(jTraceEx($exception)); // Registrar el error en el log del servidor
 
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
-
+    var_dump($exception->getMessage());
     $tituloPagina = 'Error';
-
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>

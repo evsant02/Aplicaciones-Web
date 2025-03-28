@@ -37,16 +37,11 @@ class userDAO extends baseDAO implements IUser
         // Obtiene la conexión a la base de datos
         $conn = application::getInstance()->getConexionBd();
 
-        // Verifica si hubo un error de conexión
-        if ($conn->connect_error) {
-            die("Error de conexión: " . $conn->connect_error);
-        }
-
         // Consulta SQL para obtener los datos del usuario
         $query = "SELECT id, nombre, apellidos, password, fecha_nacimiento, tipo, correo FROM usuarios WHERE id = ?";
 
         $stmt = $conn->prepare($query);
-        
+
         if (!$stmt) {
             die("Error al preparar la consulta: " . $conn->error);
         }
@@ -54,9 +49,9 @@ class userDAO extends baseDAO implements IUser
         // Asigna el parámetro a la consulta
         $stmt->bind_param("s", $escid);
 
-        if (!$stmt->execute()) {
-            die("Error en la consulta: " . $stmt->error);
-        }
+            if (!$stmt->execute()) {
+                die("Error en la consulta: " . $stmt->error);
+            }
 
         // Variables para almacenar los resultados de la consulta
         $stmt->bind_result($id, $nombre, $apellidos, $password, $fecha_nacimiento, $tipo, $correo);
@@ -102,12 +97,8 @@ class userDAO extends baseDAO implements IUser
 
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Asigna los parámetros a la consulta
-            $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+            try {
+                $stmt->bind_param("sssssss", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
             // Ejecuta la consulta y verifica si se insertó correctamente
             if ($stmt->execute()) {
@@ -142,8 +133,8 @@ class userDAO extends baseDAO implements IUser
     // Método para verificar una contraseña ingresada con la almacenada en la base de datos
     private static function testHashPassword($password, $hashedPassword)
     {
-       // var_dump($password);
-       // var_dump($hashedPassword);
+        //var_dump($password);
+        //var_dump($hashedPassword);
 
         // Si la contraseña almacenada no tiene formato bcrypt, se compara en texto plano
         if (strlen($hashedPassword) < 60 || substr($hashedPassword, 0, 4) !== '$2y$') {
@@ -151,34 +142,32 @@ class userDAO extends baseDAO implements IUser
         }
 
         $result = password_verify($password, $hashedPassword);
-        //var_dump($result);
         return $result;
     }
 
-    // Método para verificar si un correo ya está registrado en la base de datos
-    public function existsByEmail($userDTO)
+    // Método para verificar si un usuario existe por su ID
+    public function existsById($userDTO)
     {
         $correo = trim($this->realEscapeString($userDTO->correo()));
-
         $conn = application::getInstance()->getConexionBd();
-    
+
         if ($conn->connect_error) {
             die("Error de conexión: " . $conn->connect_error);
         }
-    
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
-    
         $stmt = $conn->prepare($query);
-        
+
         if (!$stmt) {
             die("Error al preparar la consulta: " . $conn->error);
         }
-    
-        $stmt->bind_param("s", $correo);
-        
-        if (!$stmt->execute()) {
-            die("Error en la consulta: " . $stmt->error);
-        }
+
+        try {
+            $stmt->bind_param("s", $correo);
+
+            if (!$stmt->execute()) {
+                die("Error en la consulta: " . $stmt->error);
+            }
 
         $count = null;
         $stmt->bind_result($count);
@@ -188,30 +177,29 @@ class userDAO extends baseDAO implements IUser
         return $count > 0;
     }
 
-    // Método para verificar si un usuario existe por su ID
-    public function existsById($userDTO)
+    // Método para verificar si un correo ya está registrado en la base de datos
+    public function existsByEmail($userDTO)
     {
         $id = trim($this->realEscapeString($userDTO->id()));
-
         $conn = application::getInstance()->getConexionBd();
-    
+
         if ($conn->connect_error) {
             throw new Exception("Error de conexión: " . $conn->connect_error);
         }
-    
+
         $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
-    
         $stmt = $conn->prepare($query);
-    
+
         if (!$stmt) {
             throw new Exception("Error al preparar la consulta: " . $conn->error);
         }
-    
-        $stmt->bind_param("s", $id);
-    
-        if (!$stmt->execute()) {
-            throw new Exception("Error en la consulta: " . $stmt->error);
-        }
+
+        try {
+            $stmt->bind_param("s", $id);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error en la consulta: " . $stmt->error);
+            }
 
         $count = null;
         $stmt->bind_result($count);

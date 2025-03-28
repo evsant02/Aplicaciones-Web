@@ -12,6 +12,15 @@
     box-sizing: border-box; /* Asegúrate de que el padding y el borde se incluyan en el ancho total */
 }
 
+.tabla-actividades img {
+    width: 100%;  /* Hace que las imágenes ocupen el ancho de la celda */
+    height: auto; /* Mantiene la proporción */
+    max-height: 200px; /* Ajusta la altura máxima según necesidad */
+    object-fit: cover; /* Recorta la imagen si es necesario */
+    border-radius: 10px; /* Bordes redondeados para mejor apariencia */
+}
+
+
 /* Media Queries para ajustar el número de columnas */
 @media (min-width: 1200px) {
     .tabla-actividades td {
