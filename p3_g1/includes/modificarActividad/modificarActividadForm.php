@@ -47,8 +47,6 @@ class modificarActividadForm extends formBase
             <p>
                 <?php if ($imagen): ?>
                     <img src="$imagen" alt="Imagen de la actividad" width="500" />
-                <?php else: ?>
-                    <span>No hay imagen disponible</span>
                 <?php endif; ?>
             </p>
 
