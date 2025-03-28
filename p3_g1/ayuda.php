@@ -16,9 +16,9 @@
   $htmlFormAyuda = $form->Manage();
   
   $contenidoPrincipal = <<<EOS
-    <p>$mensaje</p>
+    
+    <div class="mensaje-confirmacion">$mensaje</div>
     <h3>¿Necesitas ayuda?</h3>
-    <p>hellloow</p>
     <p>Ponte en contacto con nuestro equipo para que podamos ayudarte.</p>
     $htmlFormAyuda
   EOS;
