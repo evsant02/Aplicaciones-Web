@@ -8,11 +8,6 @@ class ayudaForm extends formBase {
     }
     
     protected function CreateFields($datos) {
-        // Generar token CSRF
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-        
         // Mostrar mensaje de éxito si existe
         $mensaje = '';
         if (isset($datos['mensaje'])) {
@@ -27,20 +22,18 @@ class ayudaForm extends formBase {
             }
         }
 
-        $html = <<<EOF        
+        $html = <<<EOF
         {$mensaje}
         {$errores}
         
         <form method="post" action="">
-            <input type="hidden" name="csrf_token" value="{$_SESSION['csrf_token']}">
-            
             <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre" value="{$this->escape($datos['nombre'] ?? '')}" required maxlength="100">
+            <input type="text" id="nombre" name="nombre" value="{$this->escape($datos['nombre'] ?? '')}" required>
             
             <br><br>
             
             <label for="email">Dirección de email:</label><br>
-            <input type="email" id="email" name="email" value="{$this->escape($datos['email'] ?? '')}" required maxlength="255">
+            <input type="email" id="email" name="email" value="{$this->escape($datos['email'] ?? '')}" required>
             
             <br><br>
             
@@ -59,7 +52,7 @@ class ayudaForm extends formBase {
             <br>
             
             <label for="consulta">Escriba su consulta:</label><br>
-            <textarea id="consulta" name="consulta" rows="4" cols="80" required maxlength="2000">{$this->escape($datos['consulta'] ?? '')}</textarea>
+            <textarea id="consulta" name="consulta" rows="4" cols="80" required>{$this->escape($datos['consulta'] ?? '')}</textarea>
             
             <br><br>
             
@@ -77,12 +70,6 @@ class ayudaForm extends formBase {
     }
 
     protected function Process($datos) {
-        // Verificar token CSRF
-        if (!isset($datos['csrf_token']) || $datos['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-            $resultado['errores'] = ["Error de seguridad. Por favor, inténtelo de nuevo."];
-            return $resultado;
-        }
-
         $errores = [];
         $resultado = [];
 
@@ -96,28 +83,16 @@ class ayudaForm extends formBase {
         // Validaciones
         if (empty($nombre)) {
             $errores[] = "El nombre no puede estar vacío.";
-        } elseif (strlen($nombre) > 100) {
-            $errores[] = "El nombre no puede exceder los 100 caracteres.";
         }
-
-        if (empty($email)) {
-            $errores[] = "Debe proporcionar un correo electrónico.";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores[] = "Debe proporcionar un correo válido.";
-        } elseif (strlen($email) > 255) {
-            $errores[] = "El email no puede exceder los 255 caracteres.";
         }
-
         if (empty($motivo)) {
             $errores[] = "Debe seleccionar un motivo de consulta.";
         }
-
         if (empty($consulta)) {
             $errores[] = "La consulta no puede estar vacía.";
-        } elseif (strlen($consulta) > 2000) {
-            $errores[] = "La consulta no puede exceder los 2000 caracteres.";
         }
-
         if (empty($terminos)) {
             $errores[] = "Debe aceptar los términos y condiciones.";
         }
@@ -162,13 +137,10 @@ class ayudaForm extends formBase {
 
         if ($mailSent) {
             $resultado['mensaje'] = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
+    
         } else {
             $resultado['errores'] = ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
-            $resultado['nombre'] = $nombre;
-            $resultado['email'] = $email;
-            $resultado['motivo'] = $motivo;
-            $resultado['consulta'] = $consulta;
-            $resultado['terminos'] = $terminos;
+
         }
 
         return $resultado;
