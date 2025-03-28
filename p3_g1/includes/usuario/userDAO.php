@@ -162,7 +162,7 @@ class userDAO extends baseDAO implements IUser
         try {
             $stmt->bind_param("s", $correo);
 
-            $stmt->execute()
+            $stmt->execute();
             /*
             if (!$stmt->execute()) {
                 throw new Exception("Error en la consulta: " . $stmt->error);
