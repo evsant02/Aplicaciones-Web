@@ -22,10 +22,7 @@ class ayudaForm extends formBase {
             }
         }
 
-        $html = <<<EOF
-        <h2>¿Necesitas ayuda?</h2>
-        <p>Ponte en contacto con nuestro equipo para que podamos ayudarte.</p>
-        
+        $html = <<<EOF        
         {$mensaje}
         {$errores}
         
@@ -140,20 +137,10 @@ class ayudaForm extends formBase {
 
         if ($mailSent) {
             $resultado['mensaje'] = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
-            // Limpiar campos después de enviar correctamente
-            $resultado['nombre'] = '';
-            $resultado['email'] = '';
-            $resultado['motivo'] = '';
-            $resultado['consulta'] = '';
-            $resultado['terminos'] = '';
+    
         } else {
             $resultado['errores'] = ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
-            // Mantener los valores ingresados para que no se pierdan
-            $resultado['nombre'] = $nombre;
-            $resultado['email'] = $email;
-            $resultado['motivo'] = $motivo;
-            $resultado['consulta'] = $consulta;
-            $resultado['terminos'] = $terminos;
+
         }
 
         return $resultado;
