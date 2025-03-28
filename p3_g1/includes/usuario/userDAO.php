@@ -123,7 +123,6 @@ class userDAO extends baseDAO implements IUser
 
         return $createdUserDTO;
     }
-}
 
     // Método para cifrar una contraseña usando bcrypt
     private static function hashPassword($password)
