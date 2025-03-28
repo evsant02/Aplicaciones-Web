@@ -105,7 +105,7 @@ class ayudaForm extends formBase {
         ini_restore("sendmail_from");
 
          // Se redirige a la página principal con un mensaje de éxito
-        $result = 'index.php';
+        $result = 'ayuda.php';
 
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
         $app = application::getInstance();        
