@@ -76,7 +76,7 @@ EOF;
         if (count($result) === 0) {
             try {
                 // Se crea un objeto de actividad con los datos ingresados
-                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0);
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0, 0);
 
                 // Se obtiene la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();

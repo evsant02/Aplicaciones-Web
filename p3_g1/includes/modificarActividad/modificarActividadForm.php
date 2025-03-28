@@ -26,7 +26,8 @@ class modificarActividadForm extends formBase
         $fecha_hora = $this->actividad ? date('Y-m-d\TH:i', strtotime($this->actividad->fecha_hora())) : ($datos['fecha_hora'] ?? '');
         $descripcion = $this->actividad ? $this->actividad->descripcion() : ($datos['descripcion'] ?? '');
         $aforo = $this->actividad ? $this->actividad->aforo() : ($datos['aforo'] ?? '');
-
+        $dirigida = $this->actividad ? $this->actividad->dirigida() : ($datos['dirigida'] ?? '');
+        $ocupacion = $this->actividad ? $this->actividad->ocupacion() : ($datos['ocupacion'] ?? '');
 
         // Se genera el formulario con los valores actuales de la actividad
         $html = <<<EOF
@@ -38,6 +39,8 @@ class modificarActividadForm extends formBase
             <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
             <p><label>Aforo:</label> <input type="text" name="aforo" value="$aforo" required/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+            <input type="hidden" name="dirigida" value="$dirigida" />
+            <input type="hidden" name="ocupacion" value="$ocupacion" />
             <button type="submit" name="modificar">Guardar Cambios</button>
         </fieldset>
 EOF;
@@ -56,6 +59,8 @@ EOF;
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
         $aforo = trim($datos['aforo'] ?? '');
+        $dirigida = trim($datos['dirigida'] ?? '');
+        $ocupacion = trim($datos['ocupacion'] ?? '');
 
         // Validaciones: se asegura que los campos obligatorios no estén vacíos
         if (empty($id)) {
@@ -81,7 +86,7 @@ EOF;
         if (count($result) === 0) {
             try {
                 // Crear un nuevo objeto actividadDTO con los valores modificados
-                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, 0);
+                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion);
 
                 // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
