@@ -245,16 +245,28 @@ img {
 /* NUEVOS ESTILOS PARA AYUDA */
 /* ============================= */
 
-.mensaje-confirmacion {
+main article .mensaje-confirmacion {
     text-align: center;
-    font-size: 1.2em;
-    color: #2c3e50; /* Gris oscuro consistente con tu paleta */
-    margin: 20px auto; /* Centrado con márgenes automáticos */
-    padding: 15px;
-    background-color: #e8f4fc; /* Fondo azul claro que combina con tu esquema */
-    border-radius: 5px;
-    border-left: 5px solid #4CAF50; /* Borde izquierdo verde */
-    max-width: 80%; /* Ancho máximo para mejor legibilidad */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil como otros elementos */
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.3em;
+    color: #2c3e50;
+    margin: 25px auto;
+    padding: 20px;
+    background-color: #e8f4fc;
+    border-radius: 8px;
+    border-left: 5px solid #4CAF50;
+    max-width: 80%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+/* Versión para móviles */
+@media (max-width: 768px) {
+    main article .mensaje-confirmacion {
+        max-width: 90%;
+        font-size: 1.1em;
+        padding: 15px;
+        margin: 20px auto;
+    }
 }
