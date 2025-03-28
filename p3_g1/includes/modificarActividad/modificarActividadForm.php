@@ -16,7 +16,6 @@ class modificarActividadForm extends formBase
         $this->actividad = $actividad; // Guardamos la actividad cargada
     }
     
-    // Método que genera el formulario con los datos de la actividad
     protected function CreateFields($datos)
     {
         // Si tenemos una actividad cargada, usamos sus valores; de lo contrario, usamos los datos recibidos en la petición
@@ -28,8 +27,9 @@ class modificarActividadForm extends formBase
         $aforo = $this->actividad ? $this->actividad->aforo() : ($datos['aforo'] ?? '');
         $dirigida = $this->actividad ? $this->actividad->dirigida() : ($datos['dirigida'] ?? '');
         $ocupacion = $this->actividad ? $this->actividad->ocupacion() : ($datos['ocupacion'] ?? '');
+        $imagen = $this->actividad ? $this->actividad->foto() : null; // Obtener la imagen actual si existe
 
-        // Se genera el formulario con los valores actuales de la actividad
+        // Generar el formulario
         $html = <<<EOF
         <fieldset>
             <legend>Modificar Actividad</legend>
@@ -41,9 +41,23 @@ class modificarActividadForm extends formBase
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <input type="hidden" name="dirigida" value="$dirigida" />
             <input type="hidden" name="ocupacion" value="$ocupacion" />
+
+            <!-- Mostrar imagen actual si existe -->
+            <p><label>Imagen actual:</label></p>
+            <p>
+                <?php if ($imagen): ?>
+                    <img src="$imagen" alt="Imagen de la actividad" width="500" />
+                <?php else: ?>
+                    <span>No hay imagen disponible</span>
+                <?php endif; ?>
+            </p>
+
+            <!-- Campo para subir nueva imagen -->
+            <p><label>Subir nueva imagen:</label> <input type="file" name="imagen" accept="image/*" /></p>
+            
             <button type="submit" name="modificar">Guardar Cambios</button>
         </fieldset>
-EOF;
+    EOF;
         return $html;
     }
 
@@ -62,7 +76,7 @@ EOF;
         $dirigida = trim($datos['dirigida'] ?? '');
         $ocupacion = trim($datos['ocupacion'] ?? '');
 
-        // Validaciones: se asegura que los campos obligatorios no estén vacíos
+        // Validaciones
         if (empty($id)) {
             $result[] = "ID de actividad no válido.";
         }
@@ -82,11 +96,32 @@ EOF;
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
 
-        // Si no hay errores, se procede a modificar la actividad en la base de datos
+        // Manejo de la imagen
+        $rutaImagen = $this->actividad ? $this->actividad->foto() : null; // Usar la imagen actual si no se selecciona una nueva
+
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $nombreArchivo = basename($_FILES["imagen"]["name"]);
+            $rutaDestino = __DIR__ . "/../../img/" . $nombreArchivo;
+            $rutaBD = "img/" . $nombreArchivo;
+            
+            // Validar tipo MIME
+            $tipoMime = mime_content_type($_FILES["imagen"]["tmp_name"]);
+            $formatosPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+            
+            if (!in_array($tipoMime, $formatosPermitidos)) {
+                $result[] = "Formato de imagen no válido. Use JPG, PNG o GIF.";
+            } elseif (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaDestino)) {
+                $result[] = "Error al subir la imagen.";
+            } else {
+                $rutaImagen = $rutaBD; // Usar la nueva imagen
+            }
+        }
+
+        // Si no hay errores, se procede a modificar la actividad
         if (count($result) === 0) {
             try {
                 // Crear un nuevo objeto actividadDTO con los valores modificados
-                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion);
+                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $rutaImagen);
 
                 // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
