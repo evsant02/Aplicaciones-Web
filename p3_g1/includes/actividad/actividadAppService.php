@@ -121,24 +121,24 @@ class actividadAppService
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
-        $html .= '<img src="img/' . $actividadDTO->imagen . '" alt="' . $actividadDTO->titulo . '">';
-        $html .= '<h3>' . $actividadDTO->titulo . '</h3>';
-        $html .= '<p class="descripcion">' . $actividadDTO->descripcion . '</p>';
+        $html .= '<img src="img/' . /*$actividadDTO->getImagen()*/  '" alt="' . $actividadDTO->nombre() . '">';
+        $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
+        $html .= '<p class="descripcion">' . $actividadDTO->descripcion() . '</p>';
         //usuario
         if ($tipo_user == 1){            
-            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id . '" class="btn">Reservar</a>';
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Reservar</a>';
 
         }
         //voluntario
         if ($tipo_user == 2){
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id . '" class="btn">Dirigir</a>';
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
 
         }
         //administrador: dos botones
         if ($tipo_user == 0){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id . '" class="btn">Modificar</a>';
-            $html .= '<a href="EliminarActividad.php?id=' . $actividadDTO->id . '" class="btn">Eliminar</a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a>';
+            $html .= '<a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         
