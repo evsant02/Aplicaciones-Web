@@ -104,21 +104,18 @@ class ayudaForm extends formBase {
         ini_restore("smtp_port");
         ini_restore("sendmail_from");
 
-         // Se redirige a la página principal con un mensaje de éxito
-        $result = 'ayuda.php';
-
-        // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
-        $app = application::getInstance();        
-
         if ($mailSent) {
-            $mensaje = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
+            $resultado['mensaje'] = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
         } else {
-            $message = "Hubo un error al enviar el correo. Inténtelo de nuevo más tarde.";
+            $resultado['errores'] = ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
+            $resultado['nombre'] = $nombre;
+            $resultado['email'] = $email;
+            $resultado['motivo'] = $motivo;
+            $resultado['consulta'] = $consulta;
+            $resultado['terminos'] = $terminos;
         }
 
-        $app->putAtributoPeticion('mensaje', $mensaje);
-
-        return $result;
+        return $resultado;
     }
 }
 ?>
