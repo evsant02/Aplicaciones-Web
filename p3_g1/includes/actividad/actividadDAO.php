@@ -24,7 +24,15 @@ class actividadDAO extends baseDAO implements IActividad
             }
 
             $conn = application::getInstance()->getConexionBd();
-            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida) VALUES (?, ?, ?, ?, ?, ?)";
+
+            //escape de strings para evitar inyeccion sql
+            $escnombre = $this->realEscapeString($actividadDTO->nombre());
+            $esclocalizacion = $this->realEscapeString($actividadDTO->localizacion());
+            $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
+            $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
+
+            // Consulta SQL para insertar una nueva actividad
+            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
 
             $nombre = $actividadDTO->nombre();
@@ -33,12 +41,15 @@ class actividadDAO extends baseDAO implements IActividad
             $descripcion = $actividadDTO->descripcion();
             $aforo = $actividadDTO->aforo();
             $dirigida = $actividadDTO->dirigida();
+            $ocupacion = $actividadDTO->ocupacion();
+            $foto =$actividadDTO->foto();
 
-            $stmt->bind_param("ssssii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            // Se vinculan los parámetros de la consulta
+            $stmt->bind_param("ssssiiis", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
 
             if ($stmt->execute()) {
                 $idActividad = $conn->insert_id;
-                return new actividadDTO($idActividad, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+                return new actividadDTO($idActividad, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
         } catch (mysqli_sql_exception $e) {
             if ($e->getCode() == 23000) { // Código para duplicados
@@ -78,8 +89,14 @@ class actividadDAO extends baseDAO implements IActividad
     {
         try {
             $conn = application::getInstance()->getConexionBd();
-            $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ? WHERE id = ?";
+
+            // Consulta SQL para actualizar los datos de una actividad
+            $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ?, ocupacion = ?, foto = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
+            
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
 
 
             $nombre = $actividadDTO->nombre();
@@ -88,9 +105,12 @@ class actividadDAO extends baseDAO implements IActividad
             $descripcion = $actividadDTO->descripcion();
             $aforo = $actividadDTO->aforo();
             $dirigida = $actividadDTO->dirigida();
+            $ocupacion = $actividadDTO->ocupacion();
             $id = $actividadDTO->id();
+            $foto = $actividadDTO->foto();
 
-            $stmt->bind_param("ssssiii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $id);
+            // Se vinculan los parámetros
+            $stmt->bind_param("ssssiiisi", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $id);
 
             $resultado=$stmt->execute();
 
@@ -107,17 +127,20 @@ class actividadDAO extends baseDAO implements IActividad
     {
         try {
             $conn = application::getInstance()->getConexionBd();
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades WHERE id = ?";
+
+            // Consulta SQL para obtener una actividad específica
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
 
             $stmt->bind_param("i", $id);
 
             $stmt->execute();
 
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            // Variables para almacenar los resultados
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
 
             if ($stmt->fetch()) {
-                return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+                return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
             
             throw new ActivityNotFoundException("Actividad no encontrada");
@@ -134,16 +157,17 @@ class actividadDAO extends baseDAO implements IActividad
     {
         try {
             $conn = application::getInstance()->getConexionBd();
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida FROM actividades";
+
+            // Consulta SQL para obtener todas las actividades
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades";
             $stmt = $conn->prepare($query);
 
             $stmt->execute();
-
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
 
             $actividades = [];
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
 
             return $actividades;
@@ -154,3 +178,4 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
 }
+?>

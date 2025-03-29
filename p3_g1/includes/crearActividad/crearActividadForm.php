@@ -16,15 +16,12 @@ class crearActividadForm extends formBase
     // Método que genera los campos del formulario
     protected function CreateFields($datos)
     {
-        // Se obtienen los datos previos (si existen) o se dejan vacíos por defecto
-        // Se usa htmlspecialchars para evitar ataques XSS al imprimir valores en el formulario
         $nombre = htmlspecialchars($datos['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
         $localizacion = htmlspecialchars($datos['localizacion'] ?? '', ENT_QUOTES, 'UTF-8');
         $fecha_hora = htmlspecialchars($datos['fecha_hora'] ?? '', ENT_QUOTES, 'UTF-8');
         $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
         $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
 
-        // Se genera el formulario en HTML con los valores recuperados
         $html = <<<EOF
         <fieldset>
             <legend>Crear Nueva Actividad</legend>
@@ -33,6 +30,7 @@ class crearActividadForm extends formBase
             <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
             <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1"/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+            <p><label>Fotografía de la actividad:</label> <input type="file" name="imagen" accept="image/*" required></p>
             <button type="submit" name="crear">Crear</button>
         </fieldset>
 EOF;
@@ -44,14 +42,12 @@ EOF;
     {
         $result = array();
         
-        // Se recuperan y limpian los datos enviados por el usuario
         $nombre = trim($datos['nombre'] ?? '');
         $localizacion = trim($datos['localizacion'] ?? '');
         $fecha_hora = trim($datos['fecha_hora'] ?? '');
         $descripcion = trim($datos['descripcion'] ?? '');
         $aforo = trim($datos['aforo'] ?? '');
 
-        // Validaciones: se verifica que todos los campos estén completos
         if (empty($nombre)) {
             $result[] = "El nombre de la actividad no puede estar vacío.";
         }
@@ -64,7 +60,6 @@ EOF;
         if (empty($aforo)) {
             $result[] = "Debe proporcionar el aforo de la actividad.";
         }
-        // Se verifica que el aforo sea un número entero positivo
         if (!ctype_digit($aforo) || (int)$aforo <= 0) {
             $result[] = "El aforo debe ser un número entero positivo.";
         }
@@ -72,28 +67,40 @@ EOF;
             $result[] = "Debe proporcionar una descripción de la actividad.";
         }
 
+        // Manejo de la imagen
+        $rutaImagen = null;
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $nombreArchivo = basename($_FILES["imagen"]["name"]);
+            $rutaDestino = __DIR__ . "/../../img/" . $nombreArchivo;
+            $rutaBD = "img/" . $nombreArchivo;
+            
+            // Validar tipo MIME
+            $tipoMime = mime_content_type($_FILES["imagen"]["tmp_name"]);
+            $formatosPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+            
+            if (!in_array($tipoMime, $formatosPermitidos)) {
+                $result[] = "Formato de imagen no válido. Use JPG, PNG o GIF.";
+            } elseif (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaDestino)) {
+                $result[] = "Error al subir la imagen.";
+            } else {
+                $rutaImagen = $rutaBD;
+            }
+        } else {
+            $result[] = "Debe subir una imagen válida.";
+        }
+
         // Si no hay errores, se procede a crear la actividad
         if (count($result) === 0) {
             try {
-                // Se crea un objeto de actividad con los datos ingresados
-                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0);
-
-                // Se obtiene la instancia del servicio de actividades
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0, 0, $rutaImagen);
                 $actividadAppService = actividadAppService::GetSingleton();
-
-                // Se almacena la nueva actividad en la base de datos
                 $actividadAppService->crear($actividadDTO);
 
-                // Se redirige a la página principal con un mensaje de éxito
                 $result = 'index.php';
-
-                // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
                 $app = application::getInstance();
                 $mensaje = "Se ha creado la nueva actividad exitosamente";
                 $app->putAtributoPeticion('mensaje', $mensaje);
-
             } catch (Exception $e) {
-                // Si ocurre un error, se almacena el mensaje de error y se registra en un log
                 error_log("Error al crear la actividad: " . $e->getMessage());
                 $result[] = "Error al crear la actividad: " . $e->getMessage();
             }

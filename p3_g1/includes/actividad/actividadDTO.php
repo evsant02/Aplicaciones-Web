@@ -11,9 +11,11 @@ class actividadDTO
     private $descripcion;
     private $aforo;
     private $dirigida;
+    private $ocupacion;
+    private $foto;
 
     // Constructor para inicializar una actividad con sus datos
-    public function __construct($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida)
+    public function __construct($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -22,6 +24,8 @@ class actividadDTO
         $this->descripcion = $descripcion;
         $this->aforo = $aforo;
         $this->dirigida = $dirigida;
+        $this->ocupacion = $ocupacion;
+        $this->foto = $foto;
     }
 
     // Métodos públicos para obtener los valores de los atributos
@@ -64,6 +68,16 @@ class actividadDTO
     public function dirigida()
     {
         return $this->dirigida;
+    }
+
+    public function ocupacion()
+    {
+        return $this->ocupacion;
+    }
+
+    public function foto()
+    {
+        return $this->foto;
     }
 }
 ?>
