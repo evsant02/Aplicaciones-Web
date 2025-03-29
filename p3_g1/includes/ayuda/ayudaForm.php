@@ -8,9 +8,8 @@ class ayudaForm extends formBase {
     }
     
     protected function CreateFields($datos) {
-
-      $html = <<<EOF
-      <label for="nombre">Nombre:</label><br>
+        $html = <<<EOF
+        <label for="nombre">Nombre:</label><br>
         <input type="text" id="nombre" name="nombre" required>
         
         <br><br>
@@ -46,13 +45,12 @@ class ayudaForm extends formBase {
                 
         <input type="reset" name="borrar" value="Borrar formulario">
         <input type="submit" name="enviar" value="Enviar">
-      EOF;
+        EOF;
     
-      return $html;
-
+        return $html;
     }
 
-  /*  protected function Process($datos) {
+    protected function Process($datos) {
         $errores = [];
 
         $nombre = trim($datos['nombre'] ?? '');
@@ -77,24 +75,50 @@ class ayudaForm extends formBase {
             return $errores;
         }
 
-        // Configurar correo
+        // Configuración para el envío de correo a través del servicio VPN
         $destinatario = "correo@containers.fdi.ucm.es";
-        $asunto = "Consulta desde el formulario";
+        $asunto = "Consulta desde el formulario de ayuda";
         $mensaje = "Nombre: $nombre\n";
         $mensaje .= "Email: $email\n";
         $mensaje .= "Motivo: $motivo\n";
         $mensaje .= "Consulta: $consulta\n";
 
-        $headers = "From: $email" . "\r\n";
-        $headers .= "Reply-To: $email" . "\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8";
+        // Configuración adicional para el servidor de correo
+        $headers = [
+            'From' => $email,
+            'Reply-To' => $email,
+            'Content-Type' => 'text/plain; charset=UTF-8',
+            'X-Mailer' => 'PHP/' . phpversion()
+        ];
 
-        if (mail($destinatario, $asunto, $mensaje, $headers)) {
-            return "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
+        // Configuración del servidor SMTP para la VPN
+        ini_set("SMTP", "mail.containers.fdi.ucm.es");
+        ini_set("smtp_port", "587");
+        ini_set("sendmail_from", $email);
+
+        // Envío del correo
+        $mailSent = mail($destinatario, $asunto, $mensaje, $headers);
+
+        // Restaurar configuración original (opcional)
+        ini_restore("SMTP");
+        ini_restore("smtp_port");
+        ini_restore("sendmail_from");
+
+         // Se redirige a la página principal con un mensaje de éxito
+        $result = 'ayuda.php';
+
+        // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
+        $app = application::getInstance();  
+
+        if ($mailSent) {
+            $mensaje = "Gracias por tu consulta. Nos pondremos en contacto contigo pronto.";
         } else {
-            return ["Hubo un error al enviar el correo. Inténtelo de nuevo más tarde."];
+            $mensaje = "Hubo un error al enviar el correo. Inténtelo de nuevo más tarde.";
         }
-    }*/
-}
 
+        $app->putAtributoPeticion('mensaje', $mensaje);
+
+        return $result;
+    }
+}
 ?>
