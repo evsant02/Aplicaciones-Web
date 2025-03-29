@@ -38,18 +38,6 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            // Se extraen los valores del DTO en variables antes de pasarlos a bind_param()
-            $nombre = $actividadDTO->nombre();
-            $localizacion = $actividadDTO->localizacion();
-            $fecha_hora = $actividadDTO->fecha_hora();
-            $descripcion = $actividadDTO->descripcion();
-            $aforo = $actividadDTO->aforo();
-            $dirigida = $actividadDTO->dirigida();
-            $escaforo = $actividadDTO->aforo();
-            $escdirigida = $actividadDTO->dirigida();
-            $escocupacion = $actividadDTO->ocupacion();
-            $escfoto = $actividadDTO->foto();
-
 
             // Se vinculan los parámetros de la consulta
             $stmt->bind_param("ssss", 
@@ -67,7 +55,7 @@ class actividadDAO extends baseDAO implements IActividad
             if ($stmt->execute()) {
                 // Obtener el ID generado por la inserción
                 $idActividad = $conn->insert_id;
-                return new actividadDTO($idActividad, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
             }
         } catch (mysqli_sql_exception $e) {
             throw $e;
