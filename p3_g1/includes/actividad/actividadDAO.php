@@ -20,6 +20,16 @@ class actividadDAO extends baseDAO implements IActividad
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();
 
+            //escape de strings para evitar inyeccion sql
+            $escnombre = $this->realEscapeString($actividadDTO->nombre());
+            $esclocalizacion = $this->realEscapeString($actividadDTO->localizacion());
+            $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
+            $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
+            $escaforo = $this->realEscapeString($actividadDTO->aforo());
+            $escdirigida = $this->realEscapeString($actividadDTO->dirigida());
+            $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
+            $escfoto = $this->realEscapeString($actividadDTO->foto());
+
             // Consulta SQL para insertar una nueva actividad
             $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
@@ -35,9 +45,23 @@ class actividadDAO extends baseDAO implements IActividad
             $descripcion = $actividadDTO->descripcion();
             $aforo = $actividadDTO->aforo();
             $dirigida = $actividadDTO->dirigida();
+            $escaforo = $actividadDTO->aforo();
+            $escdirigida = $actividadDTO->dirigida();
+            $escocupacion = $actividadDTO->ocupacion();
+            $escfoto = $actividadDTO->foto();
+
 
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ssssii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_param("ssss", 
+                $escnombre, 
+                $esclocalizacion, 
+                $escfecha_hora, 
+                $escdescripcion,
+                $escaforo,
+                $escdirigida,
+                $escocupacion,
+                $escfoto
+            );
 
             // Ejecutar la consulta
             if ($stmt->execute()) {
@@ -69,9 +93,10 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            $id = $actividadDTO->id();
+            
             // Se vincula el parámetro ID
-            $stmt->bind_param("i", $id);
+            $escid = $this -> realEscapeString($actividadDTO ->id());
+            $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
             return $resultado;
         } catch (mysqli_sql_exception $e) {
@@ -97,17 +122,26 @@ class actividadDAO extends baseDAO implements IActividad
                 throw new Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
-            // Se extraen los valores en variables antes de pasarlos a bind_param()
-            $nombre = $actividadDTO->nombre();
-            $localizacion = $actividadDTO->localizacion();
-            $fecha_hora = $actividadDTO->fecha_hora();
-            $descripcion = $actividadDTO->descripcion();
-            $aforo = $actividadDTO->aforo();
-            $dirigida = $actividadDTO->dirigida();
-            $id = $actividadDTO->id();
+           //escape de strings para evitar inyecciones de SQL
+           $escnombre = $this->realEscapeString($actividadDTO->nombre());
+           $esclocalizacion = $this->realEscapeString($actividadDTO->localizacion());
+           $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
+           $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
+           $escid = $this -> realEscapeString($actividadDTO ->id());
+           $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
+           $escfoto = $this->realEscapeString($actividadDTO->foto());
 
-            // Se vinculan los parámetros
-            $stmt->bind_param("ssssiii", $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $id);
+           // Se vinculan los parámetros
+           $stmt->bind_param("ssssi", 
+               $escnombre, 
+               $esclocalizacion, 
+               $escfecha_hora, 
+               $escdescripcion,
+               $escid,
+               $escocupacion,
+               $escfoto
+           );
+
 
             $resultado = $stmt->execute();
             return $resultado;
@@ -136,6 +170,7 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Se vincula el parámetro ID
             $stmt->bind_param("i", $id);
+
 
             // Se ejecuta la consulta
             if (!$stmt->execute()) {
