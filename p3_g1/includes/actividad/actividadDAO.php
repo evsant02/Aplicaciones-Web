@@ -228,7 +228,7 @@ class actividadDAO extends baseDAO implements IActividad
         try{
             $conn = application::getInstance()->getConexionBd();
 
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
+            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
             $stmt = $conn->prepare($query);
 
             if (!$stmt) {
