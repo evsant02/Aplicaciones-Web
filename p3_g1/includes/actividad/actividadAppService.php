@@ -122,7 +122,7 @@ class actividadAppService
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
-        $html .= '<img src="img/' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '">';
+        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="500">';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         $html .= '<p class="descripcion">' . $actividadDTO->descripcion() . '</p>';
         //usuario
