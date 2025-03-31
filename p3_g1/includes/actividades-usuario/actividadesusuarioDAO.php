@@ -1,8 +1,7 @@
-
 <?php
 // Se incluyen las dependencias necesarias
 require("IActividadesusuario.php");
-require("actividaddesusuarioDTO.php");
+require("actividadesusuarioDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
@@ -28,13 +27,8 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             $query = "INSERT INTO actividades-usuario (id_usuario, id_actividad) VALUES (?, ?)";
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ssss", 
+            $stmt->bind_param("si", 
                 $escid_usuario, 
                 $escid_actividad
             );
@@ -62,11 +56,6 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             // Consulta SQL para eliminar una actividad por su ID
             $query = "DELETE FROM actividades-usuario WHERE id = ?";
             $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
             
             // Se vincula el parámetro ID
             $escid = $this -> realEscapeString($actividadesusuarioDTO ->id_usuario());
@@ -179,10 +168,6 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             // Consulta SQL para obtener todas las actividades
             $query = "SELECT id_usuario, id_actividad  FROM actividades-usuario";
             $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
 
             // Se ejecuta la consulta
             $stmt->execute();
