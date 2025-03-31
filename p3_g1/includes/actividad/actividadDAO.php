@@ -40,7 +40,7 @@ class actividadDAO extends baseDAO implements IActividad
 
 
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ssss", 
+            $stmt->bind_param("ssssiiis", 
                 $escnombre, 
                 $esclocalizacion, 
                 $escfecha_hora, 
@@ -83,7 +83,7 @@ class actividadDAO extends baseDAO implements IActividad
 
             
             // Se vincula el parámetro ID
-            $escid = $this -> realEscapeString($actividadDTO ->id());
+            $escid = $this->realEscapeString($actividadDTO ->id());
             $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
             return $resultado;
@@ -120,7 +120,7 @@ class actividadDAO extends baseDAO implements IActividad
            $escfoto = $this->realEscapeString($actividadDTO->foto());
 
            // Se vinculan los parámetros
-           $stmt->bind_param("ssssi", 
+           $stmt->bind_param("ssssiis", 
                $escnombre, 
                $esclocalizacion, 
                $escfecha_hora, 
