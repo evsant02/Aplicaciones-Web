@@ -29,6 +29,8 @@ class modificarActividadForm extends formBase
         $ocupacion = $this->actividad ? $this->actividad->ocupacion() : ($datos['ocupacion'] ?? '');
         $imagen = $this->actividad ? $this->actividad->foto() : null; // Obtener la imagen actual si existe
 
+        $fechaMinima = date('Y-m-d\TH:i');
+
         // Generar el formulario
         $html = <<<EOF
         <fieldset>
@@ -36,8 +38,8 @@ class modificarActividadForm extends formBase
             <input type="hidden" name="id" value="$id" />
             <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
             <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
-            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
-            <p><label>Aforo:</label> <input type="text" name="aforo" value="$aforo" required/></p>
+            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
+            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <input type="hidden" name="dirigida" value="$dirigida" />
             <input type="hidden" name="ocupacion" value="$ocupacion" />
@@ -86,9 +88,11 @@ class modificarActividadForm extends formBase
         }
         if (empty($fecha_hora)) {
             $result[] = "Debe especificar la fecha y hora de la actividad.";
+        } elseif (strtotime($fecha_hora) < time()) {
+            $result[] = "La fecha y hora no puede ser anterior o igual a la actual.";
         }
         if (empty($aforo)) {
-            $result[] = "Debe especificar el aforo de la actividad.";
+            $result[] = "Debe proporcionar el aforo de la actividad.";
         }
         if (empty($descripcion)) {
             $result[] = "Debe proporcionar una descripción de la actividad.";
@@ -132,7 +136,7 @@ class modificarActividadForm extends formBase
 
                 // Guardar el mensaje en la sesión
                 $app = application::getInstance();
-                $mensaje = "Se ha modificado la actividad exitosamente!";
+                $mensaje = "¡Se ha modificado la actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             } catch (Exception $e) {
                 $result[] = "Error al modificar la actividad: " . $e->getMessage();
