@@ -20,9 +20,9 @@ function mostrarPerfil(): string {
     if (application::getInstance()->soyAdmin()) { // si es administrador
         $html .= "<p> <em> Administrador </em> </p>";
         $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
-        $html .= '<a href="EditarActividades.php"><button>Modificar actividad</button></a>';
-    } else {
-        $html .= "<p> <em> Usuario/Voluntario </em> </p>";
+        $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>'; // se muestran los botones para gestionar las actividades
+      } else {
+        $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
         $html .= '<p><em>Aquí se mostrarán las actividades reservadas por el usuario/voluntario en la próxima práctica.</em></p>';
 
 

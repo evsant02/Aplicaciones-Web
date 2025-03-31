@@ -2,10 +2,10 @@
 <?php
 
 // Se requiere el archivo que contiene la fábrica de actividades
-require("actividadFactory.php");
+require("actividadesusuarioFactory.php");
 
 // Clase que gestiona el servicio de aplicación para las actividades
-class actividadAppService
+class actividadesusuarioAppService
 {
     // Propiedad estática para almacenar la única instancia del servicio (Singleton)
     private static $instance;
@@ -28,13 +28,13 @@ class actividadAppService
     } 
 
     // Método para crear una nueva actividad en la base de datos
-    public function crear($actividadDTO)
+    public function crear($actividadesusuarioDTO)
     {
         // Se obtiene una instancia del DAO a través de la fábrica
-        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
         // Se llama al método correspondiente para crear la actividad
-        $foundedactividadDTO = $IActividadDAO->crear($actividadDTO);
-        return $foundedactividadDTO;
+        $foundedactividadesusuarioDTO = $IActividadesusuarioDAO->crear($actividadesusuarioDTO);
+        return $foundedactividadesusuarioDTO;
     }
 
     // Método para eliminar una actividad existente por ID
@@ -122,7 +122,7 @@ class actividadAppService
         $user = application::getInstance()->getUserDTO();
         $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
-        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        $html .= '<img src="img/' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '">';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         $html .= '<p class="descripcion">' . $actividadDTO->descripcion() . '</p>';
         //usuario
@@ -138,8 +138,8 @@ class actividadAppService
         //administrador: dos botones
         if ($tipo_user == 0){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
-                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a>';
+            $html .= '<a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         

@@ -10,7 +10,6 @@
   // Obtiene la instancia de la aplicación (probablemente un patrón Singleton)
   $app = Application::getInstance();
 
-
   // Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
   $mensaje = $app->getAtributoPeticion('mensaje');
  

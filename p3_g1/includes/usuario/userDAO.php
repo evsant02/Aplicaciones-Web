@@ -126,7 +126,7 @@ class userDAO extends baseDAO implements IUser
         $id = trim($this->realEscapeString($userDTO->id()));
         $conn = application::getInstance()->getConexionBd();
         $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
-        $stmt = null;
+        $stmt = $conn->prepare($query);
 
         try {
             $stmt->bind_param("s", $id);
