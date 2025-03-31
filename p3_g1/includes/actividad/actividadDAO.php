@@ -1,9 +1,13 @@
-
 <?php
 // Se incluyen las dependencias necesarias
 require("IActividad.php");
 require("actividadDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
+
+// Excepciones personalizadas
+require(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
+require(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
+require(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad
@@ -17,6 +21,11 @@ class actividadDAO extends baseDAO implements IActividad
     public function crear($actividadDTO)
     {
         try {
+            // Validación básica de datos
+            if (empty($actividadDTO->nombre()) || $actividadDTO->aforo() <= 0) {
+                throw new InvalidActivityDataException("Datos de actividad no válidos");
+            }
+
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();
 
@@ -31,13 +40,8 @@ class actividadDAO extends baseDAO implements IActividad
             $escfoto = $this->realEscapeString($actividadDTO->foto());
 
             // Consulta SQL para insertar una nueva actividad
-            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto) VALUES (?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
 
             // Se vinculan los parámetros de la consulta
             $stmt->bind_param("ssssiiis", 
@@ -58,7 +62,9 @@ class actividadDAO extends baseDAO implements IActividad
                 return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
             }
         } catch (mysqli_sql_exception $e) {
-            throw $e;
+            if ($e->getCode() == 23000) { // Código para duplicados
+                throw new DuplicateActivityException("La actividad ya existe");
+            }
         } finally {
             if ($stmt) {
                 $stmt->close(); // Asegura que el statement se cierra siempre
@@ -77,18 +83,13 @@ class actividadDAO extends baseDAO implements IActividad
             $query = "DELETE FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            
             // Se vincula el parámetro ID
             $escid = $this->realEscapeString($actividadDTO ->id());
             $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
+
             return $resultado;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -105,10 +106,6 @@ class actividadDAO extends baseDAO implements IActividad
             // Consulta SQL para actualizar los datos de una actividad
             $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ?, ocupacion = ?, foto = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
-            
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
 
            //escape de strings para evitar inyecciones de SQL
            $escnombre = $this->realEscapeString($actividadDTO->nombre());
@@ -116,25 +113,28 @@ class actividadDAO extends baseDAO implements IActividad
            $escfecha_hora = $this->realEscapeString($actividadDTO->fecha_hora());
            $escdescripcion = $this->realEscapeString($actividadDTO->descripcion());
            $escid = $this -> realEscapeString($actividadDTO ->id());
-           $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
+           $escaforo = $this->realEscapeString($actividadDTO->aforo());
            $escfoto = $this->realEscapeString($actividadDTO->foto());
+           $escdirigida = $this->realEscapeString($actividadDTO->dirigida());
+           $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
 
            // Se vinculan los parámetros
-           $stmt->bind_param("ssssiis", 
+           $stmt->bind_param("ssssiisii", 
                $escnombre, 
                $esclocalizacion, 
                $escfecha_hora, 
                $escdescripcion,
                $escid,
-               $escocupacion,
-               $escfoto
+               $escaforo,
+               $escfoto,
+               $escdirigida,
+               $escocupacion
            );
 
-
             $resultado = $stmt->execute();
+
             return $resultado;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+        
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -152,18 +152,11 @@ class actividadDAO extends baseDAO implements IActividad
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
             // Se vincula el parámetro ID
             $stmt->bind_param("i", $id);
 
-
             // Se ejecuta la consulta
-            if (!$stmt->execute()) {
-                throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
-            }
+            $stmt->execute();
 
             // Variables para almacenar los resultados
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
@@ -172,8 +165,9 @@ class actividadDAO extends baseDAO implements IActividad
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-        } catch (Exception $e) {
-            throw new Exception("Error al obtener la actividad: " . $e->getMessage());
+
+            throw new ActivityNotFoundException("Actividad no encontrada");
+
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -192,10 +186,6 @@ class actividadDAO extends baseDAO implements IActividad
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades";
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
             // Se ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
@@ -206,8 +196,7 @@ class actividadDAO extends baseDAO implements IActividad
             }
 
             return $actividades;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -223,10 +212,6 @@ class actividadDAO extends baseDAO implements IActividad
 
             $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 0";
             $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
 
             // Se ejecuta la consulta
             $stmt->execute();
@@ -254,10 +239,6 @@ class actividadDAO extends baseDAO implements IActividad
             $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
             $stmt = $conn->prepare($query);
 
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
             // Se ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
@@ -275,7 +256,6 @@ class actividadDAO extends baseDAO implements IActividad
             }
         }
     }
-
 
 }
 ?>
