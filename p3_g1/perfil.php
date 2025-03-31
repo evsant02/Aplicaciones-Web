@@ -1,7 +1,7 @@
 <?php
 //incluir esto para que podamos trabajar con los metodos
-//require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
-//require_once("includes/actividad/actividadAppService.php");
+require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
+require_once("includes/actividad/actividadAppService.php");
 
 function mostrarPerfil(): string {
     $user = application::getInstance()->getUserDTO(); // se obtienen los datos del usuario
@@ -25,7 +25,6 @@ function mostrarPerfil(): string {
 
         //tener en cuenta como esta hecho actividadesDisponibles.php que usa un metodo en actividadusuarioAppservice mostrar
 
-        /*
         //el metodo creado en user
         $userAppService = userAppService::GetSingleton();
         $idsActividades = $userAppService->getActividadesUsuario($user->id());
@@ -59,7 +58,6 @@ function mostrarPerfil(): string {
         } else {
             $html .= '<p class="no-actividades">No tienes actividades reservadas actualmente.</p>';
         }
-        */
     }
     return $html;
 }
