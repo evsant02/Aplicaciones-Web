@@ -14,6 +14,7 @@ interface IUser
 
     // Método para verificar si un ID de usuario ya existe
     public function existsById($userDTO);
+
 }
 
 ?>
