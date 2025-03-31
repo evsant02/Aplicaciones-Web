@@ -169,30 +169,6 @@ class userDAO extends baseDAO implements IUser
         }
     }
 
-    //metodo para obtener los id e actividades
-
-    public function getActividadesUsuario($userDTO) {
-        $escId = trim($this->realEscapeString($userDTO->id()));
-        $conn = application::getInstance()->getConexionBd();
-        $query = "SELECT id_actividad FROM actividad_usuario WHERE id_usuario = ?";
-        $stmt = $conn->prepare($query);
-        $actividades = array();
-    
-        try {
-            $stmt->bind_param("s", $escId);
-            $stmt->execute();
-            $stmt->bind_result($idActividad);
-    
-            while ($stmt->fetch()) {
-                $actividades[] = $idActividad;
-            }
-            
-            return $actividades;
-        } finally {
-            $stmt->close();
-        }
-    }
-
 }
 
 ?>

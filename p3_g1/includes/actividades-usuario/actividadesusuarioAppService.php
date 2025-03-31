@@ -146,5 +146,16 @@ class actividadesusuarioAppService
         $html .= '</div>';
         return $html;  //se devuelve en html
     }
+
+
+    public function getActividadesUsuario($actividadesusuarioDTO)
+    {
+        $IActividadDAO = actividadesusuarioFactory::CreateActividad();
+
+        $actividad = $IActividadDAO->getActividadesUsuario($actividadesusuarioDTO);
+
+        return $actividad;
+    }
+
 }
 ?>

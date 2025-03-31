@@ -32,6 +32,10 @@ interface IActividadesusuario
      * @param int $id Identificador de la actividad.
      * @return actividadesusuarioDTO|null Retorna el objeto esus$actividadesusuarioDTO si se encuentra, o null si no existe.
      */
+
+    //metodo para las actividades el usuario
+    public function getActividadesUsuario($userDTO);
+
 }
 
 ?>

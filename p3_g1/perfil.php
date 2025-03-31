@@ -1,6 +1,6 @@
 <?php
 //incluir esto para que podamos trabajar con los metodos
-require_once("includes/usuario/userAppService.php");
+require_once("includes/actividad-usuario/actividadesusuarioAppService.php");
 require_once("includes/actividad/actividadAppService.php");
 
 
@@ -25,6 +25,8 @@ function mostrarPerfil(): string {
         $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
         $html .= '<p><em>Aquí se mostrarán las actividades reservadas por el usuario/voluntario en la próxima práctica.</em></p>';
 
+
+        //tener en cuenta como esta hecho actividadesDisponibles.php que usa un metodo en actividadusuarioAppservice mostrar
 
         //el metodo creado en user
         $userAppService = userAppService::GetSingleton();

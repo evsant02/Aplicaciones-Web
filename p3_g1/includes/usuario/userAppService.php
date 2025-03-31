@@ -67,15 +67,6 @@ class userAppService
         return $idUserDTO;
     }
 
-    public function getActividadesUsuario($userDTO)
-    {
-        $IUserDAO = userFactory::CreateUser();
-
-        $idUserDTO = $IUserDAO->getActividadesUsuario($userDTO);
-
-        return $idUserDTO;
-    }
-
 }
 
 ?>
