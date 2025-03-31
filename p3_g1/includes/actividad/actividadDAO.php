@@ -2,7 +2,7 @@
 // Se incluyen las dependencias necesarias
 require("IActividad.php");
 require("actividadDTO.php");
-require(__DIR__ . "/../comun/baseDAO.php");
+require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
 require(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");

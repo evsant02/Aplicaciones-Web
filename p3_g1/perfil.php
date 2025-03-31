@@ -1,7 +1,8 @@
 <?php
 //incluir esto para que podamos trabajar con los metodos
-//require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
-//require_once("includes/actividad/actividadAppService.php");
+require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
+require_once("includes/actividad/actividadAppService.php");
+require_once("includes/usuario/userAppService.php");
 
 function mostrarPerfil(): string {
     $user = application::getInstance()->getUserDTO(); // se obtienen los datos del usuario
