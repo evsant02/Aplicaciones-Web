@@ -132,7 +132,7 @@ class modificarActividadForm extends formBase
                 $actividadAppService->modificar($actividadDTO);
 
                 // Redirigir a la página principal con un mensaje de éxito
-                $result = 'EditarActividades.php';
+                $result = 'vistaActividades.php';
 
                 // Guardar el mensaje en la sesión
                 $app = application::getInstance();
