@@ -1,12 +1,12 @@
 
 <?php
 // Se incluyen las dependencias necesarias
-require("IActividad.php");
+require("IActividadesusuario.php");
 require("actividaddesusuarioDTO.php");
 require(__DIR__ . "/../comun/baseDAO.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
-class actividaddesusuarioDAO extends baseDAO implements IActividadesusuario
+class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
 {
     // Constructor vacío
     public function __construct()
@@ -170,7 +170,7 @@ class actividaddesusuarioDAO extends baseDAO implements IActividadesusuario
         return null; // No se encontró la actividad
     } */
 
-    // Método para obtener todas las actividades almacenadas en la base de datos
+    // Método para obtener todas las actividades a las que está apuntado un cliente (por completar)
     public function obtenerTodasLasActividades()
     {
         try {
@@ -202,68 +202,5 @@ class actividaddesusuarioDAO extends baseDAO implements IActividadesusuario
             }
         }
     }
-
-
-    //Método para obtener actividades que todavia no están dirigidas por un usuario
-    public function obtenerActSinDirigir(){
-        try{
-            $conn = application::getInstance()->getConexionBd();
-
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 0";
-            $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Se ejecuta la consulta
-            $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-
-            $actividades = [];
-            while ($stmt->fetch()) {
-                $actividades[] = new actividadesusuarioDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-            }
-
-            return $actividades;
-
-        } finally {
-            if ($stmt) {
-                $stmt->close();
-            }
-        }
-    }
-
-
-    public function obtenerActSinCompletar(){
-        try{
-            $conn = application::getInstance()->getConexionBd();
-
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
-            $stmt = $conn->prepare($query);
-
-            if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
-            }
-
-            // Se ejecuta la consulta
-            $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-
-            $actividades = [];
-            while ($stmt->fetch()) {
-                $actividades[] = new actividadesusuarioDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-            }
-
-            return $actividades;
-
-        } finally {
-            if ($stmt) {
-                $stmt->close();
-            }
-        }
-    }
-
-
 }
 ?>
