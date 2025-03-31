@@ -87,6 +87,10 @@ EOF;
         // Verificar edad mínima para registrarse como usuario (65 años o más)
         $fechaNacimientoObj = DateTime::createFromFormat('Y-m-d', $fechaNacimiento);
         $edad = $fechaNacimientoObj ? $fechaNacimientoObj->diff(new DateTime())->y : 0;
+
+        if ($tipo == "2" && $edad < 18) {
+            $result[] = "La edad necesaria para poder registrarse en el caso del voluntario es 18 años.";
+        }
         
         if ($tipo == "2" && $edad < 18) {
             $result[] = "La edad necesaria para poder registrarse en el caso del voluntario es 18 años.";

@@ -4,6 +4,11 @@ require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
 require_once("includes/actividad/actividadAppService.php");
 require_once("includes/usuario/userAppService.php");
 
+// Incluir la configuración general del sistema
+require_once("includes/config.php");
+// Incluir la clase que genera la lista de actividades disponibles
+require_once("includes/mostrarPerfil/actividadesPerfil.php");
+
 function mostrarPerfil(): string {
     $user = application::getInstance()->getUserDTO(); // se obtienen los datos del usuario
     $html = null;
@@ -23,51 +28,14 @@ function mostrarPerfil(): string {
         $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
         $html .= '<p><em>Aquí se mostrarán las actividades reservadas por el usuario/voluntario en la próxima práctica.</em></p>';
 
+        $actividadesDisponibles = new actividadesPerfil(); //devuelve las actividades de ese usuario
+        $htmlListado = $actividadesDisponibles->generarListadoPerfil();
 
-        //tener en cuenta como esta hecho actividadesDisponibles.php que usa un metodo en actividadusuarioAppservice mostrar
-
-        /*
-        //el metodo creado en user
-        $userAppService = userAppService::GetSingleton();
-        $idsActividades = $userAppService->getActividadesUsuario($user->id());
-
-
-        if (!empty($idsActividades)) {
-            $html .= '<div class="actividades-container">';
-            $html .= '<h3>Tus actividades reservadas:</h3>';
-            $html .= '<div class="actividades-grid">';
-           
-            $actividadAppService = actividadAppService::GetSingleton();
-           
-            foreach ($idsActividades as $idActividad) {
-                try {
-                    $actividad = $actividadAppService->getActividadById($idActividad);
-                   
-                    $html .= '<div class="actividad-card">';
-                    $html .= '<img src="' . htmlspecialchars($actividad->foto()) . '" alt="' . htmlspecialchars($actividad->nombre()) . '">';
-                    $html .= '<div class="actividad-details">';
-                    $html .= '<h4>' . htmlspecialchars($actividad->nombre()) . '</h4>';
-                    $html .= '<p>' . date('d/m/Y H:i', strtotime($actividad->fecha_hora())) . '</p>';
-                    $html .= '</div></div>';
-                   
-                } catch (Exception $e) {
-                    error_log("Error al obtener actividad ID $idActividad: " . $e->getMessage());
-                    continue;
-                }
-            }
-           
-            $html .= '</div></div>'; // Cierre de actividades-grid y actividades-container
-        } else {
-            $html .= '<p class="no-actividades">No tienes actividades reservadas actualmente.</p>';
-        }
-        */
     }
     return $html;
 }
 
-
 ?>
-
 
 <?php
 require_once("includes/config.php");
