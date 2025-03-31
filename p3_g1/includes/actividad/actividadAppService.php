@@ -146,5 +146,20 @@ class actividadAppService
         $html .= '</div>';
         return $html;  //se devuelve en html
     }
+
+    public function mostrarPerfil($actividadDTO){
+        $html = '<div class="actividad">';
+        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
+        $html .= '<h3>' . $actividadDTO->fecha_hora() . '</h3>';
+
+        //para saber los detalles 
+        $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
+
+        $html .= '</div>';
+
+        return $html;  //se devuelve en html
+    }
+
 }
 ?>

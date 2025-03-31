@@ -34,7 +34,7 @@ interface IActividadesusuario
      */
 
     //metodo para las actividades el usuario
-    public function getActividadesUsuario($userDTO);
+    public function getActividadesUsuario($actividadesusuarioDTO);
 
 }
 
