@@ -2,10 +2,10 @@
 <?php
 
 // Se requiere el archivo que contiene la fábrica de actividades
-require("actividadFactory.php");
+require("actividadesusuarioFactory.php");
 
 // Clase que gestiona el servicio de aplicación para las actividades
-class actividadAppService
+class actividadesusuarioAppService
 {
     // Propiedad estática para almacenar la única instancia del servicio (Singleton)
     private static $instance;
@@ -28,13 +28,13 @@ class actividadAppService
     } 
 
     // Método para crear una nueva actividad en la base de datos
-    public function crear($actividadDTO)
+    public function crear($actividadesusuarioDTO)
     {
         // Se obtiene una instancia del DAO a través de la fábrica
-        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
         // Se llama al método correspondiente para crear la actividad
-        $foundedactividadDTO = $IActividadDAO->crear($actividadDTO);
-        return $foundedactividadDTO;
+        $foundedactividadesusuarioDTO = $IActividadesusuarioDAO->crear($actividadesusuarioDTO);
+        return $foundedactividadesusuarioDTO;
     }
 
     // Método para eliminar una actividad existente por ID
