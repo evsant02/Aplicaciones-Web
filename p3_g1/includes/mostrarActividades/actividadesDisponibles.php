@@ -24,8 +24,8 @@ class actividadesDisponibles
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         //obtenemos el tipo de usuario que está en la sesion
         $user = application::getInstance()->getUserDTO();
-        $tipo_user = $user->tipo();
-        //habia que poner el nommbre para que lo pillara
+        //$tipo_user = $user->tipo();
+        //habia que poner el nombre para que lo pillara
         $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
