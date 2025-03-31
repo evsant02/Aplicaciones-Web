@@ -25,6 +25,7 @@ function mostrarPerfil(): string {
 
         //tener en cuenta como esta hecho actividadesDisponibles.php que usa un metodo en actividadusuarioAppservice mostrar
 
+        /*
         //el metodo creado en user
         $userAppService = userAppService::GetSingleton();
         $idsActividades = $userAppService->getActividadesUsuario($user->id());
@@ -58,6 +59,7 @@ function mostrarPerfil(): string {
         } else {
             $html .= '<p class="no-actividades">No tienes actividades reservadas actualmente.</p>';
         }
+        */
     }
     return $html;
 }
