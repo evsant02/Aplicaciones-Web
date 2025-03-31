@@ -2,7 +2,7 @@
 <?php
 
 // Se requiere el archivo que contiene la fábrica de actividades
-require("actividadFactory.php");
+require_once("actividadFactory.php");
 
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadAppService

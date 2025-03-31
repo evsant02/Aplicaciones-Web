@@ -1,8 +1,8 @@
 
 <?php
 // Se incluyen las dependencias necesarias
-require("IActividadesusuario.php");
-require("actividadesusuarioDTO.php");
+require_once("IActividadesusuario.php");
+require_once("actividadesusuarioDTO.php");
 require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades

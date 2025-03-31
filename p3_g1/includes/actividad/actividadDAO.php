@@ -1,13 +1,13 @@
 <?php
 // Se incluyen las dependencias necesarias
-require("IActividad.php");
-require("actividadDTO.php");
+require_once("IActividad.php");
+require_once("actividadDTO.php");
 require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
-require(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
-require(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
-require(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
+require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
+require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
+require_once(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad

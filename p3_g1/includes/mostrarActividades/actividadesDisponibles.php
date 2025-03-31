@@ -1,6 +1,6 @@
 <?php
 include 'Actividad.php';
-include __DIR__ . "/../actividad/actividadAppService.php";
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 // Clase que gestiona la lista de actividades disponibles
 class actividadesDisponibles 
 {
@@ -34,7 +34,7 @@ class actividadesDisponibles
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
-                $html .= '<td>' . $actividadAppService->mostrar($actividad) . '</td>';             
+                $html .= '<td>' . $actividadAppService->mostrar($actividad) . '</td>';    
         }
         
         $html .= '</tr></table>';
@@ -49,14 +49,6 @@ class actividadesDisponibles
             return "vistaDirigirActividad.php?id=" . $this->id;
         }
     }*/
-
-
-
-
-
-
-
-
 
 
 }
