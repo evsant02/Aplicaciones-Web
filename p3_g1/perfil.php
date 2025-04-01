@@ -32,7 +32,7 @@ function mostrarPerfil(): string {
             $html .= "<p> <em> Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
         }
         
-        $html .= '<p><em>Tus Actividades.</em></p>';
+        $html .= '<h3><em>Tus Actividades:</em></h3>';
 
         $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
         $htmlListado = $actividadesPerfil->generarListadoPerfil();

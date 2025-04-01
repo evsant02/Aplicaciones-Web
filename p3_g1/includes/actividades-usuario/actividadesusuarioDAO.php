@@ -212,5 +212,55 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         }
     }
 
+    public function isRegistrado($id_usuario, $id_actividad){
+        $conn = application::getInstance()->getConexionBd();
+        $escId_usuario = trim($this->realEscapeString($id_usuario));
+        $escId_actividad = trim($this->realEscapeString($id_actividad));
+        $query = "SELECT id_actividad FROM `actividades-usuario` WHERE id_usuario = ? AND id_actividad= ? ";
+        $stmt = $conn->prepare($query);
+        try {
+            $stmt->bind_param("ss", $escId_usuario, $escId_actividad);
+            $stmt->execute();
+            $stmt->store_result();
+            $verdadero=$stmt->num_rows();
+            return $verdadero;
+        } finally {
+            $stmt->close();
+        }
+        
+    }
+
+
+
+    public function apuntarUsuario($id_actividad, $id_usuario){
+        try {
+            // Obtener conexión con la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            // Consulta SQL para insertar una nueva actividad
+            $query = "INSERT INTO `actividades-usuario` (id_usuario, id_actividad) VALUES (?, ?)";
+            $stmt = $conn->prepare($query);
+
+            // Se vinculan los parámetros de la consulta
+            $stmt->bind_param("si", 
+                $id_usuario, 
+                $id_actividad
+            );
+
+            // Ejecutar la consulta
+            $stmt->execute();
+          
+        } catch (mysqli_sql_exception $e) {
+            throw $e;
+        } finally {
+            if ($stmt) {
+                $stmt->close(); // Asegura que el statement se cierra siempre
+            }
+        }
+
+        
+
+    }
+
 }
 ?>
