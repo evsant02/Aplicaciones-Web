@@ -212,5 +212,23 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         }
     }
 
+    public function isRegistrado($id_usuario, $id_actividad){
+        $conn = application::getInstance()->getConexionBd();
+        $escId_usuario = trim($this->realEscapeString($id_usuario));
+        $escId_actividad = trim($this->realEscapeString($id_actividad));
+        $query = "SELECT id_actividad FROM `actividades-usuario` WHERE id_usuario = ? AND id_actividad= ? ";
+        $stmt = $conn->prepare($query);
+        try {
+            $stmt->bind_param("ss", $escId_usuario, $escId_actividad);
+            $stmt->execute();
+            $stmt->store_result();
+            $verdadero=$stmt->num_rows();
+            return $verdadero;
+        } finally {
+            $stmt->close();
+        }
+        
+    }
+
 }
 ?>

@@ -256,5 +256,19 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
 
+    public function annadirusuario($id_actividad){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "UPDATE actividades SET ocupacion = ocupacion + 1 WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        // Se vincula el parámetro ID
+        $stmt->bind_param("i", $id_actividad);
+
+        // Se ejecuta la consulta
+        $resultado = $stmt->execute();
+        return $resultado;
+    }
+     
+   
 }
 ?>
