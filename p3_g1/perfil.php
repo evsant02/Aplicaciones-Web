@@ -2,6 +2,15 @@
 //incluir esto para que podamos trabajar con los metodos
 require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
 require_once("includes/actividad/actividadAppService.php");
+<<<<<<< HEAD
+=======
+require_once("includes/usuario/userAppService.php");
+
+// Incluir la configuración general del sistema
+require_once("includes/config.php");
+// Incluir la clase que genera la lista de actividades disponibles
+require_once("includes/mostrarPerfil/actividadesPerfil.php");
+>>>>>>> main
 
 function mostrarPerfil(): string {
     $user = application::getInstance()->getUserDTO(); // se obtienen los datos del usuario
@@ -20,11 +29,14 @@ function mostrarPerfil(): string {
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>'; // se muestran los botones para gestionar las actividades
       } else {
         $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
-        $html .= '<p><em>Aquí se mostrarán las actividades reservadas por el usuario/voluntario en la próxima práctica.</em></p>';
+        $html .= '<p><em>Tus Actividades.</em></p>';
 
+        $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
+        $htmlListado = $actividadesPerfil->generarListadoPerfil();
 
-        //tener en cuenta como esta hecho actividadesDisponibles.php que usa un metodo en actividadusuarioAppservice mostrar
+        $html .= $htmlListado; 
 
+<<<<<<< HEAD
         //el metodo creado en user
         $userAppService = userAppService::GetSingleton();
         $idsActividades = $userAppService->getActividadesUsuario($user->id());
@@ -58,13 +70,13 @@ function mostrarPerfil(): string {
         } else {
             $html .= '<p class="no-actividades">No tienes actividades reservadas actualmente.</p>';
         }
+=======
+>>>>>>> main
     }
     return $html;
 }
 
-
 ?>
-
 
 <?php
 require_once("includes/config.php");

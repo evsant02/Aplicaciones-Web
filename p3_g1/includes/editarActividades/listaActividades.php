@@ -1,7 +1,7 @@
 
 <?php
 // Se incluyen archivos necesarios
-include __DIR__ . "/../actividad/actividadAppService.php";
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 
 // Clase que gestiona la lista de actividades
 class listaActividades 

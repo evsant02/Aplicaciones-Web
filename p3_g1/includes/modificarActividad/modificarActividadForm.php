@@ -2,7 +2,7 @@
 
 // Se incluyen los archivos necesarios: la base de formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
-include __DIR__ . "/../actividad/actividadAppService.php";
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 
 // Clase que gestiona el formulario de modificación de actividades
 class modificarActividadForm extends formBase
