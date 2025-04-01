@@ -190,10 +190,10 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
 
 
     //metodo para obtener los id e actividades
-    public function getActividadesUsuario($actividadesusuarioDTO) {
-        $escId = trim($this->realEscapeString($actividadesusuarioDTO->id_usuario()));
+    public function getActividadesUsuario($id_usuario) {
+        $escId = trim($this->realEscapeString($id_usuario));
         $conn = application::getInstance()->getConexionBd();
-        $query = "SELECT id_actividad FROM actividades-usuario WHERE id_usuario = ?";
+        $query = "SELECT id_actividad FROM `actividades-usuario` WHERE id_usuario = ?";
         $stmt = $conn->prepare($query);
         $actividades = array();
     

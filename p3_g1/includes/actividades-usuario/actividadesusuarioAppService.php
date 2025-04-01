@@ -148,11 +148,11 @@ class actividadesusuarioAppService
     }
 
 
-    public function getActividadesUsuario($actividadesusuarioDTO)
+    public function getActividadesUsuario($id_usuario)
     {
         $IActividadDAO = actividadesusuarioFactory::CreateActividad();
 
-        $actividad = $IActividadDAO->getActividadesUsuario($actividadesusuarioDTO);
+        $actividad = $IActividadDAO->getActividadesUsuario($id_usuario);
 
         return $actividad;
     }
