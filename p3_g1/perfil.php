@@ -25,7 +25,13 @@ function mostrarPerfil(): string {
         $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>'; // se muestran los botones para gestionar las actividades
       } else {
-        $html .= "<p> <em> Usuario/Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
+
+        if($user->tipo()==1){
+            $html .= "<p> <em> Usuario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
+        }else if($user->tipo()==2){
+            $html .= "<p> <em> Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
+        }
+        
         $html .= '<p><em>Tus Actividades.</em></p>';
 
         $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
@@ -35,6 +41,7 @@ function mostrarPerfil(): string {
 
     }
     return $html;
+    
 }
 
 ?>
