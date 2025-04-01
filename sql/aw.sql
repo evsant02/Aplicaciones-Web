@@ -31,8 +31,8 @@ USE `aw`;
 
 CREATE TABLE `actividades` (
   `id` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `localizacion` varchar(50) NOT NULL,
+  `nombre` varchar(35) NOT NULL,
+  `localizacion` varchar(70) NOT NULL,
   `fecha_hora` datetime(6) NOT NULL,
   `descripcion` text NOT NULL,
   `aforo` tinyint(3) NOT NULL,
@@ -46,7 +46,17 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`) VALUES
-(12345, 'Desayunos solidarios', 'Calle de las vanguardias 21 Primero Derecha', '2025-03-30 09:00:00.000000', 'Actividad de cocina y servicio de desayunos para personas mayores en situación de necesidad.', 10, 1, 0, 'img/lectura.jpg');
+(0, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg'),
+(1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg'),
+(2, 'Taller de Costura', 'Casa de la Cultural', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg'),
+(3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg'),
+(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00.000000', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg'),
+(5, 'Manualidades', 'Asociación Vecinal', '2025-04-22 15:00:00.000000', 'Apúntate para exprimir al máximo tu creatividad.', 30, 0, 0, 'img/manualidades.jpg'),
+(6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00.000000', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 0, 0, 'img/lectura.jpg'),
+(7, 'Excursión al Palacio Real', 'Palacio Real', '2025-04-28 08:00:00.000000', 'Apúntate a visitar uno de los lugares más turísticos de Madrid.', 40, 0, 0, 'img/excursionPR.jpg'),
+(8, 'Visita al Teatro Real', 'Teatro Real', '2025-04-28 10:00:00.000000', 'Visita el Teatro Real por dentro como nunca antes lo habias visto.', 35, 0, 0, 'img/excursionTR.jpg'),
+(9, 'Torneo de Ajedrez', 'Universidad Complutense de Madrid (UCM)', '2025-05-07 10:00:00.000000', 'Pon a prueba tus estrategias y desafía a más de 30 personas en un campeonato de Ajedrez como nunca se ha visto.', 20, 0, 0, 'img/ajedrez.jpg');
+
 
 -- --------------------------------------------------------
 
@@ -64,8 +74,17 @@ CREATE TABLE `actividades-usuario` (
 --
 
 INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
-('22222', 12345),
-('33333', 12345);
+('22222', 1),
+('33333', 1),
+('22222', 0),
+('22222', 2),
+('evsant02', 0),
+('uchaoui', 2),
+('martia01', 3),
+('antonl11', 1),
+('antonl11', 3),
+('javiga', 1),
+('javiga', 3);
 
 -- --------------------------------------------------------
 
@@ -87,7 +106,7 @@ CREATE TABLE `donaciones` (
 
 CREATE TABLE `roles` (
   `nombre` varchar(20) NOT NULL,
-  `id_rol` int(1) NOT NULL
+  `id_rol` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -108,9 +127,9 @@ INSERT INTO `roles` (`nombre`, `id_rol`) VALUES
 CREATE TABLE `usuarios` (
   `id` varchar(50) NOT NULL,
   `nombre` varchar(20) NOT NULL,
-  `apellidos` varchar(40) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
-  `tipo` int(11) DEFAULT NULL,
+  `tipo` tinyint(1) DEFAULT NULL,
   `correo` varchar(40) NOT NULL,
   `password` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -122,7 +141,14 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `fecha_nacimiento`, `tipo`, `correo`, `password`) VALUES
 ('11111', 'admin1', 'primer administrador', '1995-03-15', 0, 'correoadmin1@gmail.com', 'admin1'),
 ('22222', 'usuario1', 'primer usuario', '1945-07-18', 1, 'correousuario1@gmail.com', 'usuario1'),
-('33333', 'voluntario1', 'primer voluntario', '2006-10-19', 2, 'correovoluntario1@gmail.com', 'voluntario1');
+('33333', 'voluntario1', 'primer voluntario', '2006-10-19', 2, 'correovoluntario1@gmail.com', 'voluntario1'),
+('evsant02', 'Eva', 'Santos Sánchez', '2003-02-01', 2, 'evsant02@ucm.es', 'eva'),
+('uchaoui', 'Umaima', 'Chaoui Benmousa', '2003-07-15', 2, 'uchaoui@ucm.es', 'umaima'),
+('antonl11', 'Antonio', 'López Belinchón', '1940-04-04', 1, 'antonl11@ucm.es', 'antonio'),
+('martia01', 'Martina', 'Águeda García', '2000-05-11', 2, 'martia01@ucm.es', 'martina'),
+('javiga', 'Javier', 'García Sánchez', '1956-04-20', 1, 'javiga22@ucm.es', 'javier'),
+('debrubio', 'Débora', 'Rubio Galindo', '1940-10-10', 1, 'debrubio@ucm.es', 'debora');
+
 
 --
 -- Índices para tablas volcadas
