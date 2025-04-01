@@ -84,11 +84,12 @@ class reservarActividad
         $actividadAppService->annadirusuario($this->actividad->id());
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
 
+        $html .=  '<p>¡Reserva realizada con éxito!</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
-        exit(); 
+        //exit(); 
 
-        return '<p>¡Reserva realizada con éxito!</p>';
+        
     }
 
 }
