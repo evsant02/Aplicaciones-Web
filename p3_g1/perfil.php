@@ -33,39 +33,6 @@ function mostrarPerfil(): string {
 
         $html .= $htmlListado; 
 
-        //el metodo creado en user
-        $userAppService = userAppService::GetSingleton();
-        $idsActividades = $userAppService->getActividadesUsuario($user->id());
-
-
-        if (!empty($idsActividades)) {
-            $html .= '<div class="actividades-container">';
-            $html .= '<h3>Tus actividades reservadas:</h3>';
-            $html .= '<div class="actividades-grid">';
-           
-            $actividadAppService = actividadAppService::GetSingleton();
-           
-            foreach ($idsActividades as $idActividad) {
-                try {
-                    $actividad = $actividadAppService->getActividadById($idActividad);
-                   
-                    $html .= '<div class="actividad-card">';
-                    $html .= '<img src="' . htmlspecialchars($actividad->foto()) . '" alt="' . htmlspecialchars($actividad->nombre()) . '">';
-                    $html .= '<div class="actividad-details">';
-                    $html .= '<h4>' . htmlspecialchars($actividad->nombre()) . '</h4>';
-                    $html .= '<p>' . date('d/m/Y H:i', strtotime($actividad->fecha_hora())) . '</p>';
-                    $html .= '</div></div>';
-                   
-                } catch (Exception $e) {
-                    error_log("Error al obtener actividad ID $idActividad: " . $e->getMessage());
-                    continue;
-                }
-            }
-           
-            $html .= '</div></div>'; // Cierre de actividades-grid y actividades-container
-        } else {
-            $html .= '<p class="no-actividades">No tienes actividades reservadas actualmente.</p>';
-        }
     }
     return $html;
 }
