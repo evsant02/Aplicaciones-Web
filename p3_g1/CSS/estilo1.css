@@ -79,8 +79,26 @@ main {
 	border-color: #555;
 	border-width: 0.5px;
 	border: solid;
-	margin: 20px auto; /* Auto en los lados lo centrará */
-	max-width: 90%; /* Asegura que no se pase del ancho de la pantalla */
+	margin: 20px auto; 
+	max-width: 90%; 
+	justify-content: center;
+	flex-direction: column;
+}
+
+.aboutus {
+	width: 900px;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+
+.ayuda {
+	width: 900px;
+	margin: 0 auto;
+}
+
+.donarForm {
+	width: 900px;
+	margin: 0 auto;
 }
 
 .donarForm fieldset {  
@@ -124,16 +142,6 @@ button {
 
 button:hover {
 	background-color: #7dbcfa;
-}
-
-.botonesIni {
-	width: 700px;
-	margin-left: 40px;
-	margin-top: 15px; 
-	display: grid;
-	grid-template-columns: repeat(2, auto); 
-	gap: 30px; 
-	font-size: 20px;
 }
 
 img {
