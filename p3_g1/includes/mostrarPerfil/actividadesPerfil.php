@@ -30,6 +30,7 @@ class actividadesPerfil
 
         $html = '<table class="tabla-actividades"><tr>'; 
         $colCount = 0;
+
         $actividadAppService = actividadAppService::GetSingleton();
 
         //hay que llamar al metodo de getActividadByid
@@ -37,11 +38,15 @@ class actividadesPerfil
         //this->actividades nos devuelve las actividades de ese usuario
 
         foreach ($this->actividades as $actividad) {       
+
+                $actividadDTO = $actividadAppService->getActividadById($actividad);
+
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
-                $html .= '<td>' . $actividadAppService->mostrarPerfil($actividad) . '</td>';    
+
+                $html .= '<td>' . $actividadAppService->mostrarPerfil($actividadDTO) . '</td>';
         }
         
         $html .= '</tr></table>';
