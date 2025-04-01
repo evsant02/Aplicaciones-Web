@@ -5,8 +5,13 @@
 require_once("includes/reservarActividad/reservarActividad.php");
 
 $tituloPagina = 'Reserva de Actividad';
-$form = new reservarActividad();
-$htmlForm = $form->Manage();
+$id = $_GET['id'];
+
+$actividadAppService = actividadAppService::GetSingleton();
+$actividad = $actividadAppService->getActividadById($id);
+
+$form = new reservarActividad($actividad);
+$htmlForm = $form->Inicializacion();
 
 $contenidoPrincipal = <<<EOS
 <h1>Reserva de Actividad</h1>

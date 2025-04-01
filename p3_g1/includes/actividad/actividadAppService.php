@@ -162,5 +162,10 @@ class actividadAppService
         return $html;
     }
 
+    public function annadirusuario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->annadirusuario($id_actividad);
+    }
+
 }
 ?>
