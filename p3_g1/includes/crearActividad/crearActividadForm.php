@@ -2,7 +2,7 @@
 
 // Se incluyen archivos necesarios: la base para formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
-include __DIR__ . "/../actividad/actividadAppService.php";
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 
 // Clase que gestiona el formulario de creación de actividades
 class crearActividadForm extends formBase
@@ -21,14 +21,15 @@ class crearActividadForm extends formBase
         $fecha_hora = htmlspecialchars($datos['fecha_hora'] ?? '', ENT_QUOTES, 'UTF-8');
         $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
         $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
+        $fechaMinima = date('Y-m-d\TH:i');
 
         $html = <<<EOF
         <fieldset>
             <legend>Crear Nueva Actividad</legend>
             <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
             <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
-            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" required/></p>
-            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1"/></p>
+            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
+            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
             <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
             <p><label>Fotografía de la actividad:</label> <input type="file" name="imagen" accept="image/*" required></p>
             <button type="submit" name="crear">Crear</button>
@@ -56,12 +57,11 @@ EOF;
         }
         if (empty($fecha_hora)) {
             $result[] = "Debe especificar la fecha y hora de la actividad.";
+        } elseif (strtotime($fecha_hora) < time()) {
+            $result[] = "La fecha y hora no puede ser anterior o igual a la actual.";
         }
         if (empty($aforo)) {
             $result[] = "Debe proporcionar el aforo de la actividad.";
-        }
-        if (!ctype_digit($aforo) || (int)$aforo <= 0) {
-            $result[] = "El aforo debe ser un número entero positivo.";
         }
         if (empty($descripcion)) {
             $result[] = "Debe proporcionar una descripción de la actividad.";
@@ -98,7 +98,7 @@ EOF;
 
                 $result = 'index.php';
                 $app = application::getInstance();
-                $mensaje = "Se ha creado la nueva actividad exitosamente";
+                $mensaje = "¡Se ha creado la nueva actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             } catch (Exception $e) {
                 error_log("Error al crear la actividad: " . $e->getMessage());

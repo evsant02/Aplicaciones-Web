@@ -34,7 +34,7 @@ function gestorExcepciones(Throwable $exception)
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
 
     $tituloPagina = 'Error';
-
+    var_dump($exception->getMessage());
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>

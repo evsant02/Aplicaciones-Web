@@ -3,7 +3,7 @@
 // Se requieren los archivos necesarios para la funcionalidad de la clase
 require("IUser.php"); // Interfaz que define los métodos de usuario
 require_once("userDTO.php"); // Objeto de transferencia de datos para usuarios
-require(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
+require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
 
 
 require(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
@@ -126,7 +126,7 @@ class userDAO extends baseDAO implements IUser
         $id = trim($this->realEscapeString($userDTO->id()));
         $conn = application::getInstance()->getConexionBd();
         $query = "SELECT COUNT(*) FROM usuarios WHERE id = ?";
-        $stmt = null;
+        $stmt = $conn->prepare($query);
 
         try {
             $stmt->bind_param("s", $id);

@@ -1,7 +1,7 @@
 <?php
 
 // Se incluye el archivo que contiene la implementación de actividadDAO
-require("actividadDAO.php");
+require_once("actividadDAO.php");
 
 // Definición de la clase actividadFactory
 class actividadFactory
