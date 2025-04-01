@@ -164,5 +164,12 @@ class actividadesusuarioAppService
         return $int;
     }
 
+
+    public function apuntarUsuario($id_actividad, $id_usuario){
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
+        $IActividadesusuarioDAO->apuntarUsuario($id_actividad, $id_usuario);
+
+    }
+
 }
 ?>

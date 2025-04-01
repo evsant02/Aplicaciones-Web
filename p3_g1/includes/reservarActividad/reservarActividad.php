@@ -94,7 +94,7 @@ class reservarActividad
             $html .= '</form>';
         // Mostrar mensaje de reserva realizada si el formulario ha sido enviado
             if (isset($_POST['reservar'])) {
-                $html .= $this->procesarReserva(); // Llamamos a la función de reserva
+                $html .= $this->procesarReserva($user->id()); // Llamamos a la función de reserva
             }
         }
         else {
@@ -114,12 +114,13 @@ class reservarActividad
     }
 
     // Procesar la reserva de la actividad
-    private function procesarReserva()
+    private function procesarReserva($id_usuario)
     {
         
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
         $actividadAppService->annadirusuario($this->actividad->id());
+        $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
         return '<p>¡Reserva realizada con éxito!</p>';
     }
 
