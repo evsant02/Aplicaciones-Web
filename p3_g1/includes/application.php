@@ -162,7 +162,7 @@ class application
         return unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario
     }
 
-    public function isSessionSet(): bool {
+    public function isUserLogged(): bool {
         return isset($_SESSION["login"]) && $_SESSION["login"];
     }
 }

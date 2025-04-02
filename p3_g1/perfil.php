@@ -15,7 +15,7 @@ function mostrarPerfil(): string {
     $html = null;
 
 
-    if ($app->isSessionSet()) {
+    if ($app->isUserLogged()) {
         $html .= "<h2><p> <em>Bienvenid@, " . $user->nombre() . "</em> " . $user->apellidos() . "</p></h2>";
         $html .= "<p> " . $user->correo() . " | " . $user->fecha_nacimiento() . "</p>";
     }

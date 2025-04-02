@@ -6,7 +6,7 @@ function mostrarSaludo() {
     echo '<nav>';
     echo '<ul class="main-links">'; // Enlaces generales (izquierda)
     
-    if ($app->isSessionSet()) {
+    if ($app->isUserLogged()) {
         $user = $app->getUserDTO();
         echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
     }
@@ -19,7 +19,7 @@ function mostrarSaludo() {
     // Enlaces de usuario (derecha)
     echo '<div class="user-links"><ul>';
     
-    if ($app->isSessionSet()) {
+    if ($app->isUserLogged()) {
         echo "<li><a href='perfil.php'>Perfil ".$user->nombre()."</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
     } else {
