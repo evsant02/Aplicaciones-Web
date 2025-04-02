@@ -49,6 +49,7 @@ class modificarActividadForm extends formBase
             <p>
                 <?php if ($imagen): ?>
                     <img src="$imagen" alt="Imagen de la actividad" width="500" />
+                    <input type="hidden" name="imagenActual" value="$imagen" />
                 <?php endif; ?>
             </p>
 
@@ -75,6 +76,7 @@ class modificarActividadForm extends formBase
         $aforo = trim($datos['aforo'] ?? '');
         $dirigida = trim($datos['dirigida'] ?? '');
         $ocupacion = trim($datos['ocupacion'] ?? '');
+        $rutaImagen = trim($datos['imagenActual'] ?? '');
 
         // Validaciones
         if (empty($id)) {
@@ -99,8 +101,6 @@ class modificarActividadForm extends formBase
         }
 
         // Manejo de la imagen
-        $rutaImagen = $this->actividad ? $this->actividad->foto() : null; // Usar la imagen actual si no se selecciona una nueva
-
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $nombreArchivo = basename($_FILES["imagen"]["name"]);
             $rutaDestino = __DIR__ . "/../../img/" . $nombreArchivo;

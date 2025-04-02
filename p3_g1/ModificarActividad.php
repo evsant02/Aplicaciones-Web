@@ -5,28 +5,27 @@ require_once("includes/modificarActividad/modificarActividadForm.php");
 $tituloPagina = 'Modificar Actividad';
 
 // Obtener el ID de la actividad
-$id = $_GET['id'] ?? $_POST['id'] ?? null;
+$id = $_GET['id'];
 
-// Comprobar si el ID es válido
-if (!$id) {
-    $errorMensaje = "Error: No se ha especificado una actividad válida.";
-    header("Location: vistaActividades.php?error=" . urlencode($errorMensaje));
-    exit();
+if ($id){
+    // Obtener la actividad
+    $actividadAppService = actividadAppService::GetSingleton();
+    $actividad = $actividadAppService->getActividadById($id);
+
+    if (!$actividad) {
+        $errorMensaje = "Error: La actividad no existe.";
+        header("Location: vistaActividades.php?error=" . urlencode($errorMensaje));
+        exit();
+    }
+
+    // Crear y mostrar el formulario
+    $form = new modificarActividadForm($actividad);
+    $htmlFormLogin = $form->Manage();
+} else {
+    $form = new modificarActividadForm();
+    $htmlFormLogin = $form->Manage();
 }
 
-// Obtener la actividad
-$actividadAppService = actividadAppService::GetSingleton();
-$actividad = $actividadAppService->getActividadById($id);
-
-if (!$actividad) {
-    $errorMensaje = "Error: La actividad no existe.";
-    header("Location: vistaActividades.php?error=" . urlencode($errorMensaje));
-    exit();
-}
-
-// Crear y mostrar el formulario
-$form = new modificarActividadForm($actividad);
-$htmlFormLogin = $form->Manage();
 
 $contenidoPrincipal = <<<EOS
 <h1>Modificar Actividad</h1>
