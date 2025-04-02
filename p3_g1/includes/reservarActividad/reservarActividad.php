@@ -1,20 +1,20 @@
 <?php
+require_once("includes/config.php");
 include __DIR__ . "/../comun/formBase.php";
-include 'Actividad.php';
+//include 'Actividad.php';
 
 class reservarActividad extends formBase
 {
     private $actividad;
 
-    public function __construct() {
+    public function __construct($actividad = null) {
         parent::__construct('reservaActividad');
-        $this->actividad = $this->obtenerActividad();
+        $this->actividad = $actividad;
     }
-
-
-
-
+    
+    
     //simulación de obtener la actividad simulada (en un futuro se usará la BBDD)
+    /*
     private function obtenerActividad(){
 
         //$id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -49,10 +49,14 @@ class reservarActividad extends formBase
 
         return null;
     }
+    */
 
     // Método que construye el formulario de detalles y la funcionalidad de reserva
     protected function CreateFields($datos){
 
+        $app = application::getInstance();
+        $user = $app->getUserDTO();
+        $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/estiloActividad.css">';  //uso del css que da estilo a la actividad
 
@@ -79,20 +83,32 @@ class reservarActividad extends formBase
         EOF;
 
 
-        // Reserva  
-        // Mostrar formulario de reserva si hay plazas disponibles
-        if ($this->actividad->getPlazas() > 0) {
+        if (!$actividadUsuarioAppService->isRegistrado($user->id(), $this->$actividad->getId())) {        
+            // Reserva  (si el usuario no está registrado)
+            // Mostrar formulario de reserva si hay plazas disponibles
+            if ($this->actividad->getPlazas() > 0) {
+                $html .= '<form method="post">';  
+                $html .= '<input type="hidden" name="id" value="' . $this->actividad->getId() . '">';
+                $html .= '<button type="submit" name="reservar">Reservar mi plaza</button>';
+                $html .= '</form>';
+            } else {
+                $html .= '<p>No hay plazas disponibles</p>';
+            }
+
+        // Mostrar mensaje de reserva realizada si el formulario ha sido enviado
+            if (isset($_POST['reservar'])) {
+                $html .= $this->procesarReserva(); // Llamamos a la función de reserva
+            }
+        }
+        else {
             $html .= '<form method="post">';  
             $html .= '<input type="hidden" name="id" value="' . $this->actividad->getId() . '">';
-            $html .= '<button type="submit" name="reservar">Reservar mi plaza</button>';
+            $html .= '<button type="submit" name="bajaActividad">Darse de baja</button>';
             $html .= '</form>';
-        } else {
-            $html .= '<p>No hay plazas disponibles</p>';
-        }
 
-       // Mostrar mensaje de reserva realizada si el formulario ha sido enviado
-        if (isset($_POST['reservar'])) {
-            $html .= $this->procesarReserva(); // Llamamos a la función de reserva
+            if (isset($_POST['bajaActividad'])) {
+                $html .= $this->bajaActividad(); // Llamamos a la función de darse de baja
+            }
         }
 
                

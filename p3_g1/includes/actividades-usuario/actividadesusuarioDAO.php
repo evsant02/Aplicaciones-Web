@@ -119,7 +119,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         */
 
     // Método para obtener una actividad por su ID
-    /*
+    
     public function getActividadById($id)
     {
         try {
@@ -157,7 +157,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             }
         }
         return null; // No se encontró la actividad
-    } */
+    } 
 
     // Método para obtener todas las actividades a las que está apuntado un cliente (por completar)
     public function obtenerTodasLasActividades()

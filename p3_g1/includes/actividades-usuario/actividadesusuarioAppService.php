@@ -157,5 +157,13 @@ class actividadesusuarioAppService
         return $actividad;
     }
 
+    public function isRegistrado($id_usuario, $id_actividad): bool {
+        $IActividadDAO = actividadesusuarioFactory::CreateActividad();
+
+        if ($IActividadDAO->get($id_usuario) == null) return false;
+
+        else return true;
+    }
+
 }
 ?>
