@@ -3,6 +3,7 @@
 // Se incluyen archivos necesarios: la base para formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 require_once( __DIR__ . "/../actividad/actividadAppService.php");
+require_once(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
 
 // Clase que gestiona el formulario de creación de actividades
 class crearActividadForm extends formBase
@@ -102,7 +103,7 @@ EOF;
                 $app->putAtributoPeticion('mensaje', $mensaje);
             } catch (Exception $e) {
                 error_log("Error al crear la actividad: " . $e->getMessage());
-                $result[] = "Error al crear la actividad: " . $e->getMessage();
+                $mensaje= "Se ha producido un error: " . $e->getMessage();
             }
         }
 
