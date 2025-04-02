@@ -3,6 +3,7 @@
 
 // Se requiere el archivo que contiene la fábrica de actividades
 require_once("actividadFactory.php");
+require_once("includes/config.php");
 
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadAppService
@@ -124,7 +125,11 @@ class actividadAppService
         $html = '<div class="actividad">';
         $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
-        $html .= '<p class="descripcion">' . $actividadDTO->descripcion() . '</p>';
+
+        $fechaHora = new DateTime($actividadDTO->fecha_hora());
+        $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
+
+        $html .= '<p>Aforo: ' . $actividadDTO->ocupacion(). '/' . $actividadDTO->aforo() . '</p>';
         //usuario
         if ($tipo_user == 1){            
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Reservar</a>';
@@ -149,18 +154,17 @@ class actividadAppService
 
     public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
+        $app = application::getInstance();
         $tipo_user = $user->tipo();
 
         $html = '<div class="actividad">';
 
-        //usuario
-        if ($tipo_user == 1){            
+        if($app->soyUsuario()){
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
-        }
-        //voluntario
-        if ($tipo_user == 2){
+        }else if($app->soyVoluntario()){
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
         }
+
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora
