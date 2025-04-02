@@ -72,7 +72,7 @@ footer {
 main {
 	flex-grow: 1;
 	padding: 20px;
-	min-height: 600px;
+	min-height: auto;
 	min-width: 500px;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	background-color: #d4e6f8;
@@ -84,6 +84,7 @@ main {
 	justify-content: center;
 	flex-direction: column;
 }
+
 
 
 .aboutus {
@@ -333,4 +334,12 @@ hr {
     .btn-admin {
         width: auto;
     }
+}
+
+/* Línea separadora para usuarios */
+.linea-separadora-usuario {
+    width: 80%;
+    height: 1px;
+    background-color: #444141; /* Color gris */
+    margin: 15px auto; /* Centrado con margen arriba/abajo */
 }

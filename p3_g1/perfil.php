@@ -19,10 +19,11 @@ function mostrarPerfil(): string {
         $html .= "<div class='perfil-header'>";
         $html .= "<h2><p> <em>Bienvenid@, " . $user->nombre() . "</em> " . $user->apellidos() . "</p></h2>";
         $html .= "<p> " . $user->correo() . " | " . $user->fecha_nacimiento() . "</p>";
-        $html .= "</div>"; // cierre perfil-header
+       
     }
     $html .= '<hr/>';
-   
+    
+
     if ($app->soyAdmin()) {
         $html .= "<div class='perfil-admin'>";
         $html .= "<p class='rol-usuario'> <em> Administrador </em> </p>";
@@ -33,12 +34,20 @@ function mostrarPerfil(): string {
         $html .= "</div>"; // cierre perfil-admin
     } else {
         $html .= "<div class='perfil-usuario'>";
-        if($app->soyUsuario()) $html .= "<p class='rol-usuario'> <em> Usuario </em> </p>";
-        else if ($app->soyVoluntario()) $html .= "<p class='rol-usuario'> <em> Voluntario </em> </p>";
-        $html .= '<p><h3>Tus próximas actividades: </h3></p>'; 
+        if($app->soyUsuario()) {
+            $html .= "<p class='rol-usuario'> <em> Usuario </em> </p>";
+            $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
+        }
+        else if ($app->soyVoluntario()) {
+            $html .= "<p class='rol-usuario'> <em> Voluntario </em> </p>";
+            $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
+        }
         $html .= "</div>"; // cierre perfil-usuario
+        $html .= "</div>"; // cierre perfil-header
         $html .= "</div>"; // cierre perfil-contenedor
-        
+
+        $html .= '<p><h3>Tus próximas actividades: </h3></p>'; 
+
         $actividadesPerfil = new actividadesPerfil();
         $htmlListado = $actividadesPerfil->generarListadoPerfil();
 

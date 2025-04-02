@@ -28,6 +28,11 @@ class actividadesPerfil
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
 
+        // Verificar si no hay actividades
+        if (empty($this->actividades)) {
+            return '<div class="sin-actividades">No estás apuntado a ninguna actividad</div>';
+        }
+
         $html = '<table class="tabla-actividades"><tr>'; 
         $colCount = 0;
 

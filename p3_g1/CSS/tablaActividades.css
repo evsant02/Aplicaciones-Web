@@ -36,3 +36,15 @@
         width: 100%; /* 1 columna en pantallas muy pequeñas */
     }
 }
+
+.sin-actividades {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 600px;
+    border: 1px solid #e0e0e0;
+}
