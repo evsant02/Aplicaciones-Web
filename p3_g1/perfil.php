@@ -27,7 +27,7 @@ function mostrarPerfil(): string {
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>'; // se muestran los botones para gestionar las actividades
       } else {
         if($app->soyUsuario()) $html .= "<p> <em> Usuario </em> </p>"; // se muestra el tipo de usuario
-        else if ($app->soyVoluntario())$html .= "<p> <em> Voluntario </em> </p>";
+        else if ($app->soyVoluntario()) $html .= "<p> <em> Voluntario </em> </p>";
         $html .= '<p><h2>Tus próximas actividades</h2></p>'; 
 
         $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
