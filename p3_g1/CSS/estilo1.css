@@ -184,35 +184,6 @@ img {
 	margin-left: 15px; /* Espacio entre los elementos */
 }
 
-/* ============================= */
-/* ESTILOS RESPONSIVOS */
-/* ============================= */
-
-@media (max-width: 768px) {
-	nav {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul li {
-		margin: 5px 0;
-	}
-
-	.user-links {
-		margin-left: 0;
-		justify-content: center;
-	}
-
-	.user-links ul {
-		flex-direction: column;
-		align-items: center;
-	}
-}
 
 /* ============================= */
 /* NUEVOS ESTILOS PARA EL INDEX */
@@ -322,6 +293,47 @@ hr {
     background: linear-gradient(to right, transparent, #a1ccf8, transparent);
 }
 
+
+/* Línea separadora para usuarios */
+.linea-separadora-usuario {
+    width: 80%;
+    height: 1px;
+    background-color: #444141; /* Color gris */
+    margin: 15px auto; /* Centrado con margen arriba/abajo */
+}
+
+
+/* ============================= */
+/* ESTILOS RESPONSIVOS */
+/* ============================= */
+
+@media (max-width: 768px) {
+	nav {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul li {
+		margin: 5px 0;
+	}
+
+	.user-links {
+		margin-left: 0;
+		justify-content: center;
+	}
+
+	.user-links ul {
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+
 /* Estilos responsivos para el perfil */
 @media (max-width: 768px) {
     .botones-admin {
@@ -332,12 +344,4 @@ hr {
     .btn-admin {
         width: auto;
     }
-}
-
-/* Línea separadora para usuarios */
-.linea-separadora-usuario {
-    width: 80%;
-    height: 1px;
-    background-color: #444141; /* Color gris */
-    margin: 15px auto; /* Centrado con margen arriba/abajo */
 }

@@ -38,8 +38,6 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
                 // Obtener el ID generado por la inserción
                 return new actividadesusuarioDTO($escid_usuario, $escid_actividad);
             }
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
         } finally {
             if ($stmt) {
                 $stmt->close(); // Asegura que el statement se cierra siempre
@@ -62,8 +60,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
             return $resultado;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -179,8 +176,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             }
 
             return $actividades;
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -249,9 +245,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
 
             // Ejecutar la consulta
             $stmt->execute();
-          
-        } catch (mysqli_sql_exception $e) {
-            throw $e;
+
         } finally {
             if ($stmt) {
                 $stmt->close(); // Asegura que el statement se cierra siempre

@@ -61,10 +61,7 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
             }
-        } catch (mysqli_sql_exception $e) {
-            if ($e->getCode() == 23000) { // Código para duplicados
-                throw new DuplicateActivityException("La actividad ya existe");
-            }
+
         } finally {
             if ($stmt) {
                 $stmt->close(); // Asegura que el statement se cierra siempre
