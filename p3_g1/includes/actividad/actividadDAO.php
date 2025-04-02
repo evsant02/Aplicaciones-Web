@@ -166,7 +166,7 @@ class actividadDAO extends baseDAO implements IActividad
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
 
-            throw new ActivityNotFoundException("Actividad no encontrada");
+            //throw new ActivityNotFoundException("Actividad no encontrada");
 
         } finally {
             if ($stmt) {
