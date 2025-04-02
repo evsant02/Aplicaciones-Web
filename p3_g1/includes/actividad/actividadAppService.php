@@ -167,5 +167,13 @@ class actividadAppService
         $IActividadDAO->annadirusuario($id_actividad);
     }
 
+
+    public function annadirVoluntario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->annadirVoluntario($id_actividad);
+    }
+
+   
+
 }
 ?>
