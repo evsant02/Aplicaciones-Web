@@ -149,14 +149,14 @@ class actividadAppService
 
     public function mostrarPerfil($actividadDTO) {
         $html = '<div class="actividad">';
-        $html .= '<img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora
         $fechaHora = new DateTime($actividadDTO->fecha_hora());
         $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
         
-        $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
+        // $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
         $html .= '</div>';
     
         return $html;
@@ -173,6 +173,11 @@ class actividadAppService
         $IActividadDAO->annadirVoluntario($id_actividad);
     }
 
+
+    public function borrarUsuario($id_actividad) {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->borrarUsuario($id_actividad);
+    }
    
 
 }

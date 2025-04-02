@@ -14,13 +14,13 @@ $mensaje = $app->getAtributoPeticion('mensaje');
 $actividadAppService = actividadAppService::GetSingleton();
 $actividad = $actividadAppService->getActividadById($id);
 
-$form = new reservarActividad($actividad);
-$htmlForm = $form->Inicializacion();
+$reservarActividad = new reservarActividad($actividad);
+$htmlReservarActividad = $reservarActividad->Inicializacion();
 
 $contenidoPrincipal = <<<EOS
 <p>$mensaje</p>
 <h1>Reserva de Actividad</h1>
-$htmlForm
+$htmlReservarActividad
 EOS;
 
 require("includes/comun/plantilla.php");

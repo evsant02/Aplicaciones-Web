@@ -1,10 +1,13 @@
 <?php
+require_once("includes/config.php");
 function mostrarSaludo() {
+    $app = application::getInstance();
+
     echo '<nav>';
     echo '<ul class="main-links">'; // Enlaces generales (izquierda)
     
-    if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
-        $user = application::getInstance()->getUserDTO();
+    if ($app->isSessionSet()) {
+        $user = $app->getUserDTO();
         echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
     }
     
@@ -16,7 +19,7 @@ function mostrarSaludo() {
     // Enlaces de usuario (derecha)
     echo '<div class="user-links"><ul>';
     
-    if (isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+    if ($app->isSessionSet()) {
         echo "<li><a href='perfil.php'>Perfil ".$user->nombre()."</a></li>";
         echo "<li><a href='logout.php'>(Salir)</a></li>";
     } else {

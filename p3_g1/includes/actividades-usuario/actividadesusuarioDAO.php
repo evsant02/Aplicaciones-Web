@@ -119,7 +119,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         */
 
     // Método para obtener una actividad por su ID
-    /*
+    
     public function getActividadById($id)
     {
         try {
@@ -157,7 +157,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             }
         }
         return null; // No se encontró la actividad
-    } */
+    } 
 
     // Método para obtener todas las actividades a las que está apuntado un cliente (por completar)
     public function obtenerTodasLasActividades()
@@ -257,9 +257,31 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
                 $stmt->close(); // Asegura que el statement se cierra siempre
             }
         }
+    }
 
-        
+    public function bajaUsuario($id_actividad, $id_usuario) {
+        try {
+            // Obtener conexión con la base de datos
+            $conn = application::getInstance()->getConexionBd();
 
+            // Consulta SQL para insertar una nueva actividad
+            $query = "DELETE FROM `actividades-usuario` WHERE id_usuario = ? AND id_actividad = ? ";
+            $stmt = $conn->prepare($query);
+
+            // Se vinculan los parámetros de la consulta
+            $stmt->bind_param("si", 
+                $id_usuario, 
+                $id_actividad
+            );
+
+            // Ejecutar la consulta
+            $stmt->execute();
+          
+        } finally {
+            if ($stmt) {
+                $stmt->close(); // Asegura que el statement se cierra siempre
+            }
+        }
     }
 
 }
