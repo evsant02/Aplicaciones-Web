@@ -46,7 +46,7 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`) VALUES
-(0, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg'),
+(10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg'),
 (1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg'),
 (2, 'Taller de Costura', 'Casa de la Cultural', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg'),
 (3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg'),
@@ -76,9 +76,9 @@ CREATE TABLE `actividades-usuario` (
 INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 ('22222', 1),
 ('33333', 1),
-('22222', 0),
+('22222', 10),
 ('22222', 2),
-('evsant02', 0),
+('evsant02', 10),
 ('uchaoui', 2),
 ('martia01', 3),
 ('antonl11', 1),
