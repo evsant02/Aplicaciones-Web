@@ -29,15 +29,20 @@ class actividadesDisponibles
         $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
-        foreach ($this->actividades as $actividad) {       
+        if($this->actividades==null){
+            $html = '<p> No tienes actividades disponibles </p>';
+        }
+        else{
+            foreach ($this->actividades as $actividad) {       
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
                 $html .= '<td>' . $actividadAppService->mostrar($actividad) . '</td>';    
-        }
+            }   
         
         $html .= '</tr></table>';
+        }
         return $html;
     }
 
