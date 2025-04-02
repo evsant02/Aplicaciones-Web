@@ -148,8 +148,19 @@ class actividadAppService
     }
 
     public function mostrarPerfil($actividadDTO) {
+        $user = application::getInstance()->getUserDTO();
+        $tipo_user = $user->tipo();
+
         $html = '<div class="actividad">';
-        $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+
+        //usuario
+        if ($tipo_user == 1){            
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+        }
+        //voluntario
+        if ($tipo_user == 2){
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+        }
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora

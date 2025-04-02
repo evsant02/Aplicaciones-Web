@@ -28,7 +28,7 @@ function mostrarPerfil(): string {
       } else {
         if($app->soyUsuario()) $html .= "<p> <em> Usuario </em> </p>"; // se muestra el tipo de usuario
         else if ($app->soyVoluntario()) $html .= "<p> <em> Voluntario </em> </p>";
-        $html .= '<p><h2>Tus próximas actividades</h2></p>'; 
+        $html .= '<p><h3>Tus próximas actividades: </h3></p>'; 
 
         $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
         $htmlListado = $actividadesPerfil->generarListadoPerfil();  // se muestran las actividades
