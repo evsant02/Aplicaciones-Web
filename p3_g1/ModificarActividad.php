@@ -5,12 +5,12 @@ require_once("includes/modificarActividad/modificarActividadForm.php");
 $tituloPagina = 'Modificar Actividad';
 
 // Obtener el ID de la actividad
-$id = $_GET['id'];
+$id = $_GET['id'] ?? $_POST['id'] ?? null;
 
 // Comprobar si el ID es válido
 if (!$id) {
     $errorMensaje = "Error: No se ha especificado una actividad válida.";
-    header("Location: EditarActividades.php?error=" . urlencode($errorMensaje));
+    header("Location: vistaActividades.php?error=" . urlencode($errorMensaje));
     exit();
 }
 
@@ -20,7 +20,7 @@ $actividad = $actividadAppService->getActividadById($id);
 
 if (!$actividad) {
     $errorMensaje = "Error: La actividad no existe.";
-    header("Location: EditarActividades.php?error=" . urlencode($errorMensaje));
+    header("Location: vistaActividades.php?error=" . urlencode($errorMensaje));
     exit();
 }
 
