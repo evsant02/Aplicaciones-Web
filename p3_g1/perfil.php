@@ -14,7 +14,7 @@ function mostrarPerfil(): string {
     $user = $app->getUserDTO();
     $html = null;
 
-    if ($app->isSessionSet()) {
+    if ($app->isUserLogged()) {
         $html .= "<div class='perfil-contenedor'>";
         $html .= "<div class='perfil-header'>";
         $html .= "<h2><p> <em>Bienvenid@, " . $user->nombre() . "</em> " . $user->apellidos() . "</p></h2>";
