@@ -119,17 +119,17 @@ class actividadDAO extends baseDAO implements IActividad
            $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
 
            // Se vinculan los parámetros
-           $stmt->bind_param("ssssiisii", 
+           $stmt->bind_param("ssssiiisi", 
                $escnombre, 
                $esclocalizacion, 
                $escfecha_hora, 
                $escdescripcion,
-               $escid,
                $escaforo,
-               $escfoto,
                $escdirigida,
-               $escocupacion
-           );
+               $escocupacion,
+               $escfoto,
+               $escid
+            );
 
             $resultado = $stmt->execute();
 

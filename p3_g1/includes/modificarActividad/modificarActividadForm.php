@@ -105,17 +105,17 @@ class modificarActividadForm extends formBase
             $nombreArchivo = basename($_FILES["imagen"]["name"]);
             $rutaDestino = __DIR__ . "/../../img/" . $nombreArchivo;
             $rutaBD = "img/" . $nombreArchivo;
-            
+        
             // Validar tipo MIME
             $tipoMime = mime_content_type($_FILES["imagen"]["tmp_name"]);
             $formatosPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
-            
+        
             if (!in_array($tipoMime, $formatosPermitidos)) {
                 $result[] = "Formato de imagen no válido. Use JPG, PNG o GIF.";
             } elseif (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaDestino)) {
                 $result[] = "Error al subir la imagen.";
             } else {
-                $rutaImagen = $rutaBD; // Usar la nueva imagen
+                $rutaImagen = $rutaBD; // Usar la nueva imagen solo si se subió correctamente
             }
         }
 
@@ -124,7 +124,7 @@ class modificarActividadForm extends formBase
             try {
                 // Crear un nuevo objeto actividadDTO con los valores modificados
                 $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $rutaImagen);
-
+                
                 // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();
 
