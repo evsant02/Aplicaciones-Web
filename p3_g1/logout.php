@@ -16,6 +16,9 @@ $tituloPagina = 'Salir del sistema';
 $contenidoPrincipal=<<<EOS
 	<h1>Hasta pronto!</h1>
 	<p>Has cerrado sesión correctamente. <a href="index.php">Volver a la página de inicio</a></p>
+	    <div class="welcome-container">
+        <img src="img/logo.jpeg" alt="Logo de la organización" class="logo">
+    </div>
 EOS;
 
 // Carga la plantilla para mostrar la página con el contenido definido

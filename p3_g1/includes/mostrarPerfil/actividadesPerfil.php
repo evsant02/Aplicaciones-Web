@@ -30,9 +30,9 @@ class actividadesPerfil
 
         // Verificar si no hay actividades
         if (empty($this->actividades)) {
-            return '<div class="sin-actividades">No estás apuntado a ninguna actividad</div>';
+            return '<p>No estás apuntado a ninguna actividad</p>';
         }
-
+        
         $html = '<table class="tabla-actividades"><tr>'; 
         $colCount = 0;
 

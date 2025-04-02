@@ -37,14 +37,27 @@
     }
 }
 
+/* Estilo cuando no hay actividades (sin recuadro) */
 .sin-actividades {
     text-align: center;
     font-size: 1.2em;
     color: #555;
-    padding: 30px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
+    margin: 20px 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Contenedor de la imagen (simplificado) */
+.imagen-centrada {
     margin: 20px auto;
-    max-width: 600px;
-    border: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+/* Estilo de la imagen (más minimalista) */
+.logo-actividades {
+    max-width: 300px; /* Reducido ligeramente */
+    height: auto;
+    margin-top: 15px;
 }
