@@ -102,7 +102,7 @@ EOF;
                 $app->putAtributoPeticion('mensaje', $mensaje);
             } catch (Exception $e) {
                 error_log("Error al crear la actividad: " . $e->getMessage());
-                $result[] = "Error al crear la actividad: " . $e->getMessage();
+                $mensaje= "Se ha producido un error: " . $e->getMessage();
             }
         }
 
