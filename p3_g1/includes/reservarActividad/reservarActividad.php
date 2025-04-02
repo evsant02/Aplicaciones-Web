@@ -74,7 +74,6 @@ class reservarActividad
         }
 
         // Se redirige a la página principal con un mensaje de éxito
-        //$result = 'vistaReservaActividad.php';
 
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
         $app = application::getInstance();  
@@ -93,10 +92,9 @@ class reservarActividad
         $actividadAppService->annadirusuario($this->actividad->id());
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
 
-        $mensaje =  '<p>¡Reserva realizada con éxito!</p>';
+        $mensaje =  "¡Reserva realizada con éxito!";
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
-        //exit(); 
 
         return $mensaje;
     }

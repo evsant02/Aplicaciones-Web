@@ -94,7 +94,6 @@ class dirigirActividad
     
 
         // Se redirige a la página principal con un mensaje de éxito
-        //$result = 'vistaReservaActividad.php';
 
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
         $app = application::getInstance();  
@@ -115,10 +114,9 @@ class dirigirActividad
         $actividadAppService->annadirVoluntario($this->actividad->id());
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
 
-        $mensaje =  '<p>¡Diriges esta actividad!</p>';
+        $mensaje =  '<p>¡Ahora diriges esta actividad!</p>';
         // Recargar la página
-        header("Location: perfil.php");
-        exit();
+        header("Location: ".$_SERVER['REQUEST_URI']);
         
         return $mensaje;
     }
