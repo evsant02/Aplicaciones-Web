@@ -76,23 +76,29 @@ class dirigirActividad
         $mensaje = null;
 
 
-             
+        if (!$actividadUsuarioAppService->isRegistrado($user->id(), $this->actividad->id())) {  
             // Reserva  (si el usuario no está registrado)
             // Mostrar formulario de reserva si hay plazas disponibles
             $html .= '<form method="post">';
             $html .= '<button type="submit" name="dirigir">Dirigir esta actividad</button>';
             $html .= '</form>';
-            
-
-            
-
-            
+        
             // Mostrar mensaje de reserva realizada si el formulario ha sido enviado
             if (isset($_POST['dirigir'])) {
                 $mensaje = $this->procesarDirigir($user->id()); // Llamamos a la función de reserva
             }
     
+        }
+        else {
+            $html .= '<form method="post">';  
+            $html .= '<input type="hidden" name="id" value="' . $this->actividad->id() . '">';
+            $html .= '<button type="submit" name="bajaDirigir">Darse de baja</button>';
+            $html .= '</form>';
 
+            if (isset($_POST['bajaDirigir'])) {
+                $mensaje = $this->bajaDirigir($user->id()); // Llamamos a la función de darse de baja
+            }
+        }
         // Se redirige a la página principal con un mensaje de éxito
 
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
@@ -107,17 +113,32 @@ class dirigirActividad
 
 
     // Procesar la reserva de la actividad
-    private function procesarDirigir($id_usuario)    {
+    private function procesarDirigir($id_voluntario)    {
         
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
         $actividadAppService->annadirVoluntario($this->actividad->id());
-        $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
+        $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_voluntario);
 
         $mensaje =  '<p>¡Ahora diriges esta actividad!</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
         
+        return $mensaje;
+    }
+
+    private function bajaDirigir($id_voluntario) {
+
+        $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
+        $actividadAppService = actividadAppService::GetSingleton();
+        $actividadAppService->borrarVoluntario($this->actividad->id());
+        $actividadUsuarioAppService->bajaUsuario($this->actividad->id(), $id_voluntario);
+
+        $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
+        // Recargar la página
+        header("Location: ".$_SERVER['REQUEST_URI']);
+        //exit(); 
+
         return $mensaje;
     }
 

@@ -45,6 +45,14 @@ interface IActividad
     public function obtenerActSinCompletar();
 
     public function annadirusuario($id_actividad);
+
+    public function annadirVoluntario($id_actividad);
+
+    public function borrarUsuario($id_actividad);
+
+    public function borrarVoluntario($id_actividad);
+
+
 }
 
 ?>

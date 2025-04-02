@@ -178,7 +178,12 @@ class actividadAppService
         $IActividadDAO = actividadFactory::CreateActividad();
         $IActividadDAO->borrarUsuario($id_actividad);
     }
-   
+
+    
+    public function borrarVoluntario($id_actividad) {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->borrarVoluntario($id_actividad);
+    }
 
 }
 ?>
