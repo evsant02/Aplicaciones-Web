@@ -13,7 +13,6 @@ class reservarActividad
         $this->actividad = $actividad;
     }
     
-    
 
     // Método que construye el formulario de detalles y la funcionalidad de reserva
     public function Inicializacion(){
@@ -21,7 +20,7 @@ class reservarActividad
         $app = application::getInstance();
         $user = $app->getUserDTO();
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
-        $actividadAppService = actividadAppService::GetSingleton();
+        // $actividadAppService = actividadAppService::GetSingleton();
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/estiloActividad.css">';  //uso del css que da estilo a la actividad
 
@@ -69,7 +68,7 @@ class reservarActividad
             $html .= '</form>';
 
             if (isset($_POST['bajaActividad'])) {
-                $mensaje = $this->bajaActividad(); // Llamamos a la función de darse de baja
+                $mensaje = $this->bajaActividad($user->id()); // Llamamos a la función de darse de baja
             }
         }
 
@@ -94,6 +93,22 @@ class reservarActividad
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_usuario);
 
         $mensaje =  '<p>¡Reserva realizada con éxito!</p>';
+        // Recargar la página
+        header("Location: ".$_SERVER['REQUEST_URI']);
+        //exit(); 
+
+        return $mensaje;
+    }
+
+
+    private function bajaActividad($id_usuario) {
+
+        $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
+        $actividadAppService = actividadAppService::GetSingleton();
+        $actividadAppService->borrarUsuario($this->actividad->id());
+        $actividadUsuarioAppService->bajaUsuario($this->actividad->id(), $id_usuario);
+
+        $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
         //exit(); 
