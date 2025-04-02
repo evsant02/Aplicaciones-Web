@@ -36,6 +36,11 @@ interface IActividadesusuario
     //metodo para las actividades el usuario
     public function getActividadesUsuario($actividadesusuarioDTO);
 
+    public function isRegistrado($id_usuario, $id_actividad);
+
+    public function apuntarUsuario($id_actividad, $id_usuario);
+
+    public function bajaUsuario($id_actividad, $id_usuario);
 }
 
 ?>

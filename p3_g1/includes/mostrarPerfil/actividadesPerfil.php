@@ -37,10 +37,10 @@ class actividadesPerfil
 
         //this->actividades nos devuelve las actividades de ese usuario
 
-        foreach ($this->actividades as $actividad) {       
+        foreach ($this->actividades as $actividad) {       // solo se deberian mostrar las futuras
 
                 $actividadDTO = $actividadAppService->getActividadById($actividad);
-
+                
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }

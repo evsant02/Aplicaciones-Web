@@ -14,12 +14,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Intentar eliminar la actividad usando el método del servicio
         $resultado = $actividadAppService->eliminarPorId($id);
 
+        // Guardar el mensaje en la sesión
+        $app = application::getInstance();
+
         // Redirigir con el mensaje correspondiente según el resultado
         if ($resultado) {
-            header("Location: vistaActividades.php?mensaje=Actividad eliminada con éxito");
+            header("Location: vistaActividades.php");
+            $mensaje = "¡Actividad eliminada con éxito!";
         } else {
-            header("Location: vistaActividades.php?mensaje=Error al eliminar la actividad");
+            header("Location: vistaActividades.php");
+            $mensaje= "Error al eliminar la actividad";
         }
+        $app->putAtributoPeticion('mensaje', $mensaje);
+
         exit;
 
     } catch (Exception $e) {

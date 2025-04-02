@@ -39,6 +39,20 @@ interface IActividad
      * @return actividadDTO|null Retorna el objeto actividadDTO si se encuentra, o null si no existe.
      */
     public function getActividadById($id);
+
+    public function obtenerActSinDirigir();
+
+    public function obtenerActSinCompletar();
+
+    public function annadirusuario($id_actividad);
+
+    public function annadirVoluntario($id_actividad);
+
+    public function borrarUsuario($id_actividad);
+
+    public function borrarVoluntario($id_actividad);
+
+
 }
 
 ?>

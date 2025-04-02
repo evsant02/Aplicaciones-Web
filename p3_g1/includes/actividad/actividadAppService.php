@@ -148,18 +148,52 @@ class actividadAppService
     }
 
     public function mostrarPerfil($actividadDTO) {
+        $user = application::getInstance()->getUserDTO();
+        $tipo_user = $user->tipo();
+
         $html = '<div class="actividad">';
-        $html .= '<img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350">';
+
+        //usuario
+        if ($tipo_user == 1){            
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+        }
+        //voluntario
+        if ($tipo_user == 2){
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+        }
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora
         $fechaHora = new DateTime($actividadDTO->fecha_hora());
-        $html .= '<h3>' . $fechaHora->format('d-m-Y H:i') . '</h3>'; // Formato: día-mes-año hora:minutos
+        $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
         
-        $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
+        // $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
         $html .= '</div>';
     
         return $html;
+    }
+
+    public function annadirusuario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->annadirusuario($id_actividad);
+    }
+
+
+    public function annadirVoluntario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->annadirVoluntario($id_actividad);
+    }
+
+
+    public function borrarUsuario($id_actividad) {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->borrarUsuario($id_actividad);
+    }
+
+    
+    public function borrarVoluntario($id_actividad) {
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $IActividadDAO->borrarVoluntario($id_actividad);
     }
 
 }

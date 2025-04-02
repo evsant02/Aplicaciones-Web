@@ -10,37 +10,34 @@ require_once("includes/config.php");
 require_once("includes/mostrarPerfil/actividadesPerfil.php");
 
 function mostrarPerfil(): string {
-    $user = application::getInstance()->getUserDTO(); // se obtienen los datos del usuario
+    $app = application::getInstance();
+    $user = $app->getUserDTO(); // se obtienen los datos del usuario
     $html = null;
 
 
-    if (isset($_SESSION["login"]) && ($_SESSION["login"] === true)) {
+    if ($app->isSessionSet()) {
         $html .= "<h2><p> <em>Bienvenid@, " . $user->nombre() . "</em> " . $user->apellidos() . "</p></h2>";
         $html .= "<p> " . $user->correo() . " | " . $user->fecha_nacimiento() . "</p>";
     }
     $html .= '<hr/>';
    
-    if (application::getInstance()->soyAdmin()) { // si es administrador
+    if ($app->soyAdmin()) { // si es administrador
         $html .= "<p> <em> Administrador </em> </p>";
         $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>'; // se muestran los botones para gestionar las actividades
       } else {
-
-        if($user->tipo()==1){
-            $html .= "<p> <em> Usuario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
-        }else if($user->tipo()==2){
-            $html .= "<p> <em> Voluntario </em> </p>"; // si no es admin. se mostrarian las actividades programadas
-        }
-        
-        $html .= '<p><em>Tus Actividades.</em></p>';
+        if($app->soyUsuario()) $html .= "<p> <em> Usuario </em> </p>"; // se muestra el tipo de usuario
+        else if ($app->soyVoluntario()) $html .= "<p> <em> Voluntario </em> </p>";
+        $html .= '<p><h3>Tus próximas actividades: </h3></p>'; 
 
         $actividadesPerfil = new actividadesPerfil(); //devuelve las actividades de ese usuario
-        $htmlListado = $actividadesPerfil->generarListadoPerfil();
+        $htmlListado = $actividadesPerfil->generarListadoPerfil();  // se muestran las actividades
 
         $html .= $htmlListado; 
 
     }
     return $html;
+    
 }
 
 ?>

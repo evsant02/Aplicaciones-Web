@@ -119,17 +119,17 @@ class actividadDAO extends baseDAO implements IActividad
            $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
 
            // Se vinculan los parámetros
-           $stmt->bind_param("ssssiisii", 
+           $stmt->bind_param("ssssiiisi", 
                $escnombre, 
                $esclocalizacion, 
                $escfecha_hora, 
                $escdescripcion,
-               $escid,
                $escaforo,
-               $escfoto,
                $escdirigida,
-               $escocupacion
-           );
+               $escocupacion,
+               $escfoto,
+               $escid
+            );
 
             $resultado = $stmt->execute();
 
@@ -166,7 +166,7 @@ class actividadDAO extends baseDAO implements IActividad
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
 
-            throw new ActivityNotFoundException("Actividad no encontrada");
+            //throw new ActivityNotFoundException("Actividad no encontrada");
 
         } finally {
             if ($stmt) {
@@ -235,10 +235,9 @@ class actividadDAO extends baseDAO implements IActividad
     public function obtenerActSinCompletar(){
         try{
             $conn = application::getInstance()->getConexionBd();
-
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0";
+            $user = application::getInstance()->getUserDTO()->id();
+            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0 AND id NOT IN (SELECT id_actividad FROM `actividades-usuario` WHERE id_usuario ='$user')";
             $stmt = $conn->prepare($query);
-
             // Se ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
@@ -257,5 +256,60 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
 
+    public function annadirusuario($id_actividad){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "UPDATE actividades SET ocupacion = ocupacion + 1 WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        // Se vincula el parámetro ID
+        $stmt->bind_param("i", $id_actividad);
+
+        // Se ejecuta la consulta
+        $resultado = $stmt->execute();
+        return $resultado;
+    }
+
+
+    public function annadirVoluntario($id_actividad){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "UPDATE actividades SET dirigida = 1 WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        // Se vincula el parámetro ID
+        $stmt->bind_param("i", $id_actividad);
+
+        // Se ejecuta la consulta
+        $resultado = $stmt->execute();
+        return $resultado;
+
+    }
+
+    public function borrarUsuario($id_actividad) {
+        $conn = application::getInstance()->getConexionBd();
+        $query = "UPDATE actividades SET ocupacion = ocupacion - 1 WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        // Se vincula el parámetro ID
+        $stmt->bind_param("i", $id_actividad);
+
+        // Se ejecuta la consulta
+        $resultado = $stmt->execute();
+        return $resultado;
+    }
+
+    public function borrarVoluntario($id_actividad) {
+        $conn = application::getInstance()->getConexionBd();
+        $query = "UPDATE actividades SET dirigida = 0 WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        // Se vincula el parámetro ID
+        $stmt->bind_param("i", $id_actividad);
+
+        // Se ejecuta la consulta
+        $resultado = $stmt->execute();
+        return $resultado;
+    }
+     
+   
 }
 ?>
