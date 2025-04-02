@@ -30,7 +30,7 @@ class actividadesDisponibles
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
         if($this->actividades==null){
-            $html = '<p> No tienes actividades disponibles </p>';
+            $html = '<p>¡Ya estás registrado en todas nuestras actividades!</p>';
         }
         else{
             foreach ($this->actividades as $actividad) {       
