@@ -37,6 +37,7 @@ function mostrarPerfil(): string {
 
     }
     return $html;
+    
 }
 
 ?>

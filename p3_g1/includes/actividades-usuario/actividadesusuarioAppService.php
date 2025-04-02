@@ -157,13 +157,28 @@ class actividadesusuarioAppService
         return $actividad;
     }
 
-    public function isRegistrado($id_usuario, $id_actividad): bool {
-        $IActividadDAO = actividadesusuarioFactory::CreateActividad();
+    public function isRegistrado($id_usuario, $id_actividad){
 
-        if ($IActividadDAO->get($id_usuario) == null) return false;
-
-        else return true;
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
+        $int=$IActividadesusuarioDAO->isRegistrado($id_usuario, $id_actividad);
+        return $int;
     }
+
+
+    public function apuntarUsuario($id_actividad, $id_usuario){
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
+        $IActividadesusuarioDAO->apuntarUsuario($id_actividad, $id_usuario);
+
+    }
+
+    
+
+
+
+
+
+
+
 
 }
 ?>
