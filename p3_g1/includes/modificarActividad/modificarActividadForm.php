@@ -108,10 +108,10 @@ class modificarActividadForm extends formBase
         
             // Validar tipo MIME
             $tipoMime = mime_content_type($_FILES["imagen"]["tmp_name"]);
-            $formatosPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+            $formatosPermitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
         
             if (!in_array($tipoMime, $formatosPermitidos)) {
-                $result[] = "Formato de imagen no válido. Use JPG, PNG o GIF.";
+                $result[] = "Formato de imagen no válido. Use JPG, PNG, GIF, WEBP o AVIF.";
             } elseif (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $rutaDestino)) {
                 $result[] = "Error al subir la imagen.";
             } else {
