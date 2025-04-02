@@ -26,11 +26,11 @@ class actividadesDisponibles
         //$user = application::getInstance()->getUserDTO();
         //$tipo_user = $user->tipo();
         //habia que poner el nombre para que lo pillara
-        $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
+        $html = '<table class="tabla-actividades"><tr>'; 
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
         if($this->actividades==null){
-            $html = '<p> No tienes actividades disponibles </p>';
+            $html = '<p> ¡Ya estás registrado en todas nuestras actividades! </p>';
         }
         else{
             foreach ($this->actividades as $actividad) {       
@@ -46,14 +46,7 @@ class actividadesDisponibles
         return $html;
     }
 
-    // Método para obtener el enlace según el tipo de usuario
-   /* public function getEnlace($tipo_usuario) {
-        if ($tipo_usuario == 'usuario') {
-            return "vistaReservaActividad.php?id=" . $this->id;
-        } else {
-            return "vistaDirigirActividad.php?id=" . $this->id;
-        }
-    }*/
+    
 
 
 }
