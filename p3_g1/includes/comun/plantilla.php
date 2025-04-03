@@ -3,6 +3,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="CSS/estilo1.css" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">		<
 		
 		<!-- Título de la página, se utiliza una variable PHP para definir el título dinámicamente -->
 		<title><?= $tituloPagina ?></title>
