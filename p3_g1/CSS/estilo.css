@@ -37,7 +37,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	color: #7dbcfa;
+	color: #3c99f5;
 }
 
 body {
@@ -100,11 +100,6 @@ main {
 	margin-left: 335px;
 }
 
-.donarForm fieldset {  
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	justify-content: center;
-}
-
 .inForm {
 	display: flex;
 	justify-content: center;
@@ -144,22 +139,15 @@ main {
 	box-sizing: border-box;
 }
 
-.inForm fieldset button {
+/* .inForm fieldset button {
 	padding: 10px 20px;
 	margin-top: 10px;
-}
+} */
 
-.inForm fieldset > p:last-of-type {
+.inForm fieldset > p:last-of-type { /* para centrar el no tienes cuenta */
 	text-align: center;     
 	display: block;        
-}
-
-.donarForm label {
-	width: 4em;
-	float: left;
-	text-align: right;
-	margin-right: 0.5em;
-}
+} 
 
 label#checkbox {
 	float: none;
@@ -168,7 +156,6 @@ label#checkbox {
 input[name=detalles] {
 	height: 100px;
 	width: 300px;
-	text-align: top;
 }
 
 input[name=email] {
@@ -193,7 +180,13 @@ button:hover {
 
 img {
 	margin: 10px;
-	border-radius: 10px;     /* Bordes redondeados */
+	border-radius: 5px;    
+}
+
+.logo img {
+	height: 50px;                  
+	width: auto;                    
+	object-fit: contain;           
 }
 
 .imagen-enlace img {
@@ -204,18 +197,12 @@ img {
 	filter: brightness(0.6);
 }
 
-.logo img {
-	height: 50px;                  
-	width: auto;                    
-	object-fit: contain;           
-}
-
 /* ============================= */
-/* ESTILOS PARA LOS ENLACES DE USUARIO */
+/* ESTILOS PARA LA CABECERA */
 /* ============================= */
 
 /* Contenedor de los enlaces */
-.saludo {
+.cabecera {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;

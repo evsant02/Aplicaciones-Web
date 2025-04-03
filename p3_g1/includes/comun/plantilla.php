@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="CSS/estilo1.css" />
+		<link rel="stylesheet" type="text/css" href="CSS/estilo.css" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">		
 		
