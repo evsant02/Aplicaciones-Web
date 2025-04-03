@@ -133,7 +133,7 @@ class actividadAppService
         else if ($app->soyVoluntario()) {
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
         }
-        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="375">';
         if (!$app->soyAdmin()) $html .= '</a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
 
