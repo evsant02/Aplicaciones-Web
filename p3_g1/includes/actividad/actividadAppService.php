@@ -120,10 +120,18 @@ class actividadAppService
     }
 
     public function mostrar($actividadDTO){
-        $user = application::getInstance()->getUserDTO();
+        $app = application::getInstance();
+        $user = $app->getUserDTO();
         $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
+        if ($app->soyUsuario()) {
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
+        }
+        else if ($app->soyVoluntario()) {
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
+        }
         $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        if (!$app->soyAdmin()) $html .= '</a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
 
         $fechaHora = new DateTime($actividadDTO->fecha_hora());
@@ -131,20 +139,20 @@ class actividadAppService
 
         $html .= '<p>Aforo: ' . $actividadDTO->ocupacion(). '/' . $actividadDTO->aforo() . '</p>';
         //usuario
-        if ($tipo_user == 1){            
+        /*if ($tipo_user == 1){            
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Reservar</a>';
-
         }
         //voluntario
         if ($tipo_user == 2){
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
-
-        }
+        }*/
         //administrador: dos botones
-        if ($tipo_user == 0){
+        if ($app->soyAdmin()){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
-                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a>';            
+            $html .= '<a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
+            /*$html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
+                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';*/
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         
@@ -160,9 +168,9 @@ class actividadAppService
         $html = '<div class="actividad">';
 
         if($app->soyUsuario()){
-            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
         }else if($app->soyVoluntario()){
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
+            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
         }
 
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
