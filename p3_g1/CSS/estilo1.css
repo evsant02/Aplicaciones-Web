@@ -96,6 +96,10 @@ main {
 	margin: 0 auto;
 }
 
+.default1 {
+	margin-left: 335px;
+}
+
 .donarForm fieldset {  
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	justify-content: center;
