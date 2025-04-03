@@ -43,7 +43,6 @@ class registerForm extends formBase
         $html = <<<EOF
             <div class="inForm">
                 <fieldset>
-                    <legend>Registro de Usuario</legend>
                     <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre" required/></p>
                     <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos" required/></p>
                     <p><label>Nombre de Usuario:</label> <input type="text" name="id" value="$id" required/></p>

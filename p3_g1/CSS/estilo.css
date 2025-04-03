@@ -1,15 +1,38 @@
-html, body {
+html {
 	height: 100%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
 	display: flex;
 	flex-direction: column;
+	background-color: #bedcfa;
+	overflow-x: hidden; 
+}
+
+/* ============================= */
+/* ESTILOS PARA LA CABECERA */
+/* ============================= */
+
+header {
+	padding: 1.5rem;  
+	background-color: #a1ccf8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.cabecera {
+	display: flex;
+	width: 100%;
 }
 
 nav {
-	background-color: #a1ccf8;
-	padding: 10px;
+	padding: 1.5rem;
 	display: flex;
 	justify-content: space-between;  
 	align-items: center;  
@@ -17,78 +40,78 @@ nav {
 }
 
 nav ul {
+	display: flex;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	display: flex;
+	gap: 1.5rem;
 }
 
 nav ul li {
-	margin: 0 15px;
-	display: flex;
-	align-items: center;
+	margin: 0;
 }
 
 nav ul li a {
 	text-decoration: none;
 	color: #333;
 	font-weight: bold;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 nav ul li a:hover {
 	color: #3c99f5;
 }
 
-body {
-	background-color: #bedcfa;
-	margin: 0; /* Elimina el margen de 20px */
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	width: 100%;
-	position: center;
-	overflow-x: hidden; /* Evita el scroll horizontal */
-}
-
-
-header {
-	padding: 30px;  
-	background-color: #a1ccf8;
+/* Contenedor de los enlaces 
+.cabecera {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	/* justify-content: space-between; 
+	width: 100%;
+	/* align-items: center; 
 }
 
+/* Alinea los enlaces de usuario (Perfil y Salir) a la derecha 
+.user-links {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+} 
+
+.user-links ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+} 
+
+.user-links ul li {
+	margin-left: 15px; /* Espacio entre los elementos 
+} */
 
 footer {
-	clear: both;
-	padding: 20px;
+	padding: 1.5rem;
 	background-color: #a1ccf8;
 	color: #333;
 	text-align: center;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 main {
-	flex-grow: 1;
-	padding: 20px;
-	min-height: auto;
-	min-width: 500px;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	background-color: #d4e6f8;
-	border-color: #555;
-	border-width: 0.5px;
-	border: solid;
-	margin: 20px auto; 
-	max-width: 90%; 
-	justify-content: center;
+	flex: 1;
+	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-width: min(500px, 90%);
+	max-width: 90%; 
+	padding: 1.5rem;
+	margin: 1.5rem auto; 
+	background-color: #d4e6f8;
+	border: 1px solid #555;
+  box-sizing: border-box;
 }
 
 .aboutus {
-	width: 900px;
-	margin: 0 auto;
+	max-width: 900px;
 	text-align: justify;
-	justify-content: space-between;
 }
 
 .default {
@@ -96,8 +119,9 @@ main {
 	margin: 0 auto;
 }
 
-.default1 {
-	margin-left: 335px;
+.formulario {
+	max-width: 550px;
+	margin: 0 auto;
 }
 
 .inForm {
@@ -113,23 +137,23 @@ main {
 	max-width: 500px;
 	width: 100%;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 1.5rem;
 	box-sizing: border-box;
-	gap: 15px;
+	gap: 1rem;
 }
 
 .inForm fieldset p {
 	display: flex;         
-	align-items: center;    
+	align-items: center;
 	width: 100%;           
-	margin: 0 0 10px 0;   
+	margin: 0 0 1rem 0;   
 }
 
 
 .inForm fieldset p label {
 	min-width: 150px;       
 	text-align: right;    
-	margin-right: 10px;     
+	margin-right: 1rem;     
 }
 
 
@@ -137,6 +161,11 @@ main {
 	flex: 1;              
 	padding: 8px;
 	box-sizing: border-box;
+}
+
+.inForm fieldset p textarea {
+	flex: 1;
+	height: 60px;
 }
 
 /* .inForm fieldset button {
@@ -197,73 +226,7 @@ img {
 	filter: brightness(0.6);
 }
 
-/* ============================= */
-/* ESTILOS PARA LA CABECERA */
-/* ============================= */
 
-/* Contenedor de los enlaces */
-.cabecera {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	align-items: center;
-}
-
-/* Alinea los enlaces de usuario (Perfil y Salir) a la derecha */
-.user-links {
-	margin-left: auto;
-	display: flex;
-	align-items: center;
-}
-
-.user-links ul {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.user-links ul li {
-	margin-left: 15px; /* Espacio entre los elementos */
-}
-
-/* ============================= */
-/* ESTILOS RESPONSIVOS */
-/* ============================= */
-
-@media (max-width: 768px) {
-	nav {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul li {
-		margin: 5px 0;
-	}
-
-	.user-links {
-		margin-left: 0;
-		justify-content: center;
-	}
-
-	.user-links ul {
-		flex-direction: column;
-		align-items: center;
-	}
-	.inForm fieldset p {
-			flex-direction: column;
-			align-items: flex-start;
-	}
-	.inForm fieldset p label {
-			text-align: left;
-			margin-bottom: 5px;
-	}
-}
 
 /* ============================= */
 /* NUEVOS ESTILOS PARA EL INDEX */
@@ -373,6 +336,54 @@ hr {
     background: linear-gradient(to right, transparent, #a1ccf8, transparent);
 }
 
+
+
+/* Línea separadora para usuarios */
+.linea-separadora-usuario {
+	width: 80%;
+	height: 1px;
+	background-color: #444141; /* Color gris */
+	margin: 15px auto; /* Centrado con margen arriba/abajo */
+}
+
+/* ============================= */
+/* ESTILOS RESPONSIVOS */
+/* ============================= */
+
+@media (max-width: 768px) {
+	nav {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav ul li {
+		margin: 5px 0;
+	}
+
+	.user-links {
+		margin-left: 0;
+		justify-content: center;
+	}
+
+	.user-links ul {
+		flex-direction: column;
+		align-items: center;
+	}
+	.inForm fieldset p {
+			flex-direction: column;
+			align-items: flex-start;
+	}
+	.inForm fieldset p label {
+			text-align: left;
+			margin-bottom: 5px;
+	}
+}
+
 /* Estilos responsivos para el perfil */
 @media (max-width: 768px) {
     .botones-admin {
@@ -383,12 +394,4 @@ hr {
     .btn-admin {
         width: auto;
     }
-}
-
-/* Línea separadora para usuarios */
-.linea-separadora-usuario {
-    width: 80%;
-    height: 1px;
-    background-color: #444141; /* Color gris */
-    margin: 15px auto; /* Centrado con margen arriba/abajo */
 }

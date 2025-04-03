@@ -1,43 +1,24 @@
-/* Estilos para la tabla de actividades */
+/* Estilos para la tabla de actividades (ahora contenedor flex) */
 .tabla-actividades {
     width: 100%;
-    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los items fluyen a la siguiente línea */
+    gap: 10px; /* Espacio entre celdas */
+    justify-content: flex-start; /* Alineación inicial */
 }
 
 .tabla-actividades td {
-    border: 1px solid #ccc; /* Borde de las celdas */
-    padding: 10px; /* Espaciado interno */
-    text-align: center; /* Alineación del texto */
-    vertical-align: top; /* Alineación vertical */
-    box-sizing: border-box; /* Asegúrate de que el padding y el borde se incluyan en el ancho total */
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    /* Configuración flexible que reemplaza las media queries */
+    flex: 1 1 250px; /* flex-grow | flex-shrink | flex-basis */
+    min-width: 0; /* Permite que se reduzcan correctamente */
+    max-width: calc(25% - 10px); /* Límite para pantallas grandes */
 }
 
-/* Media Queries para ajustar el número de columnas */
-@media (min-width: 1200px) {
-    .tabla-actividades td {
-        width: 25%; /* 4 columnas en pantallas grandes */
-    }
-}
-
-@media (min-width: 800px) and (max-width: 1199px) {
-    .tabla-actividades td {
-        width: 33.33%; /* 3 columnas en pantallas medianas */
-    }
-}
-
-@media (min-width: 500px) and (max-width: 799px) {
-    .tabla-actividades td {
-        width: 50%; /* 2 columnas en pantallas pequeñas */
-    }
-}
-
-@media (max-width: 499px) {
-    .tabla-actividades td {
-        width: 100%; /* 1 columna en pantallas muy pequeñas */
-    }
-}
-
-/* Estilo cuando no hay actividades (sin recuadro) */
+/* Estilo cuando no hay actividades */
 .sin-actividades {
     text-align: center;
     font-size: 1.2em;
@@ -47,17 +28,19 @@
     background-color: transparent;
     border: none;
     box-shadow: none;
+    width: 100%; /* Ocupa todo el ancho */
 }
 
-/* Contenedor de la imagen (simplificado) */
+/* Contenedor de la imagen */
 .imagen-centrada {
     margin: 20px auto;
     text-align: center;
+    width: 100%;
 }
 
-/* Estilo de la imagen (más minimalista) */
+/* Estilo de la imagen */
 .logo-actividades {
-    max-width: 300px; /* Reducido ligeramente */
+    max-width: 300px;
     height: auto;
     margin-top: 15px;
 }
@@ -68,7 +51,9 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 15px;        
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%; /* Botones ocupan todo el ancho de su contenedor */
 }
 
 button:hover {

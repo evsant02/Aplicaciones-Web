@@ -32,17 +32,19 @@ class crearActividadForm extends formBase
         $fechaMinima = date('Y-m-d\TH:i');
 
         $html = <<<EOF
-        <fieldset>
-            <legend>Crear Nueva Actividad</legend>
-            <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
-            <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
-            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
-            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
-            <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
-            <p><label>Fotografía de la actividad:</label> <input type="file" name="imagen" accept="image/*" required></p>
-            <button type="submit" name="crear">Crear</button>
-        </fieldset>
-EOF;
+            <div class="inForm">
+                <fieldset>
+                    <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
+                    <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
+                    <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
+                    <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
+                    <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+                    <p><label>Fotografía de la actividad:</label> <input type="file" name="imagen" accept="image/*" required></p>
+                    <button type="submit" name="crear">Crear</button>
+                </fieldset>
+            </div>
+        EOF;
+
         return $html;
     }
 

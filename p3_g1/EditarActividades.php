@@ -13,12 +13,12 @@ $tituloPagina = 'Actividades disponibles';
 
 // Crear una instancia de ListaActividades y generar el listado
 $listaActividades = new listaActividades();
-$htmlFormLogin = $listaActividades->generarListado();
+$htmlFormEditar = $listaActividades->generarListado();
 
 // Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
 <h1>Actividades disponibles</h1>
-$htmlFormLogin
+$htmlFormEditar
 EOS;
 
 // Incluir la plantilla general para mostrar la página con el contenido generado

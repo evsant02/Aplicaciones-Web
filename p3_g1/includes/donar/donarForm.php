@@ -16,7 +16,7 @@ class donarForm extends formBase {
       $html = <<<EOF
       <div class="inForm">
         <fieldset>
-            <p><label>Cantidad:</label> <input type="number" name="cantidad"/> €</p> 
+            <p><label>Cantidad:</label> <input type="number" name="cantidad"/> &ensp; €</p> 
             <p><label>IBAN:</label> <input type="text" name="iban" /></p>
             <p><label>Nombre:</label> <input type="text" name="name" /></p>
             <p><label>Apellidos:</label> <input type="text" name="surname" /></p>
@@ -30,8 +30,8 @@ class donarForm extends formBase {
       EOF;
     
       return $html;
-
     }
+    
     // todavía no se implementa la funcionalidad
     /*protected function Process($datos)
     {
