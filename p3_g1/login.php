@@ -4,7 +4,9 @@
 require_once("includes/config.php");
 
 // Incluye la clase o lógica del formulario de inicio de sesión
-require_once("includes/login/loginForm.php");
+//require_once("includes/login/loginForm.php");
+
+use includes\login\loginForm;
 
 // Título de la página
 $tituloPagina = 'Acceso al sistema';
