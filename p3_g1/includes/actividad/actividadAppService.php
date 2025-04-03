@@ -121,8 +121,6 @@ class actividadAppService
 
     public function mostrar($actividadDTO){
         $app = application::getInstance();
-        $user = $app->getUserDTO();
-        $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
         if ($app->soyUsuario()) {
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
@@ -162,7 +160,6 @@ class actividadAppService
     public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
-        $tipo_user = $user->tipo();
 
         $html = '<div class="actividad">';
 
