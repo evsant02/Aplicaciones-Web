@@ -1,8 +1,14 @@
 <?php
+
+namespace includes\actividadesusuario;
+
 // Se incluyen las dependencias necesarias
-require_once("IActividadesusuario.php");
-require_once("actividadesusuarioDTO.php");
-require_once(__DIR__ . "/../comun/baseDAO.php");
+//require_once("IActividadesusuario.php");
+//require_once("actividadesusuarioDTO.php");
+//require_once(__DIR__ . "/../comun/baseDAO.php");
+
+use includes\comun\baseDAO;
+use includes\application;
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
@@ -38,7 +44,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
                 // Obtener el ID generado por la inserción
                 return new actividadesusuarioDTO($escid_usuario, $escid_actividad);
             }
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             throw $e;
         } finally {
             if ($stmt) {
@@ -62,7 +68,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             $stmt->bind_param("i", $escid);
             $resultado = $stmt->execute();
             return $resultado;
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             throw $e;
         } finally {
             if ($stmt) {
@@ -130,7 +136,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             $stmt = $conn->prepare($query);
 
             if (!$stmt) {
-                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+                throw new \Exception("Error en la preparación de la consulta: " . $conn->error);
             }
 
             // Se vincula el parámetro ID
@@ -139,7 +145,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
 
             // Se ejecuta la consulta
             if (!$stmt->execute()) {
-                throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+                throw new \Exception("Error al ejecutar la consulta: " . $stmt->error);
             }
 
             // Variables para almacenar los resultados
@@ -149,8 +155,8 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             if ($stmt->fetch()) {
                 return new actividadesusuarioDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-        } catch (Exception $e) {
-            throw new Exception("Error al obtener la actividad: " . $e->getMessage());
+        } catch (\Exception $e) {
+            throw new \Exception("Error al obtener la actividad: " . $e->getMessage());
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -179,7 +185,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             }
 
             return $actividades;
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             throw $e;
         } finally {
             if ($stmt) {
@@ -250,7 +256,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             // Ejecutar la consulta
             $stmt->execute();
           
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             throw $e;
         } finally {
             if ($stmt) {
