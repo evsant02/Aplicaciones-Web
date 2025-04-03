@@ -96,6 +96,10 @@ main {
 	margin: 0 auto;
 }
 
+.default1 {
+	margin-left: 335px;
+}
+
 .donarForm fieldset {  
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	justify-content: center;
@@ -181,7 +185,6 @@ button {
 	border-radius: 3px; 
 	cursor: pointer;
 	width: auto;
-	margin-left: 50px;
 }
 
 button:hover {
@@ -190,6 +193,7 @@ button:hover {
 
 img {
 	margin: 10px;
+	border-radius: 10px;     /* Bordes redondeados */
 }
 
 .imagen-enlace img {

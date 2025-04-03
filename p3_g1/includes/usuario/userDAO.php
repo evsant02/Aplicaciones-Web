@@ -1,10 +1,14 @@
 <?php
 
 // Se requieren los archivos necesarios para la funcionalidad de la clase
-require("IUser.php"); // Interfaz que define los métodos de usuario
-require_once("userDTO.php"); // Objeto de transferencia de datos para usuarios
-require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
+//require_once("IUser.php"); // Interfaz que define los métodos de usuario
+//require_once("userDTO.php"); // Objeto de transferencia de datos para usuarios
+//require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
 
+namespace includes\usuario;
+
+use includes\comun\baseDAO;
+use includes\application;
 
 require(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
 require(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
@@ -99,7 +103,7 @@ class userDAO extends baseDAO implements IUser
             } finally {
                 $stmt->close();
             }
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             if ($e->getCode() == 23000) {
                 throw new UserAlreadyExistException("Ya existe el usuario '{$userDTO->id()}'");
             }

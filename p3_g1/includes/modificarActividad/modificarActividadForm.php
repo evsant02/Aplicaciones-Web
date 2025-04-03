@@ -1,5 +1,12 @@
 <?php 
 
+namespace includes\modificarActividad;
+
+use includes\comun\formBase;
+use includes\actividad\actividadAppService;
+use includes\application;
+use includes\actividad\actividadDTO;
+
 // Se incluyen los archivos necesarios: la base de formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 require_once( __DIR__ . "/../actividad/actividadAppService.php");
@@ -138,7 +145,7 @@ class modificarActividadForm extends formBase
                 $app = application::getInstance();
                 $mensaje = "¡Se ha modificado la actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $result[] = "Error al modificar la actividad: " . $e->getMessage();
             }
         }
