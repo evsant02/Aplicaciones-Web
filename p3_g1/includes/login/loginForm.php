@@ -22,16 +22,18 @@ class loginForm extends formBase
 
         // Genera el HTML del formulario
         $html = <<<EOF
-        <fieldset>
-            <legend>Iniciar sesión</legend>
-            <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
-            <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
-            <button type="submit" name="login">Entrar</button>
-
-            <p>¿No tienes cuenta?</p>
-            <a href="register.php"><button type="button">Regístrate</button></a>
-        </fieldset>
-EOF;
+            <div class="inForm">
+                <fieldset>
+                    <legend>Iniciar sesión</legend>
+                    <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
+                    <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
+                    <button type="submit" name="login">Entrar</button>
+                    <div class="linea-separadora-usuario"></div>
+                    <p>¿No tienes cuenta?</p>
+                    <a href="register.php"><button type="button">Regístrate</button></a>
+                </fieldset>
+            </div>
+        EOF;
         return $html;
     }
 

@@ -34,26 +34,29 @@ class registerForm extends formBase
 
         // Genera el HTML del formulario de registro
         $html = <<<EOF
-        <fieldset>
-            <legend>Registro de Usuario</legend>
-            <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre" required/></p>
-            <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos" required/></p>
-            <p><label>Nombre de Usuario:</label> <input type="text" name="id" value="$id" required/></p>
-            <p><label>Fecha de nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$fechaNacimiento" required/></p>
-            <p><label>Correo electrónico:</label> <input type="email" name="correo" value="$correo" required/></p>
-            <p><label>Contraseña:</label> <input type="password" name="password" /></p>
-            <p><label>Tipo de cuenta:</label>
-                <select name="tipo">
-                    <option value="1" " . ($tipo == "1" ? "selected" : "") . ">Usuario</option>
-                    <option value="2" " . ($tipo == "2" ? "selected" : "") . ">Voluntario</option>
-                </select>
-            </p>
-            <p>
-                <input type="checkbox" name="terminos" required> Acepto los Términos y Condiciones
-            </p>
-            <button type="submit" name="registro">Crear cuenta</button>
-        </fieldset>
-EOF;
+            <div class="inForm">
+                <fieldset>
+                    <legend>Registro de Usuario</legend>
+                    <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre" required/></p>
+                    <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos" required/></p>
+                    <p><label>Nombre de Usuario:</label> <input type="text" name="id" value="$id" required/></p>
+                    <p><label>Fecha de nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$fechaNacimiento" required/></p>
+                    <p><label>Correo electrónico:</label> <input type="email" name="correo" value="$correo" required/></p>
+                    <p><label>Contraseña:</label> <input type="password" name="password" /></p>
+                    <p><label>Tipo de cuenta:</label>
+                        <select name="tipo">
+                            <option value="1" " . ($tipo == "1" ? "selected" : "") . ">Usuario</option>
+                            <option value="2" " . ($tipo == "2" ? "selected" : "") . ">Voluntario</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="checkbox" name="terminos" required> Acepto los Términos y Condiciones
+                    </p>
+                    <button type="submit" name="registro">Crear cuenta</button>
+                </fieldset>
+            </div>
+        EOF;
+
         return $html;
     }
     

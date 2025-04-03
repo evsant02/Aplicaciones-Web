@@ -17,8 +17,10 @@ $htmlFormLogin = $form->Manage();
 
 // Contenido principal de la página: título + formulario de login
 $contenidoPrincipal = <<<EOS
+<div class="default">
 <h1>Login de usuario</h1>
 $htmlFormLogin
+</div>
 EOS;
 
 // Incluye la plantilla base (header, footer, estructura común)
