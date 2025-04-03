@@ -12,7 +12,7 @@ $app = Application::getInstance();
 $mensaje = $app->getAtributoPeticion('mensaje');
 
 // Verifica si el usuario ha iniciado sesión
-if ($app->isSessionSet()) {
+if ($app->isUserLogged()) {
     // Si la sesión está iniciada, muestra la bienvenida sin el botón de inicio de sesión
     $contenidoPrincipal = <<<EOS
     <div class="welcome-container">

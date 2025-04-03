@@ -36,3 +36,41 @@
         width: 100%; /* 1 columna en pantallas muy pequeñas */
     }
 }
+
+/* Estilo cuando no hay actividades (sin recuadro) */
+.sin-actividades {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin: 20px 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Contenedor de la imagen (simplificado) */
+.imagen-centrada {
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Estilo de la imagen (más minimalista) */
+.logo-actividades {
+    max-width: 300px; /* Reducido ligeramente */
+    height: auto;
+    margin-top: 15px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;        
+}
+
+button:hover {
+    background-color: #0056b3;
+}

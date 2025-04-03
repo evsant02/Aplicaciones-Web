@@ -20,9 +20,11 @@
   $contenidoPrincipal = <<<EOS
 
     <p>$mensaje</p>
-    <h3>¿Necesitas ayuda?</h3>
+    <div class="default">
+    <h2>¿Necesitas ayuda?</h2>
     <p>Ponte en contacto con nuestro equipo para que podamos ayudarte.</p>
     $htmlFormAyuda
+    </div>
   EOS;
  
   require("includes/comun/plantilla.php");

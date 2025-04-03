@@ -17,8 +17,10 @@ $htmlFormRegistro = $form->Manage();
 
 // Contenido principal de la página: título + formulario de registro
 $contenidoPrincipal = <<<EOS
+<div class="default">
 <h1>Registro de usuario</h1>
 $htmlFormRegistro
+</div>
 EOS;
 
 // Incluye la plantilla base (header, footer, estructura común)

@@ -30,7 +30,12 @@ class actividadesDisponibles
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
         if($this->actividades==null){
-            $html = '<p> ¡Ya estás registrado en todas nuestras actividades! </p>';
+            $html =  '<p>¡Ya estas registrado a todas las actividades!</p> 
+            <div class="sin-actividades">
+                <div class="imagen-centrada">
+                    <img src="img/logo.jpeg" alt="Logo de la organización" class="logo-actividades">
+                </div>
+            </div>';
         }
         else{
             foreach ($this->actividades as $actividad) {       
