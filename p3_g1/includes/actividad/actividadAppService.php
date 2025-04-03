@@ -207,5 +207,10 @@ class actividadAppService
         $IActividadDAO->borrarVoluntario($id_actividad);
     }
 
+    public function nombreVoluntario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $actividadDTO=$IActividadDAO->nombreVoluntario($id_actividad);
+        return $actividadDTO;
+    }
 }
 ?>
