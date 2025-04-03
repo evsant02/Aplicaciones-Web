@@ -10,17 +10,19 @@ class donarForm extends formBase {
     protected function CreateFields($datos) {
 
       $html = <<<EOF
-      <fieldset>
-          <p><label>Cantidad:</label> <input type="number" name="cantidad"/> €</p> 
-          <p><label>IBAN:</label> <input type="text" name="iban" /></p>
-          <p><label>Nombre:</label> <input type="text" name="name" /></p>
-          <p><label>Apellidos:</label> <input type="text" name="surname" /></p>
-          <p>
-            <input type="checkbox" id="anonimo" name="anonimo" value="anonimo">
-            <label id="checkbox">Realizar la donación de manera anónima</label>
-          </p>
-          <button type="submit">Donar</button>
-      </fieldset>
+      <div class="inForm">
+        <fieldset>
+            <p><label>Cantidad:</label> <input type="number" name="cantidad"/> €</p> 
+            <p><label>IBAN:</label> <input type="text" name="iban" /></p>
+            <p><label>Nombre:</label> <input type="text" name="name" /></p>
+            <p><label>Apellidos:</label> <input type="text" name="surname" /></p>
+            <p>
+                <input type="checkbox" id="anonimo" name="anonimo" value="anonimo">
+                <label id="checkbox">Realizar la donación de manera anónima</label>
+            </p>
+            <button type="submit">Donar</button>
+        </fieldset>
+      </div>
       EOF;
     
       return $html;
