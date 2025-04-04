@@ -25,7 +25,7 @@ class reservarActividad
         $app = application::getInstance();
         $user = $app->getUserDTO();
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
-        $actividadAppService = actividadAppService::GetSingleton();
+        // $actividadAppService = actividadAppService::GetSingleton();
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/estiloActividad.css">';  //uso del css que da estilo a la actividad
 
@@ -46,7 +46,7 @@ class reservarActividad
                 <p><strong>Descripción:</strong> {$this->actividad->descripcion()}</p>
                 <p><strong>Ubicación:</strong> {$this->actividad->localizacion()}</p>
                 <p><strong>Fecha y hora:</strong> {$fechaHora->format('d-m-Y H:i')}</p>
-                <p><strong>Dirigido por:</strong> {$actividadAppService->nombreVoluntario($this->actividad->id())->nombre()}</p>
+                <p><strong>Dirigido por:</strong> {$this->actividad->dirigida()}</p>
                 <p><strong>Aforo:</strong> {$this->actividad->aforo()}</p>
                 <p><strong>Plazas ya reservadas:</strong> {$this->actividad->ocupacion()}</p>
             
