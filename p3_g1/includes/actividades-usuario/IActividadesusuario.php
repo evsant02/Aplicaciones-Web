@@ -1,5 +1,7 @@
 <?php
 
+namespace includes\actividadesusuario;
+
 /**
  * Interfaz IActividad
  * Define los métodos necesarios para la gestión de actividades en el sistema.

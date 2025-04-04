@@ -4,7 +4,9 @@
 require_once("includes/config.php");
 
 // Incluye la clase o lógica del formulario de inicio de sesión
-require_once("includes/login/loginForm.php");
+//require_once("includes/login/loginForm.php");
+
+use includes\login\loginForm;
 
 // Título de la página
 $tituloPagina = 'Acceso al sistema';
@@ -17,8 +19,8 @@ $htmlFormLogin = $form->Manage();
 
 // Contenido principal de la página: título + formulario de login
 $contenidoPrincipal = <<<EOS
+<div class="default1"><h1>Login de usuario</h1></div>
 <div class="default">
-<h1>Login de usuario</h1>
 $htmlFormLogin
 </div>
 EOS;

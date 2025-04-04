@@ -1,7 +1,49 @@
 <?php
 
 // Incluir la configuración principal de la aplicación
-require_once("application.php");
+//require_once("application.php");
+
+namespace includes;
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+/**
+ * Autoload de clases según PSR-4
+ */
+spl_autoload_register(function ($class) {
+    // Mapeo de namespaces a directorios
+    $prefixes = [
+        'includes\\' => __DIR__ . '/',
+        'includes\\usuario\\' => __DIR__ . '/usuario/',
+        'includes\\comun\\' => __DIR__ . '/comun/',
+        'includes\\actividadesusuario\\' => __DIR__ . '/actividades-usuario/',
+        'includes\\mostrarPerfil\\' => __DIR__ . '/mostrarPerfil/',
+        'includes\\actividad\\' => __DIR__ . '/actividad/',
+        'includes\\ayuda\\' => __DIR__ . '/ayuda/',
+        'includes\\crearActividad\\' => __DIR__ . '/crearActividad/',
+        'includes\\dirigirActividad\\' => __DIR__ . '/dirigirActividad/',
+        'includes\\donar\\' => __DIR__ . '/donar/',
+        'includes\\editarActividades\\' => __DIR__ . '/editarActividades/',
+        'includes\\login\\' => __DIR__ . '/login/',
+        'includes\\modificarActividad\\' => __DIR__ . '/modificarActividad/',
+        'includes\\mostrarActividades\\' => __DIR__ . '/mostrarActividades/',
+        'includes\\reservarActividad\\' => __DIR__ . '/reservarActividad/'
+    ];
+    
+    foreach ($prefixes as $prefix => $base_dir) {
+        $len = strlen($prefix);
+        if (strncmp($prefix, $class, $len) === 0) {
+            $relative_class = substr($class, $len);
+            $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+            
+            if (file_exists($file)) {
+                require $file;
+                return;
+            }
+        }
+    }
+});
 
 // Definir constantes de conexión a la base de datos
 define('BD_HOST', 'localhost'); //vm017.db.swarm.test
@@ -27,7 +69,7 @@ $app->init(array(
 register_shutdown_function([$app, 'shutdown']);
 
 // Función para gestionar excepciones no controladas
-function gestorExcepciones(Throwable $exception) 
+function gestorExcepciones(\Throwable $exception) 
 {
     error_log(jTraceEx($exception)); // Registrar el error en el log del servidor
 
@@ -45,7 +87,7 @@ function gestorExcepciones(Throwable $exception)
 }
 
 // Registrar la función para manejar excepciones globales
- set_exception_handler('gestorExcepciones');
+set_exception_handler(__NAMESPACE__ . '\gestorExcepciones');
 
 // Función que genera un rastreo detallado de la excepción
 function jTraceEx($e, $seen = null) 
