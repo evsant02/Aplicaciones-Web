@@ -61,37 +61,16 @@ nav ul li a:hover {
 	color: #3c99f5;
 }
 
-/* Contenedor de los enlaces 
-.cabecera {
-	display: flex;
-	/* justify-content: space-between; 
-	width: 100%;
-	/* align-items: center; 
-}
-
-/* Alinea los enlaces de usuario (Perfil y Salir) a la derecha 
-.user-links {
-	margin-left: auto;
-	display: flex;
-	align-items: center;
-} 
-
-.user-links ul {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-} 
-
-.user-links ul li {
-	margin-left: 15px; /* Espacio entre los elementos 
-} */
-
 footer {
 	padding: 1.5rem;
 	background-color: #a1ccf8;
 	color: #333;
 	text-align: center;
+}
+
+.boton-contacto button {	
+	border: 1px solid #999999;
+	margin: 0.5rem auto;
 }
 
 main {
@@ -116,7 +95,11 @@ main {
 
 .default {
 	max-width: 900px;
-	margin: 0 auto;
+	margin: 0 auto;display: flex;
+	flex-direction: column;
+	padding: 20px;
+	box-sizing: border-box;
+	width: 100%;
 }
 
 .formulario {
@@ -128,6 +111,7 @@ main {
 	display: flex;
 	justify-content: center;
 	width: 90%;
+	margin: 0 auto; 
 }
 
 .inForm fieldset {
@@ -143,12 +127,11 @@ main {
 }
 
 .inForm fieldset p {
-	display: flex;         
+	display: flex;     
 	align-items: center;
 	width: 100%;           
 	margin: 0 0 1rem 0;   
 }
-
 
 .inForm fieldset p label {
 	min-width: 150px;       
@@ -156,22 +139,18 @@ main {
 	margin-right: 1rem;     
 }
 
-
 .inForm fieldset p input {
 	flex: 1;              
 	padding: 8px;
 	box-sizing: border-box;
+	min-width: 1rem;
 }
 
 .inForm fieldset p textarea {
 	flex: 1;
 	height: 60px;
+	box-sizing: border-box;
 }
-
-/* .inForm fieldset button {
-	padding: 10px 20px;
-	margin-top: 10px;
-} */
 
 .inForm fieldset > p:last-of-type { /* para centrar el no tienes cuenta */
 	text-align: center;     
@@ -195,10 +174,10 @@ button {
 	background-color: #a1ccf8; 
 	color: #333; 
 	font-weight: bold;
-	font-size: 14px;
-	padding: 10px 20px;
+	font-size: 1rem;
+	padding:  0.75rem 1.5rem;
 	border: none;
-	border-radius: 3px; 
+	border-radius: 0.25rem; 
 	cursor: pointer;
 	width: auto;
 }
@@ -208,12 +187,14 @@ button:hover {
 }
 
 img {
-	margin: 10px;
-	border-radius: 5px;    
+	margin: 0.75rem;
+	border-radius: 0.25rem;    
+	max-width: 100%;
+	height: auto;
 }
 
 .logo img {
-	height: 50px;                  
+	height: 3rem;                  
 	width: auto;                    
 	object-fit: contain;           
 }
@@ -226,24 +207,15 @@ img {
 	filter: brightness(0.6);
 }
 
-
-
-/* ============================= */
-/* NUEVOS ESTILOS PARA EL INDEX */
-/* ============================= */
-
-/* Estilos para el contenedor principal de bienvenida */
 .welcome-container {
     text-align: center;
-    padding: 20px;
+    padding: 1.5rem;
 }
 
-/* Estilos para el logo en la página de bienvenida */
 .welcome-container .logo {
-    max-width: 250px;
+    max-width: 17rem;
 }
 
-/* Estilos para el botón de inicio de sesión */
 .login-button {
     display: inline-block;
     padding: 10px 20px;
@@ -257,17 +229,10 @@ img {
     transition: background-color 0.3s ease;
 }
 
-/* Efecto hover para el botón de inicio de sesión */
 .login-button:hover {
     background-color: #0056b3;
 }
 
-
-/* ============================= */
-/* ESTILOS PARA EL PERFIL DE USUARIO */
-/* ============================= */
-
-/* Contenedor principal del perfil */
 .perfil-contenedor {
     max-width: 800px;
     margin: 20px auto;
@@ -276,7 +241,6 @@ img {
     background-color: transparent;
 }
 
-/* Estilo para el encabezado del perfil */
 .perfil-header {
     margin-bottom: 15px;
 }
@@ -293,7 +257,6 @@ img {
     margin: 5px 0;
 }
 
-/* Estilo para el texto del rol */
 .rol-usuario {
     font-size: 1.2em;
     margin: 15px 0;
@@ -301,7 +264,6 @@ img {
     font-style: italic;
 }
 
-/* Contenedor de botones para admin */
 .botones-admin {
     display: flex;
     justify-content: center;
@@ -309,25 +271,6 @@ img {
     margin: 20px 0;
 }
 
-.btn-admin {
-    padding: 10px 20px;
-    background-color: #a1ccf8; /* Cambiado de #4CAF50 (verde) a #a1ccf8 (azul) */
-    color: #333; /* Cambiado de blanco a gris oscuro para mejor contraste */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    text-decoration: none;
-}
-
-.btn-admin:hover {
-    background-color: #7dbcfa; /* Color hover del azul más claro */
-    color: #333;
-}
-
-/* Estilo para la línea divisoria */
 hr {
     margin: 20px auto;
     width: 50%;
@@ -336,62 +279,9 @@ hr {
     background: linear-gradient(to right, transparent, #a1ccf8, transparent);
 }
 
-
-
-/* Línea separadora para usuarios */
 .linea-separadora-usuario {
 	width: 80%;
 	height: 1px;
-	background-color: #444141; /* Color gris */
-	margin: 15px auto; /* Centrado con margen arriba/abajo */
-}
-
-/* ============================= */
-/* ESTILOS RESPONSIVOS */
-/* ============================= */
-
-@media (max-width: 768px) {
-	nav {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	nav ul li {
-		margin: 5px 0;
-	}
-
-	.user-links {
-		margin-left: 0;
-		justify-content: center;
-	}
-
-	.user-links ul {
-		flex-direction: column;
-		align-items: center;
-	}
-	.inForm fieldset p {
-			flex-direction: column;
-			align-items: flex-start;
-	}
-	.inForm fieldset p label {
-			text-align: left;
-			margin-bottom: 5px;
-	}
-}
-
-/* Estilos responsivos para el perfil */
-@media (max-width: 768px) {
-    .botones-admin {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn-admin {
-        width: auto;
-    }
+	background-color: #444141; 
+	margin: 15px auto; 
 }

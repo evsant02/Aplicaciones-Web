@@ -1,0 +1,22 @@
+
+.inForm fieldset p {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inForm fieldset p label {
+  text-align: left;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+  min-width: auto;
+  width: 100%;
+}
+
+.inForm fieldset p input,
+.inForm fieldset p textarea {
+  width: 100%;
+}
+
+.inForm fieldset {
+  padding: 1rem;
+}

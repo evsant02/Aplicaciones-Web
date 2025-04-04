@@ -2,9 +2,19 @@
 .tabla-actividades {
     width: 100%;
     display: flex;
-    flex-wrap: wrap; /* Permite que los items fluyen a la siguiente línea */
-    gap: 10px; /* Espacio entre celdas */
-    justify-content: flex-start; /* Alineación inicial */
+    flex-wrap: wrap; 
+    gap: 10px;
+    justify-content: flex-start; 
+}
+
+.actividad-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    flex: 1 1 250px;
+    min-width: 200px;
+    /* max-width: calc(25% - 10px); */
 }
 
 .tabla-actividades td {
@@ -16,6 +26,13 @@
     flex: 1 1 250px; /* flex-grow | flex-shrink | flex-basis */
     min-width: 0; /* Permite que se reduzcan correctamente */
     max-width: calc(25% - 10px); /* Límite para pantallas grandes */
+}
+
+.actividad img {
+    width: 90%;       /* Ocupa todo el ancho del contenedor padre */
+    height: 200px;     /* Altura fija para todas las imágenes */
+    object-fit: cover;  /* Ajusta la imagen manteniendo la relación de aspecto */
+    object-position: center; /* Centra la imagen en el contenedor */
 }
 
 /* Estilo cuando no hay actividades */
@@ -31,7 +48,7 @@
     width: 100%; /* Ocupa todo el ancho */
 }
 
-/* Contenedor de la imagen */
+/* Contenedor del logo cuando no hay actividades disponibles */
 .imagen-centrada {
     margin: 20px auto;
     text-align: center;

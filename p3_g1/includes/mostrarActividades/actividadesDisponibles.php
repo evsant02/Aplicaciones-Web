@@ -23,7 +23,7 @@ class actividadesDisponibles
         return $actividades;        
     }
 
-    public function generarListado()
+    /*public function generarListado()
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         //obtenemos el tipo de usuario que está en la sesion
@@ -52,6 +52,33 @@ class actividadesDisponibles
         
         $html .= '</tr></table>';
         }
+        return $html;
+    }*/
+
+    public function generarListado()
+    {
+        echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
+        
+        $html = '<div class="tabla-actividades">'; // Changed from table to div
+        
+        $actividadAppService = actividadAppService::GetSingleton();
+        
+        if($this->actividades == null) {
+            $html =  '<p>¡Ya estas registrado a todas las actividades!</p> 
+            <div class="sin-actividades">
+                <div class="imagen-centrada">
+                    <img src="img/logo.jpeg" alt="Logo de la organización" class="logo-actividades">
+                </div>
+            </div>';
+        }
+        else {
+            foreach ($this->actividades as $actividad) {       
+                $html .= '<div class="actividad-item">' . $actividadAppService->mostrar($actividad) . '</div>';    
+            }   
+        }
+        
+        $html .= '</div>'; // Close the flex container
+        
         return $html;
     }
 
