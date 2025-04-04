@@ -1,4 +1,7 @@
 <?php
+
+namespace includes\comun;
+
 // Clase base para la gestión de formularios.
 abstract class formBase
 {

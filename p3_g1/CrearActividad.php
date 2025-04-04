@@ -4,7 +4,9 @@
 require_once("includes/config.php");
 
 // Incluir la clase que gestiona el formulario de creación de actividades
-require_once("includes/crearActividad/crearActividadForm.php");
+//require_once("includes/crearActividad/crearActividadForm.php");
+
+use includes\crearActividad\crearActividadForm;
 
 // Definir el título de la página
 $tituloPagina = 'Nueva Actividad';

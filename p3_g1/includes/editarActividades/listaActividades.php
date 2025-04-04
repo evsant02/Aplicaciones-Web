@@ -1,7 +1,11 @@
-
 <?php
+
+namespace includes\editarActividades;
+
+use includes\actividad\actividadAppService;
+
 // Se incluyen archivos necesarios
-require_once( __DIR__ . "/../actividad/actividadAppService.php");
+//require_once( __DIR__ . "/../actividad/actividadAppService.php");
 
 // Clase que gestiona la lista de actividades
 class listaActividades 
