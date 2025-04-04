@@ -1,11 +1,6 @@
 <?php
 
-//require_once("includes/reservarActividad/reservarActividad.php");
-require_once("includes/config.php");
-
-use includes\application;
-use includes\reservarActividad\reservarActividad;
-use includes\actividad\actividadAppService;
+require_once("includes/reservarActividad/reservarActividad.php");
 
 $tituloPagina = 'Reserva de Actividad';
 $id = $_GET['id'];

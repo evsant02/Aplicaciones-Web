@@ -1,14 +1,9 @@
 <?php
-
-namespace includes\dirigirActividad;
-
+//include __DIR__ . "/../comun/formBase.php";
 require_once("includes/config.php");
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
-
-use includes\actividad\actividadAppService;
-use includes\actividadesusuario\actividadesusuarioAppService;
-use includes\application;
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
+require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
+//include 'Actividad.php';
 
 class dirigirActividad 
 {
@@ -59,7 +54,7 @@ class dirigirActividad
             return "<p>Actividad no encontrada.</p>";
         }
 
-        $fechaHora = new \DateTime($this->actividad->fecha_hora());
+        $fechaHora = new DateTime($this->actividad->fecha_hora());
 
         $html = <<<EOF
         <div class="actividad">

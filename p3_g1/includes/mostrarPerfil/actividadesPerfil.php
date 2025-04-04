@@ -1,13 +1,8 @@
 <?php
-namespace includes\mostrarPerfil;
-
-use includes\actividad\actividadAppService;
-use includes\actividadesusuario\actividadesusuarioAppService;
-use includes\application;
-
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
-//require_once( __DIR__ . "/../usuario/userAppService.php");
+include 'Actividad.php';
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
+require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
+require_once( __DIR__ . "/../usuario/userAppService.php");
 
 class actividadesPerfil
 {

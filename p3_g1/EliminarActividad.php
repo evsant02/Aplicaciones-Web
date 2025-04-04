@@ -1,10 +1,7 @@
 <?php
 // Incluir los archivos necesarios para la configuración y el servicio de actividades
 require_once("includes/config.php");
-//require_once("includes/actividad/actividadAppService.php");
-
-use includes\actividad\actividadAppService;
-use includes\application;
+require_once("includes/actividad/actividadAppService.php");
 
 // Verificar si se ha recibido un ID válido mediante GET
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {

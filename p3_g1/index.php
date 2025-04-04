@@ -2,8 +2,6 @@
 // Incluye el archivo de configuración (gestión de sesiones, conexión a BD, etc.)
 require_once("includes/config.php");
 
-use includes\application;
-
 // Define el título de la página
 $tituloPagina = 'Portada';
 

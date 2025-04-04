@@ -4,9 +4,7 @@
 require_once("includes/config.php");
 
 // Incluye la clase o lógica del formulario de registro
-//require_once("includes/login/registerForm.php");
-
-use includes\login\registerForm;
+require_once("includes/login/registerForm.php");
 
 // Título de la página
 $tituloPagina = 'Registro en el sistema';
@@ -19,8 +17,8 @@ $htmlFormRegistro = $form->Manage();
 
 // Contenido principal de la página: título + formulario de registro
 $contenidoPrincipal = <<<EOS
-<div class="default1"><h1>Login de usuario</h1></div>
 <div class="default">
+<h1>Registro de usuario</h1>
 $htmlFormRegistro
 </div>
 EOS;

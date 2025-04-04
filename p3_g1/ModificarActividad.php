@@ -1,9 +1,6 @@
 <?php
 require_once("includes/config.php");
-//require_once("includes/modificarActividad/modificarActividadForm.php");
-
-use includes\modificarActividad\modificarActividadForm;
-use includes\actividad\actividadAppService;
+require_once("includes/modificarActividad/modificarActividadForm.php");
 
 $tituloPagina = 'Modificar Actividad';
 

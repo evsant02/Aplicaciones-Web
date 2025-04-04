@@ -1,13 +1,8 @@
 <?php
-namespace includes\actividad;
-
-use includes\comun\baseDAO;
-use includes\application;
-
 // Se incluyen las dependencias necesarias
-//require_once("IActividad.php");
-//require_once("actividadDTO.php");
-//require_once(__DIR__ . "/../comun/baseDAO.php");
+require_once("IActividad.php");
+require_once("actividadDTO.php");
+require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
 require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
@@ -66,7 +61,7 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
             }
-        } catch (\mysqli_sql_exception $e) {
+        } catch (mysqli_sql_exception $e) {
             if ($e->getCode() == 23000) { // Código para duplicados
                 throw new DuplicateActivityException("La actividad ya existe");
             }

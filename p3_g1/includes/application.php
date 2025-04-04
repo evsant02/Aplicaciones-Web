@@ -1,23 +1,14 @@
 <?php
 
-namespace includes;
+// Se incluye el archivo necesario para gestionar los datos de usuario
+require_once __DIR__ . "/usuario/userDTO.php"; // Asegúrate de que la ruta sea correcta
 
-//use includes\usuario\userDTO;
-
+// Clase principal que gestiona la aplicación
 class application
 {
     // Atributo estático para implementar el patrón Singleton
     private static $instancia;
     
-    // Variables para gestionar la conexión a la base de datos
-    private $bdDatosConexion;
-    private $inicializada = false;
-    private $conn;
-
-    // Atributos de sesión para almacenar datos de la petición
-    private $atributosPeticion;
-    const ATRIBUTOS_PETICION = 'attsPeticion';
-
     // Método para obtener la única instancia de la aplicación
     public static function getInstance() 
     {
@@ -27,74 +18,81 @@ class application
         return self::$instancia;
     }
 
-    // Constructor privado para evitar instanciación directa
+    // Constructor privado para evitar instanciación directa (parte del patrón Singleton)
     private function __construct() {}
 
-    /**
-     * Inicializa la aplicación con los datos de conexión a la base de datos
-     * @param array $bdDatosConexion Array con los datos de conexión
-     */
+    // Variables para gestionar la conexión a la base de datos
+    private $bdDatosConexion;
+    private $inicializada = false;
+    private $conn;
+
+    // Atributos de sesión para almacenar datos de la petición
+    private $atributosPeticion;
+    const ATRIBUTOS_PETICION = 'attsPeticion';
+
+    // Inicializa la aplicación con los datos de conexión a la base de datos
     public function init($bdDatosConexion)
     {
         if (!$this->inicializada) {
-            session_start();
-            
-            // Limpiar sesión si hay datos inconsistentes
-            if (isset($_SESSION["userDTO"]) && !isset($_SESSION["login"])) {
-                unset($_SESSION["userDTO"]);
-            }
-            
             $this->bdDatosConexion = $bdDatosConexion;
             $this->inicializada = true;
+            
+            // Inicia la sesión para gestionar datos entre peticiones
+            session_start();
+
+            // Carga los atributos de petición almacenados en la sesión
             $this->atributosPeticion = $_SESSION[self::ATRIBUTOS_PETICION] ?? [];
+            
+            // Limpia los atributos de la sesión después de usarlos
             unset($_SESSION[self::ATRIBUTOS_PETICION]);
         }
     }
     
-    /**
-     * Cierra la aplicación correctamente
-     */
+    // Método para cerrar la aplicación correctamente
     public function shutdown()
     {
         $this->compruebaInstanciaInicializada();
         
+        // Si hay una conexión activa con la base de datos, se cierra
         if ($this->conn !== null && !$this->conn->connect_errno) {
             $this->conn->close();
         }
     }
     
-    /**
-     * Verifica que la aplicación haya sido inicializada
-     */
+    // Verifica que la aplicación haya sido inicializada antes de usarla
     private function compruebaInstanciaInicializada()
     {
         if (!$this->inicializada) {
-            throw new \RuntimeException("Aplicación no inicializada");
+            echo "Aplicación no inicializada";
+            exit();
         }
     }
     
-    /**
-     * Obtiene la conexión a la base de datos
-     * @return \mysqli Objeto de conexión MySQLi
-     */
+    // Establece y devuelve la conexión a la base de datos
     public function getConexionBd()
     {
         $this->compruebaInstanciaInicializada();
         
         if (!$this->conn) {
+            // Obtiene los datos de conexión desde la configuración
             $bdHost = $this->bdDatosConexion['host'];
             $bdUser = $this->bdDatosConexion['user'];
             $bdPass = $this->bdDatosConexion['pass'];
             $bd     = $this->bdDatosConexion['bd'];
 
-            $conn = new \mysqli($bdHost, $bdUser, $bdPass, $bd);
+            // Crea una conexión con la base de datos
+            $conn = new mysqli($bdHost, $bdUser, $bdPass, $bd);
             
+            // Verifica si hubo errores en la conexión
             if ($conn->connect_errno) {
-                throw new \RuntimeException("Error de conexión a la BD ({$conn->connect_errno}): {$conn->connect_error}");
+                echo "Error de conexión a la BD ({$conn->connect_errno}):  {$conn->connect_error}";
+                exit();
             }
             
+            // Configura la codificación de caracteres de la base de datos
             if (!$conn->set_charset("utf8mb4")) {
-                throw new \RuntimeException("Error al configurar la BD ({$conn->errno}): {$conn->error}");
+                echo "Error al configurar la BD ({$conn->errno}):  {$conn->error}";
+                exit();
             }
             
             $this->conn = $conn;
@@ -103,24 +101,29 @@ class application
         return $this->conn;
     }
 
-    /**
-     * Almacena un atributo para la próxima petición
-     * @param string $clave Clave del atributo
-     * @param mixed $valor Valor del atributo
-     */
+    // Guarda un atributo en la sesión para su uso en futuras peticiones
     public function putAtributoPeticion($clave, $valor)
     {
-        if (!isset($_SESSION[self::ATRIBUTOS_PETICION])) {
-            $_SESSION[self::ATRIBUTOS_PETICION] = [];
+        $atts = null;
+        
+        // Comprueba si ya existen atributos de petición en la sesión
+        if (isset($_SESSION[self::ATRIBUTOS_PETICION])) {
+            $atts = &$_SESSION[self::ATRIBUTOS_PETICION];
+        } else {
+            $atts = array();
+            $_SESSION[self::ATRIBUTOS_PETICION] = &$atts;
         }
-        $_SESSION[self::ATRIBUTOS_PETICION][$clave] = $valor;
+
+        // Almacena el atributo en la sesión
+        $atts[$clave] = $valor;
     }
 
-    //Obtiene un atributo almacenado para la petición
+    // Recupera un atributo de petición almacenado en la sesión
     public function getAtributoPeticion($clave)
     {
         $result = $this->atributosPeticion[$clave] ?? null;
         
+        // Si no se encuentra en la sesión actual, intenta recuperarlo de la sesión almacenada
         if (is_null($result) && isset($_SESSION[self::ATRIBUTOS_PETICION])) {
             $result = $_SESSION[self::ATRIBUTOS_PETICION][$clave] ?? null;
         }
@@ -128,52 +131,38 @@ class application
         return $result;
     }
 
-    //Almacena el DTO de usuario en la sesión
+    // Guarda la información del usuario en la sesión
     public function setUserDTO($user)
-    {        
-        $_SESSION["userDTO"] = serialize($user);
-        //$_SESSION["login"] = true;
+    {
+        $_SESSION["userDTO"] = serialize($user); // Serializa el objeto usuario antes de almacenarlo
     }
 
-    //Obtiene el DTO de usuario de la sesión
+    // Verifica si el usuario actual tiene permisos de administrador
+    public function soyAdmin()
+    {
+        $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
+        return $user->tipo() === 0; // Comprueba si el tipo de usuario es 0 (administrador) 
+    }
+
+    public function soyVoluntario()
+    {
+        $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
+        return $user->tipo() === 2; // Comprueba si el tipo de usuario es 2 (voluntario) //USAR ESTA FUNCION
+    }
+
+    public function soyUsuario()
+    {
+        $user = unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario de la sesión
+        return $user->tipo() === 1; // Comprueba si el tipo de usuario es 1 (usuario) //USAR ESTA FUNCION
+    }
+
+    // Obtiene la información del usuario almacenada en la sesión
     public function getUserDTO()
     {
-        $user = unserialize($_SESSION["userDTO"]);
-        return  $user;
+        return unserialize($_SESSION["userDTO"]); // Recupera el objeto usuario
     }
 
-    //Cierra la sesión del usuario
-    public function logout()
-    {
-        unset($_SESSION["userDTO"]);
-        unset($_SESSION["login"]);
-        session_destroy();
-    }
-
-    //Verifica si el usuario es administrador
-    public function soyAdmin(): bool
-    {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
-        return $user !== null && $user->tipo() === 0;
-    }
-
-    //Verifica si el usuario es voluntario
-    public function soyVoluntario(): bool
-    {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
-        return $user !== null && $user->tipo() === 2;
-    }
-
-    //Verifica si el usuario es normal
-    public function soyUsuario(): bool
-    {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
-        return $user !== null && $user->tipo() === 1;
-    }
-
-    //Verifica si hay un usuario logueado
-    public function isUserLogged(): bool
-    {
-        return isset($_SESSION["login"]) && $_SESSION["login"] && $this->getUserDTO() !== null;
+    public function isUserLogged(): bool {
+        return isset($_SESSION["login"]) && $_SESSION["login"];
     }
 }

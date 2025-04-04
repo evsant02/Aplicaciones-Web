@@ -1,9 +1,5 @@
 <?php
 
-namespace includes\comun;
-
-use includes\application;
-
 // Clase abstracta baseDAO, que proporciona métodos comunes para interactuar con la base de datos.
 abstract class baseDAO 
 {

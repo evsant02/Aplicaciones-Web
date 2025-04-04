@@ -1,10 +1,6 @@
 <?php
 
-namespace includes\donar;
-
-use includes\comun\formBase;
-
-//include __DIR__ . "/../comun/formBase.php";
+include __DIR__ . "/../comun/formBase.php";
 
 class donarForm extends formBase {
     public function __construct() {

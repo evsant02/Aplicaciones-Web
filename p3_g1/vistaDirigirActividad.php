@@ -1,13 +1,7 @@
 
 <?php
 //require_once("includes/config.php"); ESTA FUNCIONALIDAD NO HACE USO DE LA BBDD TODAVÍA
-//require_once("includes/dirigirActividad/dirigirActividad.php");
-
-require_once("includes/config.php");
-
-use includes\application;
-use includes\dirigirActividad\dirigirActividad;
-use includes\actividad\actividadAppService;
+require_once("includes/dirigirActividad/dirigirActividad.php");
 
 $tituloPagina = 'Dirigir Actividad';
 $id = $_GET['id'];

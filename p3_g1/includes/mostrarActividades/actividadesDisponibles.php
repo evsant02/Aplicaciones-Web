@@ -1,10 +1,6 @@
 <?php
-
-namespace includes\mostrarActividades;
-
-use includes\actividad\actividadAppService;
-
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
+include 'Actividad.php';
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 // Clase que gestiona la lista de actividades disponibles
 class actividadesDisponibles 
 {
