@@ -86,6 +86,21 @@ function gestorExcepciones(\Throwable $exception)
     require("comun/plantilla.php"); // Mostrar la plantilla de error
 }
 
+/*function gestorExcepciones($exception) {
+    error_log(jTraceEx($exception)); // Registrar error en log
+    http_response_code(500); // Código 500
+
+    // Mensaje para el usuario (ejemplo)
+    $mensajeUsuario = "Error: " . htmlspecialchars($exception->getMessage());
+
+    // Incluir plantilla y mostrar mensaje
+    require("comun/plantilla.php");
+    #contenidoPrincipal = <<<EOS
+    <h1>Oops</h1>
+    <p>$mensajeUsuario</p>
+    EOS;
+}*/
+
 // Registrar la función para manejar excepciones globales
 set_exception_handler(__NAMESPACE__ . '\gestorExcepciones');
 
