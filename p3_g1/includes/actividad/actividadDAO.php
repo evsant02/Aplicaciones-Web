@@ -8,6 +8,7 @@ use includes\application;
 //require_once("IActividad.php");
 //require_once("actividadDTO.php");
 //require_once(__DIR__ . "/../comun/baseDAO.php");
+//PRUEBA
 
 // Excepciones personalizadas
 require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
