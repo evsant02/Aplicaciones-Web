@@ -52,6 +52,8 @@ interface IActividad
 
     public function borrarVoluntario($id_actividad);
 
+    public function nombreVoluntario($id_actividad);
+
 
 }
 
