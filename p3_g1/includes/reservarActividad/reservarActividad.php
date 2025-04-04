@@ -1,9 +1,8 @@
 <?php
 require_once("includes/config.php");
-//include __DIR__ . "/../comun/formBase.php";
 require_once( __DIR__ . "/../actividad/actividadAppService.php");
 require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
-//include 'Actividad.php';
+
 
 class reservarActividad
 {

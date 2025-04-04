@@ -5,7 +5,6 @@ require_once("actividadDTO.php");
 require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
-//Hola 
 require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
 require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
 require_once(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
