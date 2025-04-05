@@ -45,6 +45,9 @@ class loginForm extends formBase
         // Obtiene y limpia los valores ingresados por el usuario
         $id = trim($datos['id'] ?? '');
         $password = trim($datos['password'] ?? '');
+
+        $id = htmlspecialchars($datos['id'] ?? '', ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($datos['password'] ?? '', ENT_QUOTES, 'UTF-8');
         
         // Validar que el ID y la contraseña no estén vacíos
         if (empty($id)) 

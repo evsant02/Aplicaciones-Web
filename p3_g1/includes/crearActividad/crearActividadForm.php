@@ -50,6 +50,12 @@ EOF;
         $descripcion = trim($datos['descripcion'] ?? '');
         $aforo = trim($datos['aforo'] ?? '');
 
+        $nombre = htmlspecialchars($datos['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
+        $localizacion = htmlspecialchars($datos['localizacion'] ?? '', ENT_QUOTES, 'UTF-8');
+        $fecha_hora = htmlspecialchars($datos['fecha_hora'] ?? '', ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+        $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
+
         if (empty($nombre)) {
             $result[] = "El nombre de la actividad no puede estar vacío.";
         }
