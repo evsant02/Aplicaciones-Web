@@ -68,25 +68,15 @@ class modificarActividadForm extends formBase
         $result = array();
         
         // Se extraen y limpian los datos del formulario
-        $id = trim($datos['id'] ?? '');
-        $nombre = trim($datos['nombre'] ?? '');
-        $localizacion = trim($datos['localizacion'] ?? '');
-        $fecha_hora = trim($datos['fecha_hora'] ?? '');
-        $descripcion = trim($datos['descripcion'] ?? '');
-        $aforo = trim($datos['aforo'] ?? '');
-        $dirigida = trim($datos['dirigida'] ?? '');
-        $ocupacion = trim($datos['ocupacion'] ?? '');
-        $rutaImagen = trim($datos['imagenActual'] ?? '');
-
         //escape de los datos introducidos por el usuario con htmlspecialchars
-        $nombre = htmlspecialchars($datos['nombre'] ?? '', ENT_QUOTES, 'UTF-8');
-        $localizacion = htmlspecialchars($datos['localizacion'] ?? '', ENT_QUOTES, 'UTF-8');
-        $fecha_hora = htmlspecialchars($datos['fecha_hora'] ?? '', ENT_QUOTES, 'UTF-8');
-        $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
-        $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
-        $dirigida = htmlspecialchars($datos['dirigida'] ?? '', ENT_QUOTES, 'UTF-8');
-        $ocupacion = htmlspecialchars($datos['ocupacion'] ?? '', ENT_QUOTES, 'UTF-8');
-        $rutaImagen = htmlspecialchars($datos['rutaImagen'] ?? '', ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars(trim($datos['nombre']) ?? '', ENT_QUOTES, 'UTF-8');
+        $localizacion = htmlspecialchars(trim($datos['localizacion']) ?? '', ENT_QUOTES, 'UTF-8');
+        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora']) ?? '', ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars(trim($datos['descripcion']) ?? '', ENT_QUOTES, 'UTF-8');
+        $aforo = htmlspecialchars(trim($datos['aforo']) ?? '', ENT_QUOTES, 'UTF-8');
+        $dirigida = htmlspecialchars(trim($datos['dirigida']) ?? '', ENT_QUOTES, 'UTF-8');
+        $ocupacion = htmlspecialchars(trim($datos['ocupacion']) ?? '', ENT_QUOTES, 'UTF-8');
+        $rutaImagen = htmlspecialchars(trim($datos['rutaImagen']) ?? '', ENT_QUOTES, 'UTF-8');
 
         // Validaciones
         if (empty($id)) {
