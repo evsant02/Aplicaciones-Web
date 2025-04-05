@@ -1,11 +1,7 @@
 <?php
 
 // Se requiere el archivo que contiene la fábrica de usuarios
-//require("userFactory.php");
-
-namespace includes\usuario;
-
-use includes\usuario\userFactory;
+require("userFactory.php");
 
 class userAppService
 {

@@ -2,10 +2,7 @@
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
 // Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/mostrarActividades/actividadesDisponibles.php");
-
-use includes\mostrarActividades\actividadesDisponibles;
-use includes\application;
+require_once("includes/mostrarActividades/actividadesDisponibles.php");
 
 // Definir el título de la página
 $tituloPagina = 'Actividades disponibles';

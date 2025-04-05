@@ -1,16 +1,13 @@
 <?php
 //incluir esto para que podamos trabajar con los metodos
-//require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
-//require_once("includes/actividad/actividadAppService.php");
-//require_once("includes/usuario/userAppService.php");
+require_once("includes/actividades-usuario/actividadesusuarioAppService.php");
+require_once("includes/actividad/actividadAppService.php");
+require_once("includes/usuario/userAppService.php");
 
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
 // Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/mostrarPerfil/actividadesPerfil.php");
-
-use includes\application;
-use includes\mostrarPerfil\actividadesPerfil;
+require_once("includes/mostrarPerfil/actividadesPerfil.php");
 
 function mostrarPerfil(): string {
     $app = application::getInstance();

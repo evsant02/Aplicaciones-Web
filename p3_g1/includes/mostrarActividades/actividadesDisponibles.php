@@ -1,10 +1,6 @@
 <?php
 
-namespace includes\mostrarActividades;
-
-use includes\actividad\actividadAppService;
-
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
+require_once( __DIR__ . "/../actividad/actividadAppService.php");
 // Clase que gestiona la lista de actividades disponibles
 class actividadesDisponibles 
 {
@@ -16,7 +12,6 @@ class actividadesDisponibles
     }
 
     // dependiendo del tipo de usuario se muestran diferentes actividades
-
     private function obtenerActividades(){
         $actividadAppService = actividadAppService::GetSingleton();
         $actividades = $actividadAppService->obtenerActividadSegunUsuario();
@@ -26,11 +21,8 @@ class actividadesDisponibles
     public function generarListado()
     {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
-        //obtenemos el tipo de usuario que está en la sesion
-        //$user = application::getInstance()->getUserDTO();
-        //$tipo_user = $user->tipo();
-        //habia que poner el nombre para que lo pillara
-        $html = '<table class="tabla-actividades"><tr>'; //PRUEBA
+        
+        $html = '<table class="tabla-actividades"><tr>'; 
         $colCount = 0;
         $actividadAppService = actividadAppService::GetSingleton();
         if($this->actividades==null){
@@ -55,14 +47,7 @@ class actividadesDisponibles
         return $html;
     }
 
-    // Método para obtener el enlace según el tipo de usuario
-   /* public function getEnlace($tipo_usuario) {
-        if ($tipo_usuario == 'usuario') {
-            return "vistaReservaActividad.php?id=" . $this->id;
-        } else {
-            return "vistaDirigirActividad.php?id=" . $this->id;
-        }
-    }*/
+    
 
 
 }

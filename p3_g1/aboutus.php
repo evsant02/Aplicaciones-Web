@@ -25,7 +25,7 @@
           fortaleciendo vínculos comunitarios. A través de esta propuesta, no solo se pretende que las personas mayores redescubran su propósito y creatividad, 
           sino también contribuir activamente a su entorno, promoviendo una sociedad más inclusiva y solidaria.
         </p>
-        <img src="img/aboutus.jpeg" alt="Personas mayores andando" width="875">
+        <img src="img/aboutus.jpg" alt="Personas mayores andando" width="875">
       </div>
   EOS;
 

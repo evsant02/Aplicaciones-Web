@@ -49,18 +49,13 @@ body {
 	overflow-x: hidden; /* Evita el scroll horizontal */
 }
 
+
 header {
-    padding: 30px;  
-    background-color: #a1ccf8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 90px;              /* Altura fija (ajusta según necesites) */
-    width: 100%;               /* Ancho completo */
-    box-sizing: border-box;    /* Incluye padding en el tamaño total */
-    top: 0;
-    z-index: 1000;             /* Asegura que esté por encima de otros elementos */
-    /* Bloquea herencia de estilos externos: */
+	padding: 30px;  
+	background-color: #a1ccf8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 
@@ -99,10 +94,6 @@ main {
 .default {
 	max-width: 900px;
 	margin: 0 auto;
-}
-
-.default1 {
-	margin-left: 335px;
 }
 
 .donarForm fieldset {  
@@ -198,7 +189,6 @@ button:hover {
 
 img {
 	margin: 10px;
-	border-radius: 10px;     /* Bordes redondeados */
 }
 
 .imagen-enlace img {
@@ -212,9 +202,7 @@ img {
 .logo img {
 	height: 50px;                  
 	width: auto;                    
-	object-fit: contain;     
-	margin-top: 20px;
-	margin-bottom: 20px;
+	object-fit: contain;           
 }
 
 /* ============================= */

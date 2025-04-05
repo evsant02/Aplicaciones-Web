@@ -24,16 +24,18 @@ img {
 /* Contenedor de los detalles */
 .actividad-detalles {
     max-width: 600px;        /* Ancho máximo para los detalles */
+    line-height: 1.6;        /* Mejora la legibilidad del texto */
 }
 
 h1 {
     margin-bottom: 10px;     /* Espacio debajo del título */
-    margin-top: 10px;
+    font-size: 1.8em;        /* Aumenta el tamaño del título */
 }
 
 button {
     background-color: #007BFF;
     color: white;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

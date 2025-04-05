@@ -1,15 +1,8 @@
 <?php
 
-namespace includes\login;
-
-use includes\comun\formBase;
-use includes\usuario\userAppService;
-use includes\application;
-use includes\usuario\userDTO;
-
 // Incluye la clase base del formulario y el servicio de usuario
-//include __DIR__ . "/../comun/formBase.php";
-//include __DIR__ . "/../usuario/userAppService.php";
+include __DIR__ . "/../comun/formBase.php";
+include __DIR__ . "/../usuario/userAppService.php";
 
 // Define la clase loginForm, que extiende formBase
 class loginForm extends formBase
@@ -50,8 +43,8 @@ class loginForm extends formBase
         $result = array();
         
         // Obtiene y limpia los valores ingresados por el usuario
-        $id = trim($datos['id'] ?? '');
-        $password = trim($datos['password'] ?? '');
+        $id = htmlspecialchars(trim($datos['id'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars(trim($datos['password'] ?? ''), ENT_QUOTES, 'UTF-8');
         
         // Validar que el ID y la contraseña no estén vacíos
         if (empty($id)) 

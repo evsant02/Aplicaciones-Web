@@ -1,11 +1,6 @@
 <?php
 
-namespace includes\ayuda;
-
-use includes\comun\formBase;
-use includes\application;
-
-//include __DIR__ . "/../comun/formBase.php";
+include __DIR__ . "/../comun/formBase.php";
 
 class ayudaForm extends formBase {
     public function __construct() {

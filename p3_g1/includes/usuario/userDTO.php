@@ -1,7 +1,5 @@
 <?php
 
-namespace includes\usuario;
-
 // Clase userDTO (Data Transfer Object) para representar un usuario
 class userDTO
 {
