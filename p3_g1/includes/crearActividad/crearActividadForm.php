@@ -46,11 +46,11 @@ EOF;
         
         
         //recorte de los datos para quitar espacios en blanco y escape de dataos proporcionados por el usuario
-        $nombre = htmlspecialchars(trim($datos['nombre']) ?? '', ENT_QUOTES, 'UTF-8');
-        $localizacion = htmlspecialchars(trim($datos['localizacion']) ?? '', ENT_QUOTES, 'UTF-8');
-        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora']) ?? '', ENT_QUOTES, 'UTF-8');
-        $descripcion = htmlspecialchars(trim($datos['descripcion']) ?? '', ENT_QUOTES, 'UTF-8');
-        $aforo = htmlspecialchars(trim($datos['aforo']) ?? '', ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars(trim($datos['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $localizacion = htmlspecialchars(trim($datos['localizacion'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $aforo = htmlspecialchars(trim($datos['aforo'] ?? ''), ENT_QUOTES, 'UTF-8');
 
         if (empty($nombre)) {
             $result[] = "El nombre de la actividad no puede estar vacío.";

@@ -69,14 +69,14 @@ class modificarActividadForm extends formBase
         
         // Se extraen y limpian los datos del formulario
         //escape de los datos introducidos por el usuario con htmlspecialchars
-        $nombre = htmlspecialchars(trim($datos['nombre']) ?? '', ENT_QUOTES, 'UTF-8');
-        $localizacion = htmlspecialchars(trim($datos['localizacion']) ?? '', ENT_QUOTES, 'UTF-8');
-        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora']) ?? '', ENT_QUOTES, 'UTF-8');
-        $descripcion = htmlspecialchars(trim($datos['descripcion']) ?? '', ENT_QUOTES, 'UTF-8');
-        $aforo = htmlspecialchars(trim($datos['aforo']) ?? '', ENT_QUOTES, 'UTF-8');
-        $dirigida = htmlspecialchars(trim($datos['dirigida']) ?? '', ENT_QUOTES, 'UTF-8');
-        $ocupacion = htmlspecialchars(trim($datos['ocupacion']) ?? '', ENT_QUOTES, 'UTF-8');
-        $rutaImagen = htmlspecialchars(trim($datos['rutaImagen']) ?? '', ENT_QUOTES, 'UTF-8');
+        $nombre = htmlspecialchars(trim($datos['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $localizacion = htmlspecialchars(trim($datos['localizacion'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $aforo = htmlspecialchars(trim($datos['aforo'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $dirigida = htmlspecialchars(trim($datos['dirigida'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $ocupacion = htmlspecialchars(trim($datos['ocupacion'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $rutaImagen = htmlspecialchars(trim($datos['rutaImagen'] ?? ''), ENT_QUOTES, 'UTF-8');
 
         // Validaciones
         if (empty($id)) {
