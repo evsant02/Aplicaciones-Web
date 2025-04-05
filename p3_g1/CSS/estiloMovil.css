@@ -1,3 +1,11 @@
+header h1 {
+  font-size: 1.5rem;
+  margin-left: 5px;
+}
+
+nav ul {
+  flex-direction: column;
+}
 
 .inForm fieldset p {
   flex-direction: column;
