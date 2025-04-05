@@ -1,5 +1,12 @@
 <?php 
 
+namespace includes\modificarActividad;
+
+use includes\comun\formBase;
+use includes\actividad\actividadAppService;
+use includes\application;
+use includes\actividad\actividadDTO;
+
 // Se incluyen los archivos necesarios: la base de formularios y el servicio de actividades
 include __DIR__ . "/../comun/formBase.php";
 require_once( __DIR__ . "/../actividad/actividadAppService.php");
@@ -68,15 +75,15 @@ class modificarActividadForm extends formBase
         $result = array();
         
         // Se extraen y limpian los datos del formulario
-        //escape de los datos introducidos por el usuario con htmlspecialchars
-        $nombre = htmlspecialchars(trim($datos['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $localizacion = htmlspecialchars(trim($datos['localizacion'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $fecha_hora = htmlspecialchars(trim($datos['fecha_hora'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $aforo = htmlspecialchars(trim($datos['aforo'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $dirigida = htmlspecialchars(trim($datos['dirigida'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $ocupacion = htmlspecialchars(trim($datos['ocupacion'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $rutaImagen = htmlspecialchars(trim($datos['rutaImagen'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $id = trim($datos['id'] ?? '');
+        $nombre = trim($datos['nombre'] ?? '');
+        $localizacion = trim($datos['localizacion'] ?? '');
+        $fecha_hora = trim($datos['fecha_hora'] ?? '');
+        $descripcion = trim($datos['descripcion'] ?? '');
+        $aforo = trim($datos['aforo'] ?? '');
+        $dirigida = trim($datos['dirigida'] ?? '');
+        $ocupacion = trim($datos['ocupacion'] ?? '');
+        $rutaImagen = trim($datos['imagenActual'] ?? '');
 
         // Validaciones
         if (empty($id)) {
@@ -138,7 +145,7 @@ class modificarActividadForm extends formBase
                 $app = application::getInstance();
                 $mensaje = "¡Se ha modificado la actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $result[] = "Error al modificar la actividad: " . $e->getMessage();
             }
         }

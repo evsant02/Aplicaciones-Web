@@ -1,8 +1,13 @@
 <?php
+namespace includes\actividad;
+
+use includes\comun\baseDAO;
+use includes\application;
+
 // Se incluyen las dependencias necesarias
-require_once("IActividad.php");
-require_once("actividadDTO.php");
-require_once(__DIR__ . "/../comun/baseDAO.php");
+//require_once("IActividad.php");
+//require_once("actividadDTO.php");
+//require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
 require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
@@ -61,7 +66,7 @@ class actividadDAO extends baseDAO implements IActividad
                 $idActividad = $conn->insert_id;
                 return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
             }
-        } catch (mysqli_sql_exception $e) {
+        } catch (\mysqli_sql_exception $e) {
             if ($e->getCode() == 23000) { // Código para duplicados
                 throw new DuplicateActivityException("La actividad ya existe");
             }
@@ -310,31 +315,6 @@ class actividadDAO extends baseDAO implements IActividad
         return $resultado;
     }
      
-    public function nombreVoluntario($id_actividad){
-        try{
-            $conn = application::getInstance()->getConexionBd();
-            $query = "SELECT us.id, us.nombre, apellidos, fecha_nacimiento, tipo, correo FROM `actividades` act 
-            JOIN `actividades-usuario` actus ON act.id = actus.id_actividad JOIN `usuarios` us ON actus.id_usuario = us.id
-            WHERE act.id = ? AND us.tipo = 2";
-            $stmt = $conn->prepare($query);
-
-            // Se vincula el parámetro ID
-            $stmt->bind_param("i", $id_actividad);
-
-            $stmt->execute();
-            $stmt->bind_result($id, $nombre, $apellidos, $fecha_nacimiento, $tipo, $correo);
-            if($stmt->fetch()){
-                return new userDTO($id, $nombre, $apellidos, null, $fecha_nacimiento, $tipo, $correo);
-            }
-        }
-        finally{
-            if($stmt){
-                $stmt->close();
-            }
-        } 
-        return null;
-    }
-    
    
 }
 ?>

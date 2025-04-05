@@ -1,9 +1,11 @@
 <?php
 
-// Incluir la configuración general del sistema
+//require_once("includes/reservarActividad/reservarActividad.php");
 require_once("includes/config.php");
-// Incluir la clase que genera la lista de actividades disponibles
-require_once("includes/reservarActividad/reservarActividad.php");
+
+use includes\application;
+use includes\reservarActividad\reservarActividad;
+use includes\actividad\actividadAppService;
 
 $tituloPagina = 'Reserva de Actividad';
 $id = $_GET['id'];

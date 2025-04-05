@@ -1,7 +1,11 @@
 <?php
 
 // Requiere el archivo donde se define la clase userDAO
-require("userDAO.php");
+//require("userDAO.php");
+
+namespace includes\usuario;
+
+use includes\usuario\userDAO;
 
 class userFactory
 {

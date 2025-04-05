@@ -1,4 +1,5 @@
 <?php
+namespace includes\actividad;
 
 /**
  * Interfaz IActividad
@@ -51,8 +52,6 @@ interface IActividad
     public function borrarUsuario($id_actividad);
 
     public function borrarVoluntario($id_actividad);
-
-    public function nombreVoluntario($id_actividad);
 
 
 }

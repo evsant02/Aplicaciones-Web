@@ -47,6 +47,7 @@
     background-color: transparent;
     border: none;
     box-shadow: none;
+    opacity: 0.4; /* Valor entre 0 (transparente) y 1 (opaco) */
 }
 
 /* Contenedor de la imagen (simplificado) */

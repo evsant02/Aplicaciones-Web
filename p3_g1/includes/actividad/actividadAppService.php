@@ -1,9 +1,12 @@
-
 <?php
 
+namespace includes\actividad;
+
 // Se requiere el archivo que contiene la fábrica de actividades
-require_once("actividadFactory.php");
+//require_once("actividadFactory.php");
 require_once("includes/config.php");
+
+use includes\application;
 
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadAppService
@@ -121,6 +124,8 @@ class actividadAppService
 
     public function mostrar($actividadDTO){
         $app = application::getInstance();
+        $user = $app->getUserDTO();
+        $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
         if ($app->soyUsuario()) {
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
@@ -128,11 +133,11 @@ class actividadAppService
         else if ($app->soyVoluntario()) {
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
         }
-        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
+        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="375">';
         if (!$app->soyAdmin()) $html .= '</a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
 
-        $fechaHora = new DateTime($actividadDTO->fecha_hora());
+        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
         $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
 
         $html .= '<p>Aforo: ' . $actividadDTO->ocupacion(). '/' . $actividadDTO->aforo() . '</p>';
@@ -160,6 +165,7 @@ class actividadAppService
     public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
+        $tipo_user = $user->tipo();
 
         $html = '<div class="actividad">';
 
@@ -172,7 +178,7 @@ class actividadAppService
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora
-        $fechaHora = new DateTime($actividadDTO->fecha_hora());
+        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
         $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
         
         // $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
@@ -204,10 +210,5 @@ class actividadAppService
         $IActividadDAO->borrarVoluntario($id_actividad);
     }
 
-    public function nombreVoluntario($id_actividad){
-        $IActividadDAO = actividadFactory::CreateActividad();
-        $actividadDTO=$IActividadDAO->nombreVoluntario($id_actividad);
-        return $actividadDTO;
-    }
 }
 ?>

@@ -1,7 +1,11 @@
 <?php
 
 // Se incluye el archivo necesario para gestionar los datos de usuario
-require_once __DIR__ . "/usuario/userDTO.php"; // Asegúrate de que la ruta sea correcta
+//require_once __DIR__ . "/usuario/userDTO.php"; // Asegúrate de que la ruta sea correcta
+
+namespace includes;
+
+use includes\usuario\userDTO;
 
 // Clase principal que gestiona la aplicación
 class application

@@ -1,7 +1,9 @@
 <?php
 
+namespace includes\actividadesusuario;
+
 // Se incluye el archivo que contiene la implementación de actividadesusuarioDAO
-require_once("actividadesusuarioDAO.php");
+//require_once("actividadesusuarioDAO.php");
 
 // Definición de la clase actividadesusuarioFactory
 class actividadesusuarioFactory

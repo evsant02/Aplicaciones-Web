@@ -1,8 +1,15 @@
 <?php 
 
+namespace includes\login;
+
+use includes\comun\formBase;
+use includes\usuario\userAppService;
+use includes\application;
+use includes\usuario\userDTO;
+
 // Incluye la clase base del formulario y el servicio de usuario
-include __DIR__ . "/../comun/formBase.php";
-include __DIR__ . "/../usuario/userAppService.php";
+//include __DIR__ . "/../comun/formBase.php";
+//include __DIR__ . "/../usuario/userAppService.php";
 
 // Define la clase registerForm, que extiende formBase
 class registerForm extends formBase
@@ -88,8 +95,8 @@ class registerForm extends formBase
         }
 
         // Verificar edad mínima para registrarse como usuario (65 años o más)
-        $fechaNacimientoObj = DateTime::createFromFormat('Y-m-d', $fechaNacimiento);
-        $edad = $fechaNacimientoObj ? $fechaNacimientoObj->diff(new DateTime())->y : 0;
+        $fechaNacimientoObj = \DateTime::createFromFormat('Y-m-d', $fechaNacimiento);
+        $edad = $fechaNacimientoObj ? $fechaNacimientoObj->diff(new \DateTime())->y : 0;
 
         if ($tipo == "2" && $edad < 18) {
             $result[] = "La edad necesaria para poder registrarse en el caso del voluntario es 18 años.";
