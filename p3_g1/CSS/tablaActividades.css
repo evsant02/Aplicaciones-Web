@@ -22,10 +22,13 @@
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
-    /* Configuración flexible que reemplaza las media queries */
     flex: 1 1 250px; /* flex-grow | flex-shrink | flex-basis */
     min-width: 0; /* Permite que se reduzcan correctamente */
     max-width: calc(25% - 10px); /* Límite para pantallas grandes */
+}
+
+.tabla-actividades p:last-of-type {
+    margin-bottom: 7px;
 }
 
 .actividad img {
