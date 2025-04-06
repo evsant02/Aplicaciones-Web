@@ -28,8 +28,8 @@ function mostrarPerfil(): string {
         $html .= "<div class='perfil-admin'>";
         $html .= "<p class='rol-usuario'> <em> Administrador </em> </p>";
         $html .= "<div class='botones-admin'>";
-        $html .= '<a href="CrearActividad.php"><button class="btn-admin">Crear actividad</button></a>';
-        $html .= '<a href="vistaActividades.php"><button class="btn-admin">Modificar actividad</button></a>';
+        $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
+        $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>';
         $html .= "</div>"; // cierre botones-admin
         $html .= "</div>"; // cierre perfil-admin
     } else {

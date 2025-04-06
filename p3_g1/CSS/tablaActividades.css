@@ -1,43 +1,50 @@
-/* Estilos para la tabla de actividades */
+/* Estilos para la tabla de actividades (ahora contenedor flex) */
 .tabla-actividades {
     width: 100%;
-    border-collapse: collapse; /* Elimina el espacio entre las celdas */
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    justify-content: flex-start; 
 }
 
-.tabla-actividades td {
-    border: 1px solid #ccc; /* Borde de las celdas */
-    padding: 10px; /* Espaciado interno */
-    text-align: center; /* Alineación del texto */
-    vertical-align: top; /* Alineación vertical */
-    box-sizing: border-box; /* Asegúrate de que el padding y el borde se incluyan en el ancho total */
+.actividad-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    /* max-width: min(25%, 250px);
+    flex-grow: 1; 
+    flex-shrink: 1;
+    flex: 1 1 250px;
+    min-width: 200px;
+    /* max-width: calc(25% - 10px); */
+    flex: 1 1 250px; 
+    min-width: 200px;
+    max-width: 250px;
 }
 
-/* Media Queries para ajustar el número de columnas */
-@media (min-width: 1200px) {
-    .tabla-actividades td {
-        width: 25%; /* 4 columnas en pantallas grandes */
-    }
+/* .tabla-actividades td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    flex: 1 1 250px; 
+    min-width: 0; 
+    max-width: calc(25% - 10px); 
+} */
+
+.tabla-actividades p:last-of-type {
+    margin-bottom: 7px;
 }
 
-@media (min-width: 800px) and (max-width: 1199px) {
-    .tabla-actividades td {
-        width: 33.33%; /* 3 columnas en pantallas medianas */
-    }
+.actividad img {
+    width: 90%;       /* Ocupa todo el ancho del contenedor padre */
+    height: 200px;     /* Altura fija para todas las imágenes */
+    object-fit: cover;  /* Ajusta la imagen manteniendo la relación de aspecto */
+    object-position: center; /* Centra la imagen en el contenedor */
 }
 
-@media (min-width: 500px) and (max-width: 799px) {
-    .tabla-actividades td {
-        width: 50%; /* 2 columnas en pantallas pequeñas */
-    }
-}
-
-@media (max-width: 499px) {
-    .tabla-actividades td {
-        width: 100%; /* 1 columna en pantallas muy pequeñas */
-    }
-}
-
-/* Estilo cuando no hay actividades (sin recuadro) */
+/* Estilo cuando no hay actividades */
 .sin-actividades {
     text-align: center;
     font-size: 1.2em;
@@ -47,17 +54,19 @@
     background-color: transparent;
     border: none;
     box-shadow: none;
+    width: 100%; /* Ocupa todo el ancho */
 }
 
-/* Contenedor de la imagen (simplificado) */
+/* Contenedor del logo cuando no hay actividades disponibles */
 .imagen-centrada {
     margin: 20px auto;
     text-align: center;
+    width: 100%;
 }
 
-/* Estilo de la imagen (más minimalista) */
+/* Estilo de la imagen */
 .logo-actividades {
-    max-width: 300px; /* Reducido ligeramente */
+    max-width: 300px;
     height: auto;
     margin-top: 15px;
 }
@@ -68,7 +77,9 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 15px;        
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%; /* Botones ocupan todo el ancho de su contenedor */
 }
 
 button:hover {

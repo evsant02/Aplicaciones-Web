@@ -1,7 +1,12 @@
 <?php
 require_once("includes/config.php");
-function mostrarSaludo() {
-    $app = application::getInstance();
+
+use includes\application;
+
+// Verificar si la función ya existe antes de declararla
+if (!function_exists('includes\comun\mostrarCabecera')) {
+    function mostrarCabecera() {
+        $app = application::getInstance();
 
     echo '<nav>';
     echo '<ul class="main-links">'; // Enlaces generales (izquierda)
@@ -16,16 +21,16 @@ function mostrarSaludo() {
     echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
     echo '</ul>';
 
-    // Enlaces de usuario (derecha)
-    echo '<div class="user-links"><ul>';
-    
-    if ($app->isUserLogged()) {
-        echo "<li><a href='perfil.php'>Perfil ".$user->nombre()."</a></li>";
-        echo "<li><a href='logout.php'>(Salir)</a></li>";
-    } else {
-        echo "<li><a href='login.php'>Inicio Sesión</a></li>";
-        echo "<li><a href='register.php'>Regístrate</a></li>";
-    }
+        // Enlaces de usuario (derecha)
+        echo '<div class="user-links"><ul>';
+        
+        if ($app->isUserLogged()) {
+            echo "<li><a href='perfil.php'>Perfil " .$user->nombre(). "</a></li>";
+            echo "<li><a href='logout.php'>(Salir)</a></li>";
+        } else {
+            echo "<li><a href='login.php'>Iniciar Sesión</a></li>";
+            echo "<li><a href='register.php'>Regístrate</a></li>";
+        }
 
     echo '</ul></div>';
     echo '</nav>';
@@ -39,7 +44,7 @@ function mostrarSaludo() {
         </a>
     </div>
     <h1>Conecta65</h1>
-    <div class="saludo">
-        <?php mostrarSaludo(); ?>
+    <div class="cabecera">
+        <?php mostrarCabecera(); ?>
     </div>
 </header>

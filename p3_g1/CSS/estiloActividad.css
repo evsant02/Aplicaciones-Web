@@ -45,3 +45,40 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* @media screen and (max-width: 768px) {
+    .actividad {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .actividad-img {
+        width: 100%;
+    }
+    
+    .actividad-img img {
+        width: 100%;
+        height: auto;
+        max-height: 250px;
+        border-radius: 8px;
+    }
+    
+    .actividad-detalles {
+        width: 100%;
+        padding: 0 10px;
+        line-height: 1.5;
+    }
+    
+    .actividad-detalles h1 {
+        font-size: 1.5em;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .actividad-detalles button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+    }
+} */

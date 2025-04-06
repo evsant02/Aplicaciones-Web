@@ -33,32 +33,34 @@ class modificarActividadForm extends formBase
 
         // Generar el formulario
         $html = <<<EOF
-        <fieldset>
-            <legend>Modificar Actividad</legend>
-            <input type="hidden" name="id" value="$id" />
-            <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
-            <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
-            <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
-            <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
-            <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
-            <input type="hidden" name="dirigida" value="$dirigida" />
-            <input type="hidden" name="ocupacion" value="$ocupacion" />
+            <div class="inForm">
+                <fieldset>
+                    <input type="hidden" name="id" value="$id" />
+                    <p><label>Nombre de la actividad:</label> <input type="text" name="nombre" value="$nombre" required/></p>
+                    <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
+                    <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
+                    <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
+                    <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
+                    <input type="hidden" name="dirigida" value="$dirigida" />
+                    <input type="hidden" name="ocupacion" value="$ocupacion" />
 
-            <!-- Mostrar imagen actual si existe -->
-            <p><label>Imagen actual:</label></p>
-            <p>
-                <?php if ($imagen): ?>
-                    <img src="$imagen" alt="Imagen de la actividad" width="500" />
-                    <input type="hidden" name="imagenActual" value="$imagen" />
-                <?php endif; ?>
-            </p>
+                    <!-- Mostrar imagen actual si existe -->
+                    <p><label>Imagen actual:</label></p>
+                    <p>
+                        <?php if ($imagen): ?>
+                            <img src="$imagen" alt="Imagen de la actividad" width="475" />
+                            <input type="hidden" name="imagenActual" value="$imagen" />
+                        <?php endif; ?>
+                    </p>
 
-            <!-- Campo para subir nueva imagen -->
-            <p><label>Subir nueva imagen:</label> <input type="file" name="imagen" accept="image/*" /></p>
-            
-            <button type="submit" name="modificar">Guardar Cambios</button>
-        </fieldset>
-    EOF;
+                    <!-- Campo para subir nueva imagen -->
+                    <p><label>Subir nueva imagen:</label> <input type="file" name="imagen" accept="image/*" /></p>
+                    
+                    <button type="submit" name="modificar">Guardar Cambios</button>
+                </fieldset>
+            </div>
+        EOF;
+
         return $html;
     }
 

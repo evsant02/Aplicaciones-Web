@@ -24,7 +24,6 @@ class loginForm extends formBase
         $html = <<<EOF
             <div class="inForm">
                 <fieldset>
-                    <legend>Iniciar sesión</legend>
                     <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
                     <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
                     <button type="submit" name="login">Entrar</button>

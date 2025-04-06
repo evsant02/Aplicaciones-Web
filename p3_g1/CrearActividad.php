@@ -13,12 +13,14 @@ $tituloPagina = 'Nueva Actividad';
 $form = new crearActividadForm();
 
 // Generar el formulario en HTML
-$htmlFormLogin = $form->Manage();
+$htmlFormCrear = $form->Manage();
 
 // Definir el contenido principal de la página con el formulario de creación de actividad
 $contenidoPrincipal = <<<EOS
-<h1>Nueva Actividad</h1>
-$htmlFormLogin
+<div class="formulario">
+<h1>Crear actividad</h1>
+$htmlFormCrear
+</div>
 EOS;
 
 // Incluir la plantilla general para mostrar la página con el formulario
