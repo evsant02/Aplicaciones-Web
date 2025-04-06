@@ -8,18 +8,18 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
     function mostrarCabecera() {
         $app = application::getInstance();
 
-    echo '<nav>';
-    echo '<ul class="main-links">'; // Enlaces generales (izquierda)
-    
-    if ($app->isUserLogged()) {
-        $user = $app->getUserDTO();
-        echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
-    }
-    
-    echo '<li><a href="donar.php">Dona</a></li>';
-    echo '<li><a href="ayuda.php">Ayuda</a></li>';
-    echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
-    echo '</ul>';
+        echo '<nav>';
+        echo '<ul class="main-links">'; // Enlaces generales (izquierda)
+        
+        if ($app->isUserLogged()) {
+            $user = $app->getUserDTO();
+            echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
+        }
+        
+        echo '<li><a href="donar.php">Dona</a></li>';
+        echo '<li><a href="ayuda.php">Ayuda</a></li>';
+        echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
+        echo '</ul>';
 
         // Enlaces de usuario (derecha)
         echo '<div class="user-links"><ul>';
@@ -32,8 +32,9 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
             echo "<li><a href='register.php'>Regístrate</a></li>";
         }
 
-    echo '</ul></div>';
-    echo '</nav>';
+        echo '</ul></div>';
+        echo '</nav>';
+    }
 }
 ?>
 
