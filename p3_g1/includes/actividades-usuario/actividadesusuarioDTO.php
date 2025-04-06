@@ -1,7 +1,5 @@
 <?php
 
-namespace includes\actividadesusuario;
-
 // Definición de la clase actividadDTO para representar actividades
 class actividadesusuarioDTO
 {

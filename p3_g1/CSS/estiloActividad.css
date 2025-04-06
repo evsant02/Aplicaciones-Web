@@ -24,16 +24,18 @@ img {
 /* Contenedor de los detalles */
 .actividad-detalles {
     max-width: 600px;        /* Ancho máximo para los detalles */
+    line-height: 1.6;        /* Mejora la legibilidad del texto */
 }
 
-h1 {
+article h1 {
     margin-bottom: 10px;     /* Espacio debajo del título */
-    margin-top: 10px;
+    font-size: 1.8em;        /* Aumenta el tamaño del título */
 }
 
 button {
     background-color: #007BFF;
     color: white;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -43,3 +45,40 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* @media screen and (max-width: 768px) {
+    .actividad {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .actividad-img {
+        width: 100%;
+    }
+    
+    .actividad-img img {
+        width: 100%;
+        height: auto;
+        max-height: 250px;
+        border-radius: 8px;
+    }
+    
+    .actividad-detalles {
+        width: 100%;
+        padding: 0 10px;
+        line-height: 1.5;
+    }
+    
+    .actividad-detalles h1 {
+        font-size: 1.5em;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .actividad-detalles button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+    }
+} */

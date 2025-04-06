@@ -1,6 +1,4 @@
 <?php
-
-// Requiere el archivo donde se define la clase userDAO
 //require("userDAO.php");
 
 namespace includes\usuario;

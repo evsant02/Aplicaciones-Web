@@ -9,7 +9,6 @@ require_once("includes/config.php");
 use includes\actividad\actividadAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
-
 class dirigirActividad 
 {
     private $actividad;
@@ -18,32 +17,8 @@ class dirigirActividad
         $this->actividad = $actividad;
     }
 
-    //simulación de obtener la actividad simulada (en un futuro se usará la BBDD)
-    /*private function obtenerActividad()
-    {
-        $actividades = [
-            new Actividad(1, "Clase de Baile", "baile.jpg", "Disfruta bailando al ritmo de la música.", true, "Centro Cultural", "2025-03-10 18:00", "María López", 20),
-            new Actividad(2, "Taller de Costura", "costura.jpg", "Aprende a coser tus propias prendas.", false, "Casa de la Cultura", "2025-03-12 16:00", null, 10),
-            new Actividad(3, "Taller de Informática", "informatica.jpg", "Iníciate en el mundo de la informática.", true, "Biblioteca Municipal", "2025-03-15 10:00", "Pedro Sánchez", 8),
-            new Actividad(4, "Huerto Urbano", "huerto.jpg", "Crea un huerto urbano en tu comunidad.", true, "Parque Central", "2025-03-18 09:00", "Lucía Gómez", 15),
-            new Actividad(5, "Cocina Saludable", "cocina.jpg", "Recetas fáciles para una vida más saludable.", false, "Centro de Mayores", "2025-03-20 11:00", null, 5),
-            new Actividad(6, "Manualidades", "manualidades.jpg", "Apúntate para exprimir al máximo tu creatividad.", true, "Asociación Vecinal", "2025-03-22 15:00", "Ana Rodríguez", 10),
-            new Actividad(7, "Club de Lectura", "lectura.jpg", "Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.", true, "Librería El Rincón", "2025-03-25 17:30", "Carlos Pérez", 20),
-            new Actividad(8, "Excursión al Palacio Real", "excursionPR.jpg", "Apúntate a visitar uno de los lugares más turísticos de Madrid.", true, "Palacio Real", "2025-03-28 08:00", "Sofía Fernández", 15),
-            new Actividad(9, "Visitar al Teatro Real", "excursionTR.jpg", "Visita el Teatro Real por dentro como nunca antes lo habias visto.", false, "Teatro Real", "2025-05-28 11:00", null, 10),
-        ];
-
-        //$id = isset($_GET['id']) ? $_GET['id'] : null;
-        $id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : null);
-        foreach ($actividades as $act) {
-            if ($act->getId() == $id) {
-                $this->actividad = $act;
-                return;
-            }
-        }
-        $this->actividad = null;
-    }*/
-
+    
+    
     public function Inicializacion(){
 
         $app = application::getInstance();
@@ -71,11 +46,8 @@ class dirigirActividad
                 <p><strong>Descripción:</strong> {$this->actividad->descripcion()}</p>
                 <p><strong>Ubicación:</strong> {$this->actividad->localizacion()}</p>
                 <p><strong>Fecha y hora:</strong> {$fechaHora->format('d-m-Y H:i')}</p>
-                <p><strong>Dirigido por:</strong> {$this->actividad->dirigida()}</p>
                 <p><strong>Aforo:</strong> {$this->actividad->aforo()}</p>
                 <p><strong>Plazas ya reservadas:</strong> {$this->actividad->ocupacion()}</p>
-            
-        
         EOF;
 
         $mensaje = null;

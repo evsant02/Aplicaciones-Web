@@ -124,8 +124,6 @@ class actividadAppService
 
     public function mostrar($actividadDTO){
         $app = application::getInstance();
-        $user = $app->getUserDTO();
-        $tipo_user = $user->tipo();
         $html = '<div class="actividad">';
         if ($app->soyUsuario()) {
             $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
@@ -133,7 +131,7 @@ class actividadAppService
         else if ($app->soyVoluntario()) {
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
         }
-        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="375">';
+        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
         if (!$app->soyAdmin()) $html .= '</a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
 
@@ -152,7 +150,7 @@ class actividadAppService
         //administrador: dos botones
         if ($app->soyAdmin()){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a> | <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
+            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a> &ensp; <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
             /*$html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
                     <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';*/
         }
@@ -165,7 +163,6 @@ class actividadAppService
     public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
-        $tipo_user = $user->tipo();
 
         $html = '<div class="actividad">';
 
@@ -210,5 +207,10 @@ class actividadAppService
         $IActividadDAO->borrarVoluntario($id_actividad);
     }
 
+    public function nombreVoluntario($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        $actividadDTO=$IActividadDAO->nombreVoluntario($id_actividad);
+        return $actividadDTO;
+    }
 }
 ?>

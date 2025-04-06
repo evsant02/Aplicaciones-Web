@@ -313,6 +313,31 @@ class actividadDAO extends baseDAO implements IActividad
         return $resultado;
     }
      
+    public function nombreVoluntario($id_actividad){
+        try{
+            $conn = application::getInstance()->getConexionBd();
+            $query = "SELECT us.id, us.nombre, apellidos, fecha_nacimiento, tipo, correo FROM `actividades` act 
+            JOIN `actividades-usuario` actus ON act.id = actus.id_actividad JOIN `usuarios` us ON actus.id_usuario = us.id
+            WHERE act.id = ? AND us.tipo = 2";
+            $stmt = $conn->prepare($query);
+
+            // Se vincula el parámetro ID
+            $stmt->bind_param("i", $id_actividad);
+
+            $stmt->execute();
+            $stmt->bind_result($id, $nombre, $apellidos, $fecha_nacimiento, $tipo, $correo);
+            if($stmt->fetch()){
+                return new userDTO($id, $nombre, $apellidos, null, $fecha_nacimiento, $tipo, $correo);
+            }
+        }
+        finally{
+            if($stmt){
+                $stmt->close();
+            }
+        } 
+        return null;
+    }
+    
    
 }
 ?>

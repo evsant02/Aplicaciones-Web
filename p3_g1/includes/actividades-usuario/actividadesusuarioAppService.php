@@ -40,9 +40,8 @@ class actividadesusuarioAppService
         return $foundedactividadesusuarioDTO;
     }
 
-    /*
     // Método para eliminar una actividad existente por ID
-    public function eliminarPorId($id)
+    /* public function eliminarPorId($id)
     {
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
@@ -60,7 +59,7 @@ class actividadesusuarioAppService
 
         // Retornar el resultado de la eliminación (true si fue exitosa, false si no)
         return $eliminada;
-    }
+    } */
 
     // Método para modificar una actividad existente
     public function modificar($actividadDTO)
@@ -121,7 +120,6 @@ class actividadesusuarioAppService
         $actividad = $IActividadDAO->getActividadById($id);
         return $actividad;
     }
-    */
 
     public function mostrar($actividadDTO){
         $user = application::getInstance()->getUserDTO();

@@ -23,16 +23,18 @@ if ($id){
 
     // Crear y mostrar el formulario
     $form = new modificarActividadForm($actividad);
-    $htmlFormLogin = $form->Manage();
+    $htmlFormModificar = $form->Manage();
 } else {
     $form = new modificarActividadForm();
-    $htmlFormLogin = $form->Manage();
+    $htmlFormModificar = $form->Manage();
 }
 
 
 $contenidoPrincipal = <<<EOS
-<h1>Modificar Actividad</h1>
-$htmlFormLogin
+<div class="formulario">
+<h1>Modificar actividad</h1>
+$htmlFormModificar
+</div>
 EOS;
 
 require("includes/comun/plantilla.php");

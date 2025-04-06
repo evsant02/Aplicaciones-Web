@@ -1,0 +1,65 @@
+header h1 {
+  font-size: 1.5rem;
+  margin-left: 5px;
+}
+
+nav ul {
+  flex-direction: column;
+}
+
+.inForm fieldset p {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inForm fieldset p label {
+  text-align: left;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+  min-width: auto;
+  width: 100%;
+}
+
+.inForm fieldset p input,
+.inForm fieldset p textarea {
+  width: 100%;
+}
+
+.inForm fieldset {
+  padding: 1rem;
+}
+
+.actividad {
+  flex-direction: column;
+  padding: 15px;
+  gap: 15px;
+}
+
+.actividad-img {
+  width: 100%;
+}
+
+.actividad-img img {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  border-radius: 8px;
+}
+
+.actividad-detalles {
+  width: 100%;
+  padding: 0 10px;
+  line-height: 1.5;
+}
+
+.actividad-detalles h1 {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.actividad-detalles button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+}

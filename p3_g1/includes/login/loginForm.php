@@ -31,7 +31,6 @@ class loginForm extends formBase
         $html = <<<EOF
             <div class="inForm">
                 <fieldset>
-                    <legend>Iniciar sesión</legend>
                     <p><label>Nombre de usuario:</label> <input type="text" name="id" value="$id" required/></p>
                     <p><label>Contraseña:</label> <input type="password" name="password" value="$password" required/></p>
                     <button type="submit" name="login">Entrar</button>
@@ -50,8 +49,8 @@ class loginForm extends formBase
         $result = array();
         
         // Obtiene y limpia los valores ingresados por el usuario
-        $id = trim($datos['id'] ?? '');
-        $password = trim($datos['password'] ?? '');
+        $id = htmlspecialchars(trim($datos['id'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars(trim($datos['password'] ?? ''), ENT_QUOTES, 'UTF-8');
         
         // Validar que el ID y la contraseña no estén vacíos
         if (empty($id)) 

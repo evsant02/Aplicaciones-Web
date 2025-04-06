@@ -2,7 +2,7 @@
 
 namespace includes;
 
-//use includes\usuario\userDTO;
+use includes\usuario\userDTO;
 
 class application
 {
@@ -116,7 +116,11 @@ class application
         $_SESSION[self::ATRIBUTOS_PETICION][$clave] = $valor;
     }
 
-    //Obtiene un atributo almacenado para la petición
+    /**
+     * Obtiene un atributo almacenado para la petición
+     * @param string $clave Clave del atributo
+     * @return mixed Valor del atributo o null si no existe
+     */
     public function getAtributoPeticion($clave)
     {
         $result = $this->atributosPeticion[$clave] ?? null;
@@ -128,21 +132,54 @@ class application
         return $result;
     }
 
-    //Almacena el DTO de usuario en la sesión
+    /**
+     * Almacena el DTO de usuario en la sesión
+     * @param userDTO $user Objeto userDTO a almacenar
+     * @throws \InvalidArgumentException Si no recibe un userDTO válido
+     */
     public function setUserDTO($user)
-    {        
-        $_SESSION["userDTO"] = serialize($user);
-        //$_SESSION["login"] = true;
-    }
-
-    //Obtiene el DTO de usuario de la sesión
-    public function getUserDTO()
     {
-        $user = unserialize($_SESSION["userDTO"]);
-        return  $user;
+        if (!$user instanceof userDTO) {
+            throw new \InvalidArgumentException("El parámetro debe ser una instancia de userDTO");
+        }
+        
+        // Asegurar que la clase está disponible para serialización
+        if (!class_exists('includes\usuario\userDTO')) {
+            spl_autoload_call('includes\usuario\userDTO');
+        }
+        
+        $_SESSION["userDTO"] = serialize($user);
+        $_SESSION["login"] = true;
     }
 
-    //Cierra la sesión del usuario
+    /**
+     * Obtiene el DTO de usuario de la sesión
+     * @return userDTO|null Objeto userDTO o null si no existe
+     */
+    public function getUserDTO(): ?userDTO
+    {
+        if (!isset($_SESSION["userDTO"])) {
+            return null;
+        }
+
+        // Asegurar que la clase está cargada
+        if (!class_exists('includes\usuario\userDTO')) {
+            spl_autoload_call('includes\usuario\userDTO');
+        }
+
+        try {
+            $user = unserialize($_SESSION["userDTO"]);
+            return ($user instanceof userDTO) ? $user : null;
+        } catch (\Exception $e) {
+            error_log("Error al deserializar userDTO: " . $e->getMessage());
+            unset($_SESSION["userDTO"]);
+            return null;
+        }
+    }
+
+    /**
+     * Cierra la sesión del usuario
+     */
     public function logout()
     {
         unset($_SESSION["userDTO"]);
@@ -150,28 +187,40 @@ class application
         session_destroy();
     }
 
-    //Verifica si el usuario es administrador
+    /**
+     * Verifica si el usuario es administrador
+     * @return bool True si es admin, false en caso contrario
+     */
     public function soyAdmin(): bool
     {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
+        $user = $this->getUserDTO();
         return $user !== null && $user->tipo() === 0;
     }
 
-    //Verifica si el usuario es voluntario
+    /**
+     * Verifica si el usuario es voluntario
+     * @return bool True si es voluntario, false en caso contrario
+     */
     public function soyVoluntario(): bool
     {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
+        $user = $this->getUserDTO();
         return $user !== null && $user->tipo() === 2;
     }
 
-    //Verifica si el usuario es normal
+    /**
+     * Verifica si el usuario es normal
+     * @return bool True si es usuario normal, false en caso contrario
+     */
     public function soyUsuario(): bool
     {
-        $user = $this->getUserDTO(); //Recupera el objeto usuario de la sesión
+        $user = $this->getUserDTO();
         return $user !== null && $user->tipo() === 1;
     }
 
-    //Verifica si hay un usuario logueado
+    /**
+     * Verifica si hay un usuario logueado
+     * @return bool True si hay usuario logueado, false en caso contrario
+     */
     public function isUserLogged(): bool
     {
         return isset($_SESSION["login"]) && $_SESSION["login"] && $this->getUserDTO() !== null;
