@@ -119,14 +119,38 @@ class registerForm extends formBase
         $userAppService = userAppService::GetSingleton();
 
         // Verificar si ya existe un usuario con ese correo
-        if ($userAppService->existsByEmail($userDTO)) {
+       /* if ($userAppService->existsByEmail($userDTO)) {
             $result[] = "Ya existe una cuenta con este correo electrónico.";
         }
 
         // Verificar si el ID de usuario ya está en uso
         if ($userAppService->existsById($userDTO)) {
             $result[] = "El ID de usuario ya está en uso. Por favor, elige otro.";
+        }*/
+
+        try {
+            // Verificar si ya existe un usuario con ese correo
+            if ($userAppService->existsByEmail($userDTO)) {
+                $result[] = "Ya existe una cuenta con este correo electrónico.";
+            }
+        } catch (EmailAlreadyExistException $e) {
+
+            $result[] = $e->getMessage();
+            
+            //falta que se dirija a una pagina de vista de error (en a practica final)
         }
+    
+        try {
+            // Verificar si el ID de usuario ya está en uso
+            if ($userAppService->existsById($userDTO)) {
+                $result[] = "El ID de usuario ya está en uso. Por favor, elige otro.";
+            }
+        } catch (UserNotFoundException $e) {
+
+            $result[] = $e->getMessage();
+
+        }
+    
 
         // Si no hay errores, se procede con el registro
         if (count($result) === 0) 
@@ -152,15 +176,6 @@ class registerForm extends formBase
             catch(UserAlreadyExistException $e)
             {
                 // Captura el error si el usuario ya existe
-                $result[] = $e->getMessage();
-
-            }
-            catch(EmailAlreadyExistException $e){
-
-                $result[] = $e->getMessage();
-
-            }catch(UserNotFoundException $e){
-
                 $result[] = $e->getMessage();
             }
         }
