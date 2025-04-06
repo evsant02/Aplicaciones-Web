@@ -10,9 +10,7 @@ use includes\application;
 //require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
-require_once(__DIR__ . "/../../excepciones/activity/ActivityNotFoundException.php");
 require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
-require_once(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad
@@ -27,9 +25,9 @@ class actividadDAO extends baseDAO implements IActividad
     {
         try {
             // Validación básica de datos
-            if (empty($actividadDTO->nombre()) || $actividadDTO->aforo() <= 0) {
+            /*if (empty($actividadDTO->nombre()) || $actividadDTO->aforo() <= 0) {
                 throw new InvalidActivityDataException("Datos de actividad no válidos");
-            }
+            }*/
 
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();

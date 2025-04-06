@@ -5,7 +5,7 @@ namespace includes\crearActividad;
 // Se incluyen archivos necesarios: la base para formularios y el servicio de actividades
 //include __DIR__ . "/../comun/formBase.php";
 //require_once( __DIR__ . "/../actividad/actividadAppService.php");
-require_once(__DIR__ . "/../../excepciones/activity/InvalidActivityDataException.php");
+require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
 
 use includes\comun\formBase;
 use includes\actividad\actividadAppService;
@@ -97,7 +97,7 @@ EOF;
             $result[] = "Debe subir una imagen válida.";
         }
 
-        // Si no hay errores, se procede a crear la actividad
+        // Si no hay errores, se procede a crear la actividadA
         if (count($result) === 0) {
             try {
                 $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0, 0, $rutaImagen);
@@ -108,7 +108,7 @@ EOF;
                 $app = application::getInstance();
                 $mensaje = "¡Se ha creado la nueva actividad exitosamente!";
                 $app->putAtributoPeticion('mensaje', $mensaje);
-            } catch (\Exception $e) {
+            } catch (DuplicateActivityException $e) {
                 error_log("Error al crear la actividad: " . $e->getMessage());
                 $mensaje= "Se ha producido un error: " . $e->getMessage();
             }

@@ -11,6 +11,10 @@ use includes\usuario\userDTO;
 //include __DIR__ . "/../comun/formBase.php";
 //include __DIR__ . "/../usuario/userAppService.php";
 
+require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
+require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
+require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
+
 // Define la clase registerForm, que extiende formBase
 class registerForm extends formBase
 {
@@ -145,9 +149,18 @@ class registerForm extends formBase
                 $mensaje = "Se ha registrado exitosamente, Bienvenido {$nombre}";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             }
-            catch(userAlreadyExistException $e)
+            catch(UserAlreadyExistException $e)
             {
                 // Captura el error si el usuario ya existe
+                $result[] = $e->getMessage();
+
+            }
+            catch(EmailAlreadyExistException $e){
+
+                $result[] = $e->getMessage();
+
+            }catch(UserNotFoundException $e){
+
                 $result[] = $e->getMessage();
             }
         }

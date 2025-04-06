@@ -1,7 +1,7 @@
 <?php
 
 // Definición de una excepción personalizada llamada userAlreadyExistException
-class userAlreadyExistException extends Exception
+class UserAlreadyExistException extends Exception
 {
     // Constructor de la clase
     function __construct(string $message = "" , int $code = 0 , Throwable $previous = null )

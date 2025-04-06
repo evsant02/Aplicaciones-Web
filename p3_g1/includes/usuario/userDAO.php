@@ -6,13 +6,11 @@
 //require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
 
 namespace includes\usuario;
-
 use includes\comun\baseDAO;
 use includes\application;
 
 require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
 require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
-require_once(__DIR__ . "/../../excepciones/user/InvalidCredentialsException.php");
 require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
 
 // Clase userDAO que extiende baseDAO e implementa la interfaz IUser
@@ -141,6 +139,11 @@ class userDAO extends baseDAO implements IUser
             $stmt->fetch();
 
             return $count > 0;
+        
+        } catch (\mysqli_sql_exception $e) {
+
+            throw new UserNotFoundException("No se encontró el usuario con ID: '{$userDTO->id()}'");
+         
         } finally {
             
             $stmt->close();
@@ -166,6 +169,11 @@ class userDAO extends baseDAO implements IUser
             $stmt->fetch();
 
             return $count > 0;
+
+        }catch (\mysqli_sql_exception $e) {
+
+            throw new EmailAlreadyExistException("Ya existe un usuario con el email: '{$userDTO->correo()}'");
+
         } finally {
             if ($stmt) {
                 $stmt->close();
