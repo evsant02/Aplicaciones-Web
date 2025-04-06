@@ -3,8 +3,9 @@
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
 
-// Incluir la clase que genera la lista de actividades
-require_once("includes/editarActividades/listaActividades.php");
+//require_once("includes/editarActividades/listaActividades.php");
+
+use includes\editarActividades\listaActividades;
 
 // Definir el título de la página
 $tituloPagina = 'Actividades disponibles';

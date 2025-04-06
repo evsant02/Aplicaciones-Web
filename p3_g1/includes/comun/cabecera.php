@@ -1,4 +1,6 @@
 <?php
+namespace includes\comun;
+
 require_once("includes/config.php");
 
 use includes\application;

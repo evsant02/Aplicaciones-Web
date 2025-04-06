@@ -1,5 +1,7 @@
 <?php
 
+namespace includes\usuario;
+
 // Define una interfaz para la gestión de usuarios
 interface IUser
 {

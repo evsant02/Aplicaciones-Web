@@ -1,7 +1,8 @@
 <?php 
   require_once("includes/config.php");
+  //require_once("includes/donar/donarForm.php");
 
-  require_once("includes/donar/donarForm.php");
+  use includes\donar\donarForm;
   
   $tituloPagina = 'Haz una donación - conecta65';
   

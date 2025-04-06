@@ -1,8 +1,14 @@
 <?php
-require_once("includes/config.php");
-require_once( __DIR__ . "/../actividad/actividadAppService.php");
-require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
 
+namespace includes\reservarActividad;
+
+use includes\actividad\actividadAppService;
+use includes\actividadesusuario\actividadesusuarioAppService;
+use includes\application;
+
+require_once("includes/config.php");
+//require_once( __DIR__ . "/../actividad/actividadAppService.php");
+//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
 
 class reservarActividad
 {
@@ -28,7 +34,7 @@ class reservarActividad
             return "<p>Actividad no encontrada.</p>";
         }
 
-        $fechaHora = new DateTime($this->actividad->fecha_hora());
+        $fechaHora = new \DateTime($this->actividad->fecha_hora());
 
         $html = <<<EOF
         <div class="actividad">

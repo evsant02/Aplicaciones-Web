@@ -1,8 +1,11 @@
-
 <?php
 
+namespace includes\actividadesusuario;
+
+use includes\application;
+
 // Se requiere el archivo que contiene la fábrica de actividades
-require_once("actividadesusuarioFactory.php");
+//require_once("actividadesusuarioFactory.php");
 
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadesusuarioAppService
@@ -38,7 +41,7 @@ class actividadesusuarioAppService
     }
 
     // Método para eliminar una actividad existente por ID
-    public function eliminarPorId($id)
+    /* public function eliminarPorId($id)
     {
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
@@ -56,7 +59,7 @@ class actividadesusuarioAppService
 
         // Retornar el resultado de la eliminación (true si fue exitosa, false si no)
         return $eliminada;
-    }
+    } */
 
     // Método para modificar una actividad existente
     public function modificar($actividadDTO)

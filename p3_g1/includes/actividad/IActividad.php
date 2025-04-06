@@ -1,4 +1,5 @@
 <?php
+namespace includes\actividad;
 
 /**
  * Interfaz IActividad

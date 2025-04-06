@@ -1,8 +1,9 @@
 <?php
   require_once("includes/config.php");
+  //require_once("includes/ayuda/ayudaForm.php");
 
-
-  require_once("includes/ayuda/ayudaForm.php");
+  use includes\ayuda\ayudaForm;
+  use includes\application;
  
   $tituloPagina = 'Ayuda - conecta65';
 

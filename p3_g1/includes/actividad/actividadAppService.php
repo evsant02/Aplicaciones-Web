@@ -1,9 +1,12 @@
-
 <?php
 
+namespace includes\actividad;
+
 // Se requiere el archivo que contiene la fábrica de actividades
-require_once("actividadFactory.php");
+//require_once("actividadFactory.php");
 require_once("includes/config.php");
+
+use includes\application;
 
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadAppService
@@ -132,7 +135,7 @@ class actividadAppService
         if (!$app->soyAdmin()) $html .= '</a>';
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
 
-        $fechaHora = new DateTime($actividadDTO->fecha_hora());
+        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
         $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
 
         $html .= '<p>Aforo: ' . $actividadDTO->ocupacion(). '/' . $actividadDTO->aforo() . '</p>';
@@ -172,7 +175,7 @@ class actividadAppService
         $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
         
         // Formatear la fecha y hora
-        $fechaHora = new DateTime($actividadDTO->fecha_hora());
+        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
         $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
         
         // $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
