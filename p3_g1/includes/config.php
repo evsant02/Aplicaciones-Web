@@ -28,7 +28,8 @@ spl_autoload_register(function ($class) {
         'includes\\login\\' => __DIR__ . '/login/',
         'includes\\modificarActividad\\' => __DIR__ . '/modificarActividad/',
         'includes\\mostrarActividades\\' => __DIR__ . '/mostrarActividades/',
-        'includes\\reservarActividad\\' => __DIR__ . '/reservarActividad/'
+        'includes\\reservarActividad\\' => __DIR__ . '/reservarActividad/',
+        'includes\\excepciones\\' => __DIR__ . '/excepciones/'
     ];
     
     foreach ($prefixes as $prefix => $base_dir) {

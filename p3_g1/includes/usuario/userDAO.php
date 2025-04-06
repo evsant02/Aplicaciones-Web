@@ -8,10 +8,13 @@
 namespace includes\usuario;
 use includes\comun\baseDAO;
 use includes\application;
+use includes\excepciones\EmailAlreadyExistException;
+use includes\excepciones\UserAlreadyExistException;
+use includes\excepciones\UserNotFoundException;
 
-require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
-require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
-require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
+//require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
+//require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
+//require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
 
 // Clase userDAO que extiende baseDAO e implementa la interfaz IUser
 class userDAO extends baseDAO implements IUser

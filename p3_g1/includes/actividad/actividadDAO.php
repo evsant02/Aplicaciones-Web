@@ -3,6 +3,8 @@ namespace includes\actividad;
 
 use includes\comun\baseDAO;
 use includes\application;
+use includes\excepciones\DuplicateActivityException;
+use includes\usuario\userDTO;
 
 // Se incluyen las dependencias necesarias
 //require_once("IActividad.php");
@@ -10,7 +12,7 @@ use includes\application;
 //require_once(__DIR__ . "/../comun/baseDAO.php");
 
 // Excepciones personalizadas
-require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
+//require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad

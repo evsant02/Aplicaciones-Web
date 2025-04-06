@@ -2,8 +2,6 @@
 
 namespace includes\actividadesusuario;
 
-use includes\application;
-
 // Se requiere el archivo que contiene la fábrica de actividades
 //require_once("actividadesusuarioFactory.php");
 
@@ -59,7 +57,7 @@ class actividadesusuarioAppService
 
         // Retornar el resultado de la eliminación (true si fue exitosa, false si no)
         return $eliminada;
-    } */
+    }
 
     // Método para modificar una actividad existente
     public function modificar($actividadDTO)
@@ -149,7 +147,7 @@ class actividadesusuarioAppService
         $html .= '</div>';
         return $html;  //se devuelve en html
     }
-
+    */
 
     public function getActividadesUsuario($id_usuario)
     {

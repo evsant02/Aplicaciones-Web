@@ -4,6 +4,7 @@
 namespace includes\ayuda;
 
 use includes\comun\formBase;
+use includes\application;
 
 class ayudaForm extends formBase {
     public function __construct() {

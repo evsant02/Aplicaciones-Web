@@ -5,12 +5,13 @@ namespace includes\crearActividad;
 // Se incluyen archivos necesarios: la base para formularios y el servicio de actividades
 //include __DIR__ . "/../comun/formBase.php";
 //require_once( __DIR__ . "/../actividad/actividadAppService.php");
-require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
+//require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
 
 use includes\comun\formBase;
 use includes\actividad\actividadAppService;
 use includes\application;
 use includes\actividad\actividadDTO;
+use includes\excepciones\DuplicateActivityException;
 
 // Clase que gestiona el formulario de creación de actividades
 class crearActividadForm extends formBase

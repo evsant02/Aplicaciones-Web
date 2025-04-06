@@ -81,7 +81,8 @@ class modificarActividadForm extends formBase
         $aforo = htmlspecialchars(trim($datos['aforo'] ?? ''), ENT_QUOTES, 'UTF-8');
         $dirigida = htmlspecialchars(trim($datos['dirigida'] ?? ''), ENT_QUOTES, 'UTF-8');
         $ocupacion = htmlspecialchars(trim($datos['ocupacion'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $rutaImagen = htmlspecialchars(trim($datos['rutaImagen'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $rutaImagen = htmlspecialchars(trim($datos['imagenActual'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $id = htmlspecialchars(trim($datos['id'] ?? ''), ENT_QUOTES, 'UTF-8');
 
         // Validaciones
         if (empty($id)) {
