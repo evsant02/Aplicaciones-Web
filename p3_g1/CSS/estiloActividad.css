@@ -27,7 +27,7 @@ img {
     line-height: 1.6;        /* Mejora la legibilidad del texto */
 }
 
-h1 {
+article h1 {
     margin-bottom: 10px;     /* Espacio debajo del título */
     font-size: 1.8em;        /* Aumenta el tamaño del título */
 }
