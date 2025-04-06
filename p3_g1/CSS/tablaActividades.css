@@ -12,20 +12,26 @@
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
+    /* max-width: min(25%, 250px);
+    flex-grow: 1; 
+    flex-shrink: 1;
     flex: 1 1 250px;
     min-width: 200px;
     /* max-width: calc(25% - 10px); */
+    flex: 1 1 250px; 
+    min-width: 200px;
+    max-width: 250px;
 }
 
-.tabla-actividades td {
+/* .tabla-actividades td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
-    flex: 1 1 250px; /* flex-grow | flex-shrink | flex-basis */
-    min-width: 0; /* Permite que se reduzcan correctamente */
-    max-width: calc(25% - 10px); /* Límite para pantallas grandes */
-}
+    flex: 1 1 250px; 
+    min-width: 0; 
+    max-width: calc(25% - 10px); 
+} */
 
 .tabla-actividades p:last-of-type {
     margin-bottom: 7px;
