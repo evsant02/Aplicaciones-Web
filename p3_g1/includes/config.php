@@ -24,7 +24,6 @@ spl_autoload_register(function ($class) {
         'includes\\crearActividad\\' => __DIR__ . '/crearActividad/',
         'includes\\dirigirActividad\\' => __DIR__ . '/dirigirActividad/',
         'includes\\donar\\' => __DIR__ . '/donar/',
-        'includes\\editarActividades\\' => __DIR__ . '/editarActividades/',
         'includes\\login\\' => __DIR__ . '/login/',
         'includes\\modificarActividad\\' => __DIR__ . '/modificarActividad/',
         'includes\\mostrarActividades\\' => __DIR__ . '/mostrarActividades/',
