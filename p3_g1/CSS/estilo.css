@@ -107,6 +107,57 @@ main {
 	margin: 0 auto;
 }
 
+.ayudaForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex: 1 1 90%;
+	border: 1px solid #999999;
+	padding: 1rem;
+}
+
+.ayudaForm label {
+	display: block;
+}
+
+.ayudaForm input[type="text"],
+.ayudaForm input[type="email"],
+.ayudaForm textarea {
+		width: 100%;
+		box-sizing: border-box;
+}
+
+.ayudaForm textarea {
+	min-height: 120px;
+	resize: vertical;
+	width: 100% !important;
+}
+
+.ayudaForm fieldset {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 10px 15px;
+	margin: 20px 0;
+}
+
+.ayudaForm input[type="radio"] {
+	margin-right: 10px;
+	transform: scale(1.2);
+}
+
+.ayudaForm input[type="radio"] + label {
+	display: inline-block;
+	margin-right: 15px;
+	margin-bottom: 8px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+
+.ayudaForm p {
+	margin: 25px 0;
+	text-align: center;
+}
+
 .inForm {
 	display: flex;
 	justify-content: center;
