@@ -8,7 +8,7 @@ use includes\actividad\actividadAppService;
 $tituloPagina = 'Modificar Actividad';
 
 // Obtener el ID de la actividad
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($id){
     // Obtener la actividad
