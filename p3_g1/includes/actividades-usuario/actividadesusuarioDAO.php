@@ -281,5 +281,29 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         }
     }
 
+    public function bajaActividad($id_actividad) { //se dan de baja a aquellos usuarios que estuvieran apuntados a la actividad que dirigía el voluntario que se da de baja
+        try {
+            // Obtener conexión con la base de datos
+            $conn = application::getInstance()->getConexionBd();
+
+            // Consulta SQL para insertar una nueva actividad
+            $query = "DELETE FROM `actividades-usuario` WHERE id_actividad = ? ";
+            $stmt = $conn->prepare($query);
+
+            // Se vinculan los parámetros de la consulta
+            $stmt->bind_param("i", 
+                $id_actividad
+            );
+
+            // Ejecutar la consulta
+            $stmt->execute();
+          
+        } finally {
+            if ($stmt) {
+                $stmt->close(); // Asegura que el statement se cierra siempre
+            }
+        }
+    }
+
 }
 ?>

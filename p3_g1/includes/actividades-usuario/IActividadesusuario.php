@@ -42,6 +42,9 @@ interface IActividadesusuario
     public function apuntarUsuario($id_actividad, $id_usuario);
 
     public function bajaUsuario($id_actividad, $id_usuario);
+
+    public function bajaActividad($id_actividad);
+
 }
 
 ?>

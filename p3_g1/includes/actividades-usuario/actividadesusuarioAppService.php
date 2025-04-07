@@ -176,5 +176,10 @@ class actividadesusuarioAppService
         $IActividadesusuarioDAO->bajaUsuario($id_actividad, $id_usuario);
     }
 
+    public function bajaActividad($id_actividad) {
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
+        $IActividadesusuarioDAO->bajaActividad($id_actividad);
+    }
+
 }
 ?>

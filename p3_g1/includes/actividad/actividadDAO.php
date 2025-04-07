@@ -304,7 +304,7 @@ class actividadDAO extends baseDAO implements IActividad
 
     public function borrarVoluntario($id_actividad) {
         $conn = application::getInstance()->getConexionBd();
-        $query = "UPDATE actividades SET dirigida = 0 WHERE id = ?";
+        $query = "UPDATE actividades SET dirigida = 0, ocupacion = 0 WHERE id = ?";
         $stmt = $conn->prepare($query);
 
         // Se vincula el parámetro ID

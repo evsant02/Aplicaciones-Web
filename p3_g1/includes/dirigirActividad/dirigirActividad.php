@@ -110,6 +110,7 @@ class dirigirActividad
         $actividadAppService = actividadAppService::GetSingleton();
         $actividadAppService->borrarVoluntario($this->actividad->id());
         $actividadUsuarioAppService->bajaUsuario($this->actividad->id(), $id_voluntario);
+        $actividadUsuarioAppService->bajaActividad($this->actividad->id());
 
         $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
         // Recargar la página
