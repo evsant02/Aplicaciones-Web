@@ -82,7 +82,7 @@ class registerForm extends formBase
         $nombre = htmlspecialchars(trim($datos['nombre'] ?? ''), ENT_QUOTES, 'UTF-8');
         $apellidos = htmlspecialchars(trim($datos['apellidos'] ?? ''), ENT_QUOTES, 'UTF-8');
         $id = htmlspecialchars(trim($datos['id'] ?? ''), ENT_QUOTES, 'UTF-8');
-        $fechaNacimiento = htmlspecialchars(trim($datos['fechaNacimiento'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $fechaNacimiento = htmlspecialchars(trim($datos['fecha_nacimiento'] ?? ''), ENT_QUOTES, 'UTF-8');
         $correo = htmlspecialchars(trim($datos['correo'] ?? ''), ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars(trim($datos['password'] ?? ''), ENT_QUOTES, 'UTF-8');
         $tipo = htmlspecialchars(trim($datos['tipo'] ?? ''), ENT_QUOTES, 'UTF-8');
