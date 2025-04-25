@@ -18,7 +18,7 @@ $mensaje = $app->getAtributoPeticion('mensaje');
 
 // Crear una instancia de actividadesDisponibles y generar el listado
 $actividadesDisponibles = new actividadesDisponibles();
-$htmlListado = $actividadesDisponibles->generarListado();
+$htmlListado = $actividadesDisponibles->Inicializacion(); //esto tiene que ser inicializacion
 
 // Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
