@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-04-2025 a las 17:14:59
+-- Tiempo de generación: 07-03-2025 a las 16:54:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,9 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aw`
 --
-
--- --------------------------------------------------------
-
+CREATE DATABASE IF NOT EXISTS `aw` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `aw`;
 --
 -- Estructura de tabla para la tabla `actividades`
 --
