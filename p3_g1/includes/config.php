@@ -12,7 +12,7 @@ ini_set('display_errors', 1);
  * Autoload de clases según PSR-4
  */
 spl_autoload_register(function ($class) {
-    // Mapeo de namespaces a directorios
+    // Mapeo de namespaces a directorios AÑADIR LO NUEVO DE ACT-MENSAJES
     $prefixes = [
         'includes\\' => __DIR__ . '/',
         'includes\\usuario\\' => __DIR__ . '/usuario/',
