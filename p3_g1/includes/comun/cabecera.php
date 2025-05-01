@@ -21,6 +21,7 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
         echo '<li><a href="donar.php">Dona</a></li>';
         echo '<li><a href="ayuda.php">Ayuda</a></li>';
         echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
+        echo '<li><a href="miembros.php">Miembros Equipo</a></li>';
         echo '</ul>';
 
         // Enlaces de usuario (derecha)
