@@ -21,16 +21,14 @@ class donacionDAO extends baseDAO implements IDonacion
             $conn = application::getInstance()->getConexionBd();
 
             //escape de strings para evitar inyeccion sql
-            $escIBAN = $this->realEscapeString($donacionDTO->IBAN());
             $esccantidad = $this->realEscapeString($donacionDTO->cantidad());
 
             // Consulta SQL para insertar una nueva actividad
-            $query = "INSERT INTO donaciones (IBAN, cantidad) VALUES (?, ?)";
+            $query = "INSERT INTO donaciones (cantidad) VALUES (?)";
             $stmt = $conn->prepare($query);
 
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ii", 
-                $escIBAN, 
+            $stmt->bind_param("i", 
                 $esccantidad
             );
 
@@ -38,7 +36,7 @@ class donacionDAO extends baseDAO implements IDonacion
             if ($stmt->execute()) {
                 // Obtener el ID generado por la inserción
                 $idDonacion = $conn->insert_id;
-                return new donacionDTO($idDonacion, $escIBAN, $esccantidad);
+                return new donacionDTO($idDonacion, $esccantidad);
             }
         } finally {
             if ($stmt) {
@@ -55,16 +53,16 @@ class donacionDAO extends baseDAO implements IDonacion
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener todas las donaciones
-            $query = "SELECT id_donacion, IBAN, cantidad FROM donaciones";
+            $query = "SELECT id_donacion, cantidad FROM donaciones";
             $stmt = $conn->prepare($query);
 
             // Se ejecuta la consulta
             $stmt->execute();
-            $stmt->bind_result($id_donacion, $IBAN, $cantidad);
+            $stmt->bind_result($id_donacion, $cantidad);
 
             $donaciones = [];
             while ($stmt->fetch()) {
-                $donaciones[] = new donacionDTO($id_donacion, $IBAN, $cantidad);
+                $donaciones[] = new donacionDTO($id_donacion, $cantidad);
             }
 
             return $donaciones;
