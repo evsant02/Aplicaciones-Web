@@ -15,6 +15,12 @@
 		//require("includes/comun/sidebarIzq.php");  // Comentado, se podría incluir una barra lateral izquierda
 	?>
 
+	<?php if (!empty($scripts)): ?>
+		<?php foreach ($scripts as $script): ?>
+			<script src="<?= $script ?>"></script>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
 	<body>
 		<!-- Contenedor principal de la página -->
 		<div id="contenedor">

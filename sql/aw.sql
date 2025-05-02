@@ -103,8 +103,36 @@ INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 
 CREATE TABLE `donaciones` (
   `id_donacion` int(10) UNSIGNED NOT NULL,
-  `cantidad` int(6) NOT NULL DEFAULT 0
+  `cantidad` decimal(6,2) NOT NULL DEFAULT '0.00',
+  `fecha` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Insertar datos de prueba para 2025 (enero-mayo)
+INSERT INTO `donaciones` (`id_donacion`, `cantidad`, `fecha`) VALUES
+-- Enero 2025
+(1, 150.00, '2025-01-05 10:30:00'),
+(2, 230.50, '2025-01-15 14:45:00'),
+(3, 75.25,  '2025-01-22 09:15:00'),
+(4, 420.00, '2025-01-28 16:20:00'),
+
+-- Febrero 2025
+(5, 180.00, '2025-02-03 11:10:00'),
+(6, 95.50,  '2025-02-10 13:25:00'),
+(7, 310.75, '2025-02-18 15:30:00'),
+
+-- Marzo 2025
+(8, 250.00, '2025-03-07 10:00:00'),
+(9, 125.25, '2025-03-12 12:45:00'),
+(10, 360.50, '2025-03-19 14:15:00'),
+(11, 80.00,  '2025-03-25 09:30:00'),
+
+-- Abril 2025
+(12, 200.00, '2025-04-05 11:20:00'),
+(13, 140.75, '2025-04-15 13:40:00'),
+
+-- Mayo 2025
+(14, 275.50, '2025-05-02 10:50:00'),
+(15, 190.00, '2025-05-10 15:10:00');
 
 -- --------------------------------------------------------
 
@@ -211,8 +239,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `actividades`
 --
 ALTER TABLE `actividades`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12347;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT de la tabla `donaciones`
+--
+ALTER TABLE `donaciones`
+  MODIFY `id_donacion` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --

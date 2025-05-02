@@ -20,6 +20,10 @@ interface IDonacion
      */
     public function obtenerTodasLasDonaciones();
 
+    public function getEstadisticasDonaciones();
+
+    public function getDonacionesPorMes();
+
 }
 
 ?>
