@@ -31,7 +31,7 @@ class donacionAppService
     {
         $IDonacionDAO = donacionFactory::CreateDonacion();
 
-        $createdDonacionDTO = $IDonacionDAO->create($donacionDTO);
+        $createdDonacionDTO = $IDonacionDAO->crear($donacionDTO);
 
         return $createdDonacionDTO;
     }

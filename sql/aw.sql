@@ -102,8 +102,7 @@ INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 --
 
 CREATE TABLE `donaciones` (
-  `id_donacion` varchar(20) NOT NULL,
-  `IBAN` int(24) NOT NULL,
+  `id_donacion` int(10) UNSIGNED NOT NULL,
   `cantidad` int(6) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
