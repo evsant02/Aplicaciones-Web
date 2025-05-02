@@ -46,6 +46,12 @@ class donacionAppService
         return $donaciones;
     }
 
+    public function getEstadisticasDonaciones() {
+        $IDonacionDAO = donacionFactory::CreateDonacion();
+        
+        return $IDonacionDAO->getEstadisticasDonaciones(); // Obtiene estadísticas de las donaciones
+    }
+
 }
 
 ?>

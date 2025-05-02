@@ -7,12 +7,14 @@ class donacionDTO
     // Atributos privados para evitar acceso directo
     private $id_donacion;
     private $cantidad;
+    private $fecha;
 
     // Constructor para inicializar una donacion con sus datos
-    public function __construct($id_donacion, $cantidad)
+    public function __construct($id_donacion, $cantidad, $fecha = null)
     {
         $this->id_donacion = $id_donacion;
         $this->cantidad = $cantidad;
+        $this->fecha = $fecha ?? date('Y-m-d H:i:s');
     }
 
     // Métodos públicos para obtener los valores de los atributos
@@ -27,6 +29,10 @@ class donacionDTO
     public function cantidad()
     {
         return $this->cantidad;
+    }
+
+    public function fecha(){
+        return $this->fecha;
     }
 }
 ?>
