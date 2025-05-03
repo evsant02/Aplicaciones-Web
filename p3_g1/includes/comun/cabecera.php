@@ -9,7 +9,7 @@ use includes\application;
 if (!function_exists('includes\comun\mostrarCabecera')) {
     function mostrarCabecera() {
         $app = application::getInstance();
-
+    
         echo '<nav>';
         echo '<ul class="main-links">'; // Enlaces generales (izquierda)
         
@@ -18,12 +18,27 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
             echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
         }
         
-        echo '<li><a href="donar.php">Dona</a></li>';
+        // Menú desplegable para Dona
+        echo '<li class="dropdown">';
+        echo '<a href="javascript:void(0)" class="dropbtn">Donaciones</a>';
+        echo '<div class="dropdown-content">';
+        echo '<a href="donar.php">Donar</a>';
+        echo '<a href="donaciones.php">Recaudación</a>';
+        echo '</div>';
+        echo '</li>';
+        
         echo '<li><a href="ayuda.php">Ayuda</a></li>';
-        echo '<li><a href="aboutus.php">Qué es Conecta65</a></li>';
-        echo '<li><a href="miembros.php">Equipo</a></li>';
-        echo '</ul>';
 
+        // Menú desplegable para Qué es Conecta65
+        echo '<li class="dropdown">';
+        echo '<a href="javascript:void(0)" class="dropbtn">Qué es Conecta65</a>';
+        echo '<div class="dropdown-content">';
+        echo '<a href="aboutus.php">Sobre Nosotros</a>';
+        echo '<a href="miembros.php">Nuestro Equipo</a>';
+        echo '</div>';
+        echo '</li>';
+        echo '</ul>';
+    
         // Enlaces de usuario (derecha)
         echo '<div class="user-links"><ul>';
         
@@ -34,7 +49,7 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
             echo "<li><a href='login.php'>Iniciar Sesión</a></li>";
             echo "<li><a href='register.php'>Regístrate</a></li>";
         }
-
+    
         echo '</ul></div>';
         echo '</nav>';
     }
@@ -52,3 +67,34 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
         <?php mostrarCabecera(); ?>
     </div>
 </header>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdowns = document.getElementsByClassName("dropdown");
+            
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.getElementsByClassName("dropdown-content")[0];
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+            
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.style.display === "block") {
+                            openDropdown.style.display = "none";
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
