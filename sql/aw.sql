@@ -54,6 +54,49 @@ INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descri
 (9, 'Torneo de Ajedrez', 'Universidad Complutense de Madrid (UCM)', '2025-05-07 10:00:00.000000', 'Pon a prueba tus estrategias y desafía a más de 30 personas en un campeonato de Ajedrez como nunca se ha visto.', 20, 0, 0, 'img/ajedrez.jpg'),
 (10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg');
 
+/*
+INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`) VALUES
+(1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg'),
+(2, 'Taller de Costura', 'Casa de la Cultura', '2025-05-12 16:00:00', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg'),
+(3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg'),
+(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg'),
+(5, 'Manualidades', 'Asociación Vecinal', '2025-04-22 15:00:00', 'Apúntate para exprimir al máximo tu creatividad.', 30, 0, 0, 'img/manualidades.jpg'),
+(6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 1, 0, 'img/lectura.jpg'),
+(7, 'Excursión al Palacio Real', 'Palacio Real', '2025-04-28 08:00:00', 'Apúntate a visitar uno de los lugares más turísticos de Madrid.', 40, 0, 0, 'img/excursionPR.jpg'),
+(8, 'Visita al Teatro Real', 'Teatro Real', '2025-04-28 10:00:00', 'Visita el Teatro Real por dentro como nunca antes lo habías visto.', 35, 0, 0, 'img/excursionTR.jpg'),
+(9, 'Torneo de Ajedrez', 'Universidad Complutense de Madrid (UCM)', '2025-05-07 10:00:00', 'Pon a prueba tus estrategias y desafía a más de 30 personas en un campeonato de Ajedrez como nunca se ha visto.', 20, 0, 0, 'img/ajedrez.jpg'),
+(10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg'),
+(11, 'Yoga al Aire Libre', 'Parque del Retiro', '2025-05-15 09:00:00', 'Sesión de yoga para todos los niveles en plena naturaleza.', 25, 1, 0, 'img/yoga.jpg'),
+(12, 'Taller de Fotografía', 'Centro Cultural', '2025-05-18 16:00:00', 'Aprende técnicas básicas de fotografía con tu móvil.', 15, 1, 0, 'img/fotografia.jpg'),
+(13, 'Concierto de Música Clásica', 'Auditorio Municipal', '2025-06-02 20:00:00', 'Disfruta de las mejores piezas de música clásica.', 100, 0, 0, 'img/concierto.jpg'),
+(14, 'Taller de Jardinería', 'Viveros Municipales', '2025-05-22 10:00:00', 'Aprende a cuidar tus plantas y diseño de jardines.', 12, 1, 0, 'img/jardineria.jpg'),
+(15, 'Cine Fórum', 'Filmoteca Española', '2025-06-10 18:30:00', 'Proyección y debate de películas clásicas.', 50, 1, 0, 'img/cineforum.jpg'),
+(16, 'Taller de Pintura', 'Escuela de Arte', '2025-05-30 17:00:00', 'Expresa tu creatividad con acuarelas y óleos.', 18, 1, 0, 'img/pintura.jpg'),
+(17, 'Excursión a Toledo', 'Salida desde Plaza Mayor', '2025-06-12 08:30:00', 'Visita guiada por la ciudad histórica de Toledo.', 45, 0, 0, 'img/toledo.jpg'),
+(18, 'Taller de Redes Sociales', 'Biblioteca Municipal', '2025-05-20 11:00:00', 'Aprende a usar Facebook, Instagram y Twitter de forma segura.', 20, 1, 0, 'img/redes.jpg'),
+(19, 'Conferencia: Historia de Madrid', 'Museo de Historia', '2025-06-05 19:00:00', 'Descubre los secretos históricos de la capital.', 60, 0, 0, 'img/historia.jpg'),
+(20, 'Taller de Reciclaje', 'Centro de Educación Ambiental', '2025-05-25 12:00:00', 'Aprende a dar una segunda vida a tus residuos.', 15, 1, 0, 'img/reciclaje.jpg'),
+(21, 'Clase de Tai Chi', 'Parque de Berlín', '2025-05-14 08:30:00', 'Mejora tu equilibrio y relájate con esta disciplina.', 20, 1, 0, 'img/taichi.jpg'),
+(22, 'Visita al Museo del Prado', 'Museo del Prado', '2025-06-08 10:00:00', 'Recorrido guiado por las obras maestras del museo.', 30, 0, 0, 'img/prado.jpg'),
+(23, 'Taller de Escritura Creativa', 'Casa del Lector', '2025-05-28 17:00:00', 'Desarrolla tu talento literario con ejercicios prácticos.', 12, 1, 0, 'img/escritura.jpg'),
+(24, 'Ruta de Senderismo', 'Sierra de Guadarrama', '2025-06-15 08:00:00', 'Disfruta de la naturaleza en esta ruta de dificultad media.', 25, 0, 0, 'img/senderismo.jpg'),
+(25, 'Taller de Repostería', 'Escuela de Cocina', '2025-05-23 16:00:00', 'Aprende a hacer deliciosos postres caseros.', 10, 1, 0, 'img/reposteria.jpg'),
+(26, 'Concierto de Jazz', 'Café Central', '2025-06-18 21:00:00', 'Noche de jazz en el mítico local madrileño.', 40, 0, 0, 'img/jazz.jpg'),
+(27, 'Taller de Autoestima', 'Centro de Psicología', '2025-05-19 18:00:00', 'Mejora tu autoconcepto y habilidades sociales.', 15, 1, 0, 'img/autoestima.jpg'),
+(28, 'Visita al Planetario', 'Planetario de Madrid', '2025-06-22 19:30:00', 'Viaje por las estrellas y el sistema solar.', 50, 0, 0, 'img/planetario.jpg'),
+(29, 'Taller de Risoterapia', 'Centro de Bienestar', '2025-05-27 17:30:00', 'Libera tensiones a través de la risa.', 20, 1, 0, 'img/risoterapia.jpg'),
+(30, 'Mercado de Trueque', 'Plaza de Chamberí', '2025-06-07 11:00:00', 'Intercambia objetos que ya no uses por otros de valor similar.', 0, 0, 0, 'img/trueque.jpg'),
+(31, 'Clase de Pilates', 'Gimnasio Municipal', '2025-05-16 19:00:00', 'Fortalece tu cuerpo y mejora tu postura.', 15, 1, 0, 'img/pilates.jpg'),
+(32, 'Taller de Podcast', 'Medialab Prado', '2025-06-11 16:00:00', 'Aprende a crear y editar tu propio podcast.', 10, 1, 0, 'img/podcast.jpg'),
+(33, 'Visita al Palacio de Cristal', 'Parque del Retiro', '2025-06-14 12:00:00', 'Descubre este emblemático edificio y sus exposiciones.', 25, 0, 0, 'img/cristal.jpg'),
+(34, 'Taller de Mindfulness', 'Centro de Meditación', '2025-05-21 18:30:00', 'Aprende técnicas de relajación y atención plena.', 18, 1, 0, 'img/mindfulness.jpg'),
+(35, 'Concurso de Poesía', 'Círculo de Bellas Artes', '2025-06-20 19:00:00', 'Participa o disfruta de la lectura de poemas.', 40, 0, 0, 'img/poesia.jpg'),
+(36, 'Taller de Bolillos', 'Centro de Artesanía', '2025-05-26 16:00:00', 'Iniciación al encaje de bolillos tradicional.', 12, 1, 0, 'img/bolillos.jpg'),
+(37, 'Exhibición de Danza', 'Teatro Circo Price', '2025-06-25 20:00:00', 'Espectáculo de danza contemporánea.', 80, 0, 0, 'img/danza.jpg'),
+(38, 'Taller de Primeros Auxilios', 'Cruz Roja', '2025-05-29 17:00:00', 'Aprende técnicas básicas de primeros auxilios.', 20, 1, 0, 'img/auxilios.jpg'),
+(39, 'Ruta en Bicicleta', 'Madrid Río', '2025-06-13 10:00:00', 'Recorrido guiado por los principales parques de Madrid.', 15, 0, 0, 'img/bicicleta.jpg'),
+(40, 'Taller de Teatro', 'Sala Mirador', '2025-06-17 18:00:00', 'Iniciación al teatro con ejercicios prácticos.', 15, 1, 0, 'img/teatro.jpg');
+*/
 -- --------------------------------------------------------
 
 --
