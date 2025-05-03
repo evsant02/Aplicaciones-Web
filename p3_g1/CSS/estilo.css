@@ -532,7 +532,7 @@ hr {
 /* Canvas del gráfico */
 #donacionesChart {
     width: 100% !important;
-    height: calc(100% - 50px) !important; /* Ajustamos la altura del gráfico */
+    height: calc(100% - 40px) !important; /* Ajustamos la altura del gráfico */
 }
 
 /* Versión móvil */
@@ -543,6 +543,6 @@ hr {
     }
     
     #donacionesChart {
-        height: calc(100% - 50px) !important;
+        height: calc(100% - 40px) !important;
     }
 }

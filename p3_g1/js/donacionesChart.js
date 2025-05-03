@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 plugins: {
                     legend: {
                         display: true, // Asegurar que la leyenda es visible
-                        position: 'top',
+                        position: 'bottom',
                         labels: {
                             color: '#333', // Color del texto
                             font: {
                                 size: 14, // Tamaño de fuente
                                 weight: 'bold' // Negrita
                             },
-                            padding: 20, // Espaciado
+                            padding: 10, // Espaciado
                             usePointStyle: true, // Usar icono de punto
                             pointStyle: 'circle' // Estilo del icono
                         }

@@ -13,7 +13,7 @@ $estadisticas = $donacionService->getEstadisticasDonaciones();
 // Construir el contenido principal correctamente
 $contenidoPrincipal = <<<EOS
 <div class="default">
-    <h1>Impacto de tus donaciones</h1>
+    <h1>Impacto de las Recaudaciones</h1>
 
     <!-- Elemento oculto con los datos para JavaScript -->
     <script id="chart-data" type="application/json">
@@ -37,18 +37,18 @@ $contenidoPrincipal .= <<<EOS
             <div class="stat-card last-quarter">
                 <h3>Últimos 3 meses</h3>
                 <div class="stat-value">{$estadisticas['ultimoTrimestre']} €</div>
-                <p>Tu apoyo reciente</p>
+                <p>Apoyo reciente</p>
             </div>
             
             <div class="stat-card last-month">
                 <h3>Último mes</h3>
                 <div class="stat-value">{$estadisticas['ultimoMes']} €</div>
-                <p>Impulso actual</p>
+                <p>Aportación actual</p>
             </div>
         </div>
         
         <div class="donaciones-chart">
-            <h3>Evolución de donaciones</h3>
+            <h3>Evolución de las donaciones</h3>
             <canvas id="donacionesChart"></canvas>
         </div>
     </div>
