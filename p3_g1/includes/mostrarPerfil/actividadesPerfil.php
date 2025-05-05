@@ -48,15 +48,17 @@ class actividadesPerfil
         //this->actividades nos devuelve las actividades de ese usuario
 
         foreach ($this->actividades as $actividad) {       // solo se deberian mostrar las futuras
-
-                $actividadDTO = $actividadAppService->getActividadById($actividad);
+            
+            $actividadDTO = $actividadAppService->getActividadById($actividad);
                 
+            if($actividadDTO->fecha_hora() > date("Y-m-d H:i:s")){
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
 
                 $html .= '<td>' . $actividadAppService->mostrarPerfil($actividadDTO) . '</td>';
+            }
         }
         
         $html .= '</tr></table>';

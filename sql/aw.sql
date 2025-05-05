@@ -43,19 +43,6 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`) VALUES
-(1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg'),
-(2, 'Taller de Costura', 'Casa de la Cultural', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg'),
-(3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg'),
-(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00.000000', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg'),
-(5, 'Manualidades', 'Asociación Vecinal', '2025-04-22 15:00:00.000000', 'Apúntate para exprimir al máximo tu creatividad.', 30, 0, 0, 'img/manualidades.jpg'),
-(6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00.000000', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 1, 0, 'img/lectura.jpg'),
-(7, 'Excursión al Palacio Real', 'Palacio Real', '2025-04-28 08:00:00.000000', 'Apúntate a visitar uno de los lugares más turísticos de Madrid.', 40, 0, 0, 'img/excursionPR.jpg'),
-(8, 'Visita al Teatro Real', 'Teatro Real', '2025-04-28 10:00:00.000000', 'Visita el Teatro Real por dentro como nunca antes lo habias visto.', 35, 0, 0, 'img/excursionTR.jpg'),
-(9, 'Torneo de Ajedrez', 'Universidad Complutense de Madrid (UCM)', '2025-05-07 10:00:00.000000', 'Pon a prueba tus estrategias y desafía a más de 30 personas en un campeonato de Ajedrez como nunca se ha visto.', 20, 0, 0, 'img/ajedrez.jpg'),
-(10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg');
-
-/*
-INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`) VALUES
 (1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg'),
 (2, 'Taller de Costura', 'Casa de la Cultura', '2025-05-12 16:00:00', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg'),
 (3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg'),
@@ -85,18 +72,16 @@ INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descri
 (27, 'Taller de Autoestima', 'Centro de Psicología', '2025-05-19 18:00:00', 'Mejora tu autoconcepto y habilidades sociales.', 15, 1, 0, 'img/autoestima.jpg'),
 (28, 'Visita al Planetario', 'Planetario de Madrid', '2025-06-22 19:30:00', 'Viaje por las estrellas y el sistema solar.', 50, 0, 0, 'img/planetario.jpg'),
 (29, 'Taller de Risoterapia', 'Centro de Bienestar', '2025-05-27 17:30:00', 'Libera tensiones a través de la risa.', 20, 1, 0, 'img/risoterapia.jpg'),
-(30, 'Mercado de Trueque', 'Plaza de Chamberí', '2025-06-07 11:00:00', 'Intercambia objetos que ya no uses por otros de valor similar.', 0, 0, 0, 'img/trueque.jpg'),
-(31, 'Clase de Pilates', 'Gimnasio Municipal', '2025-05-16 19:00:00', 'Fortalece tu cuerpo y mejora tu postura.', 15, 1, 0, 'img/pilates.jpg'),
-(32, 'Taller de Podcast', 'Medialab Prado', '2025-06-11 16:00:00', 'Aprende a crear y editar tu propio podcast.', 10, 1, 0, 'img/podcast.jpg'),
-(33, 'Visita al Palacio de Cristal', 'Parque del Retiro', '2025-06-14 12:00:00', 'Descubre este emblemático edificio y sus exposiciones.', 25, 0, 0, 'img/cristal.jpg'),
-(34, 'Taller de Mindfulness', 'Centro de Meditación', '2025-05-21 18:30:00', 'Aprende técnicas de relajación y atención plena.', 18, 1, 0, 'img/mindfulness.jpg'),
-(35, 'Concurso de Poesía', 'Círculo de Bellas Artes', '2025-06-20 19:00:00', 'Participa o disfruta de la lectura de poemas.', 40, 0, 0, 'img/poesia.jpg'),
-(36, 'Taller de Bolillos', 'Centro de Artesanía', '2025-05-26 16:00:00', 'Iniciación al encaje de bolillos tradicional.', 12, 1, 0, 'img/bolillos.jpg'),
-(37, 'Exhibición de Danza', 'Teatro Circo Price', '2025-06-25 20:00:00', 'Espectáculo de danza contemporánea.', 80, 0, 0, 'img/danza.jpg'),
-(38, 'Taller de Primeros Auxilios', 'Cruz Roja', '2025-05-29 17:00:00', 'Aprende técnicas básicas de primeros auxilios.', 20, 1, 0, 'img/auxilios.jpg'),
-(39, 'Ruta en Bicicleta', 'Madrid Río', '2025-06-13 10:00:00', 'Recorrido guiado por los principales parques de Madrid.', 15, 0, 0, 'img/bicicleta.jpg'),
-(40, 'Taller de Teatro', 'Sala Mirador', '2025-06-17 18:00:00', 'Iniciación al teatro con ejercicios prácticos.', 15, 1, 0, 'img/teatro.jpg');
-*/
+(30, 'Clase de Pilates', 'Gimnasio Municipal', '2025-05-16 19:00:00', 'Fortalece tu cuerpo y mejora tu postura.', 15, 1, 0, 'img/pilates.jpg'),
+(31, 'Taller de Podcast', 'Medialab Prado', '2025-06-11 16:00:00', 'Aprende a crear y editar tu propio podcast.', 10, 1, 0, 'img/podcast.jpg'),
+(32, 'Visita al Palacio de Cristal', 'Parque del Retiro', '2025-06-14 12:00:00', 'Descubre este emblemático edificio y sus exposiciones.', 25, 0, 0, 'img/cristal.jpg'),
+(33, 'Taller de Mindfulness', 'Centro de Meditación', '2025-05-21 18:30:00', 'Aprende técnicas de relajación y atención plena.', 18, 1, 0, 'img/mindfulness.jpg'),
+(34, 'Concurso de Poesía', 'Círculo de Bellas Artes', '2025-06-20 19:00:00', 'Participa o disfruta de la lectura de poemas.', 40, 0, 0, 'img/poesia.jpg'),
+(35, 'Exhibición de Danza', 'Teatro Circo Price', '2025-06-25 20:00:00', 'Espectáculo de danza contemporánea.', 80, 0, 0, 'img/danza.jpg'),
+(36, 'Taller de Primeros Auxilios', 'Cruz Roja', '2025-05-29 17:00:00', 'Aprende técnicas básicas de primeros auxilios.', 20, 1, 0, 'img/auxilios.jpg'),
+(37, 'Ruta en Bicicleta', 'Madrid Río', '2025-06-13 10:00:00', 'Recorrido guiado por los principales parques de Madrid.', 15, 0, 0, 'img/bicicleta.jpg'),
+(38, 'Taller de Teatro', 'Sala Mirador', '2025-06-17 18:00:00', 'Iniciación al teatro con ejercicios prácticos.', 15, 1, 0, 'img/teatro.jpg');
+
 -- --------------------------------------------------------
 
 --
