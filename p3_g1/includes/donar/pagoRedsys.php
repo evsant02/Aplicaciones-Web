@@ -14,8 +14,14 @@ class pagoRedsys {
         $codigoComercio = '999008881';
         $terminal = '01';
         $moneda = '978';
-        $urlOK = 'http://localhost/AW/Aplicaciones-Web/p3_g1/OK.php';
-        $urlKO = 'http://localhost/AW/Aplicaciones-Web/p3_g1/KO.php';
+
+        $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $path = dirname($_SERVER['SCRIPT_NAME']);
+        //$urlOK = 'http://localhost/AW/Aplicaciones-Web/p3_g1/OK.php';
+        //$urlKO = 'http://localhost/AW/Aplicaciones-Web/p3_g1/KO.php';
+        $urlOK = "$protocolo://$host$path/OK.php";
+        $urlKO = "$protocolo://$host$path/KO.php";
         $order = str_pad(date('mdHis'), 12, "0", STR_PAD_LEFT);
 
         // Parámetros Redsys

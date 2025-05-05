@@ -32,8 +32,9 @@ $contenidoPrincipal = <<<EOS
         
         <p>Gracias por apoyar nuestra iniciativa. Tu contribución nos ayuda a seguir adelante.</p>
         
-        <a href="index.php"><button>Volver al inicio</button></a>
         <a href="donar.php"><button>Hacer otra donación</button></a>
+        <a href="donaciones.php"><button>Ver recaudación</button></a>
+        <a href="index.php"><button>Volver al inicio</button></a>
     </div>
 </div>
 EOS;
