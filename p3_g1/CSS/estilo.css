@@ -336,3 +336,255 @@ hr {
 	background-color: #444141; 
 	margin: 15px auto; 
 }
+
+/* ============================= */
+/* ESTILOS PARA MIEMBROS */
+/* ============================= */
+.team-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.team-members-container {
+	margin-top: 30px;
+	width: 100%;
+}
+
+.team-members-container table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 20px;
+}
+
+.team-members-container td {
+	vertical-align: top;
+	width: 33%;
+}
+
+.member-card {
+	position: relative;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	text-align: center;
+	background-color: #fff;
+	height: 100%;
+	overflow: hidden;
+}
+
+.member-basic-info {
+	transition: all 0.3s ease;
+}
+
+.member-photo {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 15px;
+	border: 3px solid #f0f0f0;
+	transition: transform 0.3s ease;
+	cursor: pointer;
+}
+
+.member-card h3 {
+	margin: 10px 0;
+	color: #333;
+}
+
+.member-details {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.member-position {
+	color: #666;
+	font-style: italic;
+	margin-bottom: 15px;
+}
+
+.member-description {
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
+}
+
+.member-card:hover .member-basic-info {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.member-card:hover .member-details {
+	opacity: 1;
+	visibility: visible;
+}
+
+.member-photo:hover {
+	transform: scale(1.05);
+}
+
+/*DONACIONES ------------------------------------*/
+/* En tu archivo de estilos principal */
+.donaciones-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.donaciones-stats {
+    flex: 1;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.stat-card h3 {
+    color: #555;
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: #2c3e50;
+}
+
+.stat-card.total .stat-value {
+    color: #27ae60;
+}
+
+.stat-card.last-month .stat-value {
+    color: #3498db;
+}
+
+.stat-card.last-quarter .stat-value {
+    color: #9b59b6;
+}
+
+.donaciones-chart {
+    flex: 2;
+    min-width: 300px;
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	position: relative;
+    width: 100%;
+    height: 350px; /* Altura reducida */
+}
+
+.donaciones-info {
+    text-align: center;
+}
+
+.btn-donar {
+    display: inline-block;
+    background-color: #8bc1f8;
+    color: black;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-donar:hover {
+    background-color: #3498db;
+}
+
+/* Contenedor principal del gráfico */
+.donaciones-chart-container {
+    position: relative;
+    width: 100%;
+    height: 420px; /* Aumentamos la altura total */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px 20px 40px 20px; /* Más padding en la parte inferior */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Canvas del gráfico */
+#donacionesChart {
+    width: 100% !important;
+    height: calc(100% - 40px) !important; /* Ajustamos la altura del gráfico */
+}
+
+/* Versión móvil */
+@media (max-width: 768px) {
+    .donaciones-chart-container {
+        height: 380px; /* Altura ligeramente mayor en móvil */
+        padding: 15px 15px 30px 15px; /* Padding ajustado */
+    }
+    
+    #donacionesChart {
+        height: calc(100% - 40px) !important;
+    }
+}
+
+/*DESPLEGABLE BOTONES*/
+/* Estilos para el menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #57a1d2;
+    min-width: 165px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+	border-radius: 4px;
+	margin-top: 7px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+	border-radius: 4px;
+}
+
+/* Ajustes para mantener la apariencia del enlace principal */
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
