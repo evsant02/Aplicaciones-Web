@@ -10,6 +10,9 @@ class foroNoticias {
         $this->id_usuario = $id_usuario;
     }
 
-    public function inicializar() {}
+    public function inicializar() {
+        //mirar los mensajes para el usuario
+        //necesito otro metodo para generar el mensaje segun el tipo que sea????
+    }
         
 }

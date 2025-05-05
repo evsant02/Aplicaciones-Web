@@ -104,10 +104,31 @@ class dirigirActividad
         return $mensaje;
     }
 
+
+ 
+    //al dar de baja a un voluntario que dirige una act, se notifica a los usuarios inscritos a traves del foro de noticias
     private function bajaDirigir($id_voluntario) {
 
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
+
+        //compruebo que la act esta dirigida
+        if ($actividadAppService->estaDirigida($this->actividad->id())) {
+
+            //primero obtengo los usuarios de esa actividad antes de darles de baja
+            $usuariosApuntados = $actividadUsuarioAppService->obtenerUsuariosInscritos($this->actividad->id());
+
+            //envio mensajes a esos usuarios
+            $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+            foreach ($usuariosApuntados as $usuario) {
+                $mensajesAppService->crearMensaje($this->actividad->id(), $usuario->id(), 0); // 0 = tipo de mensaje de que un voluntario se ha dado de baja
+            }
+        }
+
+
+
+
+        //doy de baja al voluntario, al usuario y la actividad
         $actividadAppService->borrarVoluntario($this->actividad->id());
         $actividadUsuarioAppService->bajaUsuario($this->actividad->id(), $id_voluntario);
         $actividadUsuarioAppService->bajaActividad($this->actividad->id());
@@ -115,7 +136,7 @@ class dirigirActividad
         $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
-        //exit(); 
+        //exit();         
 
         return $mensaje;
     }
