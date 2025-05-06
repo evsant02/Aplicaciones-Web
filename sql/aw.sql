@@ -121,7 +121,25 @@ INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
 ('javiga', 1),
 ('javiga', 3),
 ('martia01', 3),
-('uchaoui', 2);
+('uchaoui', 2),
+('evsant02', 11),
+('evsant02', 14),
+('evsant02', 21),
+('evsant02', 33),
+('uchaoui', 12),
+('uchaoui', 16),
+('uchaoui', 23),
+('uchaoui', 27),
+('martia01', 15),
+('martia01', 18),
+('martia01', 30),
+('martia01', 38),
+('debb1601', 20),
+('debb1601', 25),
+('debb1601', 29),
+('debb1601', 31),
+('33333', 31),
+('33333', 36);
 
 -- --------------------------------------------------------
 
