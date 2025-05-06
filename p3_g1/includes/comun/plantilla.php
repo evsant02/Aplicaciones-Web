@@ -22,6 +22,11 @@
 	<?php endif; ?>
 
 	<body>
+
+	<?php
+		require("cabecera.php");
+		//require("includes/comun/barraLateral.php");  
+	?>
 		<!-- Contenedor principal de la página -->
 		<div id="contenedor">
 
@@ -35,11 +40,11 @@
 
 			<?php
 				//require("includes/comun/sidebarDer.php");  // Comentado, se podría incluir una barra lateral derecha
-				require("includes/comun/pie.php");  // Se incluye el pie de página
+				require("pie.php");  // Se incluye el pie de página
 			?>
 
 
 		</div> <!-- Fin del contenedor -->
-
+		<script src="js/lateral.js"></script>
 	</body>
 </html>
