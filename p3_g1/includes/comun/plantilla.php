@@ -11,8 +11,7 @@
 	</head>
 
 	<?php
-		require("includes/comun/cabecera.php");
-		//require("includes/comun/sidebarIzq.php");  // Comentado, se podría incluir una barra lateral izquierda
+		require("cabecera.php");
 	?>
 
 	<?php if (!empty($scripts)): ?>
@@ -22,11 +21,6 @@
 	<?php endif; ?>
 
 	<body>
-
-	<?php
-		require("cabecera.php");
-		//require("includes/comun/barraLateral.php");  
-	?>
 		<!-- Contenedor principal de la página -->
 		<div id="contenedor">
 
