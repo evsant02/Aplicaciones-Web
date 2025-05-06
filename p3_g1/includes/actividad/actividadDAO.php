@@ -350,7 +350,7 @@ class actividadDAO extends baseDAO implements IActividad
             
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
                       FROM actividades 
-                      WHERE fecha_hora > ? AND fecha_hora < ?";
+                      WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? ORDER BY fecha_hora ASC";
             $stmt = $conn->prepare($query);
             $stmt->bind_param('ss', $inicio, $final); // 'ss' porque ambos son strings (fechas)
     

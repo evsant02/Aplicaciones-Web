@@ -16,12 +16,16 @@ class actividadesFiltradas
     }
     public function filtrado(){
 
-        if (empty($_GET['inicio']) || empty($_GET['final']) || empty($_GET['texto'])) {
+        if (empty($_GET['inicio']) || empty($_GET['final']) /*|| empty($_GET['texto'])*/) {
             return '<p>Seleccione un rango de fechas para filtrar o una palabra</p>';
         }
         $desde = $_GET['inicio'] ?? null;
         $hasta = $_GET['final'] ?? null;
-        $texto = $_GET['texto'] ?? '';
+        if($desde>$hasta){
+            return '<p>La fecha de inicio no puede ser posterior a la de final del intervalo</p>';
+        }
+        
+        //$texto = $_GET['texto'] ?? '';
         //terminar el filtrado
         $actividadAppService = actividadAppService::GetSingleton();
         $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta); 
