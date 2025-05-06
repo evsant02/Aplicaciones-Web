@@ -122,7 +122,7 @@ class actividadAppService
         return $actividad;
     }
 
-    public function mostrar($actividadDTO){
+    /*public function mostrar($actividadDTO){
         $app = application::getInstance();
         $html = '<div class="actividad">';
         if ($app->soyUsuario()) {
@@ -146,21 +146,21 @@ class actividadAppService
         //voluntario
         if ($tipo_user == 2){
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
-        }*/
+        }
         //administrador: dos botones
         if ($app->soyAdmin()){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
             $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a> &ensp; <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
             /*$html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
-                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';*/
+                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         
         $html .= '</div>';
         return $html;  //se devuelve en html
-    }
+}*/
 
-    public function mostrarPerfil($actividadDTO) {
+    /*public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
 
@@ -182,7 +182,7 @@ class actividadAppService
         $html .= '</div>';
     
         return $html;
-    }
+    }*/
 
     public function annadirusuario($id_actividad){
         $IActividadDAO = actividadFactory::CreateActividad();
