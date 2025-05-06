@@ -24,6 +24,9 @@ interface IActividadesusuario
 
     public function bajaActividad($id_actividad);
 
+    public function obtenerUsuariosInscritos($id_actividad);
+    
+
 }
 
 ?>

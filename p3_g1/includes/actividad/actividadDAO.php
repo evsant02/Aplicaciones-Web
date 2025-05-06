@@ -211,51 +211,68 @@ class actividadDAO extends baseDAO implements IActividad
 
 
     //Método para obtener actividades que todavia no están dirigidas por un usuario
-    public function obtenerActSinDirigir(){
-        try{
+    public function obtenerActSinDirigir() {
+        try {
             $conn = application::getInstance()->getConexionBd();
-
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 0";
+    
+            // Consulta modificada: solo actividades no dirigidas y futuras
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                      FROM actividades 
+                      WHERE dirigida = 0 AND fecha_hora > NOW()";
+                      
             $stmt = $conn->prepare($query);
-
+    
             // Se ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-
+    
             $actividades = [];
             while ($stmt->fetch()) {
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-
+    
             return $actividades;
-
+    
         } finally {
-            if ($stmt) {
+            if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
         }
     }
 
-
-    public function obtenerActSinCompletar(){
-        try{
+    public function obtenerActSinCompletar() {
+        try {
             $conn = application::getInstance()->getConexionBd();
             $user = application::getInstance()->getUserDTO()->id();
-            $query= "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE dirigida = 1 AND aforo - ocupacion > 0 AND id NOT IN (SELECT id_actividad FROM `actividades-usuario` WHERE id_usuario ='$user')";
+    
+            // Añade filtro de fecha futura
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                      FROM actividades 
+                      WHERE dirigida = 1 
+                        AND aforo - ocupacion > 0 
+                        AND fecha_hora > NOW()
+                        AND id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?
+                        )";
+    
             $stmt = $conn->prepare($query);
-            // Se ejecuta la consulta
+            $stmt->bind_param("s", $user); // Se pasa el parámetro de forma segura
+    
+            // Ejecutar la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
-
+    
             $actividades = [];
             while ($stmt->fetch()) {
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-
+    
             return $actividades;
-
+    
         } finally {
-            if ($stmt) {
+            if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
         }
@@ -339,7 +356,67 @@ class actividadDAO extends baseDAO implements IActividad
         } 
         return null;
     }
+
+    public function estaDirigida($id_actividad){
+        try {
+            $conn = application::getInstance()->getConexionBd();            
+            $query = "SELECT dirigida FROM actividades WHERE id = ?";
+            $stmt = $conn->prepare($query);
     
-   
-}
+            // Se vincula el parámetro ID
+            $stmt->bind_param("i", $idActividad);
+    
+            // Se ejecuta la consulta
+            $stmt->execute();
+    
+            // Vincula la variable al resultado
+            $stmt->bind_result($dirigida);
+    
+            //sii se obtiene un resultado, se devuelve si está dirigida o no
+            if ($stmt->fetch()) {
+                return $dirigida == 1;
+            }
+    
+            // si no se encuentra 
+            return false;
+    
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
+        }
+    }
+    
+    public function actividadesFecha($desde, $hasta) {
+        try {
+            $conn = application::getInstance()->getConexionBd();
+    
+            $inicio = date_create($desde)->format('Y-m-d H:i:s');
+            $final = date_create($hasta)->format('Y-m-d H:i:s');
+            
+            
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                      FROM actividades 
+                      WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? ORDER BY fecha_hora ASC";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('ss', $inicio, $final); // 'ss' porque ambos son strings (fechas)
+    
+            // Ejecuta la consulta
+            $stmt->execute();
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+    
+            $actividades = [];
+            while ($stmt->fetch()) {
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            }
+    
+            return $actividades;
+        } finally {
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+        }
+    }
+
+   }
 ?>

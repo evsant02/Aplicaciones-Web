@@ -5,7 +5,7 @@
   // se muestra información sobre la aplicación
   $contenidoPrincipal = <<<EOS
       <div class="aboutus">
-        <h1>¿Qué es conecta65?</h1>
+        <h1>¿Qué es Conecta65?</h1>
         <h3>Bienvenid@ a nuestra aplicación</h3>
         <p>
           Somos una plataforma web diseñada para fomentar el envejecimiento activo y combatir la soledad en personas mayores mediante su integración activa 

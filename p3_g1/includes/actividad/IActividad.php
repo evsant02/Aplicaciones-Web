@@ -55,6 +55,9 @@ interface IActividad
 
     public function nombreVoluntario($id_actividad);
 
+    public function estaDirigida($id_actividad);
+    public function actividadesFecha($desde, $hasta);
+
 
 }
 

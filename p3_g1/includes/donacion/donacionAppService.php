@@ -31,7 +31,7 @@ class donacionAppService
     {
         $IDonacionDAO = donacionFactory::CreateDonacion();
 
-        $createdDonacionDTO = $IDonacionDAO->create($donacionDTO);
+        $createdDonacionDTO = $IDonacionDAO->crear($donacionDTO);
 
         return $createdDonacionDTO;
     }
@@ -44,6 +44,12 @@ class donacionAppService
         // Se llama al método de consulta
         $donaciones = $IDonacionDAO->obtenerTodasLasDonaciones();
         return $donaciones;
+    }
+
+    public function getEstadisticasDonaciones() {
+        $IDonacionDAO = donacionFactory::CreateDonacion();
+        
+        return $IDonacionDAO->getEstadisticasDonaciones(); // Obtiene estadísticas de las donaciones
     }
 
 }

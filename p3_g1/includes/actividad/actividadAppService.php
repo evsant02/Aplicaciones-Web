@@ -4,7 +4,7 @@ namespace includes\actividad;
 
 // Se requiere el archivo que contiene la fábrica de actividades
 //require_once("actividadFactory.php");
-require_once("includes/config.php");
+require_once(__DIR__ . "/../config.php");
 
 use includes\application;
 
@@ -211,6 +211,28 @@ class actividadAppService
         $IActividadDAO = actividadFactory::CreateActividad();
         $actividadDTO=$IActividadDAO->nombreVoluntario($id_actividad);
         return $actividadDTO;
+    }
+
+    public function estaDirigida($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        return $IActividadDAO->estaDirigida($id_actividad);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function actividadesFecha($desde, $hasta){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        // Se llama al método que busca la actividad por su ID
+        $actividades = $IActividadDAO->actividadesFecha($desde, $hasta);
+        return $actividades;
     }
 }
 ?>

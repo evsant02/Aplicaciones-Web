@@ -12,37 +12,28 @@ ini_set('display_errors', 1);
  * Autoload de clases según PSR-4
  */
 spl_autoload_register(function ($class) {
-    // Mapeo de namespaces a directorios
-    $prefixes = [
-        'includes\\' => __DIR__ . '/',
-        'includes\\usuario\\' => __DIR__ . '/usuario/',
-        'includes\\comun\\' => __DIR__ . '/comun/',
-        'includes\\actividadesusuario\\' => __DIR__ . '/actividades-usuario/',
-        'includes\\mostrarPerfil\\' => __DIR__ . '/mostrarPerfil/',
-        'includes\\actividad\\' => __DIR__ . '/actividad/',
-        'includes\\ayuda\\' => __DIR__ . '/ayuda/',
-        'includes\\crearActividad\\' => __DIR__ . '/crearActividad/',
-        'includes\\dirigirActividad\\' => __DIR__ . '/dirigirActividad/',
-        'includes\\donar\\' => __DIR__ . '/donar/',
-        'includes\\login\\' => __DIR__ . '/login/',
-        'includes\\modificarActividad\\' => __DIR__ . '/modificarActividad/',
-        'includes\\mostrarActividades\\' => __DIR__ . '/mostrarActividades/',
-        'includes\\reservarActividad\\' => __DIR__ . '/reservarActividad/',
-        'includes\\excepciones\\' => __DIR__ . '/excepciones/',
-        'includes\\donacion\\' => __DIR__ . '/donacion/'
-    ];
-    
-    foreach ($prefixes as $prefix => $base_dir) {
-        $len = strlen($prefix);
-        if (strncmp($prefix, $class, $len) === 0) {
-            $relative_class = substr($class, $len);
-            $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-            
-            if (file_exists($file)) {
-                require $file;
-                return;
-            }
-        }
+    // Namespace base de la aplicación
+    $prefix = 'includes\\';
+
+    // Directorio base de la aplicación
+    $base_dir = __DIR__ . '/';
+
+    // Verifica si la clase usa el namespace base
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        // Si no, salir
+        return;
+    }
+
+    // Obtener el nombre relativo de la clase
+    $relative_class = substr($class, $len);
+
+    // Reemplazar los separadores de namespace con directorios y añadir .php
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    // Si el archivo existe, lo requiere
+    if (file_exists($file)) {
+        require $file;
     }
 });
 
@@ -77,7 +68,7 @@ function gestorExcepciones(\Throwable $exception)
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
 
     $tituloPagina = 'Error';
-    //var_dump($exception->getMessage());
+    var_dump($exception->getMessage());
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>
