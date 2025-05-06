@@ -212,5 +212,21 @@ class actividadAppService
         $actividadDTO=$IActividadDAO->nombreVoluntario($id_actividad);
         return $actividadDTO;
     }
+
+    public function estaDirigida($id_actividad){
+        $IActividadDAO = actividadFactory::CreateActividad();
+        return $IActividadDAO->estaDirigida($id_actividad);
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>

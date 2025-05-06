@@ -60,5 +60,18 @@ class actividadesusuarioAppService
         $IActividadesusuarioDAO->bajaActividad($id_actividad);
     }
 
+    //metodo para obtener los usuarios que están inscritos en una actividad 
+    public function obtenerUsuariosInscritos($id_actividad){
+        $IActividadesusuarioDAO = actividadesusuarioFactory::CreateActividad();
+        $usuarios = $IActividadesusuarioDAO->obtenerUsuariosInscritos($id_usuario);
+        return $usuarios; //devuelve un array de los id_usuario que están apuntados a esa actividad
+    }
+
+
+
+
+
+
+
 }
 ?>

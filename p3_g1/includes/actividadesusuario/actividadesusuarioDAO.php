@@ -135,5 +135,30 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         }
     }
 
+
+
+    public function obtenerUsuariosInscritos($id_actividad){ //me devuleve los usuarios inscritos para esa actividad
+        $escId = trim($this->realEscapeString($id_actividad));
+        $conn = application::getInstance()->getConexionBd();
+        $query = "SELECT id_usuario FROM `actividades-usuario` WHERE id_actividad = ?";
+        $stmt = $conn->prepare($query);
+        $usuarios = array();
+    
+        try {
+            $stmt->bind_param("s", $escId);
+            $stmt->execute();
+            $stmt->bind_result($idUsuario);
+    
+            while ($stmt->fetch()) {
+                $usuarios[] = $idUsuario;
+            }
+            
+            return $usuarios;
+        } finally {
+            $stmt->close();
+        }
+
+    }
+
 }
 ?>

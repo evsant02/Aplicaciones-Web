@@ -16,6 +16,7 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
         if ($app->isUserLogged()) {
             $user = $app->getUserDTO();
             echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
+            echo '<li><a href="vistaForoNoticias.php">Foro de Noticias</a></li>'; // Solo si está logueado se muestra el foro de noticias
         }
         
         // Menú desplegable para Dona

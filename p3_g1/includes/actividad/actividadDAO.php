@@ -356,6 +356,36 @@ class actividadDAO extends baseDAO implements IActividad
         } 
         return null;
     }
+
+    public function estaDirigida($id_actividad){
+        try {
+            $conn = application::getInstance()->getConexionBd();            
+            $query = "SELECT dirigida FROM actividades WHERE id = ?";
+            $stmt = $conn->prepare($query);
+    
+            // Se vincula el parámetro ID
+            $stmt->bind_param("i", $idActividad);
+    
+            // Se ejecuta la consulta
+            $stmt->execute();
+    
+            // Vincula la variable al resultado
+            $stmt->bind_result($dirigida);
+    
+            //sii se obtiene un resultado, se devuelve si está dirigida o no
+            if ($stmt->fetch()) {
+                return $dirigida == 1;
+            }
+    
+            // si no se encuentra 
+            return false;
+    
+        } finally {
+            if ($stmt) {
+                $stmt->close();
+            }
+        }
+    }
     
    
 }
