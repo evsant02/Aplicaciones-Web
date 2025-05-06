@@ -28,6 +28,7 @@ spl_autoload_register(function ($class) {
         'includes\\modificarActividad\\' => __DIR__ . '/modificarActividad/',
         'includes\\mostrarActividades\\' => __DIR__ . '/mostrarActividades/',
         'includes\\reservarActividad\\' => __DIR__ . '/reservarActividad/',
+        'includes\\actividadesFiltradas\\' => __DIR__ . '/actividadesFiltradas/',
         'includes\\excepciones\\' => __DIR__ . '/excepciones/',
         'includes\\donacion\\' => __DIR__ . '/donacion/'
     ];
@@ -77,7 +78,7 @@ function gestorExcepciones(\Throwable $exception)
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
 
     $tituloPagina = 'Error';
-    //var_dump($exception->getMessage());
+    var_dump($exception->getMessage());
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>

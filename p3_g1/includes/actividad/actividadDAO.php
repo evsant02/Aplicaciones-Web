@@ -340,6 +340,36 @@ class actividadDAO extends baseDAO implements IActividad
         return null;
     }
     
-   
-}
+    public function actividadesFecha($desde, $hasta) {
+        try {
+            $conn = application::getInstance()->getConexionBd();
+    
+            $inicio = date_create($desde)->format('Y-m-d H:i:s');
+            $final = date_create($hasta)->format('Y-m-d H:i:s');
+            
+            
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                      FROM actividades 
+                      WHERE fecha_hora > ? AND fecha_hora < ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('ss', $inicio, $final); // 'ss' porque ambos son strings (fechas)
+    
+            // Ejecuta la consulta
+            $stmt->execute();
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+    
+            $actividades = [];
+            while ($stmt->fetch()) {
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            }
+    
+            return $actividades;
+        } finally {
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+        }
+    }
+
+   }
 ?>
