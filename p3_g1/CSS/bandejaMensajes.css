@@ -1,0 +1,66 @@
+.bandeja-mensajes {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.mensaje-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-left: 5px solid #ccc;
+    border-radius: 5px;
+    padding: 12px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.2s ease;
+}
+
+.mensaje-card:hover {
+    background-color: #f9f9f9;
+}
+
+.mensaje-estado {
+    font-weight: bold;
+    font-size: 15px;
+    color: #444;
+    flex: 1;
+}
+
+.mensaje-nueva {
+    color: green;
+    border-left-color: green;
+}
+
+.mensaje-cancelada {
+    color: red;
+    border-left-color: red;
+}
+
+.actividad-info {
+    text-align: right;
+    flex: 2;
+}
+
+.actividad-titulo {
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+}
+
+.actividad-fecha {
+    font-size: 14px;
+    color: #666;
+}
+
+.sin-mensajes {
+    text-align: center;
+    color: #999;
+    margin-top: 40px;
+    font-size: 16px;
+}

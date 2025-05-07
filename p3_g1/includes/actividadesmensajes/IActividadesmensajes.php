@@ -19,7 +19,9 @@ interface IActividadesmensajes
      * @param string $id_usuario ID del usuario.
      * @return actividadesmensajesDTO[] Array de objetos DTO con los mensajes.
      */
-    public function obtenerMensajesPorUsuario($id_usuario);
+    
+
+    public function getMensajesPorUsuario($id_usuario);
 }
 
 ?>

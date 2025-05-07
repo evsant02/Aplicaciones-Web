@@ -6,6 +6,9 @@ namespace includes\actividadesmensajes;
 use includes\comun\baseDAO;
 use includes\application;
 
+
+
+
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
 {
@@ -15,7 +18,30 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
     }
 
     
-    
+    public function getMensajesPorUsuario($id_usuario) {
+        $escId = trim($this->realEscapeString($id_usuario));
+        $conn = application::getInstance()->getConexionBd();
+        $query = "SELECT id_actividad, mensaje FROM `actividades-mensajes` WHERE id_usuario = ?";
+        $stmt = $conn->prepare($query);
+        $mensajes = array();
+
+        try {
+            $stmt->bind_param("s", $escId);
+            $stmt->execute();
+            $stmt->bind_result($idActividad, $mensaje);
+
+            while ($stmt->fetch()) {
+                $mensajes[] = array(
+                    'id_actividad' => $idActividad,
+                    'mensaje' => $mensaje
+                );
+            }
+
+            return $mensajes;
+        } finally {
+            $stmt->close();
+        }
+    }
 
 }
 ?>
