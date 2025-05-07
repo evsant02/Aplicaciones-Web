@@ -9,17 +9,10 @@ class pagoRedsys {
         $app = application::getInstance();
         $app->putAtributoPeticion('donacion_cantidad', $cantidad);
 
-        // Datos para Redsys
-        $clave = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
-        $codigoComercio = '999008881';
-        $terminal = '01';
-        $moneda = '978';
-
+        //Datos no constantes para Redsys
         $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
         $path = dirname($_SERVER['SCRIPT_NAME']);
-        //$urlOK = 'http://localhost/AW/Aplicaciones-Web/p3_g1/OK.php';
-        //$urlKO = 'http://localhost/AW/Aplicaciones-Web/p3_g1/KO.php';
         $urlOK = "$protocolo://$host$path/OK.php";
         $urlKO = "$protocolo://$host$path/KO.php";
         $order = str_pad(date('mdHis'), 12, "0", STR_PAD_LEFT);
@@ -28,10 +21,10 @@ class pagoRedsys {
         $params = [
             'DS_MERCHANT_AMOUNT' => strval(intval($cantidad * 100)),
             'DS_MERCHANT_ORDER' => $order,
-            'DS_MERCHANT_MERCHANTCODE' => $codigoComercio,
-            'DS_MERCHANT_CURRENCY' => $moneda,
-            'DS_MERCHANT_TRANSACTIONTYPE' => '0',
-            'DS_MERCHANT_TERMINAL' => $terminal,
+            'DS_MERCHANT_MERCHANTCODE' => CODIGOCOMERCIO,
+            'DS_MERCHANT_CURRENCY' => MONEDA,
+            'DS_MERCHANT_TRANSACTIONTYPE' => TRANSACTION,
+            'DS_MERCHANT_TERMINAL' => TERMINAL,
             'DS_MERCHANT_URLOK' => $urlOK,
             'DS_MERCHANT_URLKO' => $urlKO,
             'DS_MERCHANT_MERCHANTURL' => $urlOK,
@@ -40,10 +33,12 @@ class pagoRedsys {
         $json = json_encode($params, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $base64Params = base64_encode($json);
 
-        $signature = self::generateKey($clave, $order, $base64Params);
+        $signature = self::generateKey(CLAVE, $order, $base64Params);
+
+        $url = URL;
 
         $form = <<<HTML
-            <form id="pagoRedsys" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST">
+            <form id="pagoRedsys" action=$url method="POST">
                 <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1">
                 <input type="hidden" name="Ds_MerchantParameters" value="$base64Params">
                 <input type="hidden" name="Ds_Signature" value="$signature">
