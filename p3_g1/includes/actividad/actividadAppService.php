@@ -218,16 +218,6 @@ class actividadAppService
         return $IActividadDAO->estaDirigida($id_actividad);
     }
 
-
-
-
-
-
-
-
-
-
-
     public function actividadesFecha($desde, $hasta){
         $IActividadDAO = actividadFactory::CreateActividad();
         // Se llama al método que busca la actividad por su ID
