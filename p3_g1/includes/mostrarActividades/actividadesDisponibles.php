@@ -23,14 +23,20 @@ class actividadesDisponibles
 
         $actividadAppService = actividadAppService::GetSingleton();
         //obtengo las actividades segun el tipo de usuario
-        $this->actividades = $actividadAppService->obtenerActividadSegunUsuario(); 
+        //$this->actividades = $actividadAppService->obtenerActividadSegunUsuario(); 
         $app = application::getInstance();
 
+        $limit = 9;
+        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        $offset = ($pagina - 1) * $limit;
+
+        $resultado = $actividadAppService->obtenerActividadSegunUsuario($limit, $offset);
+        $this->actividades = $resultado['actividades'];
+        $totalActividades = $resultado['total'];
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
-        $html = '<div class="tabla-actividades">'; // Changed from table to div
-        
+        $html = '<div class="tabla-actividades">'; 
         
         if($this->actividades == null) {
             $html =  '<p>¡Ya estas registrado a todas las actividades!</p> 
@@ -68,6 +74,32 @@ class actividadesDisponibles
         }
         
         $html .= '</div>'; // Close the flex container
+
+        $totalPaginas = ceil($totalActividades / $limit);
+
+        if ($totalPaginas > 1) {
+            $html .= '<div class="paginacion">';
+            
+            // Botón Anterior
+            if ($pagina > 1) {
+                $html .= '<a href="?pagina='.($pagina - 1).'" class="pagina-link">&laquo; Anterior</a>';
+            }
+            
+            // Números de página
+            for ($i = 1; $i <= $totalPaginas; $i++) {
+                if ($i == $pagina) {
+                    $html .= '<span class="pagina-actual">'.$i.'</span>';
+                } else {
+                    $html .= '<a href="?pagina='.$i.'" class="pagina-link">'.$i.'</a>';
+                }
+            }
+
+            if ($pagina < $totalPaginas) {
+                $html .= '<a href="?pagina='.($pagina + 1).'" class="pagina-link">Siguiente &raquo;</a>';
+            }
+    
+            $html .= '</div>';
+        }
         
         return $html;
     }

@@ -73,22 +73,22 @@ class actividadAppService
     }
 
     // Método para obtener todas las actividades almacenadas en la base de datos
-    public function obtenerTodasLasActividades()
+    public function obtenerTodasLasActividades($limit, $offset)
     {
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
         // Se llama al método de consulta
-        $actividades = $IActividadDAO->obtenerTodasLasActividades();
-        return $actividades;
+        $result = $IActividadDAO->obtenerTodasLasActividades($limit, $offset);
+        return $result;
     }
 
     //Método par obtener las actividades segun el tipo de usuario
-    public function obtenerActividadSegunUsuario(): array
+    public function obtenerActividadSegunUsuario($limit, $offset): array
     {
         //si es admin, se muestran todas las actividades
         if (application::getInstance()->soyAdmin()){            
-            $actividades= $this->obtenerTodasLasActividades();
-            return $actividades;
+            $result= $this->obtenerTodasLasActividades($limit, $offset);
+            return $result;
         }
 
         //si es voluntario, se muestran solo aquellas que no están dirigidas
@@ -96,8 +96,8 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $actividades = $IActividadDAO->obtenerActSinDirigir();           
-            return $actividades;
+            $result = $IActividadDAO->obtenerActSinDirigir($limit, $offset);           
+            return $result;
         }
 
         //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
@@ -105,8 +105,8 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $actividades = $IActividadDAO->obtenerActSinCompletar();
-            return $actividades;
+            $result = $IActividadDAO->obtenerActSinCompletar($limit, $offset);
+            return $result;
         }
 
     }
