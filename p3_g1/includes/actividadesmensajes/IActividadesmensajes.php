@@ -12,7 +12,7 @@ interface IActividadesmensajes
      * @param actividadesmensajesDTO $dto Objeto con los datos del mensaje.
      * @return bool True si se insertó correctamente, false en caso contrario.
      */
-    public function insertarMensaje($dto);
+    //public function insertarMensaje($dto);
 
     /**
      * Obtiene todos los mensajes dirigidos a un usuario específico.
@@ -22,6 +22,10 @@ interface IActividadesmensajes
     
 
     public function getMensajesPorUsuario($id_usuario);
+
+    public function eliminarMensaje($idUsuario, $idActividad);
+
+
 }
 
 ?>

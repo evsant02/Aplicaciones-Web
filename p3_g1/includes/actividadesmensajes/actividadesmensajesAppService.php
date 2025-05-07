@@ -40,6 +40,16 @@ class actividadesmensajesAppService
         return $actividad;
     }
 
+    public function eliminarMensaje($idUsuario, $idActividad){
+
+        $IActividadDAO = actividadesmensajesFactory::CreateActividad();
+
+        $IActividadDAO->eliminarMensaje($idUsuario,$idActividad);
+
+    }
+
+    
+
     public function mostrarMensajes($actividadDTO, $mensaje){
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
@@ -59,10 +69,20 @@ class actividadesmensajesAppService
         $html = '<div class="' . $clase . '">';
         $html .= '<div class="mensaje-estado">' . htmlspecialchars($texto) . '</div>';
         $html .= '<div class="actividad-info">';
-        $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->titulo()) . '</h3>';
+        $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->nombre()) . '</h3>';
         $html .= '<span class="actividad-fecha">' . date("d/m/Y H:i", strtotime($actividadDTO->fecha_hora())) . '</span>';
         $html .= '</div>';
+
+
+        $idActividad = intval($actividadDTO->id());
+        $idUsuario = intval($user->id());
+        
+        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '" class="btn-eliminar-link" title="Eliminar mensaje">';
+        $html .= '<button type="button" class="btn-eliminar">✖</button>';
+        $html .= '</a>';
+
         $html .= '</div>';
+
 
         return $html;
             

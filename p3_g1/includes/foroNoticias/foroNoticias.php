@@ -8,6 +8,7 @@ use includes\actividad\actividadAppService;
 
 class foroNoticias {
 
+
     private $mensajes;
 
     public function __construct() 
@@ -25,6 +26,8 @@ class foroNoticias {
         $MensajesUsuario = $MensajesUsuarioService->getMensajesPorUsuario($user->id());
         return $MensajesUsuario;   
     }
+
+
 
     public function generarMensajes()
     {

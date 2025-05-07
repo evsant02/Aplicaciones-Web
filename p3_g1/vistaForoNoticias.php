@@ -21,7 +21,7 @@ function mostrar(): string {
 <?php
 
 
-$tituloPagina = 'Mi perfil - Conecta65';
+$tituloPagina = 'Foro Noticias';
 $contenidoPrincipal = mostrar();
 require("includes/comun/plantilla.php");
 ?>
