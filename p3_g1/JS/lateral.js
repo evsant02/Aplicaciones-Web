@@ -5,15 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
       boton.addEventListener("click", () => {
         const inicio = document.getElementById("fechaInicio").value;
         const final = document.getElementById("fechaFinal").value;
-        const texto = document.getElementById("texto").value;
+        //const texto = document.getElementById("texto").value;
   
-        filtrarActividadesPorFecha(inicio, final, texto);
+        filtrarActividadesPorFecha(inicio, final, /*texto*/);
     });
   }
 });
 
   function filtrarActividadesPorFecha(inicio, final, texto) {
-    const params = new URLSearchParams({ inicio, final, texto }).toString();
+    const params = new URLSearchParams({ inicio, final /*texto*/ }).toString();
     const rutaPHP = 'includes/actividadesFiltradas/ajaxfiltro.php';
     fetch(rutaPHP+'?'+params)
       .then(response => response.text())
