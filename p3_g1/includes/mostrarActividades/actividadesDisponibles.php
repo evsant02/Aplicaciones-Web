@@ -16,9 +16,7 @@ class actividadesDisponibles
     {
         $this->actividades = null; 
     }
-
-     
-
+   
     public function Inicializacion(){
 
         $actividadAppService = actividadAppService::GetSingleton();
@@ -27,18 +25,26 @@ class actividadesDisponibles
         $app = application::getInstance();
 
         $limit = 9;
-        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        $pagina = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
         $offset = ($pagina - 1) * $limit;
 
         $resultado = $actividadAppService->obtenerActividadSegunUsuario($limit, $offset);
         $this->actividades = $resultado['actividades'];
         $totalActividades = $resultado['total'];
 
+        $html = $this->mostrarActividadesPag($app);
+
+        $html .= $this->paginacion($totalActividades, $limit, $pagina);
+        
+        return $html;
+    }
+
+    private function mostrarActividadesPag($app) {
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
         $html = '<div class="tabla-actividades">'; 
         
-        if($this->actividades == null) {
+        if ($this->actividades == null) {
             $html =  '<p>¡Ya estas registrado a todas las actividades!</p> 
             <div class="sin-actividades">
                 <div class="imagen-centrada">
@@ -46,6 +52,7 @@ class actividadesDisponibles
                 </div>
             </div>';
         }
+
         else {
             foreach ($this->actividades as $actividad) {       
                 $html .= '<div class="actividad-item">';
@@ -67,25 +74,25 @@ class actividadesDisponibles
         
                 $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
                 
-                $html .= '</div>';
-                // . $actividadAppService->mostrar($actividad) . '</div>';    
-                $html .= '</div>';
+                $html .= '</div>'; // actividad
+                $html .= '</div>'; // actividad-item
             }   
         }
         
-        $html .= '</div>'; // Close the flex container
+        $html .= '</div>'; // tabla-actividades
+        return $html;
+    }
 
+    private function paginacion($totalActividades, $limit, $pagina) {
         $totalPaginas = ceil($totalActividades / $limit);
 
         if ($totalPaginas > 1) {
-            $html .= '<div class="paginacion">';
+            $html = '<div class="paginacion">';
             
-            // Botón Anterior
             if ($pagina > 1) {
                 $html .= '<a href="?pagina='.($pagina - 1).'" class="pagina-link">&laquo; Anterior</a>';
             }
             
-            // Números de página
             for ($i = 1; $i <= $totalPaginas; $i++) {
                 if ($i == $pagina) {
                     $html .= '<span class="pagina-actual">'.$i.'</span>';
@@ -100,7 +107,9 @@ class actividadesDisponibles
     
             $html .= '</div>';
         }
-        
+        else {
+            return '';
+        }
         return $html;
     }
 }
