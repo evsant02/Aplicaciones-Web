@@ -1,6 +1,6 @@
 <?php
 
-namespace includes\actividadesusuario;
+namespace includes\actividadesmensajes;
 
 // Definición de la clase actividadesmensajesDTO para representar actividades-mensajes
 class actividadesmensajesDTO

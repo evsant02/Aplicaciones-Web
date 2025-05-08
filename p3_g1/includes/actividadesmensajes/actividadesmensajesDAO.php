@@ -70,7 +70,7 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
             //consulta sql
             $query = "INSERT INTO `actividades-mensajes` (id_actividad, id_usuario, mensaje) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("iis", $idActividad, $idUsuario, $tipoMensaje);
+            $stmt->bind_param("isi", $idActividad, $idUsuario, $tipoMensaje);
     
             //ejecuto la consulta sql
             if ($stmt->execute()) {

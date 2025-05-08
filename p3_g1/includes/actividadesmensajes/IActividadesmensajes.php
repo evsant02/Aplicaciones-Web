@@ -25,6 +25,8 @@ interface IActividadesmensajes
 
     public function eliminarMensaje($idUsuario, $idActividad);
 
+    public function crearMensaje($mensajeDTO);
+
 
 }
 

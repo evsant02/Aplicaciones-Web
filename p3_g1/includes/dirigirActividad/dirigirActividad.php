@@ -126,6 +126,8 @@ class dirigirActividad
             //envio mensajes a esos usuarios
             $mensajesAppService = actividadesmensajesAppService::GetSingleton();
             foreach ($usuariosApuntados as $idUsuario) {
+                //var_dump($idUsuario); //depuracion
+                //var_dump("Insertando mensaje para actividad {$this->actividad->id()} y usuario $idUsuario");
                 $dto = new actividadesmensajesDTO($this->actividad->id(), $idUsuario, 0);// 0 = tipo de mensaje de que un voluntario se ha dado de baja
                 $mensajesAppService->crearMensaje($dto); 
             }
