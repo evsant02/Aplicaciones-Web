@@ -43,6 +43,14 @@ define('BD_NAME', 'aw');        // Nombre de la base de datos
 define('BD_USER', 'AW');        // Usuario de la base de datos
 define('BD_PASS', 'Conecta65'); // Contraseña de la base de datos
 
+// Definir constantes para Redsys
+define('CLAVE', 'sq7HjrUOBfKmC576ILgskD5srU870gJ7');
+define('CODIGOCOMERCIO', '999008881');
+define('TERMINAL', '01');
+define('MONEDA', '978');
+define('TRANSACTION', '0');
+define('URL', 'https://sis-t.redsys.es:25443/sis/realizarPago');
+
 // Configuración del entorno
 ini_set('default_charset', 'UTF-8');  // Establece la codificación a UTF-8
 setLocale(LC_ALL, 'es_ES.UTF.8');     // Configura la localización en español

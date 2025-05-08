@@ -67,11 +67,5 @@ class actividadesusuarioAppService
         return $usuarios; //devuelve un array de los id_usuario que están apuntados a esa actividad
     }
 
-
-
-
-
-
-
 }
 ?>
