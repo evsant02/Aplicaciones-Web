@@ -102,6 +102,9 @@ class dirigirActividad
         $actividadAppService->annadirVoluntario($this->actividad->id());
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_voluntario);
 
+
+        //despues de todo esto se tiene que notificar a TODOS los usuarios
+
         $mensaje =  '<p>¡Ahora diriges esta actividad!</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
