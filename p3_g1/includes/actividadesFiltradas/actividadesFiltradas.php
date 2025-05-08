@@ -16,16 +16,15 @@ class actividadesFiltradas
     }
     public function filtrado(){
 
-        if (empty($_GET['inicio']) || empty($_GET['final']) /*|| empty($_GET['texto'])*/) {
-            return '<p>Seleccione un rango de fechas para filtrar o una palabra</p>';
+        if ((!empty($_GET['inicio']) && empty($_GET['final'])) ||(empty($_GET['inicio']) && !empty($_GET['final']) )) {
+            return '<p>Seleccione un rango completo de fechas para filtrar</p>';
         }
         $desde = $_GET['inicio'] ?? null;
         $hasta = $_GET['final'] ?? null;
         if($desde>$hasta){
             return '<p>La fecha de inicio no puede ser posterior a la de final del intervalo</p>';
         }
-        
-        $texto = $_GET['texto'] ?? '';
+        $texto = htmlspecialchars(trim($_GET['texto'] ?? ''), ENT_QUOTES, 'UTF-8');
         //terminar el filtrado
         $actividadAppService = actividadAppService::GetSingleton();
         $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta, $texto); 
@@ -34,7 +33,7 @@ class actividadesFiltradas
         
         $html='';
         if($this->actividades == null) {
-            $html =  '<p>¡No hay nada en esas fechas!</p> 
+            $html =  '<p>¡No se han encontrado actividades con esos parámetros!</p> 
             <div class="sin-actividades">
                 <div class="imagen-centrada">
                     <img src="img/logo.jpeg" alt="Logo de la organización" class="logo-actividades">

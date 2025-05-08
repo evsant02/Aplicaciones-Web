@@ -391,19 +391,36 @@ class actividadDAO extends baseDAO implements IActividad
         try {
             $conn = application::getInstance()->getConexionBd();
     
-            $inicio = date_create($desde)->format('Y-m-d H:i:s');
-            $final = date_create($hasta)->format('Y-m-d H:i:s');
+            if(empty($desde)&&empty($hasta)){
+                $inicio = null;
+                $final =null;
+            }
+            else{
+                $inicio = date_create($desde)->format('Y-m-d H:i:s');
+                $final = date_create($hasta)->format('Y-m-d H:i:s');
+            }
             $palabras = "%" . $texto . "%"; 
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+            if($inicio != null && $final != null){
+                $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
                       FROM actividades 
                       WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? AND (
                         nombre LIKE ? OR 
                         localizacion LIKE ? OR 
                         descripcion LIKE ?
                         ) ORDER BY fecha_hora ASC";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param('sssss', $inicio, $final, $palabras, $palabras, $palabras); // 'ss' porque ambos son strings (fechas)
-    
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('sssss', $inicio, $final, $palabras, $palabras, $palabras); // 'ss' porque ambos son strings (fechas)
+            }
+            else if ($palabras != null && ($inicio == null && $final == null)){
+                $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                      FROM actividades 
+                      WHERE (
+                        nombre LIKE ? OR 
+                        localizacion LIKE ? OR 
+                        descripcion LIKE ? )";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('sss',  $palabras, $palabras, $palabras); 
+            }
             // Ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
