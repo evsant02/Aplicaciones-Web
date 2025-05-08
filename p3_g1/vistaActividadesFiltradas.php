@@ -15,10 +15,9 @@ $app = Application::getInstance();
 
 // Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
 $mensaje = $app->getAtributoPeticion('mensaje');
+//crear la barra lateral
 $barraLateral = new barraLateral();
 
-// Crear una instancia de actividadesDisponibles y generar el listado
-//$actividadesFiltradas = new actividadesFiltradas();
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: text/html');
