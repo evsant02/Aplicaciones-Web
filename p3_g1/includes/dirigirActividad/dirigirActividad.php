@@ -3,12 +3,17 @@
 namespace includes\dirigirActividad;
 
 require_once("includes/config.php");
+
 //require_once( __DIR__ . "/../actividad/actividadAppService.php");
 //require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
+
 
 use includes\actividad\actividadAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
+use includes\actividadesmensajes\actividadesmensajesAppService;
+use includes\actividadesmensajes\actividadesmensajesDTO;
+
 class dirigirActividad 
 {
     private $actividad;
@@ -112,7 +117,7 @@ class dirigirActividad
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
 
-        //compruebo que la act esta dirigida
+        //compruebo que la act esta dirigida -> SIEMPRE VA A SALIR QUE SI??
         if ($actividadAppService->estaDirigida($this->actividad->id())) {
 
             //primero obtengo los usuarios de esa actividad antes de darles de baja
@@ -120,11 +125,11 @@ class dirigirActividad
 
             //envio mensajes a esos usuarios
             $mensajesAppService = actividadesmensajesAppService::GetSingleton();
-            foreach ($usuariosApuntados as $usuario) {
-                $mensajesAppService->crearMensaje($this->actividad->id(), $usuario->id(), 0); // 0 = tipo de mensaje de que un voluntario se ha dado de baja
+            foreach ($usuariosApuntados as $idUsuario) {
+                $dto = new actividadesmensajesDTO($this->actividad->id(), $idUsuario, 0);// 0 = tipo de mensaje de que un voluntario se ha dado de baja
+                $mensajesAppService->crearMensaje($dto); 
             }
         }
-
 
 
 

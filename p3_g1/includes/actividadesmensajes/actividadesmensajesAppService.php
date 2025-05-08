@@ -88,5 +88,16 @@ class actividadesmensajesAppService
             
     }
 
+    public function crearMensaje($mensajeDTO){
+        
+        $IActividadDAO = actividadesmensajesFactory::CreateActividad();
+        $createdMensaje = $IActividadDAO->crearMensaje($mensajeDTO);
+        return $createdMensaje;
+
+    }
+
+
+    
+
 }
 ?>

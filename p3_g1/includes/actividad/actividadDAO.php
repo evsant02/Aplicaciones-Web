@@ -364,7 +364,7 @@ class actividadDAO extends baseDAO implements IActividad
             $stmt = $conn->prepare($query);
     
             // Se vincula el parámetro ID
-            $stmt->bind_param("i", $idActividad);
+            $stmt->bind_param("i", $id_actividad);
     
             // Se ejecuta la consulta
             $stmt->execute();
