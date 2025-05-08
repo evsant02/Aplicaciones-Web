@@ -90,19 +90,19 @@ class actividadesDisponibles
             $html = '<div class="paginacion">';
             
             if ($pagina > 1) {
-                $html .= '<a href="?pagina='.($pagina - 1).'" class="pagina-link">&laquo; Anterior</a>';
+                $html .= '<a href="?pagina='.($pagina - 1).'" class="pagina-link">Anterior</a>';
             }
             
             for ($i = 1; $i <= $totalPaginas; $i++) {
                 if ($i == $pagina) {
                     $html .= '<span class="pagina-actual">'.$i.'</span>';
                 } else {
-                    $html .= '<a href="?pagina='.$i.'" class="pagina-link">'.$i.'</a>';
+                    $html .= '<a href="?pagina='.$i.'" class="otrapag-link">'.$i.'</a>';
                 }
             }
 
             if ($pagina < $totalPaginas) {
-                $html .= '<a href="?pagina='.($pagina + 1).'" class="pagina-link">Siguiente &raquo;</a>';
+                $html .= '<a href="?pagina='.($pagina + 1).'" class="pagina-link">Siguiente</a>';
             }
     
             $html .= '</div>';

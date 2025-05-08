@@ -78,8 +78,7 @@ class actividadAppService
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
         // Se llama al método de consulta
-        $result = $IActividadDAO->obtenerTodasLasActividades($limit, $offset);
-        return $result;
+        return $IActividadDAO->obtenerTodasLasActividades($limit, $offset);
     }
 
     //Método par obtener las actividades segun el tipo de usuario
@@ -87,8 +86,7 @@ class actividadAppService
     {
         //si es admin, se muestran todas las actividades
         if (application::getInstance()->soyAdmin()){            
-            $result= $this->obtenerTodasLasActividades($limit, $offset);
-            return $result;
+            return $this->obtenerTodasLasActividades($limit, $offset);
         }
 
         //si es voluntario, se muestran solo aquellas que no están dirigidas
@@ -96,8 +94,7 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $result = $IActividadDAO->obtenerActSinDirigir($limit, $offset);           
-            return $result;
+            return $IActividadDAO->obtenerActSinDirigir($limit, $offset);
         }
 
         //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
@@ -105,8 +102,7 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $result = $IActividadDAO->obtenerActSinCompletar($limit, $offset);
-            return $result;
+            return $IActividadDAO->obtenerActSinCompletar($limit, $offset);
         }
 
     }

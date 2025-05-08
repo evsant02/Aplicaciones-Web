@@ -189,7 +189,8 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Consulta SQL para obtener todas las actividades
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
-            FROM actividades LIMIT ? OFFSET ?";
+                FROM actividades 
+                LIMIT ? OFFSET ?";
             $stmt = $conn->prepare($query);
 
             $stmt->bind_param("ii", $limit, $offset);
@@ -306,6 +307,7 @@ class actividadDAO extends baseDAO implements IActividad
                             WHERE id_usuario = ?
                         )";
             $stmtTotal = $conn->prepare($queryTotal);
+            $stmtTotal->bind_param("i", $userId);
             $stmtTotal->execute();
             $stmtTotal->bind_result($totalActividades);
             $stmtTotal->fetch();
@@ -320,6 +322,9 @@ class actividadDAO extends baseDAO implements IActividad
             if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
+            /*if (isset($stmtTotal) && $stmtTotal) {
+                $stmtTotal->close();
+            }*/
         }
     }
 
