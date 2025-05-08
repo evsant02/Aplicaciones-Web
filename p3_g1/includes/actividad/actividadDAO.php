@@ -409,7 +409,7 @@ class actividadDAO extends baseDAO implements IActividad
                         descripcion LIKE ?
                         ) ORDER BY fecha_hora ASC";
                 $stmt = $conn->prepare($query);
-                $stmt->bind_param('sssss', $inicio, $final, $palabras, $palabras, $palabras); // 'ss' porque ambos son strings (fechas)
+                $stmt->bind_param('sssss', $inicio, $final, $palabras, $palabras, $palabras);
             }
             else if ($palabras != null && ($inicio == null && $final == null)){
                 $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
@@ -421,7 +421,6 @@ class actividadDAO extends baseDAO implements IActividad
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param('sss',  $palabras, $palabras, $palabras); 
             }
-            // Ejecuta la consulta
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
     
