@@ -27,6 +27,8 @@ interface IActividadesmensajes
 
     public function crearMensaje($mensajeDTO);
 
+    //public function notificarActividadDisponibleATodos($id_actividad);
+
 
 }
 

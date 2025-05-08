@@ -104,6 +104,10 @@ class dirigirActividad
 
 
         //despues de todo esto se tiene que notificar a TODOS los usuarios
+        //un metodo en usuariosDAO para obtener todos lo usuarios
+        $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+        $mensajesAppService->notificarActividadDisponibleATodos($this->actividad->id());
+        
 
         $mensaje =  '<p>¡Ahora diriges esta actividad!</p>';
         // Recargar la página

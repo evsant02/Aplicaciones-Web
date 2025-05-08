@@ -3,6 +3,7 @@
 namespace includes\actividadesmensajes;
 
 use includes\application;
+use includes\usuario\userAppService;
 
 // Se requiere el archivo que contiene la fábrica de actividades
 //require_once("actividadesusuarioFactory.php");
@@ -93,6 +94,19 @@ class actividadesmensajesAppService
         $IActividadDAO = actividadesmensajesFactory::CreateActividad();
         $createdMensaje = $IActividadDAO->crearMensaje($mensajeDTO);
         return $createdMensaje;
+
+    }
+
+    //metodo que va a notificar a todos los usuarios de la plataforma indicando que hay una nueva actividad disponible (un usuario se a apuntado a dirigirla)
+    public function notificarActividadDisponibleATodos($id_actividad){
+        //obtengo todos los usuarios
+        $usuarioAppService = userAppService::GetSingleton();
+        $usuarios = $usuarioAppService->getTodosLosUsuarios(); //metodo que me devuelve todos los id_usuario para poder mandarles la notificacion
+    
+        foreach ($usuarios as $id_usuario) {
+            $dto = new actividadesmensajesDTO($id_actividad, $id_usuario, 1);
+            $this->crearMensaje($dto); // tipo 1 = actividad disponible
+        }
 
     }
 

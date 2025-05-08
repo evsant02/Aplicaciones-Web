@@ -184,6 +184,29 @@ class userDAO extends baseDAO implements IUser
         }
     }
 
+    //me devuelve todos los usuarios
+    public function getTodosLosUsuarios(){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "SELECT id FROM usuarios";
+        $stmt = $conn->prepare($query);
+        $idsUsuarios = array();
+    
+        try {
+            $stmt->execute();
+            $stmt->bind_result($id);
+    
+            while ($stmt->fetch()) {
+                $idsUsuarios[] = $id; //solo guardo el id en el array
+            }
+        } finally {
+            $stmt->close();
+        }
+    
+        return $idsUsuarios;
+
+    }
+
+
 }
 
 ?>
