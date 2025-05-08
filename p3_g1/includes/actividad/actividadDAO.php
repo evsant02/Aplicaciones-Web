@@ -387,19 +387,22 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
     
-    public function actividadesFecha($desde, $hasta) {
+    public function actividadesFecha($desde, $hasta, $texto) {
         try {
             $conn = application::getInstance()->getConexionBd();
     
             $inicio = date_create($desde)->format('Y-m-d H:i:s');
             $final = date_create($hasta)->format('Y-m-d H:i:s');
-            
-            
+            $palabras = "%" . $texto . "%"; 
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
                       FROM actividades 
-                      WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? ORDER BY fecha_hora ASC";
+                      WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? AND (
+                        nombre LIKE ? OR 
+                        localizacion LIKE ? OR 
+                        descripcion LIKE ?
+                        ) ORDER BY fecha_hora ASC";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param('ss', $inicio, $final); // 'ss' porque ambos son strings (fechas)
+            $stmt->bind_param('sssss', $inicio, $final, $palabras, $palabras, $palabras); // 'ss' porque ambos son strings (fechas)
     
             // Ejecuta la consulta
             $stmt->execute();

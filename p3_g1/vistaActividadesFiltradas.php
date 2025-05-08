@@ -18,7 +18,7 @@ $mensaje = $app->getAtributoPeticion('mensaje');
 $barraLateral = new barraLateral();
 
 // Crear una instancia de actividadesDisponibles y generar el listado
-$actividadesFiltradas = new actividadesFiltradas();
+//$actividadesFiltradas = new actividadesFiltradas();
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: text/html');
@@ -39,7 +39,6 @@ $contenidoPrincipal = <<<EOS
         <h1>Actividades filtradas</h1>
         
         <div id="resultadoActividades">
-        {$actividadesFiltradas->filtrado()}
         </div>
     </main>
 </div>

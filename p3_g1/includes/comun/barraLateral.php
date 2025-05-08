@@ -15,8 +15,8 @@ class barraLateral
         echo '<input type="date" id="fechaInicio" name="fechaInicio"><br><br>';
         echo '<label for="fechaFinal">Hasta:</label><br>';
         echo '<input type="date" id="fechaFinal" name="fechaFinal"><br><br>';
-        //echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
-        //echo '<input type="text" id="texto" name ="texto"<br><br>';
+        echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
+        echo '<input type="text" id="texto" name ="texto"<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';
         echo '</div>';
