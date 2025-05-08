@@ -17,7 +17,7 @@ $app = Application::getInstance();
 $mensaje = $app->getAtributoPeticion('mensaje');
 
 // Crear una instancia de actividadesDisponibles y generar el listado
-$foroNoticias = new foroNoticias();
+$foroNoticias = new foroNoticias(); //error id_usuario
 //CAMBIAR REVISAR
 $htmlListado = $foroNoticias->inicializar(); 
 
