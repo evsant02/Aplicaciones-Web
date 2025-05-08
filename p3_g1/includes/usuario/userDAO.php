@@ -187,7 +187,7 @@ class userDAO extends baseDAO implements IUser
     //me devuelve todos los usuarios
     public function getTodosLosUsuarios(){
         $conn = application::getInstance()->getConexionBd();
-        $query = "SELECT id FROM usuarios";
+        $query = "SELECT id FROM usuarios WHERE tipo = 1"; //solo los que sean usuarios (no voluntarios y no admin)
         $stmt = $conn->prepare($query);
         $idsUsuarios = array();
     

@@ -140,7 +140,10 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
     public function obtenerUsuariosInscritos($id_actividad){ //me devuleve los id de los usuarios inscritos para esa actividad
         //$escId = trim($this->realEscapeString($id_actividad));
         $conn = application::getInstance()->getConexionBd();
-        $query = "SELECT id_usuario FROM `actividades-usuario` WHERE id_actividad = ?";
+
+        //JOIN con la tabla de usuarios y se filtra por tipo = 1
+        //solo los que sean usuarios (no voluntarios y no admin)
+        $query = "SELECT au.id_usuario FROM `actividades-usuario` au JOIN usuarios u ON au.id_usuario = u.id WHERE au.id_actividad = ? AND u.tipo = 1";
         $stmt = $conn->prepare($query);
         $usuarios = array();
     
