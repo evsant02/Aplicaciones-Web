@@ -589,3 +589,18 @@ hr {
     padding: 0;
     margin: 0;
 }
+
+/*PARA EL ICONO DEL FORO DE NOTIFICACIONES*/
+.icono-foro {
+    font-size: 22px;
+    text-decoration: none;
+    color: #555;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.icono-foro:hover {
+    background-color: #f0f0f0;
+    color: #0d6f98;
+}
