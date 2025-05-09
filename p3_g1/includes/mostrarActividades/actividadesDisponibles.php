@@ -73,6 +73,11 @@ class actividadesDisponibles
                 $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; 
         
                 $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
+
+                if ($app->soyAdmin()){
+                    $html .= '<a href="ModificarActividad.php?id=' . $actividad->id() . '"><button type="button">Modificar</button>
+                    </a> &ensp; <a href="EliminarActividad.php?id=' . $actividad->id() . '"><button type="button">Eliminar</button></a>';
+                }
                 
                 $html .= '</div>'; // actividad
                 $html .= '</div>'; // actividad-item
