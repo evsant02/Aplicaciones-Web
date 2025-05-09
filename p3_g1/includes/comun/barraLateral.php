@@ -18,10 +18,10 @@ class barraLateral
         echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
         echo '<input type="text" id="texto" name ="texto"><br><br>';
         echo '<label>Categorías:</label><br>';
-        $categorias = ['salud' => 'Música', 'cultura' => 'Cultura', 'tecnologia' => 'Tecnología', 'deporte' => 'Deporte'];
-        foreach ($categorias as $clave => $nombre) {
-            echo '<button type="button" class="btnCategoria" data-categoria="' . $clave . '">' . $nombre . '</button> ';
-        }
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="deporte">Deporte</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="arte">Arte</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="musica">Música</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="tecnologia">Tecnología</label>';
         echo '<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';
@@ -30,3 +30,24 @@ class barraLateral
         return ob_get_clean(); // Devolver el contenido del buffer
     }
 }
+?>
+<style>
+  .filtro-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .filtro-btn:checked {
+    background-color: #007BFF;
+    color: white;
+    border-color: #0056b3;
+  }
+</style>
