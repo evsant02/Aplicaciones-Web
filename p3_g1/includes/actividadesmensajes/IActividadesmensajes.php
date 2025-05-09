@@ -23,7 +23,13 @@ interface IActividadesmensajes
 
     public function getMensajesPorUsuario($id_usuario);
 
-    public function eliminarMensaje($idUsuario, $idActividad);
+    public function eliminarMensaje($idUsuario, $idActividad, $idMensaje);
+
+    public function crearMensaje($mensajeDTO);
+
+    //public function notificarActividadDisponibleATodos($id_actividad);
+
+    public function tieneMensajes($id_usuario);
 
 
 }

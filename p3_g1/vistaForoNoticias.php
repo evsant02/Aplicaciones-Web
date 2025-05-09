@@ -4,12 +4,12 @@
 require_once("includes/config.php");
 
 use includes\application;
-use includes\foroNoticias\foroNoticias;
+use includes\foroNotificaciones\foroNotificaciones;
 
 function mostrar(): string {
     
 
-    $MensajesForo = new foroNoticias();
+    $MensajesForo = new foroNotificaciones();
     $htmlListado =  $MensajesForo->generarMensajes();
         
 
@@ -21,7 +21,7 @@ function mostrar(): string {
 <?php
 
 
-$tituloPagina = 'Foro Noticias';
+$tituloPagina = 'Notificaciones';
 $contenidoPrincipal = mostrar();
 require("includes/comun/plantilla.php");
 ?>

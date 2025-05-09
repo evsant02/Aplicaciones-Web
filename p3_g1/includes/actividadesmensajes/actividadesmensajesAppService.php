@@ -3,6 +3,8 @@
 namespace includes\actividadesmensajes;
 
 use includes\application;
+use includes\usuario\userAppService;
+use includes\actividadesusuario\actividadesusuarioAppService;
 
 // Se requiere el archivo que contiene la fábrica de actividades
 //require_once("actividadesusuarioFactory.php");
@@ -40,26 +42,22 @@ class actividadesmensajesAppService
         return $actividad;
     }
 
-    public function eliminarMensaje($idUsuario, $idActividad){
+    public function eliminarMensaje($idUsuario, $idActividad, $idMensaje){
 
         $IActividadDAO = actividadesmensajesFactory::CreateActividad();
 
-        $IActividadDAO->eliminarMensaje($idUsuario,$idActividad);
+        $IActividadDAO->eliminarMensaje($idUsuario,$idActividad, $idMensaje);
 
-    }
+    }    
 
-    
-
-    public function mostrarMensajes($actividadDTO, $mensaje){
+    /* public function mostrarMensajes($actividadDTO, $mensaje){
         $user = application::getInstance()->getUserDTO();
-        $app = application::getInstance();
-
   
         if ($mensaje == 1) {
             $texto = '¡Nueva actividad disponible!';
             $clase = 'mensaje-card mensaje-nueva';
         } elseif ($mensaje == 0) {
-            $texto = 'Actividad cancelada.';
+            $texto = 'Actividad cancelada';
             $clase = 'mensaje-card mensaje-cancelada';
         } else {
             $texto = 'Mensaje desconocido.';
@@ -75,10 +73,15 @@ class actividadesmensajesAppService
 
 
         $idActividad = intval($actividadDTO->id());
-        $idUsuario = intval($user->id());
+        $idUsuario = $user->id();
         
-        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '" class="btn-eliminar-link" title="Eliminar mensaje">';
+        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
         $html .= '<button type="button" class="btn-eliminar">✖</button>';
+        $html .= '</a>';
+
+        if ($mensaje == 1) $html .= '<a href="vistaReservaActividad.php?id=' . $idActividad . '" class="btn-eliminar-link" title="Ir a la actividad">';
+        else $html .= '<a href="vistaActividades.php?id= " class="btn-eliminar-link" title="Buscar otra actividad">';
+        $html .= '<button type="button" class="btn-act">➜</button>';
         $html .= '</a>';
 
         $html .= '</div>';
@@ -86,7 +89,51 @@ class actividadesmensajesAppService
 
         return $html;
             
+    } */
+
+    public function crearMensaje($mensajeDTO){
+        
+        $IActividadDAO = actividadesmensajesFactory::CreateActividad();
+        $createdMensaje = $IActividadDAO->crearMensaje($mensajeDTO);
+        return $createdMensaje;
+
     }
+
+    //metodo que va a notificar a todos los usuarios de la plataforma indicando que hay una nueva actividad disponible (un usuario se a apuntado a dirigirla)
+    public function notificarActividadDisponibleATodos($id_actividad){
+        //obtengo todos los usuarios
+        $usuarioAppService = userAppService::GetSingleton();
+        $usuarios = $usuarioAppService->getTodosLosUsuarios(); //metodo que me devuelve todos los id_usuario para poder mandarles la notificacion
+    
+        foreach ($usuarios as $id_usuario) {
+            $dto = new actividadesmensajesDTO($id_actividad, $id_usuario, 1);
+            $this->crearMensaje($dto); // tipo 1 = actividad disponible
+        }
+
+    }
+
+    public function notificarBajaVoluntario($id_actividad){
+        //primero obtengo los usuarios de esa actividad antes de darles de baja
+        $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
+        $usuariosApuntados = $actividadUsuarioAppService->obtenerUsuariosInscritos($id_actividad); //me devuelve los usuarios de una actividad
+
+        //envio mensajes a esos usuarios
+        $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+        foreach ($usuariosApuntados as $idUsuario) {
+            $dto = new actividadesmensajesDTO($id_actividad, $idUsuario, 0);// 0 = tipo de mensaje de que un voluntario se ha dado de baja
+            $mensajesAppService->crearMensaje($dto); 
+        }
+    }
+
+    public function tieneMensajesNuevos($id_usuario) {
+        $IActividadDAO = actividadesmensajesFactory::CreateActividad();
+        $mensajes = $IActividadDAO->tieneMensajes($id_usuario);
+        return $mensajes;
+    }
+
+
+
+    
 
 }
 ?>

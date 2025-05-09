@@ -3,12 +3,17 @@
 namespace includes\dirigirActividad;
 
 require_once("includes/config.php");
+
 //require_once( __DIR__ . "/../actividad/actividadAppService.php");
 //require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
+
 
 use includes\actividad\actividadAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
+use includes\actividadesmensajes\actividadesmensajesAppService;
+use includes\actividadesmensajes\actividadesmensajesDTO;
+
 class dirigirActividad 
 {
     private $actividad;
@@ -97,6 +102,13 @@ class dirigirActividad
         $actividadAppService->annadirVoluntario($this->actividad->id());
         $actividadUsuarioAppService->apuntarUsuario($this->actividad->id(), $id_voluntario);
 
+
+        //despues de todo esto se tiene que notificar a TODOS los usuarios
+        //un metodo en usuariosDAO para obtener todos lo usuarios
+        $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+        $mensajesAppService->notificarActividadDisponibleATodos($this->actividad->id());
+        
+
         $mensaje =  '<p>¡Ahora diriges esta actividad!</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
@@ -112,19 +124,13 @@ class dirigirActividad
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
 
-        //compruebo que la act esta dirigida
+        //compruebo que la act esta dirigida 
         if ($actividadAppService->estaDirigida($this->actividad->id())) {
 
-            //primero obtengo los usuarios de esa actividad antes de darles de baja
-            $usuariosApuntados = $actividadUsuarioAppService->obtenerUsuariosInscritos($this->actividad->id());
-
-            //envio mensajes a esos usuarios
             $mensajesAppService = actividadesmensajesAppService::GetSingleton();
-            foreach ($usuariosApuntados as $usuario) {
-                $mensajesAppService->crearMensaje($this->actividad->id(), $usuario->id(), 0); // 0 = tipo de mensaje de que un voluntario se ha dado de baja
-            }
-        }
+            $mensajesAppService->notificarBajaVoluntario($this->actividad->id());
 
+        }
 
 
 

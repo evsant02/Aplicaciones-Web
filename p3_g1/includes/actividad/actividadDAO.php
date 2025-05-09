@@ -182,14 +182,18 @@ class actividadDAO extends baseDAO implements IActividad
     }
 
     // Método para obtener todas las actividades almacenadas en la base de datos
-    public function obtenerTodasLasActividades()
+    public function obtenerTodasLasActividades($limit, $offset)
     {
         try {
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener todas las actividades
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades";
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+                FROM actividades 
+                LIMIT ? OFFSET ?";
             $stmt = $conn->prepare($query);
+
+            $stmt->bind_param("ii", $limit, $offset);
 
             // Se ejecuta la consulta
             $stmt->execute();
@@ -200,7 +204,17 @@ class actividadDAO extends baseDAO implements IActividad
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
 
-            return $actividades;
+            $queryTotal = "SELECT COUNT(*) as total FROM actividades";
+            $stmtTotal = $conn->prepare($queryTotal);
+            $stmtTotal->execute();
+            $stmtTotal->bind_result($totalActividades);
+            $stmtTotal->fetch();
+            $stmtTotal->close();
+            
+            return [
+                'actividades' => $actividades,
+                'total' => $totalActividades
+            ];
 
         } finally {
             if ($stmt) {
@@ -211,16 +225,19 @@ class actividadDAO extends baseDAO implements IActividad
 
 
     //Método para obtener actividades que todavia no están dirigidas por un usuario
-    public function obtenerActSinDirigir() {
+    public function obtenerActSinDirigir($limit, $offset) {
         try {
             $conn = application::getInstance()->getConexionBd();
     
             // Consulta modificada: solo actividades no dirigidas y futuras
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
                       FROM actividades 
-                      WHERE dirigida = 0 AND fecha_hora > NOW()";
+                      WHERE dirigida = 0 AND fecha_hora > NOW()
+                      LIMIT ? OFFSET ?";
                       
             $stmt = $conn->prepare($query);
+
+            $stmt->bind_param("ii", $limit, $offset);
     
             // Se ejecuta la consulta
             $stmt->execute();
@@ -231,7 +248,17 @@ class actividadDAO extends baseDAO implements IActividad
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
     
-            return $actividades;
+            $queryTotal = "SELECT COUNT(*) as total FROM actividades WHERE dirigida = 0 AND fecha_hora > NOW()";
+            $stmtTotal = $conn->prepare($queryTotal);
+            $stmtTotal->execute();
+            $stmtTotal->bind_result($totalActividades);
+            $stmtTotal->fetch();
+            $stmtTotal->close();
+            
+            return [
+                'actividades' => $actividades,
+                'total' => $totalActividades
+            ];
     
         } finally {
             if (isset($stmt) && $stmt) {
@@ -240,10 +267,10 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
 
-    public function obtenerActSinCompletar() {
+    public function obtenerActSinCompletar($limit, $offset) {
         try {
             $conn = application::getInstance()->getConexionBd();
-            $user = application::getInstance()->getUserDTO()->id();
+            $userId = application::getInstance()->getUserDTO()->id();
     
             // Añade filtro de fecha futura
             $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
@@ -255,10 +282,11 @@ class actividadDAO extends baseDAO implements IActividad
                             SELECT id_actividad 
                             FROM `actividades-usuario` 
                             WHERE id_usuario = ?
-                        )";
+                        )
+                      LIMIT ? OFFSET ?";
     
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("s", $user); // Se pasa el parámetro de forma segura
+            $stmt->bind_param("sii", $userId, $limit, $offset); // Se pasa el parámetro de forma segura
     
             // Ejecutar la consulta
             $stmt->execute();
@@ -269,12 +297,34 @@ class actividadDAO extends baseDAO implements IActividad
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
     
-            return $actividades;
+            $queryTotal = "SELECT COUNT(*) as total FROM actividades 
+                      WHERE dirigida = 1 
+                        AND aforo - ocupacion > 0 
+                        AND fecha_hora > NOW()
+                        AND id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?
+                        )";
+            $stmtTotal = $conn->prepare($queryTotal);
+            $stmtTotal->bind_param("i", $userId);
+            $stmtTotal->execute();
+            $stmtTotal->bind_result($totalActividades);
+            $stmtTotal->fetch();
+            $stmtTotal->close();
+            
+            return [
+                'actividades' => $actividades,
+                'total' => $totalActividades
+            ];
     
         } finally {
             if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
+            /*if (isset($stmtTotal) && $stmtTotal) {
+                $stmtTotal->close();
+            }*/
         }
     }
 
@@ -364,7 +414,7 @@ class actividadDAO extends baseDAO implements IActividad
             $stmt = $conn->prepare($query);
     
             // Se vincula el parámetro ID
-            $stmt->bind_param("i", $idActividad);
+            $stmt->bind_param("i", $id_actividad);
     
             // Se ejecuta la consulta
             $stmt->execute();
