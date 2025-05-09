@@ -46,8 +46,8 @@ class foroNotificaciones {
         $mensajesInvertidos = array_reverse($this->mensajes);
 
         foreach ($mensajesInvertidos as $mensajeData) {
-            $idActividad = $mensajeData->id_actividad();
-            $mensaje = $mensajeData->mensaje();
+            $idActividad = $mensajeData['id_actividad'];
+            $mensaje = $mensajeData['mensaje'];
             $user = application::getInstance()->getUserDTO();
 
             $actividadDTO = $actividadAppService->getActividadById($idActividad);
