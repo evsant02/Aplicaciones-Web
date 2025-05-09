@@ -242,12 +242,6 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `fecha_nacimiento`, `tipo`,
 ALTER TABLE `actividades`
   ADD PRIMARY KEY (`id`);
 
---
--- Indices de la tabla `actividades-mensajes`
---
-ALTER TABLE `actividades-mensajes`
-  ADD PRIMARY KEY (`id_actividad`,`id_usuario`),
-  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `actividades-usuario`
