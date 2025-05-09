@@ -591,16 +591,36 @@ hr {
 }
 
 /*PARA EL ICONO DEL FORO DE NOTIFICACIONES*/
+
+/* Ajustes para los enlaces de usuario (derecha) */
+.user-links ul {
+    display: flex;
+    align-items: center; /* Esto alineará verticalmente todos los elementos */
+    gap: 1.5rem;
+}
+
+/* Estilo específico para el icono del foro */
 .icono-foro {
     font-size: 22px;
     text-decoration: none;
     color: #555;
-    padding: 6px 10px;
+    padding: 0; /* Cambiado de 6px 10px a 0 para mejor alineación */
     border-radius: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
 }
 
 .icono-foro:hover {
     background-color: #f0f0f0;
     color: #0d6f98;
+}
+
+/* Asegurar que todos los elementos de lista en user-links tengan la misma alineación */
+.user-links li {
+    display: flex;
+    align-items: center;
 }
