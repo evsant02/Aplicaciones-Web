@@ -30,69 +30,63 @@ class foroNotificaciones {
 
 
     public function generarMensajes()
-    {
-        echo '<link rel="stylesheet" type="text/css" href="CSS/bandejaMensajes.css">';  
+{
+    echo '<link rel="stylesheet" type="text/css" href="CSS/bandejaMensajes.css">';  
 
-        if (empty($this->mensajes)) {
-            return '<p class="sin-mensajes">No tienes ningún mensaje</p>';
-        }
-
-        $html = '<div class="bandeja-mensajes">';
-
-        $actividadesmensajesAppService = actividadesmensajesAppService::GetSingleton();
-        $actividadAppService = actividadAppService::GetSingleton();
-
-        // Invertir el orden del array de mensajes
-        $mensajesInvertidos = array_reverse($this->mensajes);
-
-        foreach ($mensajesInvertidos as $mensajeData) {
-            $idActividad = $mensajeData['id_actividad'];
-            $mensaje = $mensajeData['mensaje'];
-            $user = application::getInstance()->getUserDTO();
-
-            $actividadDTO = $actividadAppService->getActividadById($idActividad);
-
-            if ($actividadDTO && $actividadDTO->fecha_hora() > date("Y-m-d H:i:s")) {
-                // $html .= $actividadesmensajesAppService->mostrarMensajes($actividadDTO, $mensaje);
-                        
-                if ($mensaje == 1) {
-                    $texto = '¡Nueva actividad disponible!';
-                    $clase = 'mensaje-card mensaje-nueva';
-                } elseif ($mensaje == 0) {
-                    $texto = 'Actividad cancelada';
-                    $clase = 'mensaje-card mensaje-cancelada';
-                } else {
-                    $texto = 'Mensaje desconocido.';
-                    $clase = 'mensaje-card';
-                }
-
-                $html = '<div class="' . $clase . '">';
-                $html .= '<div class="mensaje-estado">' . htmlspecialchars($texto) . '</div>';
-                $html .= '<div class="actividad-info">';
-                $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->nombre()) . '</h3>';
-                $html .= '<span class="actividad-fecha">' . date("d/m/Y H:i", strtotime($actividadDTO->fecha_hora())) . '</span>';
-                $html .= '</div>';
-
-
-                $idActividad = intval($actividadDTO->id());
-                $idUsuario = $user->id();
-                
-                $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
-                $html .= '<button type="button" class="btn-eliminar">✖</button>';
-                $html .= '</a>';
-
-                if ($mensaje == 1) $html .= '<a href="vistaReservaActividad.php?id=' . $idActividad . '" class="btn-eliminar-link" title="Ir a la actividad">';
-                else $html .= '<a href="vistaActividades.php?id= " class="btn-eliminar-link" title="Buscar otra actividad">';
-                $html .= '<button type="button" class="btn-act">➜</button>';
-                $html .= '</a>';
-
-                $html .= '</div>';
-            }
-        }
-
-        $html .= '</div>';
-        return $html;
+    if (empty($this->mensajes)) {
+        return '<p class="sin-mensajes">No tienes ningún mensaje</p>';
     }
+
+    $html = '<div class="bandeja-mensajes">';
+
+    $actividadAppService = actividadAppService::GetSingleton();
+    $user = application::getInstance()->getUserDTO();
+
+    // Invertir el orden para mostrar el más reciente primero
+    $mensajesInvertidos = array_reverse($this->mensajes);
+
+    foreach ($mensajesInvertidos as $mensajeData) {
+        $idActividad = $mensajeData['id_actividad'];
+        $mensaje = $mensajeData['mensaje'];
+
+        $actividadDTO = $actividadAppService->getActividadById($idActividad);
+
+        // Eliminamos la condición de fecha para mostrar todos los mensajes
+        if ($actividadDTO) {
+            if ($mensaje == 1) {
+                $texto = '¡Nueva actividad disponible!';
+                $clase = 'mensaje-card mensaje-nueva';
+            } elseif ($mensaje == 0) {
+                $texto = 'Actividad cancelada';
+                $clase = 'mensaje-card mensaje-cancelada';
+            } else {
+                $texto = 'Mensaje del sistema';
+                $clase = 'mensaje-card';
+            }
+
+            // **USAMOS .= PARA CONCATENAR TODOS LOS MENSAJES**
+            $html .= '<div class="' . $clase . '">';
+            $html .= '<div class="mensaje-estado">' . htmlspecialchars($texto) . '</div>';
+            $html .= '<div class="actividad-info">';
+            $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->nombre()) . '</h3>';
+            $html .= '<span class="actividad-fecha">' . date("d/m/Y H:i", strtotime($actividadDTO->fecha_hora())) . '</span>';
+            $html .= '</div>';
+
+            $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $user->id() . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
+            $html .= '<button type="button" class="btn-eliminar">✖</button>';
+            $html .= '</a>';
+
+            $html .= '<a href="' . ($mensaje == 1 ? 'vistaReservaActividad.php?id=' . $idActividad : 'vistaActividades.php') . '" class="btn-eliminar-link" title="' . ($mensaje == 1 ? 'Ir a la actividad' : 'Buscar otra actividad') . '">';
+            $html .= '<button type="button" class="btn-act">➜</button>';
+            $html .= '</a>';
+
+            $html .= '</div>'; // Cierre de mensaje-card
+        }
+    }
+
+    $html .= '</div>'; // Cierre de bandeja-mensajes
+    return $html;
+}
 
 
 }
