@@ -286,7 +286,7 @@ class actividadDAO extends baseDAO implements IActividad
                       LIMIT ? OFFSET ?";
     
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("iii", $userId, $limit, $offset); // Se pasa el parámetro de forma segura
+            $stmt->bind_param("sii", $userId, $limit, $offset); // Se pasa el parámetro de forma segura
     
             // Ejecutar la consulta
             $stmt->execute();
