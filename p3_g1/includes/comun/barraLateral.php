@@ -16,7 +16,13 @@ class barraLateral
         echo '<label for="fechaFinal">Hasta:</label><br>';
         echo '<input type="date" id="fechaFinal" name="fechaFinal"><br><br>';
         echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
-        echo '<input type="text" id="texto" name ="texto"<br><br>';
+        echo '<input type="text" id="texto" name ="texto"><br><br>';
+        echo '<label>Categorías:</label><br>';
+        $categorias = ['salud' => 'Música', 'cultura' => 'Cultura', 'tecnologia' => 'Tecnología', 'deporte' => 'Deporte'];
+        foreach ($categorias as $clave => $nombre) {
+            echo '<button type="button" class="btnCategoria" data-categoria="' . $clave . '">' . $nombre . '</button> ';
+        }
+        echo '<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';
         echo '</div>';
