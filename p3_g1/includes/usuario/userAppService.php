@@ -71,6 +71,17 @@ class userAppService
         return $idUserDTO;
     }
 
+
+
+
+    //método que me devuelve todos los usuarios
+    public function getTodosLosUsuarios(){
+        $IUserDAO = userFactory::CreateUser();
+        $usuarios = $IUserDAO->getTodosLosUsuarios();
+        return $usuarios;
+
+    }
+
 }
 
 ?>

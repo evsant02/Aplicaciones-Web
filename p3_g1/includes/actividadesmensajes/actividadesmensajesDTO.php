@@ -1,6 +1,6 @@
 <?php
 
-namespace includes\actividadesusuario;
+namespace includes\actividadesmensajes;
 
 // Definición de la clase actividadesmensajesDTO para representar actividades-mensajes
 class actividadesmensajesDTO
@@ -12,10 +12,10 @@ class actividadesmensajesDTO
     
 
     // Constructor para inicializar una actividad con sus datos
-    public function __construct($id_usuario, $id_actividad, $mensaje)
+    public function __construct($id_actividad, $id_usuario, $mensaje)
     {
-        $this->id_usuario = $id_usuario;
         $this->id_actividad = $id_actividad;
+        $this->id_usuario = $id_usuario;        
         $this->mensaje = $mensaje;
         
     }

@@ -12,14 +12,26 @@ interface IActividadesmensajes
      * @param actividadesmensajesDTO $dto Objeto con los datos del mensaje.
      * @return bool True si se insertó correctamente, false en caso contrario.
      */
-    public function insertarMensaje($dto);
+    //public function insertarMensaje($dto);
 
     /**
      * Obtiene todos los mensajes dirigidos a un usuario específico.
      * @param string $id_usuario ID del usuario.
      * @return actividadesmensajesDTO[] Array de objetos DTO con los mensajes.
      */
-    public function obtenerMensajesPorUsuario($id_usuario);
+    
+
+    public function getMensajesPorUsuario($id_usuario);
+
+    public function eliminarMensaje($idUsuario, $idActividad, $idMensaje);
+
+    public function crearMensaje($mensajeDTO);
+
+    //public function notificarActividadDisponibleATodos($id_actividad);
+
+    public function tieneMensajes($id_usuario);
+
+
 }
 
 ?>

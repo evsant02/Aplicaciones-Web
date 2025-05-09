@@ -10,7 +10,7 @@ $miembros = [
         'nombre' => 'Umaima',
         'apellidos' => 'Chaoui Benmousa',
         'email' => 'uchaoui@ucm.es',
-        'Intereses' => 'Intereses: El fútbol, las motos de agua, viajar y pasar tiempo con mis amigos.',
+        'Intereses' => 'Intereses: El fútbol, las motos de agua, viajar y pasar tiempo con sus amigos.',
         'foto' => 'img/umaima.jpg'
     ],
     [
@@ -18,7 +18,7 @@ $miembros = [
         'nombre' => 'Eva',
         'apellidos' => 'Santos Sánchez',
         'email' => 'evsant02@ucm.es',
-        'Intereses' => 'Intereses: Los deportes de riesgo, los videojuegos y viajar al rededor del mundo.',
+        'Intereses' => 'Intereses: Los deportes de riesgo, los videojuegos y viajar alrededor del mundo.',
         'foto' => 'img/eva.jpg'
     ],
     [

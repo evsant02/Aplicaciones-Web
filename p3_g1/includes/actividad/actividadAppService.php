@@ -73,22 +73,20 @@ class actividadAppService
     }
 
     // Método para obtener todas las actividades almacenadas en la base de datos
-    public function obtenerTodasLasActividades()
+    public function obtenerTodasLasActividades($limit, $offset)
     {
         // Se obtiene una instancia del DAO
         $IActividadDAO = actividadFactory::CreateActividad();
         // Se llama al método de consulta
-        $actividades = $IActividadDAO->obtenerTodasLasActividades();
-        return $actividades;
+        return $IActividadDAO->obtenerTodasLasActividades($limit, $offset);
     }
 
     //Método par obtener las actividades segun el tipo de usuario
-    public function obtenerActividadSegunUsuario(): array
+    public function obtenerActividadSegunUsuario($limit, $offset): array
     {
         //si es admin, se muestran todas las actividades
         if (application::getInstance()->soyAdmin()){            
-            $actividades= $this->obtenerTodasLasActividades();
-            return $actividades;
+            return $this->obtenerTodasLasActividades($limit, $offset);
         }
 
         //si es voluntario, se muestran solo aquellas que no están dirigidas
@@ -96,8 +94,7 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $actividades = $IActividadDAO->obtenerActSinDirigir();           
-            return $actividades;
+            return $IActividadDAO->obtenerActSinDirigir($limit, $offset);
         }
 
         //si es usuario, solo se muestran las que ya tienen un voluntario asignado y no tienen el aforo al maximo
@@ -105,8 +102,7 @@ class actividadAppService
             // Se obtiene una instancia del DAO
             $IActividadDAO = actividadFactory::CreateActividad();
             // Se llama al método de consulta
-            $actividades = $IActividadDAO->obtenerActSinCompletar();
-            return $actividades;
+            return $IActividadDAO->obtenerActSinCompletar($limit, $offset);
         }
 
     }
@@ -122,7 +118,7 @@ class actividadAppService
         return $actividad;
     }
 
-    public function mostrar($actividadDTO){
+    /*public function mostrar($actividadDTO){
         $app = application::getInstance();
         $html = '<div class="actividad">';
         if ($app->soyUsuario()) {
@@ -146,21 +142,21 @@ class actividadAppService
         //voluntario
         if ($tipo_user == 2){
             $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
-        }*/
+        }
         //administrador: dos botones
         if ($app->soyAdmin()){
             //debe de aparecer un boton para eliminarla y otro para modificar los datos
             $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a> &ensp; <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
             /*$html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
-                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';*/
+                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
         }
         //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
         
         $html .= '</div>';
         return $html;  //se devuelve en html
-    }
+}*/
 
-    public function mostrarPerfil($actividadDTO) {
+    /*public function mostrarPerfil($actividadDTO) {
         $user = application::getInstance()->getUserDTO();
         $app = application::getInstance();
 
@@ -182,7 +178,8 @@ class actividadAppService
         $html .= '</div>';
     
         return $html;
-    }
+    }*/
+
 
     public function annadirusuario($id_actividad){
         $IActividadDAO = actividadFactory::CreateActividad();

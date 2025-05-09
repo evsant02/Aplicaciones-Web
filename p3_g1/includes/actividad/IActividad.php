@@ -32,7 +32,7 @@ interface IActividad
      * Obtiene todas las actividades almacenadas en el sistema.
      * @return array Retorna un array de objetos actividadDTO con todas las actividades.
      */
-    public function obtenerTodasLasActividades();
+    public function obtenerTodasLasActividades($limit, $offset);
 
     /**
      * Obtiene una actividad específica a partir de su ID.
@@ -41,9 +41,9 @@ interface IActividad
      */
     public function getActividadById($id);
 
-    public function obtenerActSinDirigir();
+    public function obtenerActSinDirigir($limit, $offset);
 
-    public function obtenerActSinCompletar();
+    public function obtenerActSinCompletar($limit, $offset);
 
     public function annadirusuario($id_actividad);
 
@@ -57,7 +57,6 @@ interface IActividad
 
     public function estaDirigida($id_actividad);
     public function actividadesFecha($desde, $hasta, $texto, $tipos);
-
 
 }
 
