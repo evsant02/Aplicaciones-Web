@@ -46,14 +46,47 @@ class foroNotificaciones {
         $mensajesInvertidos = array_reverse($this->mensajes);
 
         foreach ($mensajesInvertidos as $mensajeData) {
-            $idActividad = $mensajeData['id_actividad'];
-            $mensaje = $mensajeData['mensaje'];
+            $idActividad = $mensajeData->id_actividad();
+            $mensaje = $mensajeData->mensaje();
+            $user = application::getInstance()->getUserDTO();
 
             $actividadDTO = $actividadAppService->getActividadById($idActividad);
 
             if ($actividadDTO && $actividadDTO->fecha_hora() > date("Y-m-d H:i:s")) {
-                // Se delega la construcción del mensaje a mostrarMensajes()
-                $html .= $actividadesmensajesAppService->mostrarMensajes($actividadDTO, $mensaje);
+                // $html .= $actividadesmensajesAppService->mostrarMensajes($actividadDTO, $mensaje);
+                        
+                if ($mensaje == 1) {
+                    $texto = '¡Nueva actividad disponible!';
+                    $clase = 'mensaje-card mensaje-nueva';
+                } elseif ($mensaje == 0) {
+                    $texto = 'Actividad cancelada';
+                    $clase = 'mensaje-card mensaje-cancelada';
+                } else {
+                    $texto = 'Mensaje desconocido.';
+                    $clase = 'mensaje-card';
+                }
+
+                $html = '<div class="' . $clase . '">';
+                $html .= '<div class="mensaje-estado">' . htmlspecialchars($texto) . '</div>';
+                $html .= '<div class="actividad-info">';
+                $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->nombre()) . '</h3>';
+                $html .= '<span class="actividad-fecha">' . date("d/m/Y H:i", strtotime($actividadDTO->fecha_hora())) . '</span>';
+                $html .= '</div>';
+
+
+                $idActividad = intval($actividadDTO->id());
+                $idUsuario = $user->id();
+                
+                $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
+                $html .= '<button type="button" class="btn-eliminar">✖</button>';
+                $html .= '</a>';
+
+                if ($mensaje == 1) $html .= '<a href="vistaReservaActividad.php?id=' . $idActividad . '" class="btn-eliminar-link" title="Ir a la actividad">';
+                else $html .= '<a href="vistaActividades.php?id= " class="btn-eliminar-link" title="Buscar otra actividad">';
+                $html .= '<button type="button" class="btn-act">➜</button>';
+                $html .= '</a>';
+
+                $html .= '</div>';
             }
         }
 

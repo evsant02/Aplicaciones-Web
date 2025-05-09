@@ -2,6 +2,7 @@
 
 namespace includes\actividadesFiltradas;
 
+use includes\application;
 use includes\actividad\actividadAppService;
 
 
@@ -29,6 +30,7 @@ class actividadesFiltradas
         //terminar el filtrado
         $actividadAppService = actividadAppService::GetSingleton();
         $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta); 
+        $app = application::getInstance();
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
@@ -43,7 +45,26 @@ class actividadesFiltradas
         }
         else {
             foreach ($this->actividades as $actividad) {       
-                $html .= '<div class="actividad-item">' . $actividadAppService->mostrar($actividad) . '</div>';    
+                // $html .= '<div class="actividad-item">' . $actividadAppService->mostrar($actividad) . '</div>';    
+                $html .= '<div class="actividad-item">';
+                $html .= '<div class="actividad">';
+                if ($app->soyUsuario()) {
+                    $html .= '<a href="vistaReservaActividad.php?id=' . $actividad->id() . '" class="imagen-enlace">';
+                }
+                else if ($app->soyVoluntario()) {
+                    $html .= '<a href="vistaDirigirActividad.php?id=' . $actividad->id() . '" class="imagen-enlace">';
+                }
+                $html .= '<img src="' . $actividad->foto().  '" alt="' . $actividad->nombre() . '" width="350">';
+                if (!$app->soyAdmin()) $html .= '</a>';
+                $html .= '<h3>' . $actividad->nombre() . '</h3>';
+
+                $fechaHora = new \DateTime($actividad->fecha_hora());
+                $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
+
+                $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
+                
+                $html .= '</div>'; // actividad
+                $html .= '</div>'; // actividad-item
             }   
         }
         

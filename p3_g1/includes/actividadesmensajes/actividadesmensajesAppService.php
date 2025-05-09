@@ -48,11 +48,9 @@ class actividadesmensajesAppService
 
         $IActividadDAO->eliminarMensaje($idUsuario,$idActividad, $idMensaje);
 
-    }
+    }    
 
-    
-
-    public function mostrarMensajes($actividadDTO, $mensaje){
+    /* public function mostrarMensajes($actividadDTO, $mensaje){
         $user = application::getInstance()->getUserDTO();
   
         if ($mensaje == 1) {
@@ -91,7 +89,7 @@ class actividadesmensajesAppService
 
         return $html;
             
-    }
+    } */
 
     public function crearMensaje($mensajeDTO){
         
