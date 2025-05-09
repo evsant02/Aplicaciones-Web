@@ -38,10 +38,11 @@ class actividadesPerfil
             return '<p>No estás apuntado a ninguna actividad</p>';
         }
         
-        $html = '<table class="tabla-actividades"><tr>'; 
-        $colCount = 0;
+        $html = '<div class="tabla-actividades">'; 
+        //$colCount = 0;
 
         $actividadAppService = actividadAppService::GetSingleton();
+        $app = application::getInstance();
 
         //hay que llamar al metodo de getActividadByid
 
@@ -49,21 +50,42 @@ class actividadesPerfil
 
         foreach ($this->actividades as $actividad) {       // solo se deberian mostrar las futuras
             
-            $actividadDTO = $actividadAppService->getActividadById($actividad);
-                
-            if($actividadDTO->fecha_hora() > date("Y-m-d H:i:s")){
+            $actividad = $actividadAppService->getActividadById($actividad);
+            /*    
+            if($actividad->fecha_hora() > date("Y-m-d H:i:s")){
                 if ($colCount > 0 && $colCount % 3 == 0) {
                     $html .= '</tr><tr>'; 
                 }
                 $colCount++;
 
-                $html .= '<td>' . $actividadAppService->mostrarPerfil($actividadDTO) . '</td>';
+                $html .= '<td>' . $actividadAppService->mostrarPerfil($actividad) . '</td>';
+            }*/
+
+            $html .= '<div class="actividad-item">';
+                
+            $html .= '<div class="actividad">';
+
+            if ($app->soyUsuario()) {
+                $html .= '<a href="vistaReservaActividad.php?id=' . $actividad->id() . '" class="imagen-enlace"> 
+                <img src="' . $actividad->foto() . '" alt="' . $actividad->nombre() . '" width="350"></a>';
+            } else if ($app->soyVoluntario()) {
+                $html .= '<a href="vistaDirigirActividad.php?id=' . $actividad->id() . '" class="imagen-enlace"> 
+                <img src="' . $actividad->foto() . '" alt="' . $actividad->nombre() . '" width="350"></a>';
             }
+    
+            $html .= '<h3>' . $actividad->nombre() . '</h3>';
+            
+            // Formatear la fecha y hora
+            $fechaHora = new \DateTime($actividad->fecha_hora());
+            $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>';
+
+            $html .= '</div>';
+            
+            $html .= '</div>';
         }
         
-        $html .= '</tr></table>';
+        $html .= '</div>';
         return $html;
     }
-
 
 }
