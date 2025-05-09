@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function filtrarActividadesPorFecha(inicio, final, texto, tipos) {
     console.log(tipos);
-    const params = new URLSearchParams({ inicio, final, texto }).toString();
+    const params = new URLSearchParams({ inicio, final, texto, tipos }).toString();
     const rutaPHP = 'includes/actividadesFiltradas/ajaxfiltro.php';
     fetch(rutaPHP+'?'+params)
       .then(response => response.text())

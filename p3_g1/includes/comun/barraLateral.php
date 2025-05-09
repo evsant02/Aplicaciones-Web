@@ -18,10 +18,10 @@ class barraLateral
         echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
         echo '<input type="text" id="texto" name ="texto"><br><br>';
         echo '<label>Categorías:</label><br>';
-        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="deporte">Deporte</label>';
-        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="arte">Arte</label>';
-        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="musica">Música</label>';
-        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="tecnologia">Tecnología</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Deporte">Deporte</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Salud">Salud</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Cultura">Cultura</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Tecnologia">Tecnología</label>';
         echo '<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';

@@ -25,8 +25,9 @@ class actividadesFiltradas
             return '<p>La fecha de inicio no puede ser posterior a la de final del intervalo</p>';
         }
         $texto = htmlspecialchars(trim($_GET['texto'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $tipos = $_GET['tipos'] ?? '';
         $actividadAppService = actividadAppService::GetSingleton();
-        $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta, $texto); 
+        $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta, $texto, $tipos); 
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
