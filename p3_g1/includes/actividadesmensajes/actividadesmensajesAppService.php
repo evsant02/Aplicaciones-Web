@@ -42,11 +42,11 @@ class actividadesmensajesAppService
         return $actividad;
     }
 
-    public function eliminarMensaje($idUsuario, $idActividad){
+    public function eliminarMensaje($idUsuario, $idActividad, $idMensaje){
 
         $IActividadDAO = actividadesmensajesFactory::CreateActividad();
 
-        $IActividadDAO->eliminarMensaje($idUsuario,$idActividad);
+        $IActividadDAO->eliminarMensaje($idUsuario,$idActividad, $idMensaje);
 
     }
 
@@ -77,7 +77,7 @@ class actividadesmensajesAppService
         $idActividad = intval($actividadDTO->id());
         $idUsuario = intval($user->id());
         
-        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '" class="btn-eliminar-link" title="Eliminar mensaje">';
+        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
         $html .= '<button type="button" class="btn-eliminar">✖</button>';
         $html .= '</a>';
 

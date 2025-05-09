@@ -44,12 +44,12 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
     }
 
 
-    public function eliminarMensaje($idUsuario, $idActividad) {
+    public function eliminarMensaje($idUsuario, $idActividad, $idMensaje) {
         $conn = application::getInstance()->getConexionBd();
-        $query = "DELETE FROM `actividades-mensajes` WHERE id_usuario = ? AND id_actividad = ?";
+        $query = "DELETE FROM `actividades-mensajes` WHERE id_usuario = ? AND id_actividad = ? AND mensaje = ?";
         $stmt = $conn->prepare($query);
     
-        $stmt->bind_param("ii", $idUsuario, $idActividad);
+        $stmt->bind_param("iii", $idUsuario, $idActividad, $idMensaje);
         $stmt->execute();
         $stmt->close();
     }

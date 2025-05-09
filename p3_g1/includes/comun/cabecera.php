@@ -60,7 +60,7 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
                 //el emoji cambia según haya mensajes o no
                 $emoji = $hayNotificaciones ? '📩' : '✉️';
                 //mostrar enlace con el emoji correcto
-                echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias" class="icono-foro">' . $emoji . '</a></li>';
+                echo '<li><a href="vistaForoNoticias.php" title="Notificaciones" class="icono-foro">' . $emoji . '</a></li>';
       
 
             } 

@@ -36,24 +36,27 @@ class foroNotificaciones {
         if (empty($this->mensajes)) {
             return '<p class="sin-mensajes">No tienes ningún mensaje</p>';
         }
-    
+
         $html = '<div class="bandeja-mensajes">';
-    
+
         $actividadesmensajesAppService = actividadesmensajesAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
-    
-        foreach ($this->mensajes as $mensajeData) {
+
+        // Invertir el orden del array de mensajes
+        $mensajesInvertidos = array_reverse($this->mensajes);
+
+        foreach ($mensajesInvertidos as $mensajeData) {
             $idActividad = $mensajeData['id_actividad'];
             $mensaje = $mensajeData['mensaje'];
-    
+
             $actividadDTO = $actividadAppService->getActividadById($idActividad);
-    
+
             if ($actividadDTO && $actividadDTO->fecha_hora() > date("Y-m-d H:i:s")) {
                 // Se delega la construcción del mensaje a mostrarMensajes()
                 $html .= $actividadesmensajesAppService->mostrarMensajes($actividadDTO, $mensaje);
             }
         }
-    
+
         $html .= '</div>';
         return $html;
     }
