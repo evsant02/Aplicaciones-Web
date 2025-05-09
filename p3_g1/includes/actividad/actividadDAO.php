@@ -307,7 +307,7 @@ class actividadDAO extends baseDAO implements IActividad
                             WHERE id_usuario = ?
                         )";
             $stmtTotal = $conn->prepare($queryTotal);
-            $stmtTotal->bind_param("i", $userId);
+            $stmtTotal->bind_param("s", $userId);
             $stmtTotal->execute();
             $stmtTotal->bind_result($totalActividades);
             $stmtTotal->fetch();
