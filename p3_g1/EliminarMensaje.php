@@ -8,7 +8,7 @@ use includes\application;
 
 // Verificar si se ha recibido un ID válido mediante GET
 if (isset($_GET['id_usuario'], $_GET['id_actividad'], $_GET['mensaje'])) {
-    $idUsuario = intval($_GET['id_usuario']);
+    $idUsuario = $_GET['id_usuario'];
     $idActividad = intval($_GET['id_actividad']);
     $idMensaje = intval($_GET['mensaje']);
 

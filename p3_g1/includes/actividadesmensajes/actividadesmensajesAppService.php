@@ -75,7 +75,7 @@ class actividadesmensajesAppService
 
 
         $idActividad = intval($actividadDTO->id());
-        $idUsuario = intval($user->id());
+        $idUsuario = $user->id();
         
         $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
         $html .= '<button type="button" class="btn-eliminar">✖</button>';

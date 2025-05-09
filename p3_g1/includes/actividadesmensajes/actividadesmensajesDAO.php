@@ -49,7 +49,7 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
         $query = "DELETE FROM `actividades-mensajes` WHERE id_usuario = ? AND id_actividad = ? AND mensaje = ?";
         $stmt = $conn->prepare($query);
     
-        $stmt->bind_param("iii", $idUsuario, $idActividad, $idMensaje);
+        $stmt->bind_param("sii", $idUsuario, $idActividad, $idMensaje);
         $stmt->execute();
         $stmt->close();
     }
