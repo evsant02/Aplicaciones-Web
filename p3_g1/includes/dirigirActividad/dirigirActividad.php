@@ -124,20 +124,12 @@ class dirigirActividad
         $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
         $actividadAppService = actividadAppService::GetSingleton();
 
-        //compruebo que la act esta dirigida -> SIEMPRE VA A SALIR QUE SI??
+        //compruebo que la act esta dirigida 
         if ($actividadAppService->estaDirigida($this->actividad->id())) {
 
-            //primero obtengo los usuarios de esa actividad antes de darles de baja
-            $usuariosApuntados = $actividadUsuarioAppService->obtenerUsuariosInscritos($this->actividad->id());
-
-            //envio mensajes a esos usuarios
             $mensajesAppService = actividadesmensajesAppService::GetSingleton();
-            foreach ($usuariosApuntados as $idUsuario) {
-                //var_dump($idUsuario); //depuracion
-                //var_dump("Insertando mensaje para actividad {$this->actividad->id()} y usuario $idUsuario");
-                $dto = new actividadesmensajesDTO($this->actividad->id(), $idUsuario, 0);// 0 = tipo de mensaje de que un voluntario se ha dado de baja
-                $mensajesAppService->crearMensaje($dto); 
-            }
+            $mensajesAppService->notificarBajaVoluntario($this->actividad->id());
+
         }
 
 

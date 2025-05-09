@@ -4,6 +4,7 @@ namespace includes\actividadesmensajes;
 
 use includes\application;
 use includes\usuario\userAppService;
+use includes\actividadesusuario\actividadesusuarioAppService;
 
 // Se requiere el archivo que contiene la fábrica de actividades
 //require_once("actividadesusuarioFactory.php");
@@ -111,6 +112,19 @@ class actividadesmensajesAppService
             $this->crearMensaje($dto); // tipo 1 = actividad disponible
         }
 
+    }
+
+    public function notificarBajaVoluntario($id_actividad){
+        //primero obtengo los usuarios de esa actividad antes de darles de baja
+        $actividadUsuarioAppService = actividadesusuarioAppService::GetSingleton();
+        $usuariosApuntados = $actividadUsuarioAppService->obtenerUsuariosInscritos($id_actividad); //me devuelve los usuarios de una actividad
+
+        //envio mensajes a esos usuarios
+        $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+        foreach ($usuariosApuntados as $idUsuario) {
+            $dto = new actividadesmensajesDTO($id_actividad, $idUsuario, 0);// 0 = tipo de mensaje de que un voluntario se ha dado de baja
+            $mensajesAppService->crearMensaje($dto); 
+        }
     }
 
     public function tieneMensajesNuevos($id_usuario) {
