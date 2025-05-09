@@ -29,6 +29,8 @@ interface IActividadesmensajes
 
     //public function notificarActividadDisponibleATodos($id_actividad);
 
+    public function tieneMensajes($id_usuario);
+
 
 }
 

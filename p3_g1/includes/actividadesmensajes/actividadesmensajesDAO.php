@@ -88,6 +88,24 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
     }
 
 
+    //método que me devuelve el numero de mensajes que tiene un usuario
+    public function tieneMensajes($id_usuario) {
+        $conn = application::getInstance()->getConexionBd();
+        $query = "SELECT COUNT(*) FROM `actividades-mensajes` WHERE id_usuario = ?";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param("s", $id_usuario); 
+        $stmt->execute();
+
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $count > 0;
+    }
+
+
+
 
 }
 ?>

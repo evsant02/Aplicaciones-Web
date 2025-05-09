@@ -4,6 +4,7 @@ namespace includes\comun;
 require_once(__DIR__ . "/../config.php");
 
 use includes\application;
+use includes\actividadesmensajes\actividadesmensajesAppService;
 
 // Verificar si la función ya existe antes de declararla
 if (!function_exists('includes\comun\mostrarCabecera')) {
@@ -48,8 +49,18 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
             if ($app->soyUsuario()){
                 //echo '<li><a href="vistaForoNoticias.php">Foro de Noticias</a></li>'; // Solo si está logueado se muestra el foro de noticias          
                 //echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias">✉️</a></li>';
-                echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias" class="icono-foro">✉️</a></li>';
+                //echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias" class="icono-foro">✉️</a></li>';
 
+                //PRUEBA IMAGEN NOTIFICACION
+                $app = application::getInstance();
+                $user = $app->getUserDTO(); //obtengo el usuario
+                $mensajesAppService = actividadesmensajesAppService::GetSingleton();
+                $hayNotificaciones = $mensajesAppService->tieneMensajesNuevos($user->id()); //compruebo si hay mensajes
+                
+                //el emoji cambia según haya mensajes o no
+                $emoji = $hayNotificaciones ? '📩' : '✉️';
+                //mostrar enlace con el emoji correcto
+                echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias" class="icono-foro">' . $emoji . '</a></li>';
       
 
             } 

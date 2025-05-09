@@ -113,6 +113,13 @@ class actividadesmensajesAppService
 
     }
 
+    public function tieneMensajesNuevos($id_usuario) {
+        $IActividadDAO = actividadesmensajesFactory::CreateActividad();
+        $mensajes = $IActividadDAO->tieneMensajes($id_usuario);
+        return $mensajes;
+    }
+
+
 
     
 

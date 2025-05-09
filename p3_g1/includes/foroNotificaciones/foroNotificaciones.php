@@ -1,12 +1,12 @@
 <?php
-namespace includes\foroNoticias;
+namespace includes\foroNotificaciones;
 
 use includes\actividadesmensajes\actividadesmensajesAppService;
 use includes\application;
 
 use includes\actividad\actividadAppService;
 
-class foroNoticias {
+class foroNotificaciones {
 
 
     private $mensajes;
