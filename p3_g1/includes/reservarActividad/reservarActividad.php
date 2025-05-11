@@ -35,7 +35,6 @@ class reservarActividad
         }
 
         $fechaHora = new \DateTime($this->actividad->fecha_hora());
-
         $html = <<<EOF
         <div class="actividad">
             <div class="actividad-img">

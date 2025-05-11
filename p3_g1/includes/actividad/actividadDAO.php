@@ -437,7 +437,7 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
     
-    public function actividadesFecha($desde, $hasta, $texto, $tipos) {
+    public function actividadesFecha($desde, $hasta, $texto, $tipos, $usuario) {
         try {
             $conn = application::getInstance()->getConexionBd();
             if(empty($tipos)){
@@ -454,29 +454,83 @@ class actividadDAO extends baseDAO implements IActividad
                 $final = date_create($hasta)->format('Y-m-d H:i:s');
             }
             $palabras = "%" . $texto . "%"; 
-            if($inicio != null && $final != null){
-                $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
-                      FROM actividades a 
-                      JOIN categorias c ON a.categoria = c.id
-                      WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
-                        AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
-                        AND (c.nombre) IN ($interrogaciones)
-                      ORDER BY a.fecha_hora ASC";
-                $stmt = $conn->prepare($query);
-                $types = str_repeat('s', 5 + count($tiposArray)); // all strings
-                $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
-                $stmt->bind_param($types, ...$params);
+            if($usuario == 0){
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND (c.nombre) IN ($interrogaciones)
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
             }
-            else if ($palabras != null && ($inicio == null && $final == null)){
-                $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
-                      FROM actividades a
-                      JOIN categorias c ON a.categoria = c.id
-                      WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
-                        AND LOWER(c.nombre) IN ($interrogaciones)";
-                $stmt = $conn->prepare($query);
-                $types = str_repeat('s', 3 + count($tiposArray)); // all strings
-                $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
-                $stmt->bind_param($types, ...$params); 
+            else if($usuario==1){
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=0
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
+            }
+            else{
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=1
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 1
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
             }
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
@@ -485,7 +539,7 @@ class actividadDAO extends baseDAO implements IActividad
             while ($stmt->fetch()) {
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-    
+            //var_dump($actividades);
             return $actividades;
         } finally {
             if (isset($stmt)) {

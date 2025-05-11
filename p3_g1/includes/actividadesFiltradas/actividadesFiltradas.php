@@ -17,6 +17,7 @@ class actividadesFiltradas
     }
     public function filtrado(){
 
+
         if ((!empty($_GET['inicio']) && empty($_GET['final'])) ||(empty($_GET['inicio']) && !empty($_GET['final']) )) {
             return '<p>Seleccione un rango completo de fechas para filtrar</p>';
         }
@@ -28,9 +29,20 @@ class actividadesFiltradas
         $texto = htmlspecialchars(trim($_GET['texto'] ?? ''), ENT_QUOTES, 'UTF-8');
         $tipos = $_GET['tipos'] ?? '';
         $actividadAppService = actividadAppService::GetSingleton();
-        $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta, $texto, $tipos); 
+        
         $app = application::getInstance();
-
+         
+        if($app->soyUsuario()){
+            $usuario=2;
+        }
+        else if($app->soyAdmin()){
+            $usuario=0;
+        }
+        else{
+            $usuario=1;
+        }
+        var_dump($usuario);
+        $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta, $texto, $tipos, $usuario);
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
         $html='';
@@ -61,7 +73,10 @@ class actividadesFiltradas
                 $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
 
                 $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
-                
+                if ($app->soyAdmin()){
+                    $html .= '<a href="ModificarActividad.php?id=' . $actividad->id() . '"><button type="button">Modificar</button></a> ';
+                    $html .= '<a href="EliminarActividad.php?id=' . $actividad->id() . '"><button type="button">Eliminar</button></a>';
+                }
                 $html .= '</div>'; // actividad
                 $html .= '</div>'; // actividad-item
             }   
