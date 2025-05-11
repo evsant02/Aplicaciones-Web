@@ -32,7 +32,7 @@ class barraLateral
 }
 ?>
 <style>
-  .filtro-btn {
+ /* .filtro-btn {
     appearance: none;
     -webkit-appearance: none;
     background-color: #f0f0f0;
@@ -49,5 +49,5 @@ class barraLateral
     background-color: #007BFF;
     color: white;
     border-color: #0056b3;
-  }
+  }*/
 </style>
