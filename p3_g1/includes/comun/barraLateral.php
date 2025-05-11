@@ -31,23 +31,3 @@ class barraLateral
     }
 }
 ?>
-<style>
- /* .filtro-btn {
-    appearance: none;
-    -webkit-appearance: none;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-
-  .filtro-btn:checked {
-    background-color: #007BFF;
-    color: white;
-    border-color: #0056b3;
-  }*/
-</style>
