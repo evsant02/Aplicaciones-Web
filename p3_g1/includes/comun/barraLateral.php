@@ -22,6 +22,7 @@ class barraLateral
         echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Salud">Salud</label>';
         echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Cultura">Cultura</label>';
         echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Tecnologia">Tecnología</label>';
+        echo '<label><input type="checkbox" class="filtro-btn" name="tipo" value="Habilidades">Habilidades</label>';
         echo '<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';
