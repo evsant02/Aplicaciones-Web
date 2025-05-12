@@ -215,10 +215,10 @@ class actividadAppService
         return $IActividadDAO->estaDirigida($id_actividad);
     }
 
-    public function actividadesFecha($desde, $hasta, $texto, $tipos, $usuario){
+    //Funcion que filtra las actividades dadas unas restricciones
+    public function actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario){
         $IActividadDAO = actividadFactory::CreateActividad();
-        // Se llama al método que busca la actividad por su ID
-        $actividades = $IActividadDAO->actividadesFecha($desde, $hasta, $texto, $tipos, $usuario);
+        $actividades = $IActividadDAO->actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario);
         return $actividades;
     }
 }

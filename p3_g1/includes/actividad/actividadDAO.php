@@ -437,14 +437,18 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
     
-    public function actividadesFecha($desde, $hasta, $texto, $tipos, $usuario) {
+    //Uso de consultas SQL para devolver lista de actividaDTO coincidente con filtros
+    public function actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario) {
         try {
             $conn = application::getInstance()->getConexionBd();
+            //si no hay filtro por botones se incluyen todos
             if(empty($tipos)){
                 $tipos = "Deporte,Salud,Cultura,Tecnologia";
             }
             $tiposArray = explode(',', $tipos);
+            //incluir tantos parametros como valores haya en tipos
             $interrogaciones = implode(',', array_fill(0, count($tiposArray), '?'));
+            //si no hay fechas valores a null
             if(empty($desde)&&empty($hasta)){
                 $inicio = null;
                 $final =null;
@@ -453,8 +457,11 @@ class actividadDAO extends baseDAO implements IActividad
                 $inicio = date_create($desde)->format('Y-m-d H:i:s');
                 $final = date_create($hasta)->format('Y-m-d H:i:s');
             }
+            //buscar cualquier coincidencia con la palabra
             $palabras = "%" . $texto . "%"; 
+            //filtrar por tipo de usuario, las consultas tienen pequennas diferencias para mostrar ciertas actividades
             if($usuario == 0){
+                //caso con fechas, busca el texto y categorias seleccionadas en esas fechas
                 if($inicio != null && $final != null){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
                           FROM actividades a 
@@ -464,10 +471,11 @@ class actividadDAO extends baseDAO implements IActividad
                             AND (c.nombre) IN ($interrogaciones)
                           ORDER BY a.fecha_hora ASC";
                     $stmt = $conn->prepare($query);
+                    //incluye el numero de s necesarias dependiendo del tipo de consulta
                     $types = str_repeat('s', 5 + count($tiposArray)); // all strings
                     $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
                     $stmt->bind_param($types, ...$params);
-                }
+                }//no hay fechas, elimina la restriccion
                 else if ($palabras != null && ($inicio == null && $final == null)){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
                           FROM actividades a
@@ -480,6 +488,7 @@ class actividadDAO extends baseDAO implements IActividad
                     $stmt->bind_param($types, ...$params); 
                 }
             }
+            //si es un voluntario añade la opcion de que no esten dirigidas
             else if($usuario==1){
                 if($inicio != null && $final != null){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
@@ -490,7 +499,7 @@ class actividadDAO extends baseDAO implements IActividad
                             AND (c.nombre) IN ($interrogaciones) AND a.dirigida=0
                           ORDER BY a.fecha_hora ASC";
                     $stmt = $conn->prepare($query);
-                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $types = str_repeat('s', 5 + count($tiposArray)); 
                     $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
                     $stmt->bind_param($types, ...$params);
                 }
@@ -501,11 +510,12 @@ class actividadDAO extends baseDAO implements IActividad
                           WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0
                             AND LOWER(c.nombre) IN ($interrogaciones)";
                     $stmt = $conn->prepare($query);
-                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
+                    $types = str_repeat('s', 3 + count($tiposArray)); 
                     $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
                     $stmt->bind_param($types, ...$params); 
                 }
             }
+            //si es un usuario normal solo muestra actividades dirigidas
             else{
                 if($inicio != null && $final != null){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
@@ -516,7 +526,7 @@ class actividadDAO extends baseDAO implements IActividad
                             AND (c.nombre) IN ($interrogaciones) AND a.dirigida=1
                           ORDER BY a.fecha_hora ASC";
                     $stmt = $conn->prepare($query);
-                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $types = str_repeat('s', 5 + count($tiposArray)); 
                     $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
                     $stmt->bind_param($types, ...$params);
                 }
@@ -536,10 +546,10 @@ class actividadDAO extends baseDAO implements IActividad
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
     
             $actividades = [];
+            //rellena el array de DTOs
             while ($stmt->fetch()) {
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-            //var_dump($actividades);
             return $actividades;
         } finally {
             if (isset($stmt)) {
