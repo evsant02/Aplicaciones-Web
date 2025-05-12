@@ -46,43 +46,44 @@ CREATE TABLE `actividades` (
 --
 
 INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descripcion`, `aforo`, `dirigida`, `ocupacion`, `foto`, `categoria`) VALUES
-(1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 1, 3, 'img/baile.jpg', 3),
-(2, 'Taller de Costura', 'Casa de la Cultura', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 1, 1, 'img/costura.jpg', 1),
-(3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 1, 2, 'img/informatica.jpg', 2),
+(1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 0, 0, 'img/baile.jpg', 3),
+(2, 'Taller de Costura', 'Casa de la Cultura', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 0, 0, 'img/costura.jpg', 1),
+(3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 0, 0, 'img/informatica.jpg', 2),
+(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg'),
 (5, 'Manualidades', 'Asociación Vecinal', '2025-04-22 15:00:00.000000', 'Apúntate para exprimir al máximo tu creatividad.', 30, 0, 0, 'img/manualidades.jpg', 1),
-(6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00.000000', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 1, 0, 'img/lectura.jpg', 1),
+(6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00.000000', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 0, 0, 'img/lectura.jpg', 1),
 (7, 'Excursión al Palacio Real', 'Palacio Real', '2025-04-28 08:00:00.000000', 'Apúntate a visitar uno de los lugares más turísticos de Madrid.', 40, 0, 0, 'img/excursionPR.jpg', 1),
 (8, 'Visita al Teatro Real', 'Teatro Real', '2025-04-28 10:00:00.000000', 'Visita el Teatro Real por dentro como nunca antes lo habías visto.', 35, 0, 0, 'img/excursionTR.jpg', 1),
 (9, 'Torneo de Ajedrez', 'Universidad Complutense de Madrid (UCM)', '2025-05-07 10:00:00.000000', 'Pon a prueba tus estrategias y desafía a más de 30 personas en un campeonato de Ajedrez como nunca se ha visto.', 20, 0, 0, 'img/ajedrez.jpg', 3),
-(10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 1, 1, 'img/huerto.jpg', 0),
-(11, 'Yoga al Aire Libre', 'Parque del Retiro', '2025-05-15 09:00:00.000000', 'Sesión de yoga para todos los niveles en plena naturaleza.', 25, 1, 0, 'img/yoga.jpg', 3),
-(12, 'Taller de Fotografía', 'Centro Cultural', '2025-05-18 16:00:00.000000', 'Aprende técnicas básicas de fotografía con tu móvil.', 15, 1, 0, 'img/fotografia.jpg', 1),
+(10, 'Huerto Urbano', 'Parque Central', '2025-04-18 09:00:00.000000', 'Crea un huerto urbano en tu comunidad.', 10, 0, 0, 'img/huerto.jpg', 0),
+(11, 'Yoga al Aire Libre', 'Parque del Retiro', '2025-05-15 09:00:00.000000', 'Sesión de yoga para todos los niveles en plena naturaleza.', 25, 0, 0, 'img/yoga.jpg', 3),
+(12, 'Taller de Fotografía', 'Centro Cultural', '2025-05-18 16:00:00.000000', 'Aprende técnicas básicas de fotografía con tu móvil.', 15, 0, 0, 'img/fotografia.jpg', 1),
 (13, 'Concierto de Música Clásica', 'Auditorio Municipal', '2025-06-02 20:00:00.000000', 'Disfruta de las mejores piezas de música clásica.', 100, 0, 0, 'img/concierto.jpg', 1),
-(14, 'Taller de Jardinería', 'Viveros Municipales', '2025-05-22 10:00:00.000000', 'Aprende a cuidar tus plantas y diseño de jardines.', 12, 1, 0, 'img/jardineria.jpg', 0),
-(15, 'Cine Fórum', 'Filmoteca Española', '2025-06-10 18:30:00.000000', 'Proyección y debate de películas clásicas.', 50, 1, 0, 'img/cineforum.jpg', 1),
-(16, 'Taller de Pintura', 'Escuela de Arte', '2025-05-30 17:00:00.000000', 'Expresa tu creatividad con acuarelas y óleos.', 18, 1, 0, 'img/pintura.jpg', 1),
+(14, 'Taller de Jardinería', 'Viveros Municipales', '2025-05-22 10:00:00.000000', 'Aprende a cuidar tus plantas y diseño de jardines.', 12, 0, 0, 'img/jardineria.jpg', 0),
+(15, 'Cine Fórum', 'Filmoteca Española', '2025-06-10 18:30:00.000000', 'Proyección y debate de películas clásicas.', 50, 0, 0, 'img/cineforum.jpg', 1),
+(16, 'Taller de Pintura', 'Escuela de Arte', '2025-05-30 17:00:00.000000', 'Expresa tu creatividad con acuarelas y óleos.', 18, 0, 0, 'img/pintura.jpg', 1),
 (17, 'Excursión a Toledo', 'Salida desde Plaza Mayor', '2025-06-12 08:30:00.000000', 'Visita guiada por la ciudad histórica de Toledo.', 45, 0, 0, 'img/toledo.jpg', 1),
-(18, 'Taller de Redes Sociales', 'Biblioteca Municipal', '2025-05-20 11:00:00.000000', 'Aprende a usar Facebook, Instagram y Twitter de forma segura.', 20, 1, 0, 'img/redes.jpg', 2),
+(18, 'Taller de Redes Sociales', 'Biblioteca Municipal', '2025-05-20 11:00:00.000000', 'Aprende a usar Facebook, Instagram y Twitter de forma segura.', 20, 0, 0, 'img/redes.jpg', 2),
 (19, 'Conferencia: Historia de Madrid', 'Museo de Historia', '2025-06-05 19:00:00.000000', 'Descubre los secretos históricos de la capital.', 60, 0, 0, 'img/historia.jpg', 1),
-(20, 'Taller de Reciclaje', 'Centro de Educación Ambiental', '2025-05-25 12:00:00.000000', 'Aprende a dar una segunda vida a tus residuos.', 15, 1, 0, 'img/reciclaje.jpg', 2),
-(21, 'Clase de Tai Chi', 'Parque de Berlín', '2025-05-14 08:30:00.000000', 'Mejora tu equilibrio y relájate con esta disciplina.', 20, 1, 0, 'img/taichi.jpg', 3),
+(20, 'Taller de Reciclaje', 'Centro de Educación Ambiental', '2025-05-25 12:00:00.000000', 'Aprende a dar una segunda vida a tus residuos.', 15, 0, 0, 'img/reciclaje.jpg', 2),
+(21, 'Clase de Tai Chi', 'Parque de Berlín', '2025-05-14 08:30:00.000000', 'Mejora tu equilibrio y relájate con esta disciplina.', 20, 0, 0, 'img/taichi.jpg', 3),
 (22, 'Visita al Museo del Prado', 'Museo del Prado', '2025-06-08 10:00:00.000000', 'Recorrido guiado por las obras maestras del museo.', 30, 0, 0, 'img/prado.jpg', 0),
-(23, 'Taller de Escritura Creativa', 'Casa del Lector', '2025-05-28 17:00:00.000000', 'Desarrolla tu talento literario con ejercicios prácticos.', 12, 1, 0, 'img/escritura.jpg', 0),
+(23, 'Taller de Escritura Creativa', 'Casa del Lector', '2025-05-28 17:00:00.000000', 'Desarrolla tu talento literario con ejercicios prácticos.', 12, 0, 0, 'img/escritura.jpg', 0),
 (24, 'Ruta de Senderismo', 'Sierra de Guadarrama', '2025-06-15 08:00:00.000000', 'Disfruta de la naturaleza en esta ruta de dificultad media.', 25, 0, 0, 'img/senderismo.jpg', 0),
-(25, 'Taller de Repostería', 'Escuela de Cocina', '2025-05-23 16:00:00.000000', 'Aprende a hacer deliciosos postres caseros.', 10, 1, 0, 'img/reposteria.jpg', 0),
+(25, 'Taller de Repostería', 'Escuela de Cocina', '2025-05-23 16:00:00.000000', 'Aprende a hacer deliciosos postres caseros.', 10, 0, 0, 'img/reposteria.jpg', 0),
 (26, 'Concierto de Jazz', 'Café Central', '2025-06-18 21:00:00.000000', 'Noche de jazz en el mítico local madrileño.', 40, 0, 0, 'img/jazz.jpg', 0),
-(27, 'Taller de Autoestima', 'Centro de Psicología', '2025-05-19 18:00:00.000000', 'Mejora tu autoconcepto y habilidades sociales.', 15, 1, 0, 'img/autoestima.jpg', 0),
+(27, 'Taller de Autoestima', 'Centro de Psicología', '2025-05-19 18:00:00.000000', 'Mejora tu autoconcepto y habilidades sociales.', 15, 0, 0, 'img/autoestima.jpg', 0),
 (28, 'Visita al Planetario', 'Planetario de Madrid', '2025-06-22 19:30:00.000000', 'Viaje por las estrellas y el sistema solar.', 50, 0, 0, 'img/planetario.jpg', 0),
-(29, 'Taller de Risoterapia', 'Centro de Bienestar', '2025-05-27 17:30:00.000000', 'Libera tensiones a través de la risa.', 20, 1, 0, 'img/risoterapia.jpg', 0),
-(30, 'Clase de Pilates', 'Gimnasio Municipal', '2025-05-16 19:00:00.000000', 'Fortalece tu cuerpo y mejora tu postura.', 15, 1, 0, 'img/pilates.jpg', 0),
-(31, 'Taller de Podcast', 'Medialab Prado', '2025-06-11 16:00:00.000000', 'Aprende a crear y editar tu propio podcast.', 10, 1, 0, 'img/podcast.jpg', 0),
+(29, 'Taller de Risoterapia', 'Centro de Bienestar', '2025-05-27 17:30:00.000000', 'Libera tensiones a través de la risa.', 20, 0, 0, 'img/risoterapia.jpg', 0),
+(30, 'Clase de Pilates', 'Gimnasio Municipal', '2025-05-16 19:00:00.000000', 'Fortalece tu cuerpo y mejora tu postura.', 15, 0, 0, 'img/pilates.jpg', 0),
+(31, 'Taller de Podcast', 'Medialab Prado', '2025-06-11 16:00:00.000000', 'Aprende a crear y editar tu propio podcast.', 10, 0, 0, 'img/podcast.jpg', 0),
 (32, 'Visita al Palacio de Cristal', 'Parque del Retiro', '2025-06-14 12:00:00.000000', 'Descubre este emblemático edificio y sus exposiciones.', 25, 0, 0, 'img/cristal.jpg', 0),
-(33, 'Taller de Mindfulness', 'Centro de Meditación', '2025-05-21 18:30:00.000000', 'Aprende técnicas de relajación y atención plena.', 18, 1, 0, 'img/mindfulness.jpg', 0),
+(33, 'Taller de Mindfulness', 'Centro de Meditación', '2025-05-21 18:30:00.000000', 'Aprende técnicas de relajación y atención plena.', 18, 0, 0, 'img/mindfulness.jpg', 0),
 (34, 'Concurso de Poesía', 'Círculo de Bellas Artes', '2025-06-20 19:00:00.000000', 'Participa o disfruta de la lectura de poemas.', 40, 0, 0, 'img/poesia.jpg', 0),
 (35, 'Exhibición de Danza', 'Teatro Circo Price', '2025-06-25 20:00:00.000000', 'Espectáculo de danza contemporánea.', 80, 0, 0, 'img/danza.jpg', 0),
-(36, 'Taller de Primeros Auxilios', 'Cruz Roja', '2025-05-29 17:00:00.000000', 'Aprende técnicas básicas de primeros auxilios.', 20, 1, 0, 'img/auxilios.jpg', 0),
+(36, 'Taller de Primeros Auxilios', 'Cruz Roja', '2025-05-29 17:00:00.000000', 'Aprende técnicas básicas de primeros auxilios.', 20, 0, 0, 'img/auxilios.jpg', 0),
 (37, 'Ruta en Bicicleta', 'Madrid Río', '2025-06-13 10:00:00.000000', 'Recorrido guiado por los principales parques de Madrid.', 15, 0, 0, 'img/bicicleta.jpg', 0),
-(38, 'Taller de Teatro', 'Sala Mirador', '2025-06-17 18:00:00.000000', 'Iniciación al teatro con ejercicios prácticos.', 15, 1, 0, 'img/teatro.jpg', 0);
+(38, 'Taller de Teatro', 'Sala Mirador', '2025-06-17 18:00:00.000000', 'Iniciación al teatro con ejercicios prácticos.', 15, 0, 0, 'img/teatro.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -101,44 +102,6 @@ CREATE TABLE `actividades-mensajes` (
 --
 -- Volcado de datos para la tabla `actividades-mensajes`
 --
-INSERT INTO `actividades-mensajes` (`id_actividad`, `id_usuario`, `mensaje`) VALUES
-(12, '22222', 1),
-(12, 'antonl11', 1),
-(12, 'debrubio', 1),
-(12, 'javiga', 1),
-(17, '22222', 1),
-(17, 'antonl11', 1),
-(17, 'debrubio', 1),
-(17, 'javiga', 1),
-(34, '22222', 1),
-(34, 'antonl11', 1),
-(34, 'debrubio', 1),
-(34, 'javiga', 1),
-(24, '22222', 1),
-(24, 'antonl11', 1),
-(24, 'debrubio', 1),
-(24, 'javiga', 1),
-(28, '22222', 1),
-(28, 'antonl11', 1),
-(28, 'debrubio', 1),
-(28, 'javiga', 1),
-(14, 'antonl11', 0),
-(11, 'antonl11', 0),
-(27, 'antonl11', 0),
-(27, 'javiga', 0),
-(17, 'javiga', 0),
-(34, 'antonl11', 0),
-(34, 'debrubio', 0),
-(34, 'javiga', 0),
-(18, 'antonl11', 0),
-(18, 'javiga', 0),
-(15, 'javiga', 0),
-(24, 'antonl11', 0),
-(13, '22222', 1),
-(13, 'antonl11', 1),
-(13, 'debrubio', 1),
-(13, 'javiga', 1);
-
 
 --
 -- Estructura de tabla para la tabla `actividades-usuario`
@@ -152,38 +115,6 @@ CREATE TABLE `actividades-usuario` (
 --
 -- Volcado de datos para la tabla `actividades-usuario`
 --
-
-INSERT INTO `actividades-usuario` (`id_usuario`, `id_actividad`) VALUES
-('22222', 1),
-('22222', 2),
-('22222', 10),
-('33333', 1),
-('33333', 31),
-('33333', 36),
-('antonl11', 1),
-('antonl11', 3),
-('debb1601', 6),
-('debb1601', 20),
-('debb1601', 25),
-('debb1601', 29),
-('debb1601', 31),
-('evsant02', 10),
-('evsant02', 11),
-('evsant02', 14),
-('evsant02', 21),
-('evsant02', 33),
-('javiga', 1),
-('javiga', 3),
-('martia01', 3),
-('martia01', 15),
-('martia01', 18),
-('martia01', 30),
-('martia01', 38),
-('uchaoui', 2),
-('uchaoui', 12),
-('uchaoui', 16),
-('uchaoui', 23),
-('uchaoui', 27);
 
 -- --------------------------------------------------------
 
@@ -302,8 +233,6 @@ ALTER TABLE `actividades`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoria` (`categoria`),
   ADD KEY `categoria_2` (`categoria`);
-
-
 
 --
 -- Indices de la tabla `actividades-usuario`
