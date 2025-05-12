@@ -98,6 +98,48 @@ CREATE TABLE `actividades-mensajes` (
 -- --------------------------------------------------------
 
 --
+-- Volcado de datos para la tabla `actividades-mensajes`
+--
+INSERT INTO `actividades-mensajes` (`id_actividad`, `id_usuario`, `mensaje`) VALUES
+(12, '22222', 1),
+(12, 'antonl11', 1),
+(12, 'debrubio', 1),
+(12, 'javiga', 1),
+(17, '22222', 1),
+(17, 'antonl11', 1),
+(17, 'debrubio', 1),
+(17, 'javiga', 1),
+(34, '22222', 1),
+(34, 'antonl11', 1),
+(34, 'debrubio', 1),
+(34, 'javiga', 1),
+(24, '22222', 1),
+(24, 'antonl11', 1),
+(24, 'debrubio', 1),
+(24, 'javiga', 1),
+(28, '22222', 1),
+(28, 'antonl11', 1),
+(28, 'debrubio', 1),
+(28, 'javiga', 1),
+(14, 'antonl11', 0),
+(11, 'antonl11', 0),
+(27, 'antonl11', 0),
+(27, 'javiga', 0),
+(17, 'javiga', 0),
+(34, 'antonl11', 0),
+(34, 'debrubio', 0),
+(34, 'javiga', 0),
+(18, 'antonl11', 0),
+(18, 'javiga', 0),
+(15, 'javiga', 0),
+(24, 'antonl11', 0),
+(13, '22222', 1),
+(13, 'antonl11', 1),
+(13, 'debrubio', 1),
+(13, 'javiga', 1);
+
+
+--
 -- Estructura de tabla para la tabla `actividades-usuario`
 --
 
@@ -260,12 +302,7 @@ ALTER TABLE `actividades`
   ADD KEY `categoria` (`categoria`),
   ADD KEY `categoria_2` (`categoria`);
 
---
--- Indices de la tabla `actividades-mensajes`
---
-ALTER TABLE `actividades-mensajes`
-  ADD PRIMARY KEY (`id_actividad`,`id_usuario`),
-  ADD KEY `id_usuario` (`id_usuario`);
+
 
 --
 -- Indices de la tabla `actividades-usuario`
