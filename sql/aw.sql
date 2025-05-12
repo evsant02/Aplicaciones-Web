@@ -20,8 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aw`
 --
-
--- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `aw` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `aw`;
+--
 
 --
 -- Estructura de tabla para la tabla `actividades`
