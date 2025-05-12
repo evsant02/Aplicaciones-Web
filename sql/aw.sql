@@ -49,7 +49,7 @@ INSERT INTO `actividades` (`id`, `nombre`, `localizacion`, `fecha_hora`, `descri
 (1, 'Clase de Baile', 'Centro Cultural', '2025-05-10 18:00:00.000000', 'Disfruta bailando al ritmo de la música.', 30, 0, 0, 'img/baile.jpg', 3),
 (2, 'Taller de Costura', 'Casa de la Cultura', '2025-05-12 16:00:00.000000', 'Aprende a coser tus propias prendas.', 15, 0, 0, 'img/costura.jpg', 1),
 (3, 'Taller de Informática', 'Biblioteca Municipal', '2025-04-15 10:00:00.000000', 'Iníciate en el mundo de la informática.', 20, 0, 0, 'img/informatica.jpg', 2),
-(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg'),
+(4, 'Cocina Saludable', 'Centro de Mayores', '2025-04-20 11:00:00', 'Recetas fáciles para una vida más saludable.', 10, 0, 0, 'img/cocina.jpg', 0),
 (5, 'Manualidades', 'Asociación Vecinal', '2025-04-22 15:00:00.000000', 'Apúntate para exprimir al máximo tu creatividad.', 30, 0, 0, 'img/manualidades.jpg', 1),
 (6, 'Club de Lectura', 'Librería El Rincón', '2025-05-25 17:30:00.000000', 'Comparte con otras personas tus opiniones sobre la lectura propuesta cada mes.', 35, 0, 0, 'img/lectura.jpg', 1),
 (7, 'Excursión al Palacio Real', 'Palacio Real', '2025-04-28 08:00:00.000000', 'Apúntate a visitar uno de los lugares más turísticos de Madrid.', 40, 0, 0, 'img/excursionPR.jpg', 1),
