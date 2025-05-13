@@ -445,6 +445,7 @@ class actividadDAO extends baseDAO implements IActividad
             if(empty($tipos)){
                 $tipos = "Deporte,Salud,Cultura,Tecnologia";
             }
+            $userId = application::getInstance()->getUserDTO()->id();
             $tiposArray = explode(',', $tipos);
             //incluir tantos parametros como valores haya en tipos
             $interrogaciones = implode(',', array_fill(0, count($tiposArray), '?'));
@@ -489,7 +490,7 @@ class actividadDAO extends baseDAO implements IActividad
                 }
             }
             //si es un voluntario añade la opcion de que no esten dirigidas
-            else if($usuario==1){
+            else if($usuario==2){
                 if($inicio != null && $final != null){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
                           FROM actividades a 
@@ -522,23 +523,29 @@ class actividadDAO extends baseDAO implements IActividad
                           FROM actividades a 
                           JOIN categorias c ON a.categoria = c.id
                           WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
-                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
-                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=1
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?)
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=1 AND aforo - ocupacion > 0 
                           ORDER BY a.fecha_hora ASC";
                     $stmt = $conn->prepare($query);
-                    $types = str_repeat('s', 5 + count($tiposArray)); 
-                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $types = str_repeat('s', 6 + count($tiposArray)); 
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras, $userId], $tiposArray);
                     $stmt->bind_param($types, ...$params);
                 }
                 else if ($palabras != null && ($inicio == null && $final == null)){
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
                           FROM actividades a
                           JOIN categorias c ON a.categoria = c.id
-                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 1
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?) AND a.dirigida = 1 AND aforo - ocupacion > 0 
                             AND LOWER(c.nombre) IN ($interrogaciones)";
                     $stmt = $conn->prepare($query);
-                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
-                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $types = str_repeat('s', 4 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras, $userId], $tiposArray);
                     $stmt->bind_param($types, ...$params); 
                 }
             }
