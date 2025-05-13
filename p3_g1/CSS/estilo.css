@@ -662,3 +662,40 @@ hr {
     gap: 10px;
     justify-content: flex-start; 
 }
+
+.filtro-container-moderno {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.filtro-fila {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filtro-input-moderno {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 120px;
+}
+
+.filtro-categorias-linea {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+}
+
+.filtro-boton-moderno {
+    margin-top: 1.5rem;
+    text-align: center;
+}
