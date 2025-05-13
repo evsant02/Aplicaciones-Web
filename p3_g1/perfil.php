@@ -20,10 +20,11 @@ function mostrarPerfil(): string {
     }
     $html .= '<hr/>';
     
-
     if ($app->soyAdmin()) {
         $html .= "<div class='perfil-admin'>";
         $html .= "<p class='rol-usuario'> <em> Administrador </em> </p>";
+        $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
+        $html .= '<a href="EliminarUsuario.php?id=' . $user->id() . '">Eliminar cuenta</a>';
         $html .= "<div class='botones-admin'>";
         $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>';
@@ -34,10 +35,12 @@ function mostrarPerfil(): string {
         if($app->soyUsuario()) {
             $html .= "<p class='rol-usuario'> <em> Usuario </em> </p>";
             $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
+            $html .= '<a href="EliminarUsuario.php?id=' . $user->id() . '">Eliminar cuenta</a>';
         }
         else if ($app->soyVoluntario()) {
             $html .= "<p class='rol-usuario'> <em> Voluntario </em> </p>";
             $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
+            $html .= '<a href="EliminarUsuario.php?id=' . $user->id() . '">Eliminar cuenta</a>';
         }
         $html .= "</div>"; // cierre perfil-usuario
         $html .= "</div>"; // cierre perfil-header

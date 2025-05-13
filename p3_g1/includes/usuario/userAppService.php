@@ -74,7 +74,13 @@ class userAppService
         $IUserDAO = userFactory::CreateUser();
         $usuarios = $IUserDAO->getTodosLosUsuarios();
         return $usuarios;
+    }
 
+    public function borrar($userDTO){
+        $IUserDAO = userFactory::CreateUser();
+        $usuario = $IUserDAO->borrar($userDTO);
+
+        return $usuario;
     }
 
 }

@@ -189,6 +189,20 @@ class userDAO extends baseDAO implements IUser
         return $idsUsuarios;
     }
 
+    public function borrar($id){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "DELETE FROM usuarios WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        try {
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            return $stmt->affected_rows > 0;
+
+        } finally {
+            $stmt->close();
+        }
+    }
 
 }
 
