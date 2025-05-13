@@ -33,18 +33,20 @@ class actividadesFiltradas
         $actividadAppService = actividadAppService::GetSingleton();
         
         $app = application::getInstance();
+
+        $userId = $app->getUserDTO()->tipo();
          
-        if($app->soyUsuario()){
-            $usuario=2;
-        }
-        else if($app->soyAdmin()){
-            $usuario=0;
-        }
-        else{
-            $usuario=1;
-        }
+        // if($app->soyUsuario()){
+        //     $usuario=2;
+        // }
+        // else if($app->soyAdmin()){
+        //     $usuario=0;
+        // }
+        // else{
+        //     $usuario=1;
+        // }
         //obtiene el array de actividades
-        $this->actividades = $actividadAppService->actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario);
+        $this->actividades = $actividadAppService->actividadesFiltrar($desde, $hasta, $texto, $tipos, $userId);
         echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
         
         $html='';
@@ -86,8 +88,5 @@ class actividadesFiltradas
         
         return $html;
     }
-
-    
-
 
 }

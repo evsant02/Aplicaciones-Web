@@ -23,7 +23,10 @@ $htmlListado = $actividadesDisponibles->Inicializacion(); //esto tiene que ser i
 // Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
 <p>$mensaje</p>
-<h1>Actividades disponibles</h1>
+<div id="actividades-header">
+    <h1>Actividades disponibles</h1>
+    <a href="vistaActividadesFiltradas.php"><button type="button">Filtrar</button></a>
+</div>
 $htmlListado
 EOS;
 

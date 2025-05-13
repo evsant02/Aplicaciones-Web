@@ -4,9 +4,9 @@ require_once("includes/config.php");
 // Incluir la clase que genera la lista de actividades disponibles
 //require_once("includes/mostrarActividades/actividadesDisponibles.php");
 
-use includes\actividadesFiltradas\actividadesFiltradas;
+// use includes\actividadesFiltradas\actividadesFiltradas;
 use includes\application;
-use includes\comun\barraLateral;
+use includes\actividadesFiltradas\filtrarForm;
 // Definir el título de la página
 $tituloPagina = 'Filtros de Actividad';
 
@@ -16,7 +16,7 @@ $app = Application::getInstance();
 // Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
 $mensaje = $app->getAtributoPeticion('mensaje');
 //crear la barra lateral
-$barraLateral = new barraLateral();
+$filtrarForm = new filtrarForm();
 
 
 if (isset($_GET['ajax'])) {
@@ -30,7 +30,7 @@ if (isset($_GET['ajax'])) {
 $contenidoPrincipal = <<<EOS
 <div class="contenedor-principal">
     <aside class="sidebar-container">
-        {$barraLateral->mostrar()}
+        {$filtrarForm->mostrar()}
     </aside>
     
     <main class="contenido-principal">

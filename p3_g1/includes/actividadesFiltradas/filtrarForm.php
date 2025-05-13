@@ -1,9 +1,9 @@
 <?php
-namespace includes\comun;
+namespace includes\actividadesFiltradas;
 
 require_once("includes/config.php");
 
-class barraLateral
+class filtrarForm
 {
     public function mostrar()
     {
