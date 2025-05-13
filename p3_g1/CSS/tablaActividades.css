@@ -71,21 +71,6 @@
     margin-top: 15px;
 }
 
-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    width: 100%; /* Botones ocupan todo el ancho de su contenedor */
-}
-
-button:hover {
-    background-color: #3498db;
-}
-
 /* Estilos para la paginación */
 .paginacion {
     width: 100%;

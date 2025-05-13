@@ -28,19 +28,17 @@ if (isset($_GET['ajax'])) {
 // Definir el contenido principal de la página
 
 $contenidoPrincipal = <<<EOS
-<div class="contenedor-principal">
-    <aside class="sidebar-container">
-        {$filtrarForm->mostrar()}
-    </aside>
+<aside class="filtro-container">
+    {$filtrarForm->mostrar()}
+</aside>
+
+<main class="contenido-principal">
+    <p>$mensaje</p>
+    <h1>Actividades filtradas</h1>
     
-    <main class="contenido-principal">
-        <p>$mensaje</p>
-        <h1>Actividades filtradas</h1>
-        
-        <div id="resultadoActividades">
-        </div>
-    </main>
-</div>
+    <div id="resultadoActividades">
+    </div>
+</main>
 
 <script src="js/lateral.js"></script>
 EOS;

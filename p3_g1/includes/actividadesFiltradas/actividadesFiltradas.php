@@ -37,9 +37,10 @@ class actividadesFiltradas
         $userId = $app->getUserDTO()->tipo();
         //obtiene el array de actividades
         $this->actividades = $actividadAppService->actividadesFiltrar($desde, $hasta, $texto, $tipos, $userId);
-        echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
+        echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';
         
-        $html='';
+        $html = '';
+
         if($this->actividades == null) {
             $html =  '<p>¡No se han encontrado actividades con esos parámetros!</p> 
             <div class="sin-actividades">
