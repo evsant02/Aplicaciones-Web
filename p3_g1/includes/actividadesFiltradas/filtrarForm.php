@@ -49,7 +49,6 @@ class filtrarForm
         echo '</div>';
         
         echo '</form>';
-        echo '</div>';
         
         return ob_get_clean();
     }
