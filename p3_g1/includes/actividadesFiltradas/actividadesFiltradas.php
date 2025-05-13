@@ -17,35 +17,42 @@ class actividadesFiltradas
     }
     public function filtrado(){
 
-        if (empty($_GET['inicio']) || empty($_GET['final']) /*|| empty($_GET['texto'])*/) {
-            return '<p>Seleccione un rango de fechas para filtrar o una palabra</p>';
+        //comprobacion de si el usuario introduce un inicio o final, incluya todo el rango
+        if ((!empty($_GET['inicio']) && empty($_GET['final'])) ||(empty($_GET['inicio']) && !empty($_GET['final']) )) {
+            return '<p>Seleccione un rango completo de fechas para filtrar</p>';
         }
         $desde = $_GET['inicio'] ?? null;
         $hasta = $_GET['final'] ?? null;
+        //comprobacion validez de fechas
         if($desde>$hasta){
             return '<p>La fecha de inicio no puede ser posterior a la de final del intervalo</p>';
         }
-        
-        //$texto = $_GET['texto'] ?? '';
-        //terminar el filtrado
+        //escape del texto introducido por el usuario
+        $texto = htmlspecialchars(trim($_GET['texto'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $tipos = $_GET['tipos'] ?? '';
         $actividadAppService = actividadAppService::GetSingleton();
-        $this->actividades = $actividadAppService->actividadesFecha($desde, $hasta); 
+        
         $app = application::getInstance();
 
-        echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';  
+        $userId = $app->getUserDTO()->tipo();
+        //obtiene el array de actividades
+        $this->actividades = $actividadAppService->actividadesFiltrar($desde, $hasta, $texto, $tipos, $userId);
+        echo '<link rel="stylesheet" type="text/css" href="CSS/tablaActividades.css">';
         
-        $html='';
+        $html = '';
+
         if($this->actividades == null) {
-            $html =  '<p>¡No hay nada en esas fechas!</p> 
+            $html =  ' 
             <div class="sin-actividades">
                 <div class="imagen-centrada">
+                    <p>¡No se han encontrado actividades con esos parámetros!</p>
                     <img src="img/logo.jpeg" alt="Logo de la organización" class="logo-actividades">
                 </div>
             </div>';
         }
         else {
-            foreach ($this->actividades as $actividad) {       
-                // $html .= '<div class="actividad-item">' . $actividadAppService->mostrar($actividad) . '</div>';    
+            //muestras las actividades
+            foreach ($this->actividades as $actividad) {           
                 $html .= '<div class="actividad-item">';
                 $html .= '<div class="actividad">';
                 if ($app->soyUsuario()) {
@@ -59,10 +66,13 @@ class actividadesFiltradas
                 $html .= '<h3>' . $actividad->nombre() . '</h3>';
 
                 $fechaHora = new \DateTime($actividad->fecha_hora());
-                $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
+                $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; 
 
                 $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
-                
+                if ($app->soyAdmin()){
+                    $html .= '<a href="ModificarActividad.php?id=' . $actividad->id() . '"><button type="button">Modificar</button></a> ';
+                    $html .= '<a href="EliminarActividad.php?id=' . $actividad->id() . '"><button type="button">Eliminar</button></a>';
+                }
                 $html .= '</div>'; // actividad
                 $html .= '</div>'; // actividad-item
             }   
@@ -70,8 +80,5 @@ class actividadesFiltradas
         
         return $html;
     }
-
-    
-
 
 }

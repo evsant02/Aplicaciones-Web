@@ -1,8 +1,5 @@
 <?php
 
-// Se requiere el archivo que contiene la fábrica de usuarios
-//require("userFactory.php");
-
 namespace includes\usuario;
 
 use includes\usuario\userFactory;
@@ -70,16 +67,20 @@ class userAppService
 
         return $idUserDTO;
     }
-
-
-
+    
 
     //método que me devuelve todos los usuarios
     public function getTodosLosUsuarios(){
         $IUserDAO = userFactory::CreateUser();
         $usuarios = $IUserDAO->getTodosLosUsuarios();
         return $usuarios;
+    }
 
+    public function borrar($userDTO){
+        $IUserDAO = userFactory::CreateUser();
+        $usuario = $IUserDAO->borrar($userDTO);
+
+        return $usuario;
     }
 
 }

@@ -6,9 +6,6 @@ use includes\application;
 use includes\usuario\userAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 
-// Se requiere el archivo que contiene la fábrica de actividades
-//require_once("actividadesusuarioFactory.php");
-
 // Clase que gestiona el servicio de aplicación para las actividades
 class actividadesmensajesAppService
 {
@@ -50,46 +47,6 @@ class actividadesmensajesAppService
 
     }    
 
-    /* public function mostrarMensajes($actividadDTO, $mensaje){
-        $user = application::getInstance()->getUserDTO();
-  
-        if ($mensaje == 1) {
-            $texto = '¡Nueva actividad disponible!';
-            $clase = 'mensaje-card mensaje-nueva';
-        } elseif ($mensaje == 0) {
-            $texto = 'Actividad cancelada';
-            $clase = 'mensaje-card mensaje-cancelada';
-        } else {
-            $texto = 'Mensaje desconocido.';
-            $clase = 'mensaje-card';
-        }
-
-        $html = '<div class="' . $clase . '">';
-        $html .= '<div class="mensaje-estado">' . htmlspecialchars($texto) . '</div>';
-        $html .= '<div class="actividad-info">';
-        $html .= '<h3 class="actividad-titulo">' . htmlspecialchars($actividadDTO->nombre()) . '</h3>';
-        $html .= '<span class="actividad-fecha">' . date("d/m/Y H:i", strtotime($actividadDTO->fecha_hora())) . '</span>';
-        $html .= '</div>';
-
-
-        $idActividad = intval($actividadDTO->id());
-        $idUsuario = $user->id();
-        
-        $html .= '<a href="EliminarMensaje.php?id_actividad=' . $idActividad . '&id_usuario=' . $idUsuario . '&mensaje=' . $mensaje . '" class="btn-eliminar-link" title="Eliminar mensaje">';
-        $html .= '<button type="button" class="btn-eliminar">✖</button>';
-        $html .= '</a>';
-
-        if ($mensaje == 1) $html .= '<a href="vistaReservaActividad.php?id=' . $idActividad . '" class="btn-eliminar-link" title="Ir a la actividad">';
-        else $html .= '<a href="vistaActividades.php?id= " class="btn-eliminar-link" title="Buscar otra actividad">';
-        $html .= '<button type="button" class="btn-act">➜</button>';
-        $html .= '</a>';
-
-        $html .= '</div>';
-
-
-        return $html;
-            
-    } */
 
     public function crearMensaje($mensajeDTO){
         
@@ -130,10 +87,6 @@ class actividadesmensajesAppService
         $mensajes = $IActividadDAO->tieneMensajes($id_usuario);
         return $mensajes;
     }
-
-
-
-    
-
 }
+
 ?>

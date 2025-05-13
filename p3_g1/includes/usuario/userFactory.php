@@ -1,5 +1,4 @@
 <?php
-//require("userDAO.php");
 
 namespace includes\usuario;
 

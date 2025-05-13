@@ -1,7 +1,4 @@
-<?php
-
-// Incluir la configuración principal de la aplicación
-//require_once("application.php");
+<?php 
 
 namespace includes;
 
@@ -76,7 +73,7 @@ function gestorExcepciones(\Throwable $exception)
     http_response_code(500); // Devolver código de error 500 (Error interno del servidor)
 
     $tituloPagina = 'Error';
-    var_dump($exception->getMessage());
+    // var_dump($exception->getMessage()); // descomentar para saber errores
     // Mensaje de error para el usuario
     $contenidoPrincipal = <<<EOS
     <h1>Oops</h1>
@@ -86,20 +83,6 @@ function gestorExcepciones(\Throwable $exception)
     require("comun/plantilla.php"); // Mostrar la plantilla de error
 }
 
-/*function gestorExcepciones($exception) {
-    error_log(jTraceEx($exception)); // Registrar error en log
-    http_response_code(500); // Código 500
-
-    // Mensaje para el usuario (ejemplo)
-    $mensajeUsuario = "Error: " . htmlspecialchars($exception->getMessage());
-
-    // Incluir plantilla y mostrar mensaje
-    require("comun/plantilla.php");
-    #contenidoPrincipal = <<<EOS
-    <h1>Oops</h1>
-    <p>$mensajeUsuario</p>
-    EOS;
-}*/
 
 // Registrar la función para manejar excepciones globales
 set_exception_handler(__NAMESPACE__ . '\gestorExcepciones');

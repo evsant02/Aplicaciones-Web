@@ -17,8 +17,6 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
         if ($app->isUserLogged()) {
             $user = $app->getUserDTO();
             echo '<li><a href="vistaActividades.php">Actividades</a></li>'; // Solo si está logueado
-            echo '<li><a href="vistaActividadesFiltradas.php">Búsqueda de Actividades</a></li>';
-            //if ($app->soyUsuario()) echo '<li><a href="vistaForoNoticias.php">Foro de Noticias</a></li>'; // Solo si está logueado se muestra el foro de noticias
         }
         
         // Menú desplegable para Dona
@@ -47,9 +45,6 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
         
         if ($app->isUserLogged()) {
             if ($app->soyUsuario()){
-                //echo '<li><a href="vistaForoNoticias.php">Foro de Noticias</a></li>'; // Solo si está logueado se muestra el foro de noticias          
-                //echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias">✉️</a></li>';
-                //echo '<li><a href="vistaForoNoticias.php" title="Foro de noticias" class="icono-foro">✉️</a></li>';
 
                 //PRUEBA IMAGEN NOTIFICACION
                 $app = application::getInstance();
@@ -61,9 +56,8 @@ if (!function_exists('includes\comun\mostrarCabecera')) {
                 $emoji = $hayNotificaciones ? '📩' : '✉️';
                 //mostrar enlace con el emoji correcto
                 echo '<li><a href="vistaForoNoticias.php" title="Notificaciones" class="icono-foro">' . $emoji . '</a></li>';
-      
-
             } 
+            
             echo "<li><a href='perfil.php'>Perfil " .$user->nombre(). "</a></li>";
             echo "<li><a href='logout.php'>(Salir)</a></li>";
         } else {

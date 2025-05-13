@@ -1,20 +1,11 @@
 <?php
 
-// Se requieren los archivos necesarios para la funcionalidad de la clase
-//require_once("IUser.php"); // Interfaz que define los métodos de usuario
-//require_once("userDTO.php"); // Objeto de transferencia de datos para usuarios
-//require_once(__DIR__ . "/../comun/baseDAO.php"); // Clase base para acceso a la base de datos
-
 namespace includes\usuario;
 use includes\comun\baseDAO;
 use includes\application;
 use includes\excepciones\EmailAlreadyExistException;
 use includes\excepciones\UserAlreadyExistException;
 use includes\excepciones\UserNotFoundException;
-
-//require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
-//require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
-//require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
 
 // Clase userDAO que extiende baseDAO e implementa la interfaz IUser
 class userDAO extends baseDAO implements IUser
@@ -69,14 +60,6 @@ class userDAO extends baseDAO implements IUser
     public function create($userDTO)
     {
         try {
-            /*if ($this->existsById($userDTO)) {
-                throw new UserAlreadyExistException("Ya existe el usuario '{$userDTO->id()}'");
-            }
-            
-            if ($this->existsByEmail($userDTO)) {
-                throw new EmailAlreadyExistException($userDTO->correo());
-            }*/
-
             $escId = $this->realEscapeString($userDTO->id());
             $escNombre = $this->realEscapeString($userDTO->nombre());
             $escApellidos = $this->realEscapeString($userDTO->apellidos());
@@ -99,7 +82,6 @@ class userDAO extends baseDAO implements IUser
                     $idUser = $conn->insert_id;
                     $createUserDTO=new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
                 }
-
               
             } finally {
                 $stmt->close();
@@ -112,6 +94,8 @@ class userDAO extends baseDAO implements IUser
         }
         return $createUserDTO;
     }
+
+
     // Método para cifrar una contraseña usando bcrypt
     private static function hashPassword($password)
     {
@@ -203,9 +187,22 @@ class userDAO extends baseDAO implements IUser
         }
     
         return $idsUsuarios;
-
     }
 
+    public function borrar($id){
+        $conn = application::getInstance()->getConexionBd();
+        $query = "DELETE FROM usuarios WHERE id = ?";
+        $stmt = $conn->prepare($query);
+
+        try {
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+            return $stmt->affected_rows > 0;
+
+        } finally {
+            $stmt->close();
+        }
+    }
 
 }
 

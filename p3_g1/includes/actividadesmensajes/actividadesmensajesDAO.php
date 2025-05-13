@@ -2,20 +2,15 @@
 
 namespace includes\actividadesmensajes;
 
-
 use includes\comun\baseDAO;
 use includes\application;
-
-
 
 
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
 {
     // Constructor vacío
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     
     public function getMensajesPorUsuario($id_usuario) {
@@ -55,39 +50,6 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
     }
 
 
-
-    //metodo para crear nuevo mnsj
-    /*public function crearMensaje($mensajeDTO){
-        try {
-            //conexion con la bbdd
-            $conn = application::getInstance()->getConexionBd();
-    
-            //escape de strings para evitar inyeccion sql
-            $idActividad = $this->realEscapeString($mensajeDTO->id_actividad());
-            $idUsuario = $this->realEscapeString($mensajeDTO->id_usuario());
-            $tipoMensaje = $this->realEscapeString($mensajeDTO->mensaje());
-    
-            //consulta sql
-            $query = "INSERT INTO `actividades-mensajes` (id_actividad, id_usuario, mensaje) VALUES (?, ?, ?)";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("isi", $idActividad, $idUsuario, $tipoMensaje);
-    
-            //ejecuto la consulta sql
-            if ($stmt->execute()) {
-                //devuelvo el dto
-                return new actividadesmensajesDTO($idActividad, $idUsuario, $tipoMensaje);
-            }
-    
-        } finally {
-            if ($stmt) {
-                $stmt->close();
-            }
-        }
-    
-        return false;
-    }*/
-
-
     public function crearMensaje($mensajeDTO) {
         $conn = application::getInstance()->getConexionBd();
 
@@ -106,11 +68,8 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
             $stmtInsert->bind_param("isi", $idActividad, $idUsuario, $tipoMensaje);
 
             if ($stmtInsert->execute()) {
-                //$stmtInsert->close();
                 return new actividadesmensajesDTO($idActividad, $idUsuario, $tipoMensaje);
             }
-
-            //$stmtInsert->close();
 
         } finally {
             if (isset($stmtInsert) && $stmtInsert) {
@@ -120,8 +79,6 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
 
         return false;
     }
-
-
 
 
     //método que me devuelve el numero de mensajes que tiene un usuario
@@ -139,9 +96,6 @@ class actividadesmensajesDAO extends baseDAO implements IActividadesmensajes
 
         return $count > 0;
     }
-
-
-
-
 }
+
 ?>

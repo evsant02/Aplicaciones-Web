@@ -1,7 +1,6 @@
 <?php
 // Incluir los archivos necesarios para la configuración y el servicio de actividades
 require_once("includes/config.php");
-//require_once("includes/actividad/actividadAppService.php");
 
 use includes\actividad\actividadAppService;
 use includes\application;

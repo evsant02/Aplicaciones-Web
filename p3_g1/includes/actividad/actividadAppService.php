@@ -2,8 +2,6 @@
 
 namespace includes\actividad;
 
-// Se requiere el archivo que contiene la fábrica de actividades
-//require_once("actividadFactory.php");
 require_once(__DIR__ . "/../config.php");
 
 use includes\application;
@@ -118,68 +116,6 @@ class actividadAppService
         return $actividad;
     }
 
-    /*public function mostrar($actividadDTO){
-        $app = application::getInstance();
-        $html = '<div class="actividad">';
-        if ($app->soyUsuario()) {
-            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
-        }
-        else if ($app->soyVoluntario()) {
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace">';
-        }
-        $html .= '<img src="' . $actividadDTO->foto().  '" alt="' . $actividadDTO->nombre() . '" width="350">';
-        if (!$app->soyAdmin()) $html .= '</a>';
-        $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
-
-        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
-        $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
-
-        $html .= '<p>Aforo: ' . $actividadDTO->ocupacion(). '/' . $actividadDTO->aforo() . '</p>';
-        //usuario
-        /*if ($tipo_user == 1){            
-            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Reservar</a>';
-        }
-        //voluntario
-        if ($tipo_user == 2){
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="btn">Dirigir</a>';
-        }
-        //administrador: dos botones
-        if ($app->soyAdmin()){
-            //debe de aparecer un boton para eliminarla y otro para modificar los datos
-            $html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Modificar</button></a> &ensp; <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '"><button type="button">Eliminar</button></a>';
-            /*$html .= '<a href="ModificarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Modificar</a> | 
-                    <a href="EliminarActividad.php?id=' . $actividadDTO->id() . '" class="btn">Eliminar</a>';
-        }
-        //$html .= '<a href="' . $this->getEnlace($tipo_usuario) . '" class="btn">' . ($tipo_usuario == 'usuario' ? 'Inscribirse' : 'Dirigir') . '</a>';
-        
-        $html .= '</div>';
-        return $html;  //se devuelve en html
-}*/
-
-    /*public function mostrarPerfil($actividadDTO) {
-        $user = application::getInstance()->getUserDTO();
-        $app = application::getInstance();
-
-        $html = '<div class="actividad">';
-
-        if($app->soyUsuario()){
-            $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
-        }else if($app->soyVoluntario()){
-            $html .= '<a href="vistaDirigirActividad.php?id=' . $actividadDTO->id() . '" class="imagen-enlace"> <img src="' . $actividadDTO->foto() . '" alt="' . $actividadDTO->nombre() . '" width="350"></a>';
-        }
-
-        $html .= '<h3>' . $actividadDTO->nombre() . '</h3>';
-        
-        // Formatear la fecha y hora
-        $fechaHora = new \DateTime($actividadDTO->fecha_hora());
-        $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
-        
-        // $html .= '<a href="vistaReservaActividad.php?id=' . $actividadDTO->id() . '" class="btn">Detalles</a>';
-        $html .= '</div>';
-    
-        return $html;
-    }*/
-
 
     public function annadirusuario($id_actividad){
         $IActividadDAO = actividadFactory::CreateActividad();
@@ -214,21 +150,9 @@ class actividadAppService
         $IActividadDAO = actividadFactory::CreateActividad();
         return $IActividadDAO->estaDirigida($id_actividad);
     }
-
-
-
-
-
-
-
-
-
-
-
-    public function actividadesFecha($desde, $hasta){
+    public function actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario){
         $IActividadDAO = actividadFactory::CreateActividad();
-        // Se llama al método que busca la actividad por su ID
-        $actividades = $IActividadDAO->actividadesFecha($desde, $hasta);
+        $actividades = $IActividadDAO->actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario);
         return $actividades;
     }
 }

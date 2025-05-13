@@ -6,14 +6,6 @@ use includes\application;
 use includes\excepciones\DuplicateActivityException;
 use includes\usuario\userDTO;
 
-// Se incluyen las dependencias necesarias
-//require_once("IActividad.php");
-//require_once("actividadDTO.php");
-//require_once(__DIR__ . "/../comun/baseDAO.php");
-
-// Excepciones personalizadas
-//require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
-
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad
 {
@@ -26,11 +18,6 @@ class actividadDAO extends baseDAO implements IActividad
     public function crear($actividadDTO)
     {
         try {
-            // Validación básica de datos
-            /*if (empty($actividadDTO->nombre()) || $actividadDTO->aforo() <= 0) {
-                throw new InvalidActivityDataException("Datos de actividad no válidos");
-            }*/
-
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();
 
@@ -170,9 +157,6 @@ class actividadDAO extends baseDAO implements IActividad
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-
-            //throw new ActivityNotFoundException("Actividad no encontrada");
-
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -322,9 +306,6 @@ class actividadDAO extends baseDAO implements IActividad
             if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
-            /*if (isset($stmtTotal) && $stmtTotal) {
-                $stmtTotal->close();
-            }*/
         }
     }
 
@@ -353,7 +334,6 @@ class actividadDAO extends baseDAO implements IActividad
         // Se ejecuta la consulta
         $resultado = $stmt->execute();
         return $resultado;
-
     }
 
     public function borrarUsuario($id_actividad) {
@@ -422,14 +402,13 @@ class actividadDAO extends baseDAO implements IActividad
             // Vincula la variable al resultado
             $stmt->bind_result($dirigida);
     
-            //sii se obtiene un resultado, se devuelve si está dirigida o no
+            //si se obtiene un resultado, se devuelve si está dirigida o no
             if ($stmt->fetch()) {
                 return $dirigida == 1;
             }
     
             // si no se encuentra 
             return false;
-    
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -437,29 +416,126 @@ class actividadDAO extends baseDAO implements IActividad
         }
     }
     
-    public function actividadesFecha($desde, $hasta) {
+    //Uso de consultas SQL para devolver lista de actividaDTO coincidente con filtros
+    public function actividadesFiltrar($desde, $hasta, $texto, $tipos, $usuario) {
         try {
             $conn = application::getInstance()->getConexionBd();
-    
-            $inicio = date_create($desde)->format('Y-m-d H:i:s');
-            $final = date_create($hasta)->format('Y-m-d H:i:s');
-            
-            
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
-                      FROM actividades 
-                      WHERE DATE (fecha_hora) >= ? AND DATE (fecha_hora) <= ? ORDER BY fecha_hora ASC";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param('ss', $inicio, $final); // 'ss' porque ambos son strings (fechas)
-    
-            // Ejecuta la consulta
+            //si no hay filtro por botones se incluyen todos
+            if(empty($tipos)){
+                $tipos = "Deporte,Salud,Cultura,Tecnologia";
+            }
+            $userId = application::getInstance()->getUserDTO()->id();
+            $tiposArray = explode(',', $tipos);
+            //incluir tantos parametros como valores haya en tipos
+            $interrogaciones = implode(',', array_fill(0, count($tiposArray), '?'));
+            //si no hay fechas valores a null
+            if(empty($desde)&&empty($hasta)){
+                $inicio = null;
+                $final =null;
+            }
+            else{
+                $inicio = date_create($desde)->format('Y-m-d H:i:s');
+                $final = date_create($hasta)->format('Y-m-d H:i:s');
+            }
+            //buscar cualquier coincidencia con la palabra
+            $palabras = "%" . $texto . "%"; 
+            //filtrar por tipo de usuario, las consultas tienen pequennas diferencias para mostrar ciertas actividades
+            if($usuario == 0){
+                //caso con fechas, busca el texto y categorias seleccionadas en esas fechas
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND (c.nombre) IN ($interrogaciones)
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    //incluye el numero de s necesarias dependiendo del tipo de consulta
+                    $types = str_repeat('s', 5 + count($tiposArray)); // all strings
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }//no hay fechas, elimina la restriccion
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 3 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
+            }
+            //si es un voluntario añade la opcion de que no esten dirigidas
+            else if($usuario==2){
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=0
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 5 + count($tiposArray)); 
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 3 + count($tiposArray)); 
+                    $params = array_merge([$palabras, $palabras, $palabras], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
+            }
+            //si es un usuario normal solo muestra actividades dirigidas
+            else{
+                if($inicio != null && $final != null){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a 
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
+                            AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?)
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=1 AND aforo - ocupacion > 0 
+                          ORDER BY a.fecha_hora ASC";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 6 + count($tiposArray)); 
+                    $params = array_merge([$inicio, $final, $palabras, $palabras, $palabras, $userId], $tiposArray);
+                    $stmt->bind_param($types, ...$params);
+                }
+                else if ($palabras != null && ($inicio == null && $final == null)){
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                          FROM actividades a
+                          JOIN categorias c ON a.categoria = c.id
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
+                            SELECT id_actividad 
+                            FROM `actividades-usuario` 
+                            WHERE id_usuario = ?) AND a.dirigida = 1 AND aforo - ocupacion > 0 
+                            AND LOWER(c.nombre) IN ($interrogaciones)";
+                    $stmt = $conn->prepare($query);
+                    $types = str_repeat('s', 4 + count($tiposArray)); // all strings
+                    $params = array_merge([$palabras, $palabras, $palabras, $userId], $tiposArray);
+                    $stmt->bind_param($types, ...$params); 
+                }
+            }
             $stmt->execute();
             $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
     
             $actividades = [];
+            //rellena el array de DTOs
             while ($stmt->fetch()) {
                 $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-    
             return $actividades;
         } finally {
             if (isset($stmt)) {

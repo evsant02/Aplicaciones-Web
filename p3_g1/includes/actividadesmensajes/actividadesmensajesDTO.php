@@ -17,7 +17,6 @@ class actividadesmensajesDTO
         $this->id_actividad = $id_actividad;
         $this->id_usuario = $id_usuario;        
         $this->mensaje = $mensaje;
-        
     }
 
     // Métodos públicos para obtener los valores de los atributos

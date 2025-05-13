@@ -26,7 +26,6 @@ interface IActividadesusuario
 
     public function obtenerUsuariosInscritos($id_actividad);
     
-
 }
 
 ?>

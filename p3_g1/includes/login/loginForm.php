@@ -7,10 +7,6 @@ use includes\usuario\userAppService;
 use includes\application;
 use includes\usuario\userDTO;
 
-// Incluye la clase base del formulario y el servicio de usuario
-//include __DIR__ . "/../comun/formBase.php";
-//include __DIR__ . "/../usuario/userAppService.php";
-
 // Define la clase loginForm, que extiende formBase
 class loginForm extends formBase
 {
@@ -86,9 +82,6 @@ class loginForm extends formBase
                 application::getInstance()->setUserDTO($foundedUserDTO);
 
                 $_SESSION["login"] = true;
-                //$_SESSION["tipo"] = $foundedUserDTO->tipo();
-                //$_SESSION["nombre"] = $foundedUserDTO->nombre();
-                //$_SESSION["id"] = $id;
 
                 // Redirigir a la página principal
                 $result = 'perfil.php';

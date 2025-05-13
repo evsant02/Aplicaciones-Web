@@ -1,6 +1,5 @@
 <?php
 
-//require_once("includes/reservarActividad/reservarActividad.php");
 require_once("includes/config.php");
 
 use includes\application;

@@ -18,9 +18,10 @@ interface IUser
     public function existsById($userDTO);
 
     //método que me devuelve todos los usuarios
-    public function getTodosLosUsuarios();
-
+    public function getTodosLosUsuarios();  
     
+    //método para darse de baja de la aplicación como usuario
+    public function borrar($userDTO);  
 
 }
 

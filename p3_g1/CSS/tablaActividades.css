@@ -12,36 +12,20 @@
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
-    /* max-width: min(25%, 250px);
-    flex-grow: 1; 
-    flex-shrink: 1;
-    flex: 1 1 250px;
-    min-width: 200px;
-    /* max-width: calc(25% - 10px); */
     flex: 1 1 20rem; 
     min-width: 20rem;
     max-width: 30rem;
 }
-
-/* .tabla-actividades td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    box-sizing: border-box;
-    flex: 1 1 250px; 
-    min-width: 0; 
-    max-width: calc(25% - 10px); 
-} */
 
 .tabla-actividades p:last-of-type {
     margin-bottom: 7px;
 }
 
 .actividad img {
-    width: 90%;       /* Ocupa todo el ancho del contenedor padre */
-    height: 200px;     /* Altura fija para todas las imágenes */
-    object-fit: cover;  /* Ajusta la imagen manteniendo la relación de aspecto */
-    object-position: center; /* Centra la imagen en el contenedor */
+    width: 90%;      
+    height: 200px;     
+    object-fit: cover;  
+    object-position: center; 
 }
 
 /* Estilo cuando no hay actividades */
@@ -54,10 +38,9 @@
     background-color: transparent;
     border: none;
     box-shadow: none;
-    width: 100%; /* Ocupa todo el ancho */
+    width: 100%; 
 }
 
-/* Contenedor del logo cuando no hay actividades disponibles */
 .imagen-centrada {
     margin: 20px auto;
     text-align: center;
@@ -69,21 +52,6 @@
     max-width: 300px;
     height: auto;
     margin-top: 15px;
-}
-
-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    width: 100%; /* Botones ocupan todo el ancho de su contenedor */
-}
-
-button:hover {
-    background-color: #3498db;
 }
 
 /* Estilos para la paginación */

@@ -2,8 +2,6 @@
 <?php
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
-// Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/dirigirActividad/dirigirActividad.php");
 
 require_once("includes/config.php");
 

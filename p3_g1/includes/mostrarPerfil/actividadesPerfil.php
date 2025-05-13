@@ -5,10 +5,6 @@ use includes\actividad\actividadAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
 
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
-//require_once( __DIR__ . "/../usuario/userAppService.php");
-
 class actividadesPerfil
 {
     private $actividades;
@@ -51,15 +47,6 @@ class actividadesPerfil
         foreach ($this->actividades as $actividad) {       // solo se deberian mostrar las futuras
             
             $actividad = $actividadAppService->getActividadById($actividad);
-            /*    
-            if($actividad->fecha_hora() > date("Y-m-d H:i:s")){
-                if ($colCount > 0 && $colCount % 3 == 0) {
-                    $html .= '</tr><tr>'; 
-                }
-                $colCount++;
-
-                $html .= '<td>' . $actividadAppService->mostrarPerfil($actividad) . '</td>';
-            }*/
 
             $html .= '<div class="actividad-item">';
                 

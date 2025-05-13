@@ -4,15 +4,10 @@ namespace includes\dirigirActividad;
 
 require_once("includes/config.php");
 
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
-
-
 use includes\actividad\actividadAppService;
 use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
 use includes\actividadesmensajes\actividadesmensajesAppService;
-use includes\actividadesmensajes\actividadesmensajesDTO;
 
 class dirigirActividad 
 {
@@ -23,7 +18,6 @@ class dirigirActividad
     }
 
     
-    
     public function Inicializacion(){
 
         $app = application::getInstance();
@@ -32,8 +26,6 @@ class dirigirActividad
         $actividadAppService = actividadAppService::GetSingleton();
 
         echo '<link rel="stylesheet" type="text/css" href="CSS/estiloActividad.css">';  //uso del css que da estilo a la actividad
-
-
        
         if ($this->actividad == null) {
             return "<p>Actividad no encontrada.</p>";
@@ -132,8 +124,6 @@ class dirigirActividad
 
         }
 
-
-
         //doy de baja al voluntario, al usuario y la actividad
         $actividadAppService->borrarVoluntario($this->actividad->id());
         $actividadUsuarioAppService->bajaUsuario($this->actividad->id(), $id_voluntario);
@@ -142,11 +132,9 @@ class dirigirActividad
         $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
-        //exit();         
 
         return $mensaje;
     }
-
-
 }
+
 ?>

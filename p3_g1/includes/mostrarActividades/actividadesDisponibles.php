@@ -5,8 +5,6 @@ namespace includes\mostrarActividades;
 use includes\actividad\actividadAppService;
 use includes\application;
 
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-
 // Clase que gestiona la lista de actividades disponibles
 class actividadesDisponibles 
 {
@@ -20,8 +18,6 @@ class actividadesDisponibles
     public function Inicializacion(){
 
         $actividadAppService = actividadAppService::GetSingleton();
-        //obtengo las actividades segun el tipo de usuario
-        //$this->actividades = $actividadAppService->obtenerActividadSegunUsuario(); 
         $app = application::getInstance();
 
         $limit = 9;

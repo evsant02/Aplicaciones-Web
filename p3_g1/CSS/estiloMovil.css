@@ -63,3 +63,12 @@ nav ul {
   padding: 12px;
   margin-top: 15px;
 }
+
+.donaciones-chart-container {
+  height: 380px; 
+  padding: 15px 15px 30px 15px; 
+}
+
+#donacionesChart {
+  height: calc(100% - 40px) !important;
+}

@@ -1,8 +1,7 @@
 <?php
+
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
-// Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/mostrarActividades/actividadesDisponibles.php");
 
 use includes\mostrarActividades\actividadesDisponibles;
 use includes\application;
@@ -23,7 +22,10 @@ $htmlListado = $actividadesDisponibles->Inicializacion(); //esto tiene que ser i
 // Definir el contenido principal de la página
 $contenidoPrincipal = <<<EOS
 <p>$mensaje</p>
-<h1>Actividades disponibles</h1>
+<div id="actividades-header">
+    <h1>Todas las Actividades Disponibles</h1>
+    <a href="vistaActividadesFiltradas.php"><button type="button">Filtrar ☰</button></a>
+</div>
 $htmlListado
 EOS;
 

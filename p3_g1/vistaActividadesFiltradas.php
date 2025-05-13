@@ -1,12 +1,9 @@
 <?php
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
-// Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/mostrarActividades/actividadesDisponibles.php");
 
-use includes\actividadesFiltradas\actividadesFiltradas;
 use includes\application;
-use includes\comun\barraLateral;
+use includes\actividadesFiltradas\filtrarForm;
 // Definir el título de la página
 $tituloPagina = 'Filtros de Actividad';
 
@@ -15,10 +12,9 @@ $app = Application::getInstance();
 
 // Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
 $mensaje = $app->getAtributoPeticion('mensaje');
-$barraLateral = new barraLateral();
+//crear la seccion para elegir los filtros
+$filtrarForm = new filtrarForm();
 
-// Crear una instancia de actividadesDisponibles y generar el listado
-$actividadesFiltradas = new actividadesFiltradas();
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: text/html');
@@ -29,20 +25,16 @@ if (isset($_GET['ajax'])) {
 // Definir el contenido principal de la página
 
 $contenidoPrincipal = <<<EOS
-<div class="contenedor-principal">
-    <aside class="sidebar-container">
-        {$barraLateral->mostrar()}
-    </aside>
+<aside class="filtro-container">
+    {$filtrarForm->mostrar()}
+</aside>
+
+<main class="contenido-principal">
+    <h1>Actividades filtradas</h1>
     
-    <main class="contenido-principal">
-        <p>$mensaje</p>
-        <h1>Actividades filtradas</h1>
-        
-        <div id="resultadoActividades">
-        {$actividadesFiltradas->filtrado()}
-        </div>
-    </main>
-</div>
+    <div id="resultadoActividades">
+    </div>
+</main>
 
 <script src="js/lateral.js"></script>
 EOS;
