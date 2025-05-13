@@ -10,14 +10,6 @@ use includes\excepciones\EmailAlreadyExistException;
 use includes\excepciones\UserAlreadyExistException;
 use includes\excepciones\UserNotFoundException;
 
-// Incluye la clase base del formulario y el servicio de usuario
-//include __DIR__ . "/../comun/formBase.php";
-//include __DIR__ . "/../usuario/userAppService.php";
-
-//require_once(__DIR__ . "/../../excepciones/user/UserAlreadyExistException.php");
-//require_once(__DIR__ . "/../../excepciones/user/EmailAlreadyExistException.php");
-//require_once(__DIR__ . "/../../excepciones/user/UserNotFoundException.php");
-
 // Define la clase registerForm, que extiende formBase
 class registerForm extends formBase
 {
@@ -115,16 +107,6 @@ class registerForm extends formBase
         // Crear un objeto de usuario solo con el ID y correo para verificar si ya existen
         $userDTO = new userDTO($id, null, null, null, null, null, $correo);
         $userAppService = userAppService::GetSingleton();
-
-        // Verificar si ya existe un usuario con ese correo
-       /* if ($userAppService->existsByEmail($userDTO)) {
-            $result[] = "Ya existe una cuenta con este correo electrónico.";
-        }
-
-        // Verificar si el ID de usuario ya está en uso
-        if ($userAppService->existsById($userDTO)) {
-            $result[] = "El ID de usuario ya está en uso. Por favor, elige otro.";
-        }*/
 
         try {
             // Verificar si ya existe un usuario con ese correo

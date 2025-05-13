@@ -67,7 +67,6 @@ abstract class formBase
 
         // Crea el formulario con los campos necesarios.
         $html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" enctype="multipart/form-data">';
-        //$html .= '<form method="POST" action="'.$this->action.'" id="'.$this->formId.'" >';
         
         $html .= '<input type="hidden" name="action" value="'.$this->formId.'" />';
 

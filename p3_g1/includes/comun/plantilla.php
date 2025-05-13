@@ -33,7 +33,6 @@
 			</main>
 
 			<?php
-				//require("includes/comun/sidebarDer.php");  // Comentado, se podría incluir una barra lateral derecha
 				require("pie.php");  // Se incluye el pie de página
 			?>
 

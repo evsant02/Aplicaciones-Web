@@ -65,7 +65,7 @@ class actividadesFiltradas
                 $html .= '<h3>' . $actividad->nombre() . '</h3>';
 
                 $fechaHora = new \DateTime($actividad->fecha_hora());
-                $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; // Formato: día-mes-año hora:minutos
+                $html .= '<p>' . $fechaHora->format('d-m-Y H:i') . '</p>'; 
 
                 $html .= '<p>Aforo: ' . $actividad->ocupacion(). '/' . $actividad->aforo() . '</p>';
                 if ($app->soyAdmin()){

@@ -7,8 +7,6 @@ use includes\actividadesusuario\actividadesusuarioAppService;
 use includes\application;
 
 require_once("includes/config.php");
-//require_once( __DIR__ . "/../actividad/actividadAppService.php");
-//require_once( __DIR__ . "/../actividades-usuario/actividadesusuarioAppService.php");
 
 class reservarActividad
 {
@@ -74,14 +72,11 @@ class reservarActividad
             }
         }
 
-        // Se redirige a la página principal con un mensaje de éxito
-
         // Se almacena un mensaje de éxito en la sesión para mostrarlo al usuario
         $app = application::getInstance();  
 
         $app->putAtributoPeticion('mensaje', $mensaje);
-               
-       // $html .= "</div></div>"; 
+        
         return $html;
     }
 
@@ -111,7 +106,6 @@ class reservarActividad
         $mensaje =  '<p>Se te ha dado de baja en la actividad.</p>';
         // Recargar la página
         header("Location: ".$_SERVER['REQUEST_URI']);
-        //exit(); 
 
         return $mensaje;
     }

@@ -1,10 +1,7 @@
 <?php
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
-// Incluir la clase que genera la lista de actividades disponibles
-//require_once("includes/mostrarActividades/actividadesDisponibles.php");
 
-// use includes\actividadesFiltradas\actividadesFiltradas;
 use includes\application;
 use includes\actividadesFiltradas\filtrarForm;
 // Definir el título de la página
@@ -15,7 +12,7 @@ $app = Application::getInstance();
 
 // Recupera un mensaje almacenado en la petición (puede ser un mensaje de error o confirmación)
 $mensaje = $app->getAtributoPeticion('mensaje');
-//crear la barra lateral
+//crear la seccion para elegir los filtros
 $filtrarForm = new filtrarForm();
 
 

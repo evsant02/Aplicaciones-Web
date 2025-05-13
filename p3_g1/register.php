@@ -3,9 +3,6 @@
 // Incluye la configuración de la aplicación (base de datos, constantes, etc.)
 require_once("includes/config.php");
 
-// Incluye la clase o lógica del formulario de registro
-//require_once("includes/login/registerForm.php");
-
 use includes\login\registerForm;
 
 // Título de la página

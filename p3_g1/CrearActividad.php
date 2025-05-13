@@ -3,8 +3,6 @@
 // Incluir la configuración general del sistema
 require_once("includes/config.php");
 
-//require_once("includes/crearActividad/crearActividadForm.php");
-
 use includes\crearActividad\crearActividadForm;
 
 // Definir el título de la página

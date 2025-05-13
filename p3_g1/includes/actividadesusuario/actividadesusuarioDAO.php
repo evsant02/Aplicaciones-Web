@@ -2,11 +2,6 @@
 
 namespace includes\actividadesusuario;
 
-// Se incluyen las dependencias necesarias
-//require_once("IActividadesusuario.php");
-//require_once("actividadesusuarioDTO.php");
-//require_once(__DIR__ . "/../comun/baseDAO.php");
-
 use includes\comun\baseDAO;
 use includes\application;
 
@@ -61,7 +56,6 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
     }
 
 
-
     public function apuntarUsuario($id_actividad, $id_usuario){
         try {
             // Obtener conexión con la base de datos
@@ -85,6 +79,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
             }
         }
     }
+
 
     public function bajaUsuario($id_actividad, $id_usuario) {
         try {
@@ -136,9 +131,7 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
     }
 
 
-
     public function obtenerUsuariosInscritos($id_actividad){ //me devuleve los id de los usuarios inscritos para esa actividad
-        //$escId = trim($this->realEscapeString($id_actividad));
         $conn = application::getInstance()->getConexionBd();
 
         //JOIN con la tabla de usuarios y se filtra por tipo = 1
@@ -148,7 +141,6 @@ class actividadesusuarioDAO extends baseDAO implements IActividadesusuario
         $usuarios = array();
     
         try {
-            //$stmt->bind_param("s", $escId);
             $stmt->bind_param("i", $id_actividad);
             $stmt->execute();
             $stmt->bind_result($idUsuario);

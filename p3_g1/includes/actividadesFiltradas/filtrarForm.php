@@ -18,11 +18,11 @@ class filtrarForm
         echo '<label for="texto">Búsqueda por palabra clave:</label><br>';
         echo '<input type="text" id="texto" name ="texto"><br><br>';
         echo '<p><label>Categorías:</label><br></p>';
-        echo '<label><input type="checkbox" name="tipo" value="Deporte">Deporte &nbsp;</label>';
-        echo '<label><input type="checkbox" name="tipo" value="Salud">Salud &nbsp;</label>';
-        echo '<label><input type="checkbox" name="tipo" value="Cultura">Cultura &nbsp;</label>';
-        echo '<label><input type="checkbox" name="tipo" value="Tecnologia">Tecnología &nbsp;</label>';
-        echo '<label><input type="checkbox" name="tipo" value="Habilidades">Habilidades</label>';
+        echo '<label><input type="checkbox" class="filtro-check" name="tipo" value="Deporte">Deporte &nbsp;</label>';
+        echo '<label><input type="checkbox" class="filtro-check" name="tipo" value="Salud">Salud &nbsp;</label>';
+        echo '<label><input type="checkbox" class="filtro-check" name="tipo" value="Cultura">Cultura &nbsp;</label>';
+        echo '<label><input type="checkbox" class="filtro-check" name="tipo" value="Tecnologia">Tecnología &nbsp;</label>';
+        echo '<label><input type="checkbox" class="filtro-check" name="tipo" value="Habilidades">Habilidades</label>';
         echo '<br><br>';
         echo '<button type="button" id="botonFiltro">Filtrar</button>';
         echo '</form>';

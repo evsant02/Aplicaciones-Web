@@ -1,35 +1,33 @@
 /* Contenedor principal de la actividad */
 .actividad {
     display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center;     /* Centra los elementos verticalmente */
-    gap: 20px;               /* Espacio entre la imagen y los detalles */
-    padding: 20px;           /* Espaciado alrededor del contenedor */
-    max-width: 1200px;       /* Limita el ancho máximo del contenedor */
-    margin: 0 auto;          /* Centra el contenedor en la página */
+    justify-content: center; 
+    align-items: center;     
+    gap: 20px;               
+    padding: 20px;           
+    max-width: 1200px;     
+    margin: 0 auto;       
 }
 
-/* Contenedor de la imagen */
 .actividad-img {
-    flex-shrink: 0;          /* Evita que la imagen se encoja */
+    flex-shrink: 0;          
 }
 
 img {
-    width: 450px;            /* Tamaño para la imagen */
+    width: 450px;            
     height: 300px;
-    object-fit: cover;       /* Asegura que la imagen se recorte correctamente */
-    border-radius: 10px;     /* Bordes redondeados */
+    object-fit: cover;       
+    border-radius: 10px;    
 }
 
-/* Contenedor de los detalles */
 .actividad-detalles {
-    max-width: 600px;        /* Ancho máximo para los detalles */
-    line-height: 1.6;        /* Mejora la legibilidad del texto */
+    max-width: 600px;        
+    line-height: 1.6;        
 }
 
 article h1 {
-    margin-bottom: 10px;     /* Espacio debajo del título */
-    font-size: 1.8em;        /* Aumenta el tamaño del título */
+    margin-bottom: 10px;     
+    font-size: 1.8em;        
 }
 
 button {
@@ -39,46 +37,9 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;        /* Espacio encima del botón */
+    margin-top: 20px;        
 }
 
 button:hover {
     background-color: #0056b3;
 }
-
-/* @media screen and (max-width: 768px) {
-    .actividad {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
-    }
-    
-    .actividad-img {
-        width: 100%;
-    }
-    
-    .actividad-img img {
-        width: 100%;
-        height: auto;
-        max-height: 250px;
-        border-radius: 8px;
-    }
-    
-    .actividad-detalles {
-        width: 100%;
-        padding: 0 10px;
-        line-height: 1.5;
-    }
-    
-    .actividad-detalles h1 {
-        font-size: 1.5em;
-        text-align: center;
-        margin-bottom: 8px;
-    }
-    
-    .actividad-detalles button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 15px;
-    }
-} */

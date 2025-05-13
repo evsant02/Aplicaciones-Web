@@ -6,14 +6,6 @@ use includes\application;
 use includes\excepciones\DuplicateActivityException;
 use includes\usuario\userDTO;
 
-// Se incluyen las dependencias necesarias
-//require_once("IActividad.php");
-//require_once("actividadDTO.php");
-//require_once(__DIR__ . "/../comun/baseDAO.php");
-
-// Excepciones personalizadas
-//require_once(__DIR__ . "/../../excepciones/activity/DuplicateActivityException.php");
-
 // Clase que implementa el acceso a la base de datos para la gestión de actividades
 class actividadDAO extends baseDAO implements IActividad
 {
@@ -26,11 +18,6 @@ class actividadDAO extends baseDAO implements IActividad
     public function crear($actividadDTO)
     {
         try {
-            // Validación básica de datos
-            /*if (empty($actividadDTO->nombre()) || $actividadDTO->aforo() <= 0) {
-                throw new InvalidActivityDataException("Datos de actividad no válidos");
-            }*/
-
             // Obtener conexión con la base de datos
             $conn = application::getInstance()->getConexionBd();
 
@@ -170,9 +157,6 @@ class actividadDAO extends baseDAO implements IActividad
             if ($stmt->fetch()) {
                 return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
             }
-
-            //throw new ActivityNotFoundException("Actividad no encontrada");
-
         } finally {
             if ($stmt) {
                 $stmt->close();
@@ -322,9 +306,6 @@ class actividadDAO extends baseDAO implements IActividad
             if (isset($stmt) && $stmt) {
                 $stmt->close();
             }
-            /*if (isset($stmtTotal) && $stmtTotal) {
-                $stmtTotal->close();
-            }*/
         }
     }
 
@@ -353,7 +334,6 @@ class actividadDAO extends baseDAO implements IActividad
         // Se ejecuta la consulta
         $resultado = $stmt->execute();
         return $resultado;
-
     }
 
     public function borrarUsuario($id_actividad) {
@@ -422,14 +402,13 @@ class actividadDAO extends baseDAO implements IActividad
             // Vincula la variable al resultado
             $stmt->bind_result($dirigida);
     
-            //sii se obtiene un resultado, se devuelve si está dirigida o no
+            //si se obtiene un resultado, se devuelve si está dirigida o no
             if ($stmt->fetch()) {
                 return $dirigida == 1;
             }
     
             // si no se encuentra 
             return false;
-    
         } finally {
             if ($stmt) {
                 $stmt->close();

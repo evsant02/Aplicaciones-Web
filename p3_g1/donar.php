@@ -1,12 +1,11 @@
 <?php 
   require_once("includes/config.php");
-  //require_once("includes/donar/donarForm.php");
 
   use includes\donar\donarForm;
   
   $tituloPagina = 'Haz una donación - conecta65';
   
-  $form = new donarForm(); // instancia de la clase donarForm
+  $form = new donarForm(); 
   
   $htmlFormDonar = $form->Manage(); 
   

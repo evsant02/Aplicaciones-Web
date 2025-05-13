@@ -18,9 +18,7 @@ interface IUser
     public function existsById($userDTO);
 
     //método que me devuelve todos los usuarios
-    public function getTodosLosUsuarios();
-
-    
+    public function getTodosLosUsuarios();    
 
 }
 
