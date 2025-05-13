@@ -88,10 +88,6 @@ main {
   box-sizing: border-box;
 }
 
-article {
-	width: 100%;
-}
-
 .aboutus {
 	max-width: 900px;
 	text-align: justify;
@@ -341,10 +337,28 @@ hr {
 	margin: 15px auto; 
 }
 
+.filtro-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .filtro-btn:checked {
+    background-color: #007BFF;
+    color: white;
+    border-color: #0056b3;
+  }
+
 /* ============================= */
 /* ESTILOS PARA MIEMBROS */
 /* ============================= */
-
 .team-header {
     text-align: center;
     margin-bottom: 30px;
@@ -374,7 +388,7 @@ hr {
 	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 	text-align: center;
 	background-color: #fff;
-	height: 275px; 
+	  height: 275px; 
 	overflow: hidden;
 }
 
@@ -440,151 +454,168 @@ hr {
 	transform: scale(1.05);
 }
 
+/*DONACIONES ------------------------------------*/
+/* En tu archivo de estilos principal */
 .donaciones-container {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 2rem;
-	margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
 }
 
 .donaciones-stats {
-	flex: 1;
-	min-width: 300px;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	gap: 1.5rem;
+    flex: 1;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
 .stat-card {
-	background: white;
-	border-radius: 10px;
-	padding: 1.5rem;
-	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-	text-align: center;
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .stat-card h3 {
-	color: #555;
-	margin-top: 0;
-	font-size: 1.2rem;
+    color: #555;
+    margin-top: 0;
+    font-size: 1.2rem;
 }
 
 .stat-card .stat-value {
-	font-size: 2rem;
-	font-weight: bold;
-	margin: 0.5rem 0;
-	color: #2c3e50;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: #2c3e50;
 }
 
 .stat-card.total .stat-value {
-  color: #27ae60;
+    color: #27ae60;
 }
 
 .stat-card.last-month .stat-value {
-  color: #3498db;
+    color: #3498db;
 }
 
 .stat-card.last-quarter .stat-value {
-  color: #9b59b6;
+    color: #9b59b6;
 }
 
 .donaciones-chart {
-	flex: 2;
-	min-width: 300px;
-	background: white;
-	border-radius: 10px;
-	padding: 1.5rem;
-	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    flex: 2;
+    min-width: 300px;
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 	position: relative;
-	width: 100%;
-	height: 350px; 
+    width: 100%;
+    height: 350px; /* Altura reducida */
 }
 
 .donaciones-info {
-  text-align: center;
+    text-align: center;
 }
 
 .btn-donar {
-	display: inline-block;
-	background-color: #8bc1f8;
-	color: black;
-	padding: 0.8rem 1.5rem;
-	border-radius: 5px;
-	text-decoration: none;
-	font-weight: bold;
-	margin-top: 1rem;
-	transition: background-color 0.3s;
+    display: inline-block;
+    background-color: #8bc1f8;
+    color: black;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
 }
 
 .btn-donar:hover {
-  background-color: #3498db;
+    background-color: #3498db;
 }
 
+/* Contenedor principal del gráfico */
 .donaciones-chart-container {
-	position: relative;
-	width: 100%;
-	height: 420px; 
-	background: white;
-	border-radius: 8px;
-	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-	padding: 20px 20px 40px 20px; 
-	box-sizing: border-box;
-	overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 420px; /* Aumentamos la altura total */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 20px 20px 40px 20px; /* Más padding en la parte inferior */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
+/* Canvas del gráfico */
 #donacionesChart {
-	width: 100% !important;
-	height: calc(100% - 40px) !important; 
+    width: 100% !important;
+    height: calc(100% - 40px) !important; /* Ajustamos la altura del gráfico */
 }
 
+/* Versión móvil */
+@media (max-width: 768px) {
+    .donaciones-chart-container {
+        height: 380px; /* Altura ligeramente mayor en móvil */
+        padding: 15px 15px 30px 15px; /* Padding ajustado */
+    }
+    
+    #donacionesChart {
+        height: calc(100% - 40px) !important;
+    }
+}
+
+/*DESPLEGABLE BOTONES*/
 /* Estilos para el menú desplegable */
 .dropdown {
-	position: relative;
-	display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #57a1d2;
-	min-width: 165px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #57a1d2;
+    min-width: 165px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 	border-radius: 4px;
 	margin-top: 7px;
 }
 
 .dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 	border-radius: 4px;
 }
 
 /* Ajustes para mantener la apariencia del enlace principal */
 .dropbtn {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	font-family: inherit;
-	font-size: inherit;
-	color: inherit;
-	padding: 0;
-	margin: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
 }
 
-/* PARA EL ICONO DEL FORO DE NOTIFICACIONES */
+/*PARA EL ICONO DEL FORO DE NOTIFICACIONES*/
 
 /* Ajustes para los enlaces de usuario (derecha) */
 .user-links ul {
-	display: flex;
-	align-items: center; 
-	gap: 1.5rem;
+    display: flex;
+    align-items: center; /* Esto alineará verticalmente todos los elementos */
+    gap: 1.5rem;
 }
 
 /* Estilo específico para el icono del foro */
@@ -592,7 +623,7 @@ hr {
     font-size: 22px;
     text-decoration: none;
     color: #555;
-    padding: 0; 
+    padding: 0; /* Cambiado de 6px 10px a 0 para mejor alineación */
     border-radius: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
     display: flex;
@@ -607,94 +638,51 @@ hr {
     color: #0d6f98;
 }
 
+/* Asegurar que todos los elementos de lista en user-links tengan la misma alineación */
 .user-links li {
     display: flex;
     align-items: center;
 }
 
-#actividades-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.filtro-container {
-	width: 40rem;
-	justify-self: center;
-}
-
-.filtro-check {
-	appearance: none;
-	-webkit-appearance: none;
-	background-color: #f0f0f0;
-	border: 2px solid #ccc;
-	padding: 10px 10px;
-	border-radius: 8px;
-	margin: 5px;
-	cursor: pointer;
-	font-size: 1rem;
-	transition: background-color 0.2s, border-color 0.2s;
-	vertical-align: middle;
-}
-
-.filtro-check:hover {
-	background-color: #adadad;
-}
-
-.filtro-check:checked {
-	background-color: #007BFF;
-	color: white;
-	border-color: #0056b3;
-}
-
-.contenido-principal {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap; 
-	justify-content: flex-start; 
-}
-
-#resultadoActividades {
-	width: 100%;
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 10px;
-    justify-content: flex-start; 
-}
-
-.filtro-container-moderno {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.filtro-fila {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.filtro-grupo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.filtro-input-moderno {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    min-width: 120px;
-}
-
-.filtro-categorias-linea {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin: 1.5rem 0;
-}
-
-.filtro-boton-moderno {
-    margin-top: 1.5rem;
+/* Asegurar que todos los elementos de lista en user-links tengan la misma alineación */
+.error-container {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
+    padding: 60px 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 80px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    color: #333;
+}
+
+.error-container h1 {
+    font-size: 6em;
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+.error-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.btn-volver {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-volver:hover {
+    background-color: #0056b3;
 }
