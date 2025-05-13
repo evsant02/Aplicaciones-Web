@@ -42,9 +42,10 @@ class actividadesFiltradas
         $html = '';
 
         if($this->actividades == null) {
-            $html =  '<p>¡No se han encontrado actividades con esos parámetros!</p> 
+            $html =  ' 
             <div class="sin-actividades">
                 <div class="imagen-centrada">
+                    <p>¡No se han encontrado actividades con esos parámetros!</p>
                     <img src="img/logo.jpeg" alt="Logo de la organización" class="logo-actividades">
                 </div>
             </div>';

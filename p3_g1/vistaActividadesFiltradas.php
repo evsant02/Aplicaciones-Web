@@ -30,7 +30,6 @@ $contenidoPrincipal = <<<EOS
 </aside>
 
 <main class="contenido-principal">
-    <p>$mensaje</p>
     <h1>Actividades filtradas</h1>
     
     <div id="resultadoActividades">
