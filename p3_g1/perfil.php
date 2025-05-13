@@ -24,7 +24,6 @@ function mostrarPerfil(): string {
         $html .= "<div class='perfil-admin'>";
         $html .= "<p class='rol-usuario'> <em> Administrador </em> </p>";
         $html .= '<div class="linea-separadora-usuario"></div>'; // Línea añadida
-        $html .= '<a href="EliminarUsuario.php?id=' . $user->id() . '">Eliminar cuenta</a>';
         $html .= "<div class='botones-admin'>";
         $html .= '<a href="CrearActividad.php"><button>Crear actividad</button></a>';
         $html .= '<a href="vistaActividades.php"><button>Modificar actividad</button></a>';
