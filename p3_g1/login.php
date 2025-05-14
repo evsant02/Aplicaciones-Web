@@ -14,9 +14,12 @@ $form = new loginForm();
 // Genera el HTML del formulario de login
 $htmlFormLogin = $form->Manage();
 
+$mensaje = $app->getAtributoPeticion('mensaje');
+
 // Contenido principal de la página: título + formulario de login
 $contenidoPrincipal = <<<EOS
 <div class="formulario">
+<p>$mensaje</p>
 <h1>Login de usuario</h1>
 $htmlFormLogin
 </div>
