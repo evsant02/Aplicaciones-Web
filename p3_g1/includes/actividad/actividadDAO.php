@@ -480,7 +480,7 @@ class actividadDAO extends baseDAO implements IActividad
                           JOIN categorias c ON a.categoria = c.id
                           WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
                             AND (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
-                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=0 a.fecha_hora > NOW()
+                            AND (c.nombre) IN ($interrogaciones) AND a.dirigida=0 AND a.fecha_hora > NOW()
                           ORDER BY a.fecha_hora ASC";
                     $stmt = $conn->prepare($query);
                     $types = str_repeat('s', 5 + count($tiposArray)); 
@@ -491,7 +491,7 @@ class actividadDAO extends baseDAO implements IActividad
                     $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a
                           JOIN categorias c ON a.categoria = c.id
-                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0 a.fecha_hora > NOW()
+                          WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0 AND a.fecha_hora > NOW()
                             AND LOWER(c.nombre) IN ($interrogaciones)";
                     $stmt = $conn->prepare($query);
                     $types = str_repeat('s', 3 + count($tiposArray)); 
@@ -524,7 +524,7 @@ class actividadDAO extends baseDAO implements IActividad
                           WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
                             SELECT id_actividad 
                             FROM `actividades-usuario` 
-                            WHERE id_usuario = ?) AND a.dirigida = 1 AND aforo - ocupacion > 0 a.fecha_hora > NOW()
+                            WHERE id_usuario = ?) AND a.dirigida = 1 AND aforo - ocupacion > 0 AND a.fecha_hora > NOW()
                             AND LOWER(c.nombre) IN ($interrogaciones)";
                     $stmt = $conn->prepare($query);
                     $types = str_repeat('s', 4 + count($tiposArray)); // all strings
