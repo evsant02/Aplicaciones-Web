@@ -62,6 +62,8 @@ class filtrarForm
         echo '</div>';
         
         echo '</form>';
+        
+        return ob_get_clean();
     }
 }
 ?>
