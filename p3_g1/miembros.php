@@ -56,8 +56,7 @@ $contenidoPrincipal = <<<EOS
         </div>
 
         <div class="team-members-container">
-            <table>
-                <tr>
+            <div class="team-members-grid">
 EOS;
 
 $colCount = 0;
@@ -68,7 +67,6 @@ foreach ($miembros as $miembro) {
     $colCount++;
     
     $contenidoPrincipal .= <<<EOS
-        <td>
             <div class="member-card">
                 <div class="member-basic-info">
                     <img src="{$miembro['foto']}" alt="{$miembro['nombre']} {$miembro['apellidos']}" class="member-photo">
@@ -79,13 +77,11 @@ foreach ($miembros as $miembro) {
                     <p class="member-description">{$miembro['Intereses']}</p>
                 </div>
             </div>
-        </td>
 EOS;
 }
 
 $contenidoPrincipal .= <<<EOS
-                </tr>
-            </table>
+            </div>
         </div>
     </div>
 EOS;

@@ -357,18 +357,15 @@ hr {
 	width: 100%;
 }
 
-.team-members-container table {
-	width: 100%;
-	border-collapse: separate;
-	border-spacing: 20px;
-}
-
-.team-members-container td {
-	vertical-align: top;
-	width: 33%;
+.team-members-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
 }
 
 .member-card {
+	flex: 0 1 200px;
 	position: relative;
 	padding: 20px;
 	border-radius: 10px;
