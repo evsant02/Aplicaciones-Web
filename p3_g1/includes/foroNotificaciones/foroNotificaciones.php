@@ -5,6 +5,8 @@ use includes\actividadesmensajes\actividadesmensajesAppService;
 use includes\application;
 
 use includes\actividad\actividadAppService;
+use includes\actividad\actividadDAO;
+use includes\actividad\actividadDTO;
 
 class foroNotificaciones {
 
@@ -73,9 +75,15 @@ class foroNotificaciones {
                 $html .= '<button type="button" class="btn-eliminar">✖</button>';
                 $html .= '</a>';
 
-                $html .= '<a href="' . ($mensaje == 1 ? 'vistaReservaActividad.php?id=' . $idActividad : 'vistaActividades.php') . '" class="btn-eliminar-link" title="' . ($mensaje == 1 ? 'Ir a la actividad' : 'Buscar otra actividad') . '">';
-                $html .= '<button type="button" class="btn-act">➜</button>';
-                $html .= '</a>';
+                if ($actividadDTO->dirigida()){
+                    $html .= '<a href="' . ($mensaje == 1 ? 'vistaReservaActividad.php?id=' . $idActividad : 'vistaActividades.php') . '" class="btn-eliminar-link" title="' . ($mensaje == 1 ? 'Ir a la actividad' : 'Buscar otra actividad') . '">';
+                    $html .= '<button type="button" class="btn-act">➜</button>';
+                    $html .= '</a>';
+                } else {
+                    $html .= '<a href="' . ($mensaje == 1 ? 'vistaActividades.php' : 'vistaActividades.php') . '" class="btn-eliminar-link" title="' . ($mensaje == 1 ? 'No disponible' : 'Buscar otra actividad') . '">';
+                    $html .= '<button type="button" class="btn-act">➜</button>';
+                    $html .= '</a>';
+                }
 
                 $html .= '</div>'; // Cierre de mensaje-card
             }

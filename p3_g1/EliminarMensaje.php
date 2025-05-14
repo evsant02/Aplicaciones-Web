@@ -23,8 +23,6 @@ if (isset($_GET['id_usuario'], $_GET['id_actividad'], $_GET['mensaje'])) {
 
         header("Location: vistaForoNoticias.php");
 
-        $app->putAtributoPeticion('mensaje', $mensaje);
-
         exit;
 
 } else {
