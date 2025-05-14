@@ -125,10 +125,10 @@ class registerForm extends formBase
                 application::getInstance()->setUserDTO($userDTO);
                 $_SESSION["login"] = true;
 
-                $result = 'login.php';
+                $result = 'index.php';
 
                 $app = application::getInstance();
-                $mensaje = "Se ha registrado exitosamente, ahora inicie sesión";
+                $mensaje = "Se ha registrado exitosamente";
                 $app->putAtributoPeticion('mensaje', $mensaje);
             }
             catch(UserAlreadyExistException $e)

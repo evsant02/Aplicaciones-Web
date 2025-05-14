@@ -70,7 +70,7 @@ class userDAO extends baseDAO implements IUser
             $hashedPassword = self::hashPassword($userDTO->password());
 
             $conn = application::getInstance()->getConexionBd();
-            $query = "INSERT INTO Usuarios (id, nombre, apellidos, password, fecha_nacimiento, tipo, correo) 
+            $query = "INSERT INTO usuarios (id, nombre, apellidos, password, fecha_nacimiento, tipo, correo) 
                       VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($query);
