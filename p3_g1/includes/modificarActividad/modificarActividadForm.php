@@ -31,6 +31,7 @@ class modificarActividadForm extends formBase
         $dirigida = $this->actividad ? $this->actividad->dirigida() : ($datos['dirigida'] ?? '');
         $ocupacion = $this->actividad ? $this->actividad->ocupacion() : ($datos['ocupacion'] ?? '');
         $imagen = $this->actividad ? $this->actividad->foto() : null; // Obtener la imagen actual si existe
+        $categoria = $this->actividad ? $this->actividad->categoria() : ($datos['categoria'] ?? '');
 
         $fechaMinima = date('Y-m-d\TH:i');
 
@@ -43,6 +44,15 @@ class modificarActividadForm extends formBase
                     <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
                     <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
                     <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
+                    <p><label>Categoría de la actividad:</label>
+                        <select name="categoria">
+                            <option value="0" " . ($categoria == "0" ? "selected" : "") . ">Salud</option>
+                            <option value="1" " . ($categoria == "1" ? "selected" : "") . ">Cultura</option>
+                            <option value="2" " . ($categoria == "2" ? "selected" : "") . ">Tecnología</option>
+                            <option value="3" " . ($categoria == "3" ? "selected" : "") . ">Deporte</option>
+                            <option value="4" " . ($categoria == "4" ? "selected" : "") . ">Habilidades</option>
+                        </select>
+                    </p>
                     <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
                     <input type="hidden" name="dirigida" value="$dirigida" />
                     <input type="hidden" name="ocupacion" value="$ocupacion" />
@@ -82,6 +92,7 @@ class modificarActividadForm extends formBase
         $dirigida = htmlspecialchars(trim($datos['dirigida'] ?? ''), ENT_QUOTES, 'UTF-8');
         $ocupacion = htmlspecialchars(trim($datos['ocupacion'] ?? ''), ENT_QUOTES, 'UTF-8');
         $rutaImagen = htmlspecialchars(trim($datos['imagenActual'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $categoria = htmlspecialchars(trim($datos['categoria'] ?? ''), ENT_QUOTES, 'UTF-8');
         $id = htmlspecialchars(trim($datos['id'] ?? ''), ENT_QUOTES, 'UTF-8');
 
         // Validaciones
@@ -129,7 +140,7 @@ class modificarActividadForm extends formBase
         if (count($result) === 0) {
             try {
                 // Crear un nuevo objeto actividadDTO con los valores modificados
-                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $rutaImagen);
+                $actividadDTO = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $rutaImagen, $categoria);
                 
                 // Obtener la instancia del servicio de actividades
                 $actividadAppService = actividadAppService::GetSingleton();

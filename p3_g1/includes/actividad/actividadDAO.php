@@ -30,13 +30,14 @@ class actividadDAO extends baseDAO implements IActividad
             $escdirigida = $this->realEscapeString($actividadDTO->dirigida());
             $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
             $escfoto = $this->realEscapeString($actividadDTO->foto());
+            $esccategoria = $this->realEscapeString($actividadDTO->categoria());
 
             // Consulta SQL para insertar una nueva actividad
-            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO actividades (nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
 
             // Se vinculan los parámetros de la consulta
-            $stmt->bind_param("ssssiiis", 
+            $stmt->bind_param("ssssiiisi", 
                 $escnombre, 
                 $esclocalizacion, 
                 $escfecha_hora, 
@@ -44,14 +45,15 @@ class actividadDAO extends baseDAO implements IActividad
                 $escaforo,
                 $escdirigida,
                 $escocupacion,
-                $escfoto
+                $escfoto,
+                $esccategoria
             );
 
             // Ejecutar la consulta
             if ($stmt->execute()) {
                 // Obtener el ID generado por la inserción
                 $idActividad = $conn->insert_id;
-                return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto);
+                return new actividadDTO($idActividad, $escnombre, $esclocalizacion, $escfecha_hora, $escdescripcion, $escaforo, $escdirigida, $escocupacion, $escfoto, $esccategoria);
             }
         } catch (\mysqli_sql_exception $e) {
             if ($e->getCode() == 23000) { // Código para duplicados
@@ -96,7 +98,7 @@ class actividadDAO extends baseDAO implements IActividad
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para actualizar los datos de una actividad
-            $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ?, ocupacion = ?, foto = ? WHERE id = ?";
+            $query = "UPDATE actividades SET nombre = ?, localizacion = ?, fecha_hora = ?, descripcion = ?, aforo = ?, dirigida = ?, ocupacion = ?, foto = ?, categoria = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
 
            //escape de strings para evitar inyecciones de SQL
@@ -109,9 +111,10 @@ class actividadDAO extends baseDAO implements IActividad
            $escfoto = $this->realEscapeString($actividadDTO->foto());
            $escdirigida = $this->realEscapeString($actividadDTO->dirigida());
            $escocupacion = $this->realEscapeString($actividadDTO->ocupacion());
+           $esccategoria = $this->realEscapeString($actividadDTO->categoria());
 
            // Se vinculan los parámetros
-           $stmt->bind_param("ssssiiisi", 
+           $stmt->bind_param("ssssiiisii", 
                $escnombre, 
                $esclocalizacion, 
                $escfecha_hora, 
@@ -120,6 +123,7 @@ class actividadDAO extends baseDAO implements IActividad
                $escdirigida,
                $escocupacion,
                $escfoto,
+               $esccategoria,
                $escid
             );
 
@@ -141,7 +145,7 @@ class actividadDAO extends baseDAO implements IActividad
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener una actividad específica
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto FROM actividades WHERE id = ?";
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto, categoria FROM actividades WHERE id = ?";
             $stmt = $conn->prepare($query);
 
             // Se vincula el parámetro ID
@@ -151,11 +155,11 @@ class actividadDAO extends baseDAO implements IActividad
             $stmt->execute();
 
             // Variables para almacenar los resultados
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
 
             // Si se encuentra la actividad, se devuelve un objeto actividadDTO
             if ($stmt->fetch()) {
-                return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                return new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
             }
         } finally {
             if ($stmt) {
@@ -172,7 +176,7 @@ class actividadDAO extends baseDAO implements IActividad
             $conn = application::getInstance()->getConexionBd();
 
             // Consulta SQL para obtener todas las actividades
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto, categoria 
                 FROM actividades 
                 LIMIT ? OFFSET ?";
             $stmt = $conn->prepare($query);
@@ -181,11 +185,11 @@ class actividadDAO extends baseDAO implements IActividad
 
             // Se ejecuta la consulta
             $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
 
             $actividades = [];
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
             }
 
             $queryTotal = "SELECT COUNT(*) as total FROM actividades";
@@ -214,7 +218,7 @@ class actividadDAO extends baseDAO implements IActividad
             $conn = application::getInstance()->getConexionBd();
     
             // Consulta modificada: solo actividades no dirigidas y futuras
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto, categoria 
                       FROM actividades 
                       WHERE dirigida = 0 AND fecha_hora > NOW()
                       LIMIT ? OFFSET ?";
@@ -225,11 +229,11 @@ class actividadDAO extends baseDAO implements IActividad
     
             // Se ejecuta la consulta
             $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
     
             $actividades = [];
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
             }
     
             $queryTotal = "SELECT COUNT(*) as total FROM actividades WHERE dirigida = 0 AND fecha_hora > NOW()";
@@ -257,7 +261,7 @@ class actividadDAO extends baseDAO implements IActividad
             $userId = application::getInstance()->getUserDTO()->id();
     
             // Añade filtro de fecha futura
-            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto 
+            $query = "SELECT id, nombre, localizacion, fecha_hora, descripcion, aforo, dirigida, ocupacion, foto, categoria 
                       FROM actividades 
                       WHERE dirigida = 1 
                         AND aforo - ocupacion > 0 
@@ -274,11 +278,11 @@ class actividadDAO extends baseDAO implements IActividad
     
             // Ejecutar la consulta
             $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
     
             $actividades = [];
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
             }
     
             $queryTotal = "SELECT COUNT(*) as total FROM actividades 
@@ -443,7 +447,7 @@ class actividadDAO extends baseDAO implements IActividad
             if($usuario == 0){
                 //caso con fechas, busca el texto y categorias seleccionadas en esas fechas
                 if($inicio != null && $final != null){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a 
                           JOIN categorias c ON a.categoria = c.id
                           WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
@@ -457,7 +461,7 @@ class actividadDAO extends baseDAO implements IActividad
                     $stmt->bind_param($types, ...$params);
                 }//no hay fechas, elimina la restriccion
                 else if ($palabras != null && ($inicio == null && $final == null)){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a
                           JOIN categorias c ON a.categoria = c.id
                           WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?)
@@ -471,7 +475,7 @@ class actividadDAO extends baseDAO implements IActividad
             //si es un voluntario añade la opcion de que no esten dirigidas
             else if($usuario==2){
                 if($inicio != null && $final != null){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a 
                           JOIN categorias c ON a.categoria = c.id
                           WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
@@ -484,7 +488,7 @@ class actividadDAO extends baseDAO implements IActividad
                     $stmt->bind_param($types, ...$params);
                 }
                 else if ($palabras != null && ($inicio == null && $final == null)){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a
                           JOIN categorias c ON a.categoria = c.id
                           WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.dirigida = 0
@@ -498,7 +502,7 @@ class actividadDAO extends baseDAO implements IActividad
             //si es un usuario normal solo muestra actividades dirigidas
             else{
                 if($inicio != null && $final != null){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a 
                           JOIN categorias c ON a.categoria = c.id
                           WHERE a.fecha_hora >= ? AND a.fecha_hora <= ?
@@ -514,7 +518,7 @@ class actividadDAO extends baseDAO implements IActividad
                     $stmt->bind_param($types, ...$params);
                 }
                 else if ($palabras != null && ($inicio == null && $final == null)){
-                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto 
+                    $query = "SELECT a.id, a.nombre, a.localizacion, a.fecha_hora, a.descripcion, a.aforo, a.dirigida, a.ocupacion, a.foto, a.categoria 
                           FROM actividades a
                           JOIN categorias c ON a.categoria = c.id
                           WHERE (a.nombre LIKE ? OR a.localizacion LIKE ? OR a.descripcion LIKE ?) AND a.id NOT IN (
@@ -529,12 +533,12 @@ class actividadDAO extends baseDAO implements IActividad
                 }
             }
             $stmt->execute();
-            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+            $stmt->bind_result($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
     
             $actividades = [];
             //rellena el array de DTOs
             while ($stmt->fetch()) {
-                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto);
+                $actividades[] = new actividadDTO($id, $nombre, $localizacion, $fecha_hora, $descripcion, $aforo, $dirigida, $ocupacion, $foto, $categoria);
             }
             return $actividades;
         } finally {

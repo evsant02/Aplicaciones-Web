@@ -26,6 +26,7 @@ class crearActividadForm extends formBase
         $descripcion = htmlspecialchars($datos['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
         $aforo = htmlspecialchars($datos['aforo'] ?? '', ENT_QUOTES, 'UTF-8');
         $fechaMinima = date('Y-m-d\TH:i');
+        $categoria = htmlspecialchars($datos['categoria'] ?? '', ENT_QUOTES, 'UTF-8');
 
         $html = <<<EOF
             <div class="inForm">
@@ -34,6 +35,15 @@ class crearActividadForm extends formBase
                     <p><label>Localización:</label> <input type="text" name="localizacion" value="$localizacion" required/></p>
                     <p><label>Fecha y hora:</label> <input type="datetime-local" name="fecha_hora" value="$fecha_hora" min="$fechaMinima" required/></p>
                     <p><label>Aforo:</label> <input type="number" name="aforo" value="$aforo" required min="1" max="999"/></p>
+                    <p><label>Categoría de la actividad:</label>
+                        <select name="categoria">
+                            <option value="0" " . ($categoria == "0" ? "selected" : "") . ">Salud</option>
+                            <option value="1" " . ($categoria == "1" ? "selected" : "") . ">Cultura</option>
+                            <option value="2" " . ($categoria == "2" ? "selected" : "") . ">Tecnología</option>
+                            <option value="3" " . ($categoria == "3" ? "selected" : "") . ">Deporte</option>
+                            <option value="4" " . ($categoria == "4" ? "selected" : "") . ">Habilidades</option>
+                        </select>
+                    </p>
                     <p><label>Descripción detallada:</label> <textarea name="descripcion" required>$descripcion</textarea></p>
                     <p><label>Fotografía de la actividad:</label> <input type="file" name="imagen" accept="image/*" required></p>
                     <button type="submit" name="crear">Crear</button>
@@ -56,6 +66,7 @@ class crearActividadForm extends formBase
         $fecha_hora = htmlspecialchars(trim($datos['fecha_hora'] ?? ''), ENT_QUOTES, 'UTF-8');
         $descripcion = htmlspecialchars(trim($datos['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8');
         $aforo = htmlspecialchars(trim($datos['aforo'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $categoria = htmlspecialchars(trim($datos['categoria'] ?? ''), ENT_QUOTES, 'UTF-8');
 
         if (empty($nombre)) {
             $result[] = "El nombre de la actividad no puede estar vacío.";
@@ -100,7 +111,7 @@ class crearActividadForm extends formBase
         // Si no hay errores, se procede a crear la actividadA
         if (count($result) === 0) {
             try {
-                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0, 0, $rutaImagen);
+                $actividadDTO = new actividadDTO(0, $nombre, $localizacion, $fecha_hora, $descripcion, (int)$aforo, 0, 0, $rutaImagen, $categoria);
                 $actividadAppService = actividadAppService::GetSingleton();
                 $actividadAppService->crear($actividadDTO);
 
