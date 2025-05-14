@@ -75,12 +75,14 @@ class userDAO extends baseDAO implements IUser
 
             $stmt = $conn->prepare($query);
 
+            $createUserDTO = null;
+
             try {
                 $stmt->bind_param("sssssis", $escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
 
                 if ($stmt->execute()) {
-                    $idUser = $conn->insert_id;
-                    $createUserDTO=new userDTO($idUser, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
+                    //$idUser = $conn->insert_id;
+                    $createUserDTO=new userDTO($escId, $escNombre, $escApellidos, $hashedPassword, $escFechaNacimiento, $escTipo, $escCorreo);
                 }
               
             } finally {
