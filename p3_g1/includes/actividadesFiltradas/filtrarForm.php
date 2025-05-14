@@ -10,7 +10,7 @@ class filtrarForm
     {
         $app = application::getInstance();
         $userId = $app->getUserDTO()->tipo();
-        $fechaMinima = date('Y-m-d\TH:i');
+        $fechaMinima = date('Y-m-d');
         echo '<div class="filtro-container-moderno">';
         echo '<form id="filtraFecha">';
         echo '<div class="filtro-fila">';
@@ -26,7 +26,12 @@ class filtrarForm
         // Hasta
         echo '<div class="filtro-grupo">';
         echo '<label for="fechaFinal"><strong>Hasta:</strong></label>';
-        echo '<input type="date" id="fechaFinal" name="fechaFinal" class="filtro-input-moderno">';
+        if($userId != 0){
+            echo '<input type="date" id="fechaFinal" name="fechaFinal" min="' . $fechaMinima . '" class="filtro-input-moderno">';
+        }else{
+            echo '<input type="date" id="fechaFinal" name="fechaFinal" class="filtro-input-moderno">';
+        }
+        
         echo '</div>';
         
         echo '</div>'; // Cierra fila 1
@@ -57,8 +62,6 @@ class filtrarForm
         echo '</div>';
         
         echo '</form>';
-        
-        return ob_get_clean();
     }
 }
 ?>
