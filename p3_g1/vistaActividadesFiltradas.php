@@ -36,7 +36,7 @@ $contenidoPrincipal = <<<EOS
     </div>
 </main>
 
-<script src="js/lateral.js"></script>
+<script src="/js/lateral.js"></script>
 EOS;
 
 // Incluir la plantilla general para mostrar la página con el contenido generado
