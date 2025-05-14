@@ -1,10 +1,25 @@
+main {
+  max-width: 100%;
+  margin: 0%;
+  border: none;
+  padding: 0rem;
+}
+
 header h1 {
   font-size: 1.5rem;
-  margin-left: 5px;
+  margin: 5px;
+}
+
+nav {
+  padding: 0;
 }
 
 nav ul {
   flex-direction: column;
+}
+
+.main-links {
+  margin-right: 0.5rem;
 }
 
 .inForm fieldset p {
@@ -71,4 +86,14 @@ nav ul {
 
 #donacionesChart {
   height: calc(100% - 40px) !important;
+}
+
+.filtro-container {
+  padding: 1rem;
+  width: 90%;
+}
+
+#actividades-header {
+  width: 95%;
+  justify-self: center;
 }
