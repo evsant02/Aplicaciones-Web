@@ -2,17 +2,25 @@
 namespace includes\actividadesFiltradas;
 
 require_once("includes/config.php");
+ use includes\application;
 
 class filtrarForm
 {
     public function mostrar()
     {
+        $app = application::getInstance();
+        $userId = $app->getUserDTO()->tipo();
+        $fechaMinima = date('Y-m-d\TH:i');
         echo '<div class="filtro-container-moderno">';
         echo '<form id="filtraFecha">';
         echo '<div class="filtro-fila">';
         echo '<div class="filtro-grupo">';
         echo '<label for="fechaInicio"><strong>Desde:</strong></label>';
-        echo '<input type="date" id="fechaInicio" name="fechaInicio" class="filtro-input-moderno">';
+        if($userId != 0){
+            echo '<input type="date" id="fechaInicio" name="fechaInicio" min="' . $fechaMinima . '" class="filtro-input-moderno">';
+        }else{
+            echo '<input type="date" id="fechaInicio" name="fechaInicio" class="filtro-input-moderno">';
+        }
         echo '</div>';
         
         // Hasta
