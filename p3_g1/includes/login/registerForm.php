@@ -122,9 +122,6 @@ class registerForm extends formBase
                 $userDTO = new userDTO($id, $nombre, $apellidos, $password, $fechaNacimiento, $tipo, $correo);
                 $createdUserDTO = $userAppService->create($userDTO);
 
-                application::getInstance()->setUserDTO($createdUserDTO);
-                $_SESSION["login"] = true;
-
                 $result = 'login.php';
 
                 $app = application::getInstance();
